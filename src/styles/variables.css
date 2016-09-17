@@ -1,0 +1,30 @@
+@import "colors.css";
+
+:root {
+  /* CORE VARIABLES */
+  /* Global */
+  $html-font-size: 10px;
+  $html-line-height: 1.428571429;
+  $body-font-size: 1.3rem;
+  $body-font-color: $core-gray-extra-dark;
+  $body-font-light-color: $core-gray-semidark;
+
+  $primaryFont: "Gotham SSm A", "Gotham SSm B", Arial, sans-serif;
+  $secondaryFont: "HelveticaNeue-Medium", Arial, sans-serif;
+
+  /* Responsive breakpoints */
+  $size-xs: 480px;
+  $size-sm: 600px;
+  $size-md: 840px;
+  $size-lg: 960px;
+  $size-xl: 1280px;
+
+  /* Mixins */
+  .clearfix() {
+    &::after {
+      clear: both;
+      content: '';
+      display: table;
+    }
+  }
+}

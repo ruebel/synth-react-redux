@@ -101,4 +101,4 @@ module.exports = {
     inline: true,
     contentBase: path.resolve('./build')
   }
-}
+};

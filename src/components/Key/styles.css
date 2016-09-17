@@ -1,0 +1,32 @@
+.key {
+  height: 100px;
+  width: 20px;
+  display: inline-block;
+  color: blue;
+  border: 1px solid black;
+  background: white;
+  color: black;
+  position: relative;
+
+  & .on {
+    background: green;
+  }
+}
+
+.on {
+  background: green;
+}
+
+.ebony {
+  background: black;
+  color: white;
+  margin-right: -8px;
+  margin-left: -8px;
+  height: 60px;
+  width: 16px;
+  z-index: 2;
+}
+
+.ebony.on {
+  background: darkGreen;
+}
