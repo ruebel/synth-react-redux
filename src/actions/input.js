@@ -7,7 +7,8 @@ const gotInputDevices = (devices) => {
   };
 };
 
-export const setDevice = (device) => {
+export const setDevice = (device) => (dispatch) => {
+  midi.setDevice(device, dispatch);
   return {
     type: 'SET_INPUT_DEVICE',
     payload: device
