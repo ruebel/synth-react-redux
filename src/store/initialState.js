@@ -40,6 +40,12 @@ function generateKeyOctave(i) {
 }
 
 export default {
-  audio: {},
-  keys: generateKeys()
+  audio: {
+    context: {},
+    keys: generateKeys()
+  },
+  input: {
+    devices: [],
+    selectedDevice: {}
+  }
 };

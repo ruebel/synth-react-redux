@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Key from './Key';
-import {keyUp, keyDown} from '../actions';
+import {keyDown, keyUp} from '../actions/audio';
 
 const Keyboard = ({keys, keyDown, keyUp}) => {
   return (
@@ -13,7 +13,7 @@ const Keyboard = ({keys, keyDown, keyUp}) => {
 
 const mapStateToProps = (state) => {
   return {
-    keys: state.keys
+    keys: state.audio.keys
   };
 };
 
