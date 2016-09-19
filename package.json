@@ -1,7 +1,7 @@
 {
   "name": "gsf-thirty-for-thirty",
   "version": "1.0.0",
-  "description": "@havves @ruebel",
+  "description": "@halvves @ruebel",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/halvves/gsf-thirty-for-thirty.git"
   },
-  "author": "http://www.gsandf.com/",
+  "author": "@halvves @ruebel",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/halvves/gsf-thirty-for-thirty/issues"
@@ -26,7 +26,8 @@
     "react-dom": "15.3.1",
     "react-redux": "4.4.5",
     "react-router": "2.8.1",
-    "redux": "3.6.0"
+    "redux": "3.6.0",
+    "redux-thunk": "2.1.0"
   },
   "devDependencies": {
     "babel-cli": "6.14.0",

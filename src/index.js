@@ -5,10 +5,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import App from './components/App';
-import {setupContext} from './actions';
+import actions from './actions';
 
 const store = configureStore();
-store.dispatch(setupContext());
+store.dispatch(actions.audio.setupAudio());
+store.dispatch(actions.input.getInputDevices());
 
 render(
   <Provider store={store}>

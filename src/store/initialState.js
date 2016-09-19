@@ -17,7 +17,7 @@ function generateKeys() {
   let keys = [];
   for(let i = 0; i < 88; i++) {
     keys.push({
-      id: i,
+      id: i - 3,
       note: generateKeyNote(i),
       octave: generateKeyOctave(i),
       freq: generateKeyFrequency(i),
@@ -40,6 +40,12 @@ function generateKeyOctave(i) {
 }
 
 export default {
-  audio: {},
-  keys: generateKeys()
+  audio: {
+    context: {},
+    keys: generateKeys()
+  },
+  input: {
+    devices: [],
+    selectedDevice: {}
+  }
 };

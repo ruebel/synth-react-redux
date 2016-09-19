@@ -1,22 +1,7 @@
-import audio from '../utils/audio';
+import * as audio from './audio';
+import * as input from './input';
 
-export const keyDown = (id) => {
-  return {
-    type: 'KEY_DOWN',
-    payload: id
-  };
-};
-
-export const keyUp = (id) => {
-  return {
-    type: 'KEY_UP',
-    payload: id
-  };
-};
-
-export const setupContext = () => {
-  return {
-    type: 'SETUP_CONTEXT',
-    payload: audio
-  };
+export default {
+  audio,
+  input
 };

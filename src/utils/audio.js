@@ -1,11 +1,10 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.oAudioContext;
+let context = new AudioContext();
+
 const service = {
-  context,
   createOscillator,
   settings
 };
-
-const context = new AudioContext();
 
 let settings = {
   wave: 'square'
