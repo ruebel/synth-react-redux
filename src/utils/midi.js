@@ -1,17 +1,72 @@
 import {keyDown, keyUp} from '../actions/audio';
-
+let keyUpConnected;
+let keyDownConnected;
+let startNote = 48;
+const keyMap = {
+  // A (C)
+  65: startNote++,
+  // W (C#)
+  87: startNote++,
+  // S (D)
+  83: startNote++,
+  // E (Eb)
+  69: startNote++,
+  // D (E)
+  68: startNote++,
+  // F (F)
+  70: startNote++,
+  // T (F#)
+  84: startNote++,
+  // G (G)
+  71: startNote++,
+  // Y (G#)
+  89: startNote++,
+  // H (A)
+  72: startNote++,
+  // U (Bb)
+  85: startNote++,
+  // J (C)
+  74: startNote++
+};
 const service = {
+  deactivateDevice,
   getDevices,
   setDevice
 };
-
+/**
+ * Convert MIDI Velocity (0-127) to Web Audio Gain (0-1)
+ */
+function convertVelocity(velocity) {
+  return (velocity / 127).toFixed(2);
+}
+/**
+ * Stop listening for device inputs
+ */
+function deactivateDevice(device) {
+  if (!device) {
+    return;
+  }
+  switch (device.device) {
+    case 'MIDI':
+      device.onmidimessage = null;
+      break;
+    case 'KEYBOARD':
+      document.removeEventListener('keydown', keyDownConnected);
+      document.removeEventListener('keyup', keyUpConnected);
+      break;
+  }
+}
+/**
+ * Get Midi Devices
+ */
 function getDevices() {
   // Look for Web MIDI API Support
   if (window.navigator && 'function' === typeof window.navigator.requestMIDIAccess) {
     return window.navigator.requestMIDIAccess()
       .then(access => {
+        // Add computer keyboard support
         let devices = [{
-          id: 0,
+          id: '0',
           device: 'KEYBOARD',
           name: 'Computer Keyboard'
         }];
@@ -29,38 +84,70 @@ function getDevices() {
     throw 'No Web MIDI support detected!';
   }
 }
-
-const handleMessage = (dispatch) => (e) => {
-  /**
-   * e.data is an array
-   * e.data[0] = on (144) / off (128) / detune (224)
-   * e.data[1] = midi note
-   * e.data[2] = velocity || detune
-   */
+/**
+ * Handle Computer Keyboard key down
+ */
+const handleKeyDown = (dispatch) => (e) => {
+  let note = keyMap[e.keyCode];
+  if (note) {
+    dispatch(keyDown(note));
+  }
+};
+/**
+ * Handle Computer Keyboard key up
+ */
+const handleKeyUp = (dispatch) => (e) => {
+  let note = keyMap[e.keyCode];
+  if (note) {
+    dispatch(keyUp(note));
+  }
+};
+/**
+ * Handle incoming midi messages
+ * e => MIDI event payload
+ * e.timestamp is when function occured
+ * e.data is function definition
+ * e.data[0] = MIDI Function
+ * e.data[1] = MIDI Note
+ * e.data[2] = MIDI Velocity
+ */
+const handleMidiMessage = (dispatch) => (e) => {
   switch (e.data[0]) {
+    // Note On
     case 144:
-      if (e.data[2] === 0) {
+      let velocity = convertVelocity(e.data[2]);
+      if (velocity === 0) {
         dispatch(keyUp(e.data[1]));
       } else {
-        dispatch(keyDown(e.data[1]));
+        dispatch(keyDown(e.data[1], velocity));
       }
       break;
+    // Note Off
     case 128:
       dispatch(keyUp(e.data[1]));
       break;
+    // Detune
+    case 224:
+     break;
   }
 };
-
+/**
+ * Set input device
+ */
 function setDevice(device, dispatch) {
-  if (!device) return;
-  const handle = handleMessage(dispatch);
+  if (!device) {
+    return;
+  }
+  const handleMidi = handleMidiMessage(dispatch);
   switch (device.device) {
     case 'MIDI':
-      device.onmidimessage = handle;
+      device.onmidimessage = handleMidi;
       break;
     case 'KEYBOARD':
-    default:
-
+      keyUpConnected = handleKeyUp(dispatch);
+      keyDownConnected = handleKeyDown(dispatch);
+      document.addEventListener('keydown', keyDownConnected);
+      document.addEventListener('keyup', keyUpConnected);
       break;
   }
 }

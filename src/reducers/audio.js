@@ -6,13 +6,22 @@ const audio = combineReducers({
   keys
 });
 
+function context(state = initialState.audio.context, action) {
+  switch(action.type) {
+    case 'SETUP_AUDIO':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 function keys(state = initialState.audio.keys, action) {
   switch(action.type){
     case 'KEY_DOWN':
       return state.map(k => {
-        if (k.id === action.payload) {
+        if (k.id === action.payload.id) {
           k.on = true;
-          k.audio.gain.gain.value = 0.4;
+          k.audio.gain.gain.value = action.payload.velocity;
         }
         return k;
       });
@@ -30,15 +39,6 @@ function keys(state = initialState.audio.keys, action) {
           audio: action.payload.createOscillator(k.freq)
         });
       });
-    default:
-      return state;
-  }
-}
-
-function context(state = initialState.audio.context, action) {
-  switch(action.type) {
-    case 'SETUP_AUDIO':
-      return action.payload;
     default:
       return state;
   }
