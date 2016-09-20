@@ -19,8 +19,9 @@ export const keyUp = (id) => {
 };
 
 export const setupAudio = () => {
+  let keys = audio.generateKeys();
   return {
     type: 'SETUP_AUDIO',
-    payload: audio
+    payload: keys
   };
 };

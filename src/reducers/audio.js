@@ -20,25 +20,19 @@ function keys(state = initialState.audio.keys, action) {
     case 'KEY_DOWN':
       return state.map(k => {
         if (k.id === action.payload.id) {
-          k.on = true;
-          k.audio.gain.gain.value = action.payload.velocity;
+          k.on = action.payload.velocity;
         }
         return k;
       });
     case 'KEY_UP':
     return state.map(k => {
       if (k.id === action.payload) {
-        k.on = false;
-        k.audio.gain.gain.value = 0;
+        k.on = 0;
       }
       return k;
     });
     case 'SETUP_AUDIO':
-      return state.map(k => {
-        return Object.assign({}, k, {
-          audio: action.payload.createOscillator(k.freq)
-        });
-      });
+      return action.payload;
     default:
       return state;
   }
