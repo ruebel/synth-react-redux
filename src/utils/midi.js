@@ -112,11 +112,12 @@ const handleKeyUp = (dispatch) => (e) => {
  * e.data[2] = MIDI Velocity
  */
 const handleMidiMessage = (dispatch) => (e) => {
+  console.log(e.data);
   switch (e.data[0]) {
     // Note On
     case 144:
       let velocity = convertVelocity(e.data[2]);
-      if (velocity === 0) {
+      if (velocity == 0) {
         dispatch(keyUp(e.data[1]));
       } else {
         dispatch(keyDown(e.data[1], velocity));
@@ -126,9 +127,35 @@ const handleMidiMessage = (dispatch) => (e) => {
     case 128:
       dispatch(keyUp(e.data[1]));
       break;
+    // Trigger Bank
+    case 153:
+      // 36 - 49
+      break;
+    // Control
+    case 176:
+      switch(e.data[1]) {
+        // Modulation
+        case 1:
+
+          break;
+        // Sustain Pedal
+        case 64:
+          if (e.data[2] == 0) {
+            // Sustain off
+
+          } else {
+            // Sustain on
+
+          }
+          break;
+      }
+      break;
     // Detune
     case 224:
-     break;
+      // 0 = max negative
+      // 64 = no detune
+      // 127 = max positive
+      break;
   }
 };
 /**
