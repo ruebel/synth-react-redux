@@ -3,8 +3,7 @@ import initialState from '../store/initialState';
 
 const audio = combineReducers({
   context,
-  keys,
-  waveShape
+  keys
 });
 
 function context(state = initialState.audio.context, action) {
@@ -31,10 +30,6 @@ function keys(state = initialState.audio.keys, action) {
     default:
       return state;
   }
-}
-
-function waveShape(state = initialState.audio.waveShape) {
-  return state;
 }
 
 export default audio;

@@ -12,11 +12,15 @@ function generateKeys(startPoint = 0, numKeys = 88) {
 export default {
   audio: {
     context: getContext(),
-    keys: generateKeys(),
-    waveShape: 'square'
+    keys: generateKeys()
   },
   input: {
     devices: [],
     selectedDevice: {}
+  },
+  synth: {
+    ignoreVelocity: false,
+    sustain: false,
+    waveShape: 'sine'
   }
 };

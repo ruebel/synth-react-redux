@@ -1,4 +1,5 @@
 import {keyDown, keyUp} from '../actions/audio';
+import {setSustain} from '../actions/synth';
 let keyUpConnected;
 let keyDownConnected;
 let startNote = 48;
@@ -142,10 +143,10 @@ const handleMidiMessage = (dispatch) => (e) => {
         case 64:
           if (e.data[2] == 0) {
             // Sustain off
-
+            dispatch(setSustain(false));
           } else {
             // Sustain on
-
+            dispatch(setSustain(true));
           }
           break;
       }
