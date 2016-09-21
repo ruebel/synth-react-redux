@@ -8,7 +8,6 @@ import App from './components/App';
 import actions from './actions';
 
 const store = configureStore();
-store.dispatch(actions.audio.setupAudio());
 store.dispatch(actions.input.getInputDevices());
 
 render(
