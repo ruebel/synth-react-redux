@@ -3,7 +3,8 @@ import initialState from '../store/initialState';
 
 const audio = combineReducers({
   context,
-  keys
+  keys,
+  waveShape
 });
 
 function context(state = initialState.audio.context, action) {
@@ -18,30 +19,22 @@ function context(state = initialState.audio.context, action) {
 function keys(state = initialState.audio.keys, action) {
   switch(action.type){
     case 'KEY_DOWN':
-      return state.map(k => {
-        if (k.id === action.payload.id) {
-          k.on = true;
-          k.audio.gain.gain.value = action.payload.velocity;
-        }
-        return k;
+      return Object.assign({}, state, {
+        [action.payload.id]: action.payload
       });
     case 'KEY_UP':
-    return state.map(k => {
-      if (k.id === action.payload) {
-        k.on = false;
-        k.audio.gain.gain.value = 0;
-      }
-      return k;
+    return Object.assign({}, state, {
+      [action.payload]: Object.assign({}, state[action.payload], {
+        velocity: 0
+      })
     });
-    case 'SETUP_AUDIO':
-      return state.map(k => {
-        return Object.assign({}, k, {
-          audio: action.payload.createOscillator(k.freq)
-        });
-      });
     default:
       return state;
   }
+}
+
+function waveShape(state = initialState.audio.waveShape) {
+  return state;
 }
 
 export default audio;

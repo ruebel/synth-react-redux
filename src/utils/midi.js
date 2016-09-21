@@ -117,10 +117,10 @@ const handleMidiMessage = (dispatch) => (e) => {
     // Note On
     case 144:
       let velocity = convertVelocity(e.data[2]);
-      if (velocity == 0) {
-        dispatch(keyUp(e.data[1]));
-      } else {
+      if (velocity > 0) {
         dispatch(keyDown(e.data[1], velocity));
+      } else {
+        dispatch(keyUp(e.data[1]));
       }
       break;
     // Note Off
