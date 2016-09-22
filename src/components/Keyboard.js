@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import Key from './Key';
 import {keyDown, keyUp} from '../actions/audio';
 
-const Keyboard = ({keys, context, output, shape, keyDown, keyUp}) => {
+const Keyboard = ({keys, context, output, settings, keyDown, keyUp}) => {
   return (
     <div>
       {Object.keys(keys).map((k, i) => {
@@ -14,7 +14,7 @@ const Keyboard = ({keys, context, output, shape, keyDown, keyUp}) => {
                keyUp={keyUp}
                context={context}
                output={output}
-               shape={shape}/>);
+               settings={settings}/>);
         })}
     </div>
   );
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
     keys: state.audio.keys,
     context: state.audio.context,
     output: state.audio.context.destination,
-    shape: state.audio.waveShape
+    settings: state.synth
   };
 };
 

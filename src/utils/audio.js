@@ -12,6 +12,13 @@ const octave = [
   'Bb',
   'B'
 ];
+
+export const waveShapes = [
+  'sine',
+  'square',
+  'sawtooth',
+  'triangle'
+];
 /**
  * Create Gain Node
  */
