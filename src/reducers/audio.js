@@ -3,6 +3,8 @@ import initialState from '../store/initialState';
 
 const audio = combineReducers({
   context,
+  effects,
+  gainStage,
   keys
 });
 
@@ -13,6 +15,28 @@ function context(state = initialState.audio.context, action) {
     default:
       return state;
   }
+}
+
+function effects(state = initialState.audio.effects, action) {
+  switch(action.type) {
+    case 'ADD_EFFECT':
+      return [...state, action.payload];
+    case 'REMOVE_EFFECT':
+      return state.filter(e => e.id === action.payload);
+    case 'SET_EFFECT_SETTINGS':
+      return state.map(e => {
+        if (e.id === action.payload.id) {
+          return Object.assign({}, e, action.payload);
+        }
+        return e;
+      });
+    default:
+      return state;
+  }
+}
+
+function gainStage(state = initialState.audio.gainStage) {
+  return state;
 }
 
 function keys(state = initialState.audio.keys, action) {
