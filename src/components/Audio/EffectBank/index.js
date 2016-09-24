@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {addEffect, setEffectSettings} from '../../actions/audio';
+import {addEffect, removeEffect, setEffectSettings} from '../../../actions/audio';
 import Effects from './Effects';
 
-const EffectBank = ({context, effects, gainStage, addEffect, setEffectSettings}) => {
+const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, setEffectSettings}) => {
   let units = effects.map((e, i) => {
     let output = context.destination;
     if (i < effects.length - 1) {
@@ -16,6 +16,7 @@ const EffectBank = ({context, effects, gainStage, addEffect, setEffectSettings})
             context={context}
             input={i === 0 ? gainStage : null}
             output={output}
+            remove={removeEffect}
             settings={e} />);
   });
   // If no effects are present pass gain stage directly to audio output
@@ -39,4 +40,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {addEffect, setEffectSettings})(EffectBank);
+EffectBank.propTypes = {
+  addEffect: PropTypes.func.isRequired,
+  context: PropTypes.object.isRequired,
+  effects: PropTypes.array.isRequired,
+  gainStage: PropTypes.object.isRequired,
+  removeEffect: PropTypes.func.isRequired,
+  setEffectSettings: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, {addEffect, removeEffect, setEffectSettings})(EffectBank);

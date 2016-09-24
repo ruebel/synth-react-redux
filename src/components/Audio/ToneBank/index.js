@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Tone from './Tone';
 
@@ -15,6 +15,13 @@ const ToneBank = ({tones, context, output, settings}) => {
         })}
     </div>
   );
+};
+
+ToneBank.propTypes = {
+  context: PropTypes.object.isRequired,
+  output: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
+  tones: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => {

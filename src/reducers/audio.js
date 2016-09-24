@@ -22,11 +22,11 @@ function effects(state = initialState.audio.effects, action) {
     case 'ADD_EFFECT':
       return [...state, action.payload];
     case 'REMOVE_EFFECT':
-      return state.filter(e => e.id === action.payload);
+      return state.filter(e => e.id !== action.payload);
     case 'SET_EFFECT_SETTINGS':
       return state.map(e => {
         if (e.id === action.payload.id) {
-          return Object.assign({}, e, action.payload);
+          return action.payload;
         }
         return e;
       });
@@ -36,6 +36,7 @@ function effects(state = initialState.audio.effects, action) {
 }
 
 function gainStage(state = initialState.audio.gainStage) {
+  // Right now there is nothing that will change this gain stage
   return state;
 }
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Key from './Key';
-import {keyDown, keyUp} from '../actions/audio';
+import {keyDown, keyUp} from '../../actions/audio';
 
 const Keyboard = ({keys, keyDown, keyUp}) => {
   return (
@@ -15,6 +15,12 @@ const Keyboard = ({keys, keyDown, keyUp}) => {
         })}
     </div>
   );
+};
+
+Keyboard.propTypes = {
+  keys: PropTypes.object.isRequired,
+  keyDown: PropTypes.func.isRequired,
+  keyUp: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

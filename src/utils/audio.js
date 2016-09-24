@@ -63,11 +63,15 @@ export const generateKey = (i, velocity = 0) => {
     velocity
   };
 };
-
+/**
+ * Return Key note in plain english (i.e. C#)
+ */
 const generateKeyNote = (i) => {
   return octave[(i + 9) % 12];
 };
-
+/**
+ * Generate octave # for key
+ */
 const generateKeyOctave = (i) => {
   return Math.floor((i + 9) / 12);
 };

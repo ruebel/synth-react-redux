@@ -18,7 +18,6 @@ export const addEffect = (effect) => (dispatch, getState) => {
     input
   };
   dispatch(addEffectAfter(payload));
-
 };
 
 export const keyDown = (id, velocity = defaultVelocity) => {
@@ -42,12 +41,9 @@ export const removeEffect = (id) => {
   };
 };
 
-export const setEffectSettings = (effect, settings) => {
+export const setEffectSettings = (settings) => {
   return {
     type: 'SET_EFFECT_SETTINGS',
-    payload: {
-      effect,
-      settings
-    }
+    payload: settings
   };
 };

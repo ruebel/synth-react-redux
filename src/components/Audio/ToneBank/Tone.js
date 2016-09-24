@@ -1,5 +1,5 @@
-import React from 'react';
-import {createGain, createOscillator} from '../../utils/audio';
+import React, {PropTypes} from 'react';
+import {createGain, createOscillator} from '../../../utils/audio';
 
 class Tone extends React.Component {
   constructor(props) {
@@ -39,5 +39,13 @@ class Tone extends React.Component {
     return null;
   }
 }
+
+Tone.propTypes = {
+  context: PropTypes.object.isRequired,
+  output: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
+  sustain: PropTypes.bool,
+  tone: PropTypes.object.isRequired,
+};
 
 export default Tone;

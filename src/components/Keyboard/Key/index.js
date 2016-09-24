@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 const styles = require('./styles.css');
 import classNames from 'classnames/bind';
 let cx = classNames.bind(styles);
@@ -31,5 +31,11 @@ class Key extends React.Component {
     );
   }
 }
+
+Key.propTypes = {
+  keyDown: PropTypes.func.isRequired,
+  keyUp: PropTypes.func.isRequired,
+  tone: PropTypes.object.isRequired
+};
 
 export default Key;
