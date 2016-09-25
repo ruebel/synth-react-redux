@@ -113,7 +113,6 @@ const handleKeyUp = (dispatch) => (e) => {
  * e.data[2] = MIDI Velocity
  */
 const handleMidiMessage = (dispatch) => (e) => {
-  console.log(e.data);
   switch (e.data[0]) {
     // Note On
     case 144:

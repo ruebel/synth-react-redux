@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {setWaveShape} from '../actions/synth';
 import {waveShapes} from '../utils/audio';
@@ -14,6 +14,12 @@ const WaveShapeSelector = ({shapes, selectedShape, setWaveShape}) => {
       {options}
     </select>
   );
+};
+
+WaveShapeSelector.propTypes = {
+  shapes: PropTypes.array.isRequired,
+  selectedShape: PropTypes.string,
+  setWaveShape: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {

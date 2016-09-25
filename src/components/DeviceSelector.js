@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {setDevice} from '../actions/input';
 
@@ -23,6 +23,12 @@ const mapStateToProps = (state) => {
     devices: state.input.devices,
     selectedDevice: state.input.selectedDevice
   };
+};
+
+DeviceSelector.propTypes = {
+  devices: PropTypes.array.isRequired,
+  selectedDevice: PropTypes.object,
+  setDevice: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, {setDevice})(DeviceSelector);

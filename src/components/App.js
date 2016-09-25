@@ -1,7 +1,9 @@
 import React from 'react';
 import DeviceSelector from './DeviceSelector';
 import Keyboard from './Keyboard';
+import ToneBank from './Audio/ToneBank';
 import WaveShapeSelector from './WaveShapeSelector';
+import EffectBank from './Audio/EffectBank';
 
 const App = () => {
   return (
@@ -10,6 +12,8 @@ const App = () => {
       <DeviceSelector />
       <WaveShapeSelector />
       <Keyboard />
+      <ToneBank />
+      <EffectBank />
     </div>
   );
 };

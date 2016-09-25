@@ -9,9 +9,14 @@ function generateKeys(startPoint = 0, numKeys = 88) {
   return keys;
 }
 
+let context = getContext();
+let gainStage = context.createGain();
+
 export default {
   audio: {
-    context: getContext(),
+    context,
+    gainStage,
+    effects: [],
     keys: generateKeys()
   },
   input: {
