@@ -1,0 +1,19 @@
+.slider {
+  width: 100%;
+  max-width: 500px;
+  height: 2px;
+  border: 1px solid grey;
+  margin-bottom: 15px;
+}
+
+.handle {
+  font-size: 0.9em;
+  text-align: center;
+  background-color: #232323;
+  color: white;
+  cursor: pointer;
+  width: 20px;
+  border-radius: 50%;
+  height: 20px;
+  margin-top: -10px;
+}

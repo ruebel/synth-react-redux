@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {setWaveShape} from '../actions/synth';
-import {waveShapes} from '../utils/audio';
+import {setWaveShape} from '../../actions/synth';
+import {waveShapes} from '../../utils/audio';
 
 const WaveShapeSelector = ({shapes, selectedShape, setWaveShape}) => {
   let options = shapes.map((s, i) => {

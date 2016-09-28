@@ -24,6 +24,10 @@ export default {
     selectedDevice: {}
   },
   synth: {
+    envelope: {
+      attack: 0,
+      release: 0
+    },
     ignoreVelocity: false,
     sustain: false,
     waveShape: 'sine'
