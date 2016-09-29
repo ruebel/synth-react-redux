@@ -61,9 +61,9 @@ class Tone extends React.Component {
         } else {
           // NOTE ON
           velocity = ignoreVel ? 0.4 : velocity;
-          let envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 20.0) + 0.001;
+          let envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 10.0) + 0.001;
           // let envAttackEnd = now + (68 / 20.0);
-          this.envelope.gain.setValueAtTime(0.0, now);
+          this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
           this.envelope.gain.linearRampToValueAtTime(velocity, envAttackEnd);
           // let timeConstant = (50 / 100.0) + 0.001;
           // this.envelope.gain.setTargetAtTime(velocity, envAttackEnd, timeConstant);

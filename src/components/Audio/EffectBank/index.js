@@ -14,7 +14,7 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, setEf
     return (<Effect key={i}
             changeSettings={setEffectSettings}
             context={context}
-            input={i === 0 ? gainStage : null}
+            input={i == 0 ? gainStage : null}
             output={output}
             remove={removeEffect}
             settings={e} />);
@@ -27,6 +27,7 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, setEf
   return (
     <div>
       <button onClick={() => addEffect('Distortion')}>Add Distortion!!!</button>
+      <button onClick={() => addEffect('Reverb')}>Add Reverb!!!</button>
       {units}
     </div>
   );

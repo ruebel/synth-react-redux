@@ -6,8 +6,8 @@ import {setAttack, setRelease} from '../../../actions/synth';
 const Envelope = ({envelope, setAttack, setRelease}) => {
   return (
     <div>
-      <RangeControl title="Attack" value={envelope.attack} onSet={setAttack} />
-      <RangeControl title="Release" value={envelope.release} onSet={setRelease} />
+      <RangeControl title="Attack" value={envelope.attack} onSet={setAttack}/>
+      <RangeControl title="Release" value={envelope.release} onSet={setRelease}/>
     </div>
   );
 };

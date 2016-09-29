@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import ReactSlider from 'react-slider';
 const styles = require('./styles.css');
 
-const RangeControl = ({title, value, onSet}) => {
+const RangeControl = ({max, min, onSet, title, value}) => {
   return (
     <div>
       <h3>{title}</h3>
@@ -11,17 +11,19 @@ const RangeControl = ({title, value, onSet}) => {
         handleClassName={styles.handle}
         value={value}
         onChange={(e) => onSet(e)}
-        min={0}
-        max={1.5}
+        min={min || 0}
+        max={max || 1.5}
         step={0.01}/>
     </div>
   );
 };
 
 RangeControl.propTypes = {
+  max: PropTypes.number,
+  min: PropTypes.number,
+  onSet: PropTypes.func.isRequired,
   title: PropTypes.string,
   value: PropTypes.number.isRequired,
-  onSet: PropTypes.func.isRequired
 };
 
 export default RangeControl;
