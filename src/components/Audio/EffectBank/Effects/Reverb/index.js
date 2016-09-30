@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import Effect from '../Effect';
 import irs from './IRs';
 
 class Reverb extends React.Component {
@@ -6,10 +7,8 @@ class Reverb extends React.Component {
     super(props);
 
     this.applySettings = this.applySettings.bind(this);
-    this.getImpulseResponse = this.getImpulseResponse.bind(this);
     this.handleSettingsChange = this.handleSettingsChange.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
-    this.wireInputs = this.wireInputs.bind(this);
   }
 
   componentDidMount() {
@@ -17,70 +16,43 @@ class Reverb extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.applySettings(nextProps, this.props);
+    if (this.props) {
+      this.applySettings(nextProps, this.props);
+    }
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.ir !== prev.settings.ir) {
-      this.getImpulseResponse(next);
+    if (!prev || next.settings.irUrl !== prev.settings.irUrl) {
+      if (next.settings.irBuffer) {
+        this.effect.buffer = next.settings.irBuffer;
+      } else {
+        this.effect.buffer = null;
+      }
     }
-    if (!prev ||
-      prev.input !== next.input ||
-      prev.settings.input !== next.settings.input ||
-      prev.output !== next.output) {
-      this.wireInputs(next);
-    }
-  }
-
-  getImpulseResponse(props) {
-    let ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('GET', irs[props.settings.ir || Object.keys(irs)[0]].url, true);
-    ajaxRequest.responseType = 'arraybuffer';
-    ajaxRequest.onload = () => {
-      let audioData = ajaxRequest.response;
-      props.context.decodeAudioData(audioData, (buffer) => {
-        let source = props.context.createBufferSource();
-        source.buffer = buffer;
-        this.reverb.buffer = buffer;
-      });
-    };
-    ajaxRequest.send();
+    this.props.wire(next, prev, this.effect);
   }
 
   handleSettingsChange(property, e) {
     let settings = Object.assign({}, this.props.settings, {
-      [property]: e.target.value
+      [property]: (e.target ? e.target.value : e)
     });
-    this.props.changeSettings(settings);
+    this.props.changeSettings(settings, property);
   }
 
   setupAudio() {
     // Create waveshaper node
-    this.reverb = this.props.context.createConvolver();
+    this.effect = this.props.context.createConvolver();
     this.applySettings(this.props);
-  }
-
-  wireInputs(props) {
-    // Connect Gain Stage Input if required
-    if (props.input) {
-      props.input.disconnect();
-      props.input.connect(props.settings.input);
-    }
-    // Connect output
-    props.settings.input.disconnect();
-    props.settings.input.connect(this.reverb);
-    this.reverb.disconnect();
-    this.reverb.connect(props.output);
   }
 
   render() {
     return (
       <div>
         <h3>Reverb</h3>
-        <button onClick={() => this.props.remove(this.props.settings.id)}>X</button>
         <select value={this.props.settings.ir}
-                onChange={e => this.handleSettingsChange('ir', e)}>
-          {Object.keys(irs).map((ir, i) => <option key={i} value={ir}>{irs[ir].name}</option>)}
+                onChange={e => this.handleSettingsChange('irUrl', e)}>
+          <option key={-1} value="">None</option>
+          {Object.keys(irs).map((ir, i) => <option key={i} value={irs[ir].url}>{irs[ir].name}</option>)}
         </select>
       </div>
     );
@@ -91,9 +63,9 @@ Reverb.propTypes = {
   changeSettings: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
   input: PropTypes.object,
-  remove: PropTypes.func.isRequired,
+  output: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired
+  wire: PropTypes.func.isRequired
 };
 
-export default Reverb;
+export default Effect(Reverb);
