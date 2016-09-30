@@ -6,7 +6,6 @@ class Distortion extends React.Component {
     super(props);
 
     this.applySettings = this.applySettings.bind(this);
-    this.handleSettingsChange = this.handleSettingsChange.bind(this);
     this.makeDistortionCurve = this.makeDistortionCurve.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
   }
@@ -34,13 +33,6 @@ class Distortion extends React.Component {
     this.props.wire(next, prev, this.effect);
   }
 
-  handleSettingsChange(property, e) {
-    let settings = Object.assign({}, this.props.settings, {
-      [property]: e.target.value
-    });
-    this.props.changeSettings(settings);
-  }
-
   makeDistortionCurve(amount) {
     let k = (typeof amount === 'number' && !isNaN(amount)) ? amount : 50;
     const numSamples = 44100;
@@ -65,7 +57,7 @@ class Distortion extends React.Component {
         <h3>Distortion</h3>
         <span> Oversampling</span>
         <select value={this.props.settings.oversample}
-                onChange={e => this.handleSettingsChange('oversample', e)}>
+                onChange={e => this.props.handleSettingsChange('oversample', e)}>
           <option key="0" value="none">None</option>
           <option key="1" value="2x">2x</option>
           <option key="2" value="4x">4x</option>
@@ -74,7 +66,7 @@ class Distortion extends React.Component {
                defaultValue={this.props.settings.amount}
                min="0"
                max="100"
-               onChange={e => this.handleSettingsChange('amount', e)}
+               onChange={e => this.props.handleSettingsChange('amount', e)}
                />
       </div>
     );
@@ -82,8 +74,8 @@ class Distortion extends React.Component {
 }
 
 Distortion.propTypes = {
-  changeSettings: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
+  handleSettingsChange: PropTypes.func.isRequired,
   input: PropTypes.object,
   settings: PropTypes.object.isRequired,
   output: PropTypes.object.isRequired,

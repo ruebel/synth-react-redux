@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {addEffect, removeEffect, setEffectSettings} from '../../../actions/audio';
+import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../../actions/audio';
 import Effects from './Effects';
 
-const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, setEffectSettings}) => {
+const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, reorderEffects, setEffectSettings}) => {
   let units = effects.map((e, i) => {
     let output = context.destination;
     if (i < effects.length - 1) {
@@ -15,6 +15,7 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, setEf
             changeSettings={setEffectSettings}
             context={context}
             input={i == 0 ? gainStage : null}
+            move={reorderEffects}
             output={output}
             remove={removeEffect}
             settings={e} />);
@@ -47,7 +48,12 @@ EffectBank.propTypes = {
   effects: PropTypes.array.isRequired,
   gainStage: PropTypes.object.isRequired,
   removeEffect: PropTypes.func.isRequired,
+  reorderEffects: PropTypes.func.isRequired,
   setEffectSettings: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, {addEffect, removeEffect, setEffectSettings})(EffectBank);
+export default connect(mapStateToProps, {
+  addEffect,
+  removeEffect,
+  reorderEffects,
+  setEffectSettings})(EffectBank);
