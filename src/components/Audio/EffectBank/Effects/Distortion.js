@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import Effect from './Effect';
 
 class Distortion extends React.Component {
   constructor(props) {
@@ -15,25 +16,22 @@ class Distortion extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.applySettings(nextProps, this.props);
+    if (this.props) {
+      this.applySettings(nextProps, this.props);
+    }
   }
 
   applySettings(next, prev) {
     if (!prev || next.settings.amount !== prev.settings.amount) {
       // Make curve to apply distortion
       let val = parseInt(next.settings.amount, 10);
-      this.dist.curve = this.makeDistortionCurve(val);
+      this.effect.curve = this.makeDistortionCurve(val);
     }
     if (!prev || prev.settings.oversample !== prev.settings.oversample) {
       // Enumerated value (none, 2x, 4x)
-      this.dist.oversample = next.settings.oversample || 'none';
+      this.effect.oversample = next.settings.oversample || 'none';
     }
-    if (!prev ||
-      prev.input !== next.input ||
-      prev.settings.input !== next.settings.input ||
-      prev.output !== next.output) {
-      this.wireInputs(next);
-    }
+    this.props.wire(next, prev, this.effect);
   }
 
   handleSettingsChange(property, e) {
@@ -57,28 +55,14 @@ class Distortion extends React.Component {
 
   setupAudio() {
     // Create waveshaper node
-    this.dist = this.props.context.createWaveShaper();
+    this.effect = this.props.context.createWaveShaper();
     this.applySettings(this.props);
-  }
-
-  wireInputs(props) {
-    // Connect Gain Stage Input if required
-    if (props.input) {
-      props.input.disconnect();
-      props.input.connect(props.settings.input);
-    }
-    // Connect output
-    props.settings.input.disconnect();
-    props.settings.input.connect(this.dist);
-    this.dist.disconnect();
-    this.dist.connect(props.output);
   }
 
   render() {
     return (
       <div>
         <h3>Distortion</h3>
-        <button onClick={() => this.props.remove(this.props.settings.id)}>X</button>
         <span> Oversampling</span>
         <select value={this.props.settings.oversample}
                 onChange={e => this.handleSettingsChange('oversample', e)}>
@@ -101,9 +85,9 @@ Distortion.propTypes = {
   changeSettings: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
   input: PropTypes.object,
-  remove: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired
+  output: PropTypes.object.isRequired,
+  wire: PropTypes.func.isRequired
 };
 
-export default Distortion;
+export default Effect(Distortion);
