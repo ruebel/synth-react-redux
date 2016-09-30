@@ -15,18 +15,24 @@ class Distortion extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.applySettings(nextProps.settings, this.props.settings);
+    this.applySettings(nextProps, this.props);
   }
 
-  applySettings(settings, previous) {
-    if (!previous || settings.amount !== previous.amount) {
+  applySettings(next, prev) {
+    if (!prev || next.settings.amount !== prev.settings.amount) {
       // Make curve to apply distortion
-      let val = parseInt(settings.amount, 10);
+      let val = parseInt(next.settings.amount, 10);
       this.dist.curve = this.makeDistortionCurve(val);
     }
-    if (!previous || settings.oversample !== previous.oversample) {
+    if (!prev || prev.settings.oversample !== prev.settings.oversample) {
       // Enumerated value (none, 2x, 4x)
-      this.dist.oversample = settings.oversample || 'none';
+      this.dist.oversample = next.settings.oversample || 'none';
+    }
+    if (!prev ||
+      prev.input !== next.input ||
+      prev.settings.input !== next.settings.input ||
+      prev.output !== next.output) {
+      this.wireInputs(next);
     }
   }
 
@@ -52,16 +58,20 @@ class Distortion extends React.Component {
   setupAudio() {
     // Create waveshaper node
     this.dist = this.props.context.createWaveShaper();
-    this.applySettings(this.props.settings);
-    // Connect Input if require
-    if (this.props.input) {
-      this.props.input.disconnect();
-      this.props.input.connect(this.props.settings.input);
+    this.applySettings(this.props);
+  }
+
+  wireInputs(props) {
+    // Connect Gain Stage Input if required
+    if (props.input) {
+      props.input.disconnect();
+      props.input.connect(props.settings.input);
     }
     // Connect output
-    this.props.settings.input.disconnect();
-    this.props.settings.input.connect(this.dist);
-    this.dist.connect(this.props.output);
+    props.settings.input.disconnect();
+    props.settings.input.connect(this.dist);
+    this.dist.disconnect();
+    this.dist.connect(props.output);
   }
 
   render() {

@@ -15,7 +15,8 @@ export const addEffect = (effect) => (dispatch, getState) => {
   let payload = {
     id: uuid.v4(),
     type: effect,
-    input
+    input,
+    settings: {}
   };
   dispatch(addEffectAfter(payload));
 };

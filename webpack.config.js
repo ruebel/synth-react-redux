@@ -60,7 +60,7 @@ module.exports = {
         exclude: /thirdparty/
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|wav)$/,
         loader: 'url-loader?limit=8192'
       }
     ]
