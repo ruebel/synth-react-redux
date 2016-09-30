@@ -32,6 +32,7 @@ const Effect = (WrappedComponent) => {
     }
 
     wire(next, prev, effect) {
+      // Make sure we need to rewire everything
       if (!prev ||
         prev.input !== next.input ||
         prev.settings.input !== next.settings.input ||
@@ -64,19 +65,23 @@ const Effect = (WrappedComponent) => {
       return (
         <div>
           <button onClick={() => this.props.remove(this.props.settings.id)}>X</button>
-          <WrappedComponent {...this.props} wire={this.wire}/>
+          <button onClick={() => this.props.move(this.props.settings.id, true)}>^</button>
+          <button onClick={() => this.props.move(this.props.settings.id)}>v</button>
+          <WrappedComponent {...this.props}
+                            handleSettingsChange={this.handleSettingsChange}
+                            wire={this.wire}/>
           <RangeControl title="Effect Level"
                         value={this.props.settings.effectLevel || 0}
                         onSet={e => this.handleSettingsChange('effectLevel', e)}/>
         </div>
       );
-
     }
   }
 
   EffectComponent.propTypes = {
     changeSettings: PropTypes.func.isRequired,
     context: PropTypes.object.isRequired,
+    move: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired
   };
