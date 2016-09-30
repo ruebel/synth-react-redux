@@ -1,21 +1,21 @@
 {
-  "name": "gsf-thirty-for-thirty",
+  "name": "synth-react-redux",
   "version": "1.0.0",
-  "description": "@halvves @ruebel",
+  "description": "Synthesizer using React and Redux",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/halvves/gsf-thirty-for-thirty.git"
+    "url": "git+https://github.com/ruebel/synth-react-redux.git"
   },
-  "author": "@halvves @ruebel",
+  "author": "@ruebel",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/halvves/gsf-thirty-for-thirty/issues"
+    "url": "https://github.com/ruebel/synth-react-redux.git/issues"
   },
-  "homepage": "https://github.com/halvves/gsf-thirty-for-thirty#readme",
+  "homepage": "https://github.com/ruebel/synth-react-redux.git#readme",
   "dependencies": {
     "classnames": "2.2.5",
     "normalize.css": "4.2.0",

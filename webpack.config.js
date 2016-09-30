@@ -5,7 +5,7 @@ var webpack = require('webpack');
 
 var indexHTMLBuilder = new HtmlWebpackPlugin({
     template: 'index.ejs',
-    title: '30430',
+    title: 'Synth-React-Redux',
     minify: {
       removeComments: true,
       collapseWhitespace: true
