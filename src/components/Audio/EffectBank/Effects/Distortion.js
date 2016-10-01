@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from './Effect';
+import RangeControl from '../../../RangeControl';
 
 class Distortion extends React.Component {
   constructor(props) {
@@ -34,13 +35,6 @@ class Distortion extends React.Component {
     this.props.wire(next, prev, this.effect);
   }
 
-  handleSettingsChange(property, e) {
-    let settings = Object.assign({}, this.props.settings, {
-      [property]: e.target.value
-    });
-    this.props.changeSettings(settings);
-  }
-
   makeDistortionCurve(amount) {
     let k = (typeof amount === 'number' && !isNaN(amount)) ? amount : 50;
     const numSamples = 44100;
@@ -65,17 +59,16 @@ class Distortion extends React.Component {
         <h3>Distortion</h3>
         <span> Oversampling</span>
         <select value={this.props.settings.oversample}
-                onChange={e => this.handleSettingsChange('oversample', e)}>
+                onChange={e => this.props.handleSettingsChange('oversample', e)}>
           <option key="0" value="none">None</option>
           <option key="1" value="2x">2x</option>
           <option key="2" value="4x">4x</option>
         </select>
-        <input type="range"
-               defaultValue={this.props.settings.amount}
-               min="0"
-               max="100"
-               onChange={e => this.handleSettingsChange('amount', e)}
-               />
+        <RangeControl title="Amount"
+                      max={100}
+                      onSet={e => this.props.handleSettingsChange('amount', e)}
+                      value={this.props.settings.amount || 0}
+                      />
       </div>
     );
   }

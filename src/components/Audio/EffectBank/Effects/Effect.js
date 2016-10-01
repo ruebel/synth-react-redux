@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import RangeControl from '../../../Synth/Envelope/RangeControl';
+import RangeControl from '../../../RangeControl';
 
 const Effect = (WrappedComponent) => {
   class EffectComponent extends React.Component {

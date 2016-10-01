@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import RangeControl from './RangeControl';
+import RangeControl from '../../RangeControl';
 import {setAttack, setRelease} from '../../../actions/synth';
 
 const Envelope = ({envelope, setAttack, setRelease}) => {
