@@ -7,7 +7,6 @@ class Reverb extends React.Component {
     super(props);
 
     this.applySettings = this.applySettings.bind(this);
-    this.handleSettingsChange = this.handleSettingsChange.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
   }
 
@@ -32,17 +31,13 @@ class Reverb extends React.Component {
     this.props.wire(next, prev, this.effect);
   }
 
-  handleSettingsChange(property, e) {
-    let settings = Object.assign({}, this.props.settings, {
-      [property]: (e.target ? e.target.value : e)
-    });
-    this.props.changeSettings(settings, property);
-  }
-
   setupAudio() {
     // Create waveshaper node
     this.effect = this.props.context.createConvolver();
+    // Handle default settings
     this.applySettings(this.props);
+    // Get the first IR loaded
+    this.props.handleSettingsChange('irUrl', irs[Object.keys(irs)[0]].url);
   }
 
   render() {
@@ -50,8 +45,7 @@ class Reverb extends React.Component {
       <div>
         <h3>Reverb</h3>
         <select value={this.props.settings.ir}
-                onChange={e => this.handleSettingsChange('irUrl', e)}>
-          <option key={-1} value="">None</option>
+                onChange={e => this.props.handleSettingsChange('irUrl', e)}>
           {Object.keys(irs).map((ir, i) => <option key={i} value={irs[ir].url}>{irs[ir].name}</option>)}
         </select>
       </div>
@@ -60,8 +54,8 @@ class Reverb extends React.Component {
 }
 
 Reverb.propTypes = {
-  changeSettings: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
+  handleSettingsChange: PropTypes.func.isRequired,
   input: PropTypes.object,
   output: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,

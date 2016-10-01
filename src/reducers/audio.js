@@ -23,6 +23,16 @@ function effects(state = initialState.audio.effects, action) {
       return [...state, action.payload];
     case 'REMOVE_EFFECT':
       return state.filter(e => e.id !== action.payload);
+    case 'REORDER_EFFECTS':
+      const start = state.findIndex(e => e.id === action.payload.id);
+      const up = action.payload.up;
+      const end = up ? start - 1 : start + 1;
+      if (end < 0 || end === state.length) {
+        return state;
+      }
+      let newState = [...state];
+      newState.splice(end, 0, newState.splice(start, 1)[0]);
+      return newState;
     case 'SET_EFFECT_SETTINGS':
       return state.map(e => {
         if (e.id === action.payload.id) {

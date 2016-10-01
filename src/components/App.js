@@ -8,7 +8,6 @@ import ToneBank from './Audio/ToneBank';
 const App = () => {
   return (
     <div>
-      <h1>30430</h1>
       <DeviceSelector />
       <Synth />
       <Keyboard />

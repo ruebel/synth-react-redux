@@ -1,7 +1,17 @@
 import React, {PropTypes} from 'react';
 import RangeControl from '../../../RangeControl';
+import {equalPower} from '../../../../utils/audio';
 
-const Effect = (WrappedComponent) => {
+/**
+ * Effect
+ *
+ * WrappedComponent
+ * * Effect Component that will be wrapped by this component
+ * blend
+ * * If blend then the wet and dry will be blended with the effect level slider
+ * * If not blend then just the wet level will be effected by the effect level slider
+ */
+const Effect = (WrappedComponent, blend = true) => {
   class EffectComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -19,8 +29,11 @@ const Effect = (WrappedComponent) => {
 
     applySettings(next, prev) {
       if (!prev || prev.settings.effectLevel !== next.settings.effectLevel) {
-        this.effectGain.gain.value = next.settings.effectLevel || 0;
-        this.bypassGain.gain.value = 1 - (next.settings.effectLevel || 0);
+        this.effectGain.gain.value = equalPower(next.settings.effectLevel);
+        if (blend) {
+          // Cross Fade using equal power curve
+          this.bypassGain.gain.value = equalPower(next.settings.effectLevel, true);
+        }
       }
     }
 
@@ -32,14 +45,19 @@ const Effect = (WrappedComponent) => {
     }
 
     wire(next, prev, effect) {
+      // Make sure we need to rewire everything
       if (!prev ||
         prev.input !== next.input ||
         prev.settings.input !== next.settings.input ||
         prev.output !== next.output) {
-          // Make sure we have already made bypass gains
+          // Make sure we have already made gains
           if (!this.effectGain) {
             this.effectGain = this.props.context.createGain();
-            this.bypassGain = this.props.context.createGain();
+            this.effectGain.gain.value = 1;
+            if (blend) {
+              this.bypassGain = this.props.context.createGain();
+              this.bypassGain.gain.value = 0;
+            }
           }
           // Connect Gain Stage Input if required
           if (next.input) {
@@ -49,14 +67,30 @@ const Effect = (WrappedComponent) => {
           // Connect output
           next.settings.input.disconnect();
           next.settings.input.connect(this.effectGain);
-          this.effectGain.connect(effect);
-          // Bypass Gain
-          next.settings.input.connect(this.bypassGain);
-          this.bypassGain.disconnect();
-          this.bypassGain.connect(next.output);
+          if (Array.isArray(effect)) {
+            effect.forEach(e => this.effectGain.connect(e.input));
+          } else {
+            this.effectGain.connect(effect);
+          }
+          if (blend) {
+            // Bypass Gain for blending
+            next.settings.input.connect(this.bypassGain);
+            this.bypassGain.disconnect();
+            this.bypassGain.connect(next.output);
+          } else {
+            // Direct connect input
+            next.settings.input.connect(next.output);
+          }
           // Effect Gain
-          effect.disconnect();
-          effect.connect(next.output);
+          if (Array.isArray(effect)) {
+            effect.forEach(e => {
+              e.output.disconnect();
+              e.output.connect(next.output);
+            });
+          } else {
+            effect.disconnect();
+            effect.connect(next.output);
+          }
       }
     }
 
@@ -64,19 +98,26 @@ const Effect = (WrappedComponent) => {
       return (
         <div>
           <button onClick={() => this.props.remove(this.props.settings.id)}>X</button>
-          <WrappedComponent {...this.props} wire={this.wire}/>
+          <button onClick={() => this.props.move(this.props.settings.id, true)}>^</button>
+          <button onClick={() => this.props.move(this.props.settings.id)}>v</button>
+          <WrappedComponent {...this.props}
+                            handleSettingsChange={this.handleSettingsChange}
+                            wire={this.wire}/>
           <RangeControl title="Effect Level"
-                        value={this.props.settings.effectLevel || 0}
-                        onSet={e => this.handleSettingsChange('effectLevel', e)}/>
+                        min={0}
+                        max={1}
+                        onSet={e => this.handleSettingsChange('effectLevel', e)}
+                        value={this.props.settings.effectLevel || 1}
+                        />
         </div>
       );
-
     }
   }
 
   EffectComponent.propTypes = {
     changeSettings: PropTypes.func.isRequired,
     context: PropTypes.object.isRequired,
+    move: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired
   };

@@ -7,7 +7,6 @@ class Distortion extends React.Component {
     super(props);
 
     this.applySettings = this.applySettings.bind(this);
-    this.handleSettingsChange = this.handleSettingsChange.bind(this);
     this.makeDistortionCurve = this.makeDistortionCurve.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
   }
@@ -67,7 +66,7 @@ class Distortion extends React.Component {
         <RangeControl title="Amount"
                       max={100}
                       onSet={e => this.props.handleSettingsChange('amount', e)}
-                      value={this.props.settings.amount || 0}
+                      value={this.props.settings.amount || 100}
                       />
       </div>
     );
@@ -75,8 +74,8 @@ class Distortion extends React.Component {
 }
 
 Distortion.propTypes = {
-  changeSettings: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
+  handleSettingsChange: PropTypes.func.isRequired,
   input: PropTypes.object,
   settings: PropTypes.object.isRequired,
   output: PropTypes.object.isRequired,
