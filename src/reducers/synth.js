@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import initialState from '../store/initialState';
+import modulation from './modulation';
 
 const synth = combineReducers({
   envelope: combineReducers({
@@ -7,6 +8,7 @@ const synth = combineReducers({
     release
   }),
   ignoreVelocity,
+  modulation,
   sustain,
   waveShape
 });

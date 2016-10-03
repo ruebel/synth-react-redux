@@ -1,14 +1,29 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import Envelope from './Envelope';
+import Modulation from './Modulation';
 import WaveShapeSelector from './WaveShapeSelector';
+import * as actions from '../../actions/synth';
 
-const Synth = () => {
+const Synth = ({waveShape, setWaveShape}) => {
   return (
     <div>
       <Envelope />
-      <WaveShapeSelector />
+      <Modulation />
+      <WaveShapeSelector value={waveShape} change={setWaveShape}/>
     </div>
   );
 };
 
-export default Synth;
+Synth.propTypes = {
+  setWaveShape: PropTypes.func.isRequired,
+  waveShape: PropTypes.string
+};
+
+const mapStateToProps = (state) => {
+  return {
+    waveShape: state.synth.waveShape
+  };
+};
+
+export default connect(mapStateToProps, actions)(Synth);

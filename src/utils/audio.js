@@ -1,3 +1,14 @@
+export const filterTypes = [
+  'lowpass',
+  'highpass',
+  'bandpass',
+  'lowshelf',
+  'highshelf',
+  'peaking',
+  'notch',
+  'allpass'
+];
+
 const octave = [
   'C',
   'C#',

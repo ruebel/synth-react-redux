@@ -12,10 +12,10 @@ class Tone extends React.Component {
     this.setupAudio();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.settings.waveShape !== this.props.settings.waveShape) {
+  componentWillReceiveProps(next) {
+    if (next.settings.waveShape !== this.props.settings.waveShape) {
       // Change oscillator wave shape when props change
-      this.oscillator.type = nextProps.settings.waveShape;
+      this.oscillator.type = next.settings.waveShape;
     }
   }
 
@@ -31,13 +31,13 @@ class Tone extends React.Component {
   }
 
   setupAudio() {
-    let oscillator = createOscillator(this.props.context, this.props.tone.id, this.props.settings.waveShape);
-    let envelope = createGain(this.props.context, this.props.tone.velocity);
+    this.oscillator = createOscillator(this.props.context, this.props.tone.id, this.props.settings.waveShape);
+    // Connect modulation oscillator to frequency
+    this.props.modulation.connect(this.oscillator.frequency);
+    this.envelope = createGain(this.props.context, this.props.tone.velocity);
 
-    oscillator.connect(envelope);
-    envelope.connect(this.props.output);
-    this.oscillator = oscillator;
-    this.envelope = envelope;
+    this.oscillator.connect(this.envelope);
+    this.envelope.connect(this.props.output);
   }
 
   render() {
@@ -76,6 +76,7 @@ class Tone extends React.Component {
 
 Tone.propTypes = {
   context: PropTypes.object.isRequired,
+  modulation: PropTypes.object,
   output: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   tone: PropTypes.object.isRequired

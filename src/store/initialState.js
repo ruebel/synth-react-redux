@@ -29,6 +29,12 @@ export default {
       release: 0
     },
     ignoreVelocity: false,
+    modulation: {
+      on: false,
+      depth: 0,
+      shape: 'sine',
+      speed: 10
+    },
     sustain: false,
     waveShape: 'sine'
   }

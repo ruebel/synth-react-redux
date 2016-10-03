@@ -49,6 +49,7 @@ class Delay extends React.Component {
       // Aliasing so I stop referencing these incorrectly
       repeat.delay = repeat.input;
       repeat.gain = repeat.output;
+      // Connect the delay and gain together
       repeat.input.connect(repeat.output);
       this.effect.push(repeat);
     }
