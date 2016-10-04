@@ -3,6 +3,14 @@ import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 import {filterTypes} from '../../../../../utils/audio';
 
+export const defaultSettings = {
+  effectLevel: 1,
+  filterType: 'lowshelf',
+  frequency: 100,
+  gain: 1,
+  q: 0
+};
+
 class Filter extends React.Component {
   constructor(props) {
     super(props);
@@ -63,14 +71,14 @@ class Filter extends React.Component {
                       min={this.effect.Q.minValue}
                       max={this.effect.Q.maxValue}
                       onSet={e => this.props.handleSettingsChange('q', e)}
-                      value={this.props.settings.q || 0}
+                      value={this.props.settings.q}
                       />)}
         <RangeControl title="Frequency"
                       min={this.effect.frequency.minValue}
                       max={this.effect.frequency.maxValue}
                       step={1}
                       onSet={e => this.props.handleSettingsChange('frequency', e)}
-                      value={this.props.settings.frequency || 0}
+                      value={this.props.settings.frequency}
                       />
         {this.showGain && (
         <RangeControl title="Gain"
@@ -78,7 +86,7 @@ class Filter extends React.Component {
                       max={this.effect.gain.maxValue}
                       step={1}
                       onSet={e => this.props.handleSettingsChange('gain', e)}
-                      value={this.props.settings.gain || 0}
+                      value={this.props.settings.gain}
                       />)}
       </div>
     );

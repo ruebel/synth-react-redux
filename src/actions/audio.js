@@ -1,5 +1,6 @@
 import uuid from 'uuid';
 import {generateKey} from '../utils/audio';
+import {defaultSettings} from '../components/Audio/EffectBank/Effects';
 const defaultVelocity = 0.4;
 
 const addEffectAfter = (payload) => {
@@ -15,7 +16,8 @@ export const addEffect = (effect) => (dispatch, getState) => {
   let payload = {
     id: uuid.v4(),
     type: effect,
-    input
+    input,
+    ...defaultSettings[effect]
   };
   dispatch(addEffectAfter(payload));
 };

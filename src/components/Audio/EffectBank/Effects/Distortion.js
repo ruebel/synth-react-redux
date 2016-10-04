@@ -2,6 +2,12 @@ import React, {PropTypes} from 'react';
 import Effect from './Effect';
 import RangeControl from '../../../RangeControl';
 
+export const defaultSettings = {
+  amount: 0,
+  effectLevel: 1,
+  overssample: '4x'
+};
+
 class Distortion extends React.Component {
   constructor(props) {
     super(props);
@@ -27,9 +33,9 @@ class Distortion extends React.Component {
       let val = parseInt(next.settings.amount, 10);
       this.effect.curve = this.makeDistortionCurve(val);
     }
-    if (!prev || prev.settings.oversample !== prev.settings.oversample) {
+    if (!prev || next.settings.oversample !== prev.settings.oversample) {
       // Enumerated value (none, 2x, 4x)
-      this.effect.oversample = next.settings.oversample || 'none';
+      this.effect.oversample = next.settings.oversample || defaultSettings.oversample;
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -66,7 +72,7 @@ class Distortion extends React.Component {
         <RangeControl title="Amount"
                       max={100}
                       onSet={e => this.props.handleSettingsChange('amount', e)}
-                      value={this.props.settings.amount || 100}
+                      value={this.props.settings.amount}
                       />
       </div>
     );

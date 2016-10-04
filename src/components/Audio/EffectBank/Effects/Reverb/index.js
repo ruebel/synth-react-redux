@@ -2,6 +2,11 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import irs from './IRs';
 
+export const defaultSettings = {
+  effectLevel: 1,
+  irUrl: irs[Object.keys(irs)[0]].url
+};
+
 class Reverb extends React.Component {
   constructor(props) {
     super(props);

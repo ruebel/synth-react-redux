@@ -3,6 +3,12 @@ import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
 
+export const defaultSettings = {
+  effectLevel: 1,
+  time: 0.2,
+  feedback: 1
+};
+
 class Delay extends React.Component {
   constructor(props) {
     super(props);
