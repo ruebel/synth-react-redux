@@ -92,4 +92,4 @@ Delay.propTypes = {
   wire: PropTypes.func.isRequired
 };
 
-export default Effect(Delay, false);
+export default Effect(Delay, 'wet');

@@ -7,11 +7,12 @@ import {equalPower} from '../../../../utils/audio';
  *
  * WrappedComponent
  * * Effect Component that will be wrapped by this component
- * blend
- * * If blend then the wet and dry will be blended with the effect level slider
- * * If not blend then just the wet level will be effected by the effect level slider
+ * effectLevelMode
+ * * If 'blend' then the wet and dry will be blended with the effect level slider
+ * * If 'wet' then just the wet level will be effected by the effect level slider
+ * * If 'none' then no blending will be done
  */
-const Effect = (WrappedComponent, blend = true) => {
+const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
   class EffectComponent extends React.Component {
     constructor(props) {
       super(props);
@@ -29,10 +30,15 @@ const Effect = (WrappedComponent, blend = true) => {
 
     applySettings(next, prev) {
       if (!prev || prev.settings.effectLevel !== next.settings.effectLevel) {
-        this.effectGain.gain.value = equalPower(next.settings.effectLevel);
-        if (blend) {
-          // Cross Fade using equal power curve
-          this.bypassGain.gain.value = equalPower(next.settings.effectLevel, true);
+        switch(effectLevelMode) {
+          case 'blend':
+            // Cross Fade using equal power curve
+            this.bypassGain.gain.value = equalPower(next.settings.effectLevel, true);
+            this.effectGain.gain.value = equalPower(next.settings.effectLevel);
+            break;
+          case 'wet':
+            this.effectGain.gain.value = equalPower(next.settings.effectLevel);
+            break;
         }
       }
     }
@@ -54,7 +60,7 @@ const Effect = (WrappedComponent, blend = true) => {
           if (!this.effectGain) {
             this.effectGain = this.props.context.createGain();
             this.effectGain.gain.value = 1;
-            if (blend) {
+            if (effectLevelMode === 'blend') {
               this.bypassGain = this.props.context.createGain();
               this.bypassGain.gain.value = 0;
             }
@@ -72,7 +78,7 @@ const Effect = (WrappedComponent, blend = true) => {
           } else {
             this.effectGain.connect(effect);
           }
-          if (blend) {
+          if (effectLevelMode === 'blend') {
             // Bypass Gain for blending
             next.settings.input.connect(this.bypassGain);
             this.bypassGain.disconnect();
@@ -103,12 +109,12 @@ const Effect = (WrappedComponent, blend = true) => {
           <WrappedComponent {...this.props}
                             handleSettingsChange={this.handleSettingsChange}
                             wire={this.wire}/>
-          <RangeControl title="Effect Level"
+          { effectLevelMode !== 'none' && <RangeControl title="Effect Level"
                         min={0}
                         max={1}
                         onSet={e => this.handleSettingsChange('effectLevel', e)}
                         value={this.props.settings.effectLevel || 1}
-                        />
+                        /> }
         </div>
       );
     }

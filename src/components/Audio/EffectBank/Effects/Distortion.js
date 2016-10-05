@@ -5,7 +5,7 @@ import RangeControl from '../../../RangeControl';
 export const defaultSettings = {
   amount: 0,
   effectLevel: 1,
-  overssample: '4x'
+  oversample: '4x'
 };
 
 class Distortion extends React.Component {

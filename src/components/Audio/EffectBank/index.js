@@ -27,10 +27,11 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, reord
   }
   return (
     <div>
-      <button onClick={() => addEffect('Distortion')}>Add Distortion</button>
-      <button onClick={() => addEffect('Reverb')}>Add Reverb</button>
+      <button onClick={() => addEffect('Compression')}>Add Compression</button>
       <button onClick={() => addEffect('Delay')}>Add Delay</button>
+      <button onClick={() => addEffect('Distortion')}>Add Distortion</button>
       <button onClick={() => addEffect('Filter')}>Add Filter</button>
+      <button onClick={() => addEffect('Reverb')}>Add Reverb</button>
       <button onClick={() => addEffect('Tremolo')}>Add Tremolo</button>
       {units}
     </div>

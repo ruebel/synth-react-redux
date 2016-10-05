@@ -33,7 +33,7 @@ class Tremolo extends React.Component {
       this.tremolo.type = next.settings.waveShape;
     }
     if (!prev || next.settings.depth !== prev.settings.depth) {
-      this.effect.gain.value = next.settings.depth;
+      this.depthGain.gain.value = next.settings.depth;
     }
     if (!prev || next.settings.speed !== prev.settings.speed) {
       this.tremolo.frequency.value = next.settings.speed;
@@ -63,7 +63,7 @@ class Tremolo extends React.Component {
                       value={this.props.settings.depth}
                       onSet={e => this.props.handleSettingsChange('depth', e)}
                       min={0}
-                      max={100}/>
+                      max={1}/>
         <RangeControl title="Speed"
                       value={this.props.settings.speed}
                       onSet={e => this.props.handleSettingsChange('speed', e)}
@@ -83,4 +83,4 @@ Tremolo.propTypes = {
   wire: PropTypes.func.isRequired
 };
 
-export default Effect(Tremolo);
+export default Effect(Tremolo, 'none');
