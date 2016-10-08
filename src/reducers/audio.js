@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import initialState from '../store/initialState';
+import gain from './gain';
 
 const audio = combineReducers({
   context,
   effects,
-  gainStage,
+  gain,
   keys
 });
 
@@ -43,11 +44,6 @@ function effects(state = initialState.audio.effects, action) {
     default:
       return state;
   }
-}
-
-function gainStage(state = initialState.audio.gainStage) {
-  // Right now there is nothing that will change this gain stage
-  return state;
 }
 
 function keys(state = initialState.audio.keys, action) {

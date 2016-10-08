@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
   return {
     tones: state.audio.keys,
     context: state.audio.context,
-    output: state.audio.gainStage,
+    output: state.audio.gain.input,
     settings: state.synth
   };
 };

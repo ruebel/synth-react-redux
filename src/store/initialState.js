@@ -10,12 +10,17 @@ function generateKeys(startPoint = 0, numKeys = 88) {
 }
 
 let context = getContext();
-let gainStage = context.createGain();
+let outputGain = context.createGain();
+outputGain.connect(context.destination);
 
 export default {
   audio: {
     context,
-    gainStage,
+    gain: {
+      input: context.createGain(),
+      output: outputGain,
+      outputLevel: 1
+    },
     effects: [],
     keys: generateKeys()
   },

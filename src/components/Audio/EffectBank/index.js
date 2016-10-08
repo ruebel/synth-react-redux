@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../../actions/audio';
 import Effects from './Effects';
 
-const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, reorderEffects, setEffectSettings}) => {
+const EffectBank = ({context, effects, inputGain, outputGain, addEffect, removeEffect, reorderEffects, setEffectSettings}) => {
   let units = effects.map((e, i) => {
-    let output = context.destination;
+    let output = outputGain;
     if (i < effects.length - 1) {
       output = effects[i + 1].input;
     }
@@ -14,7 +14,7 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, reord
     return (<Effect key={i}
             changeSettings={setEffectSettings}
             context={context}
-            input={i == 0 ? gainStage : null}
+            input={i == 0 ? inputGain : null}
             move={reorderEffects}
             output={output}
             remove={removeEffect}
@@ -22,8 +22,8 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, reord
   });
   // If no effects are present pass gain stage directly to audio output
   if (units.length === 0) {
-    gainStage.disconnect();
-    gainStage.connect(context.destination);
+    inputGain.disconnect();
+    inputGain.connect(outputGain);
   }
   return (
     <div>
@@ -41,8 +41,9 @@ const EffectBank = ({context, effects, gainStage, addEffect, removeEffect, reord
 const mapStateToProps = (state) => {
   return {
     context: state.audio.context,
-    gainStage: state.audio.gainStage,
-    effects: state.audio.effects
+    effects: state.audio.effects,
+    inputGain: state.audio.gain.input,
+    outputGain: state.audio.gain.output
   };
 };
 
@@ -50,7 +51,8 @@ EffectBank.propTypes = {
   addEffect: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
   effects: PropTypes.array.isRequired,
-  gainStage: PropTypes.object.isRequired,
+  inputGain: PropTypes.object.isRequired,
+  outputGain: PropTypes.object.isRequired,
   removeEffect: PropTypes.func.isRequired,
   reorderEffects: PropTypes.func.isRequired,
   setEffectSettings: PropTypes.func.isRequired

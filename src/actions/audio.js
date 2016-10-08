@@ -95,3 +95,10 @@ export const setEffectSettings = (settings, field = '') => {
     payload: settings
   };
 };
+
+export const setOutputLevel = (level) => {
+  return {
+    type: 'SET_OUTPUT_LEVEL',
+    payload: level
+  };
+} ;
