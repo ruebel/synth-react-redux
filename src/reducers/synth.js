@@ -3,6 +3,7 @@ import initialState from '../store/initialState';
 import modulation from './modulation';
 
 const synth = combineReducers({
+  bend,
   envelope: combineReducers({
     attack,
     release
@@ -16,6 +17,15 @@ const synth = combineReducers({
 function attack(state = initialState.synth.envelope.attack, action) {
   switch(action.type) {
     case 'SET_SYNTH_ATTACK':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function bend(state = initialState.synth.bend, action) {
+  switch(action.type) {
+    case 'SET_PITCH_BEND':
       return action.payload;
     default:
       return state;

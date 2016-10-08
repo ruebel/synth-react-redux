@@ -29,6 +29,7 @@ export default {
     selectedDevice: {}
   },
   synth: {
+    bend: 0,
     envelope: {
       attack: 0,
       release: 0

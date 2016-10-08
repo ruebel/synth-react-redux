@@ -1,5 +1,5 @@
 import {keyDown, keyUp} from '../actions/audio';
-import {setSustain} from '../actions/synth';
+import {setPitchBend, setSustain} from '../actions/synth';
 let keyUpConnected;
 let keyDownConnected;
 let startNote = 48;
@@ -150,11 +150,12 @@ const handleMidiMessage = (dispatch) => (e) => {
           break;
       }
       break;
-    // Detune
+    // Pitch Bend
     case 224:
       // 0 = max negative
       // 64 = no detune
       // 127 = max positive
+      dispatch(setPitchBend(e.data[1] - 64));
       break;
   }
 };

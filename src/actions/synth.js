@@ -40,6 +40,13 @@ export const setModulationSpeed = (speed) => {
   };
 };
 
+export const setPitchBend = (bend) => {
+  return {
+    type: 'SET_PITCH_BEND',
+    payload: bend
+  };
+};
+
 export const setRelease = (release) => {
   return {
     type: 'SET_SYNTH_RELEASE',
