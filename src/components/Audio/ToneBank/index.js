@@ -37,18 +37,27 @@ class ToneBank extends React.Component {
   }
 
   render () {
+    let toneMap = Object.keys(this.props.tones);
+    if (this.props.settings.portamento.on) {
+      // When portamento is on we only render one tone
+      // We render the last pressed tone (last down holds the id of the last pressed note)
+      toneMap = [this.props.settings.lastDown || null];
+    }
+    let tones = (toneMap.map((k, i) => {
+      return (
+        <Tone
+          key={i}
+          tone={this.props.tones[k]}
+          context={this.props.context}
+          modulation={this.modulationGain}
+          output={this.props.output}
+          settings={this.props.settings}
+        />);
+      }));
     return (
       <div>
-        {Object.keys(this.props.tones).map((k, i) => {
-          return (
-            <Tone key={i}
-            tone={this.props.tones[k]}
-            context={this.props.context}
-            modulation={this.modulationGain}
-            output={this.props.output}
-            settings={this.props.settings}/>);
-          })}
-        </div>
+        {tones}
+      </div>
       );
   }
 }

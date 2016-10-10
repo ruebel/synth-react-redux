@@ -5,6 +5,7 @@ class Tone extends React.Component {
   constructor(props) {
     super(props);
 
+    this.bendNote = this.bendNote.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
   }
 
@@ -19,12 +20,11 @@ class Tone extends React.Component {
     }
     if (next.settings.bend !== this.props.settings.bend) {
       // Pitch Bend
-      const now =  this.props.context.currentTime;
-      // To make the bend smooth we ramp the frequency from current to target
-      const nextFreq = convertNoteFrequency(this.props.tone.id + next.settings.bend);
-      this.oscillator.frequency.setValueAtTime(this.oscillator.frequency.value, now);
-      // the last parameter is the speed of the bend
-      this.oscillator.frequency.setTargetAtTime(nextFreq, now, 0.05);
+      this.bendNote(this.props.tone.id + next.settings.bend);
+    }
+    if (next.settings.portamento.on && next.tone.id !== this.props.tone.id) {
+      // Portamento Note Change
+      this.bendNote(next.tone.id, next.settings.portamento.speed);
     }
   }
 
@@ -37,6 +37,15 @@ class Tone extends React.Component {
       newProps.settings !== this.props.settings) ||
       newProps.tone.velocity !== this.props.tone.velocity;
     return shouldUpdate;
+  }
+
+  bendNote(bendTo, speed = 0.05) {
+    const now = this.props.context.currentTime;
+    // To make the bend smooth we ramp the frequency from current to target
+    const nextFreq = convertNoteFrequency(bendTo);
+    this.oscillator.frequency.setValueAtTime(this.oscillator.frequency.value, now);
+    // the last parameter is the speed of the bend
+    this.oscillator.frequency.setTargetAtTime(nextFreq, now, speed);
   }
 
   setupAudio() {
@@ -71,11 +80,8 @@ class Tone extends React.Component {
           // Note ON
           velocity = ignoreVel ? 0.4 : velocity;
           let envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 10.0) + 0.001;
-          // let envAttackEnd = now + (68 / 20.0);
           this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
           this.envelope.gain.linearRampToValueAtTime(velocity, envAttackEnd);
-          // let timeConstant = (50 / 100.0) + 0.001;
-          // this.envelope.gain.setTargetAtTime(velocity, envAttackEnd, timeConstant);
         }
       }
     }

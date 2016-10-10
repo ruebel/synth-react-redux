@@ -9,7 +9,12 @@ const synth = combineReducers({
     release
   }),
   ignoreVelocity,
+  lastDown,
   modulation,
+  portamento: combineReducers({
+    on,
+    speed
+  }),
   sustain,
   waveShape
 });
@@ -41,9 +46,36 @@ function ignoreVelocity(state = initialState.synth.ignoreVelocity, action) {
   }
 }
 
+function lastDown(state = initialState.synth.lastDown, action) {
+  switch(action.type){
+    case 'KEY_DOWN':
+      return action.payload.id;
+    default:
+      return state;
+  }
+}
+
+function on(state = initialState.synth.portamento.on, action) {
+  switch(action.type) {
+    case 'SET_PORTAMENTO':
+      return !state;
+    default:
+      return state;
+  }
+}
+
 function release(state = initialState.synth.envelope.release, action) {
   switch(action.type) {
     case 'SET_SYNTH_RELEASE':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function speed(state = initialState.synth.portamento.speed, action) {
+  switch(action.type) {
+    case 'SET_PORTAMENTO_SPEED':
       return action.payload;
     default:
       return state;

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-import Effect from './Effect';
-import RangeControl from '../../../RangeControl';
+import Effect from '../Effect';
+import RangeControl from '../../../../RangeControl';
 
 export const defaultSettings = {
   amount: 0,

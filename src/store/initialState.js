@@ -35,11 +35,16 @@ export default {
       release: 0
     },
     ignoreVelocity: false,
+    lastDown: null,
     modulation: {
       on: false,
       depth: 0,
       shape: 'sine',
       speed: 10
+    },
+    portamento: {
+      on: false,
+      speed: 0.05
     },
     sustain: false,
     waveShape: 'sine'

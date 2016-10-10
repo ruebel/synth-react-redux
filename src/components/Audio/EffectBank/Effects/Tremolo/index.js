@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
-import WaveShapeSelector from '../../../../Synth/WaveShapeSelector';
+import WaveShapeSelector from '../../../../WaveShapeSelector';
 
 export const defaultSettings = {
   depth: 5,

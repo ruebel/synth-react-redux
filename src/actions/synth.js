@@ -47,6 +47,20 @@ export const setPitchBend = (bend) => {
   };
 };
 
+export const setPortamento = () => {
+  return {
+    type: 'SET_PORTAMENTO',
+    payload: null
+  };
+};
+
+export const setPortamentoSpeed = (speed) => {
+  return {
+    type: 'SET_PORTAMENTO_SPEED',
+    payload: speed
+  };
+};
+
 export const setRelease = (release) => {
   return {
     type: 'SET_SYNTH_RELEASE',

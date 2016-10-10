@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
-import RangeControl from '../../../RangeControl';
-import {equalPower} from '../../../../utils/audio';
+import RangeControl from '../../../../RangeControl';
+import {equalPower} from '../../../../../utils/audio';
 
 /**
  * Effect

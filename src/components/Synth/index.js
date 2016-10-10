@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Envelope from './Envelope';
 import Modulation from './Modulation';
-import WaveShapeSelector from './WaveShapeSelector';
+import Portamento from './Portamento';
+import WaveShapeSelector from '../WaveShapeSelector';
 import * as actions from '../../actions/synth';
 
 const Synth = ({waveShape, setWaveShape}) => {
@@ -10,6 +11,7 @@ const Synth = ({waveShape, setWaveShape}) => {
     <div>
       <Envelope />
       <Modulation />
+      <Portamento />
       <WaveShapeSelector value={waveShape} change={setWaveShape}/>
     </div>
   );

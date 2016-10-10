@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions/synth';
 import RangeControl from '../../RangeControl';
-import WaveShapeSelector from '../WaveShapeSelector';
+import WaveShapeSelector from '../../WaveShapeSelector';
 
 
 const Modulation = ({modulation, setModulationDepth, setModulationSpeed, setModulationOn, setModulationShape}) => {
