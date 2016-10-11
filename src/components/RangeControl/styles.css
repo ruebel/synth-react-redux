@@ -6,14 +6,17 @@
   margin-bottom: 15px;
 }
 
+$handleSize: 20px;
+
 .handle {
-  font-size: 0.9em;
+  font-size: 0.7em;
+  line-height: $handleSize;
   text-align: center;
   background-color: #232323;
   color: white;
   cursor: pointer;
-  width: 20px;
-  border-radius: 50%;
-  height: 20px;
+  width: $handleSize;
+  /*border-radius: 50%;*/
+  height: $handleSize;
   margin-top: -10px;
 }

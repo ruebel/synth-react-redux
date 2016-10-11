@@ -16,12 +16,14 @@ class Filter extends React.Component {
     super(props);
 
     this.applySettings = this.applySettings.bind(this);
-    this.setupAudio = this.setupAudio.bind(this);
     this.effect = this.props.context.createBiquadFilter();
+    this.effect.type = defaultSettings.filterType;
+    this.effect.frequency.value = defaultSettings.frequency;
+    this.effect.gain.value = defaultSettings.gain;
   }
 
   componentDidMount() {
-    this.setupAudio();
+    this.applySettings(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,34 +34,27 @@ class Filter extends React.Component {
 
   applySettings(next, prev) {
     if (!prev || next.settings.filterType !== prev.settings.filterType) {
-      this.effect.type = next.settings.filterType || 'lowshelf';
-      // Gain is not used in the all of the filter types so hide it when not used
-      this.showGain = ['lowshelf', 'highshelf', 'peaking'].indexOf(next.settings.filterType) >= 0;
-      // Q is not used on all filter types so hide it when not used
-      this.showQ = ['lowshelf', 'highshelf'].indexOf(next.settings.filterType) < 0;
+      this.effect.type = next.settings.filterType;
     }
     if (!prev || next.settings.q !== prev.settings.q) {
-      this.effect.Q.value = next.settings.q || 0;
+      // Since we don't use the actual Q numbers in the slider we have to scale
+      // them by 10e38 for the component
+      this.effect.Q.value = next.settings.q * (10^38);
     }
     if (!prev || next.settings.frequency !== prev.settings.frequency) {
-      this.effect.frequency.value = next.settings.frequency || 0;
+      this.effect.frequency.value = next.settings.frequency;
     }
     if (!prev || next.settings.gain !== prev.settings.gain) {
-      this.effect.gain.value = next.settings.gain || 0;
+      this.effect.gain.value = next.settings.gain;
     }
     this.props.wire(next, prev, this.effect);
   }
 
-  setupAudio() {
-    this.effect.type = 'lowshelf';
-    this.effect.frequency.value = 1000;
-    this.effect.gain.value = 0;
-    this.showQ = false;
-    this.showGain = true;
-    this.applySettings(this.props);
-  }
-
   render() {
+    // Gain is not used in the all of the filter types so hide it when not used
+    const showGain = ['lowshelf', 'highshelf', 'peaking'].indexOf(this.props.settings.filterType) >= 0;
+    // Q is not used on all filter types so hide it when not used
+    const showQ = ['lowshelf', 'highshelf'].indexOf(this.props.settings.filterType) < 0;
     return (
       <div>
         <h3>Filter</h3>
@@ -67,9 +62,10 @@ class Filter extends React.Component {
                 onChange={e => this.props.handleSettingsChange('filterType', e)}>
           {filterTypes.map((f, i) => <option key={i} value={f}>{f}</option>)}
         </select>
-        {this.showQ && (<RangeControl title="Q"
-                      min={this.effect.Q.minValue}
-                      max={this.effect.Q.maxValue}
+        {showQ && (<RangeControl title="Q"
+                      min={-1}
+                      max={1}
+                      step={0.01}
                       onSet={e => this.props.handleSettingsChange('q', e)}
                       value={this.props.settings.q}
                       />)}
@@ -80,7 +76,7 @@ class Filter extends React.Component {
                       onSet={e => this.props.handleSettingsChange('frequency', e)}
                       value={this.props.settings.frequency}
                       />
-        {this.showGain && (
+        {showGain && (
         <RangeControl title="Gain"
                       min={this.effect.gain.minValue}
                       max={this.effect.gain.maxValue}
@@ -88,6 +84,7 @@ class Filter extends React.Component {
                       onSet={e => this.props.handleSettingsChange('gain', e)}
                       value={this.props.settings.gain}
                       />)}
+
       </div>
     );
   }

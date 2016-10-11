@@ -13,7 +13,11 @@ const RangeControl = ({max, min, onSet, step, title, value}) => {
         onChange={(e) => onSet(e)}
         min={min || 0}
         max={max || 1.5}
-        step={step || 0.01}/>
+        pearling={true}
+        step={step || 0.01}
+        withBars={true}>
+          <div>{value}</div>
+        </ReactSlider>
     </div>
   );
 };
