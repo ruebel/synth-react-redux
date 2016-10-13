@@ -44,12 +44,13 @@ class Tone extends React.Component {
 
   bendNote(bendTo, settings, speed = 0.05) {
     const now = this.props.context.currentTime;
-    const nextFreq = convertNoteFrequency(bendTo);
     this.oscillators.forEach((o, i) => {
+      // calculate frequency based on octave and bend destination
+      const nextFreq = convertNoteFrequency(bendTo + (settings.oscillators[i].octave * 12));
       // To make the bend smooth we ramp the frequency from current to target
       o.osc.frequency.setValueAtTime(o.osc.frequency.value, now);
       // the last parameter is the speed of the bend
-      o.osc.frequency.setTargetAtTime(nextFreq + (settings.oscillators[i].octave * 12), now, speed);
+      o.osc.frequency.setTargetAtTime(nextFreq, now, speed);
     });
   }
 
