@@ -1,3 +1,4 @@
+import uuid from 'uuid';
 import {generateKey, getContext} from '../utils/audio';
 
 function generateKeys(startPoint = 0, numKeys = 88) {
@@ -38,15 +39,21 @@ export default {
     lastDown: null,
     modulation: {
       on: false,
-      depth: 0,
+      depth: 4.3,
       shape: 'sine',
-      speed: 10
+      speed: 4.5
     },
+    oscillators: [{
+      id: uuid.v4(),
+      detune: 0,
+      gain: 1,
+      octave: 0,
+      waveShape: 'sine'
+    }],
     portamento: {
       on: false,
-      speed: 0.05
+      speed: 75
     },
-    sustain: false,
-    waveShape: 'sine'
+    sustain: false
   }
 };

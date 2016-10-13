@@ -1,3 +1,25 @@
+import uuid from 'uuid';
+
+export const addOscillator = () => {
+  return {
+    type: 'ADD_OSCILLATOR',
+    payload: {
+      id: uuid.v4(),
+      detune: 0,
+      gain: 1,
+      octave: 0,
+      waveShape: 'sine'
+    }
+  };
+};
+
+export const removeOscillator = (id) => {
+  return {
+    type: 'REMOVE_OSCILLATOR',
+    payload: id
+  };
+};
+
 export const setAttack = (attack) => {
   return {
     type: 'SET_SYNTH_ATTACK',
@@ -40,6 +62,17 @@ export const setModulationSpeed = (speed) => {
   };
 };
 
+export const setOscillatorSetting = (id, value, setting) => {
+  return {
+    type: 'SET_OSCILLATOR_SETTING',
+    payload: {
+      id,
+      setting,
+      value
+    }
+  };
+};
+
 export const setPitchBend = (bend) => {
   return {
     type: 'SET_PITCH_BEND',
@@ -72,12 +105,5 @@ export const setSustain = (sustain) => {
   return {
     type: 'SET_SUSTAIN',
     payload: sustain
-  };
-};
-
-export const setWaveShape = (waveShape) => {
-  return {
-    type: 'SET_WAVE_SHAPE',
-    payload: waveShape
   };
 };

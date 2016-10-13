@@ -11,12 +11,12 @@ const synth = combineReducers({
   ignoreVelocity,
   lastDown,
   modulation,
+  oscillators,
   portamento: combineReducers({
     on,
     speed
   }),
-  sustain,
-  waveShape
+  sustain
 });
 
 function attack(state = initialState.synth.envelope.attack, action) {
@@ -64,6 +64,26 @@ function on(state = initialState.synth.portamento.on, action) {
   }
 }
 
+function oscillators(state = initialState.synth.oscillators, action) {
+  switch(action.type) {
+    case 'ADD_OSCILLATOR':
+      return [...state, action.payload];
+    case 'REMOVE_OSCILLATOR':
+      return state.filter(e => e.id !== action.payload);
+    case 'SET_OSCILLATOR_SETTING':
+      return state.map(e => {
+        if (e.id === action.payload.id) {
+          return Object.assign({}, e, {
+            [action.payload.setting]: action.payload.value
+          });
+        }
+        return e;
+      });
+    default:
+      return state;
+  }
+}
+
 function release(state = initialState.synth.envelope.release, action) {
   switch(action.type) {
     case 'SET_SYNTH_RELEASE':
@@ -85,15 +105,6 @@ function speed(state = initialState.synth.portamento.speed, action) {
 function sustain(state = initialState.synth.sustain, action) {
   switch(action.type) {
     case 'SET_SUSTAIN':
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-function waveShape(state = initialState.synth.waveShape, action) {
-  switch(action.type) {
-    case 'SET_WAVE_SHAPE':
       return action.payload;
     default:
       return state;

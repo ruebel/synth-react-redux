@@ -155,7 +155,7 @@ const handleMidiMessage = (dispatch) => (e) => {
       // 0 = max negative
       // 64 = no detune
       // 127 = max positive
-      dispatch(setPitchBend(e.data[1] - 64));
+      dispatch(setPitchBend(e.data[2] - 64));
       break;
   }
 };

@@ -6,9 +6,7 @@ const WaveShapeSelector = ({value, change}) => {
     return <option key={i} value={s}>{s}</option>;
   });
   return (
-    <select value={value} onChange={e => {
-      change(e.target.value);
-    }}>
+    <select value={value} onChange={e => change(e.target.value)}>
       {options}
     </select>
   );

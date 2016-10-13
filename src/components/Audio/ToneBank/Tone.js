@@ -1,16 +1,21 @@
 import React, {PropTypes} from 'react';
-import {convertNoteFrequency, createGain, createOscillator} from '../../../utils/audio';
+import {convertNoteFrequency, createGain} from '../../../utils/audio';
 
 class Tone extends React.Component {
   constructor(props) {
     super(props);
 
     this.bendNote = this.bendNote.bind(this);
+    this.createOscillator = this.createOscillator.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
+    this.setupOscillator = this.setupOscillator.bind(this);
+
+    this.envelope = createGain(props.context, props.tone.velocity);
+    this.envelope.connect(props.output);
   }
 
   componentDidMount() {
-    this.setupAudio();
+    this.setupAudio(this.props);
   }
 
   componentWillReceiveProps(next) {
@@ -20,42 +25,78 @@ class Tone extends React.Component {
     }
     if (next.settings.bend !== this.props.settings.bend) {
       // Pitch Bend
-      this.bendNote(this.props.tone.id + next.settings.bend);
+      this.bendNote(this.props.tone.id + (next.settings.bend / 16), next.settings);
     }
     if (next.settings.portamento.on && next.tone.id !== this.props.tone.id) {
       // Portamento Note Change
-      this.bendNote(next.tone.id, next.settings.portamento.speed);
+      this.bendNote(next.tone.id, next.settings, 1 / next.settings.portamento.speed);
+    }
+    if (next.settings.oscillators.length !== this.props.settings.oscillators.length) {
+      this.setupAudio(next);
+    } else {
+      next.settings.oscillators.forEach((o, i) => {
+        if(o != this.props.settings.oscillators[i]) {
+          this.setupOscillator(this.oscillators[i], o);
+        }
+      });
     }
   }
 
-  shouldComponentUpdate(newProps) {
-    let shouldUpdate = (
-      newProps.settings.sustain !== this.props.settings.sustain &&
-      !newProps.settings.sustain
-    ) || (
-      newProps.settings.sustain === this.props.settings.sustain &&
-      newProps.settings !== this.props.settings) ||
-      newProps.tone.velocity !== this.props.tone.velocity;
-    return shouldUpdate;
-  }
-
-  bendNote(bendTo, speed = 0.05) {
+  bendNote(bendTo, settings, speed = 0.05) {
     const now = this.props.context.currentTime;
-    // To make the bend smooth we ramp the frequency from current to target
     const nextFreq = convertNoteFrequency(bendTo);
-    this.oscillator.frequency.setValueAtTime(this.oscillator.frequency.value, now);
-    // the last parameter is the speed of the bend
-    this.oscillator.frequency.setTargetAtTime(nextFreq, now, speed);
+    this.oscillators.forEach((o, i) => {
+      // To make the bend smooth we ramp the frequency from current to target
+      o.osc.frequency.setValueAtTime(o.osc.frequency.value, now);
+      // the last parameter is the speed of the bend
+      o.osc.frequency.setTargetAtTime(nextFreq + (settings.oscillators[i].octave * 12), now, speed);
+    });
   }
 
-  setupAudio() {
-    this.oscillator = createOscillator(this.props.context, this.props.tone.id, this.props.settings.waveShape);
+  createOscillator(props, o) {
+    let osc = props.context.createOscillator();
     // Connect modulation oscillator to frequency
-    this.props.modulation.connect(this.oscillator.frequency);
-    this.envelope = createGain(this.props.context, this.props.tone.velocity);
+    props.modulation.connect(osc.frequency);
+    osc.start();
+    let gain = props.context.createGain();
+    osc.connect(gain);
+    gain.connect(this.envelope);
+    let oscItem = {
+      id: o.id,
+      osc,
+      gain
+    };
+    this.setupOscillator(oscItem, o);
+    return oscItem;
+  }
 
-    this.oscillator.connect(this.envelope);
-    this.envelope.connect(this.props.output);
+  setupAudio(props) {
+    if (this.oscillators) {
+      if (props.settings.oscillators.length < this.oscillators.length) {
+        // Remove oscillator
+        this.oscillators.filter(o => {
+          if (!props.settings.oscillators.some(p => p.id === o.id)) {
+            o.osc.disconnect();
+            o.gain.disconnect();
+            return false;
+          } else {
+            return true;
+          }
+        });
+      } else if (props.settings.oscillators.length > this.oscillators.length){
+        // Add oscillator
+        this.oscillators.push(this.createOscillator(props, props.settings.oscillators[props.settings.oscillators.length - 1]));
+      }
+    } else {
+      this.oscillators = props.settings.oscillators.map(o => this.createOscillator(props, o));
+    }
+  }
+
+  setupOscillator(o, setting) {
+    o.osc.type = setting.waveShape;
+    o.osc.detune.value = setting.detune;
+    o.osc.frequency.value = convertNoteFrequency(this.props.tone.id + (12 * parseInt(setting.octave || 0)));
+    o.gain.gain.value = setting.gain;
   }
 
   render() {

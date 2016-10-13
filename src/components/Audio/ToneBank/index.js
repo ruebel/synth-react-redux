@@ -7,7 +7,7 @@ class ToneBank extends React.Component {
     super(props);
     this.modulation = this.props.context.createOscillator();
     this.modulation.type = this.props.settings.modulation.shape;
-    this.modulation.frequency.value = 1;
+    this.modulation.frequency.value = this.props.settings.modulation.speed;
     this.modulation.start(0);
     this.modulationGain = this.props.context.createGain();
     this.modulation.connect(this.modulationGain);
@@ -41,7 +41,7 @@ class ToneBank extends React.Component {
     if (this.props.settings.portamento.on) {
       // When portamento is on we only render one tone
       // We render the last pressed tone (last down holds the id of the last pressed note)
-      toneMap = [this.props.settings.lastDown || null];
+      toneMap = this.props.settings.lastDown ? [this.props.settings.lastDown] : [];
     }
     let tones = (toneMap.map((k, i) => {
       return (

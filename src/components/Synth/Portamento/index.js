@@ -11,8 +11,8 @@ const Portamento = ({on, setPortamento, setPortamentoSpeed, speed}) => {
       <RangeControl title="Speed"
                     value={speed}
                     onSet={setPortamentoSpeed}
-                    min={0.01}
-                    max={0.5}/>
+                    min={5}
+                    max={100}/>
     </div>
   );
 };
