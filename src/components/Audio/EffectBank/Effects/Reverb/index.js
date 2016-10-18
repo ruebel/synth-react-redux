@@ -4,7 +4,9 @@ import irs from './IRs';
 
 export const defaultSettings = {
   effectLevel: 1,
-  irUrl: irs[Object.keys(irs)[0]].url
+  // This will be set after the component loads since it needs to
+  // download the ir
+  irUrl: ''
 };
 
 class Reverb extends React.Component {

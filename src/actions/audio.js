@@ -88,6 +88,7 @@ export const setEffectSettings = (settings, field = '') => {
   // getting the IR from the URL in a thunk
   if (field === 'irUrl') {
     return getImpulseResponse(settings);
+    // settings.irUrl = '';
   }
   // Normal effect settings update
   return {

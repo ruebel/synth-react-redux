@@ -102,27 +102,29 @@ class Tone extends React.Component {
 
   render() {
     if (this.envelope) {
-      let ignoreVel = this.props.settings.ignoreVelocity;
+      const ignoreVel = this.props.settings.ignoreVelocity;
       let velocity = this.props.tone.velocity;
-      let sustain = this.props.settings.sustain;
+      const sustain = this.props.settings.sustain;
       if (!sustain || velocity > 0) {
-        let now =  this.props.context.currentTime;
+        // Get current time
+        const now =  this.props.context.currentTime;
+        // Cancel any scheduled changes
+        this.envelope.gain.cancelScheduledValues(now);
         if (velocity == 0) {
           // Note OFF
-          let release = this.props.settings.envelope.release;
-          this.envelope.gain.cancelScheduledValues(now);
-          if (release > 0) {
-            // this is necessary because of the linear ramp
-            this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
-            this.envelope.gain.setTargetAtTime(0.0, now, release);
-          } else {
-            this.envelope.gain.value = 0;
-          }
+          const release = this.props.settings.envelope.release;
+          // Transition to ramp down
+          this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
+          // Ramp down
+          this.envelope.gain.setTargetAtTime(0.0, now, release || 0.001);
         } else {
           // Note ON
           velocity = ignoreVel ? 0.4 : velocity;
-          let envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 10.0) + 0.001;
+          // Find end time for attack envelope
+          const envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 10.0) + 0.001;
+          // Transition to envelope
           this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
+          // Start envelope
           this.envelope.gain.linearRampToValueAtTime(velocity, envAttackEnd);
         }
       }
