@@ -25,9 +25,10 @@ class Key extends React.Component {
       ebony: this.props.tone.note.length > 1
     });
     return (
-      <div onClick={this.toggleKey} className={style}>
-        {this.props.tone.note}{this.props.tone.octave}
-      </div>
+      <div
+        onMouseDown={this.toggleKey}
+        onMouseUp={this.toggleKey}
+        className={style} />
     );
   }
 }

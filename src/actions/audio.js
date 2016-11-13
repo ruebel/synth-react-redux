@@ -11,7 +11,7 @@ const addEffectAfter = (payload) => {
 };
 
 export const addEffect = (effect) => (dispatch, getState) => {
-  let state = getState();
+  const state = getState();
   let input = state.audio.context.createGain();
   let payload = {
     id: uuid.v4(),
@@ -88,7 +88,6 @@ export const setEffectSettings = (settings, field = '') => {
   // getting the IR from the URL in a thunk
   if (field === 'irUrl') {
     return getImpulseResponse(settings);
-    // settings.irUrl = '';
   }
   // Normal effect settings update
   return {

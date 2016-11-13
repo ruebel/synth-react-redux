@@ -107,7 +107,7 @@ class Tone extends React.Component {
       const sustain = this.props.settings.sustain;
       if (!sustain || velocity > 0) {
         // Get current time
-        const now =  this.props.context.currentTime;
+        const now = this.props.context.currentTime;
         // Cancel any scheduled changes
         this.envelope.gain.cancelScheduledValues(now);
         if (velocity == 0) {

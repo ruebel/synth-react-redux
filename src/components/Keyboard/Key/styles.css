@@ -1,32 +1,36 @@
+@import 'global';
+
 .key {
-  height: 100px;
+  height: 100%;
   width: 20px;
   display: inline-block;
-  color: blue;
-  border: 1px solid black;
-  background: white;
-  color: black;
+  border: 1px solid $core-black;
+  border-radius: 0 0 2px 2px;
+  background: $core-light-color;
+  color: $core-black;
   position: relative;
+  vertical-align: top;
+  margin-right: -1px;
 
   & .on {
-    background: green;
+    background: $control-color-success;
   }
 }
 
 .on {
-  background: green;
+  background: $control-color-success;
 }
 
 .ebony {
-  background: black;
-  color: white;
+  background: $core-black;
+  color: $core-light-color;
   margin-right: -8px;
   margin-left: -8px;
-  height: 60px;
+  height: 60%;
   width: 16px;
   z-index: 2;
 }
 
 .ebony.on {
-  background: darkGreen;
+  background: color($control-color-success b(30%));
 }

@@ -24,7 +24,8 @@ const setInputDevice = (device) => {
 };
 
 export const getInputDevices = () => (dispatch) => {
-  input.getDevices().then(devices => {
+  input.getDevices()
+  .then(devices => {
     dispatch(gotInputDevices(devices));
     // Set default device
     if (devices.length > 0) {

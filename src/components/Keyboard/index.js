@@ -2,10 +2,11 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Key from './Key';
 import {keyDown, keyUp} from '../../actions/audio';
+const styles = require('./styles.css');
 
 const Keyboard = ({keys, keyDown, keyUp}) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       {Object.keys(keys).map((k, i) => {
         return (
           <Key key={i}

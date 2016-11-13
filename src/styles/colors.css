@@ -1,6 +1,7 @@
 /* Colors */
 /* Brand colors */
 $body-bg: #fff;
+$core-light-color: #fff;
 /* Grayscale */
 $core-gray-extra-light: #f9f9f9;
 $core-gray-light: #f1f1f1;
@@ -8,6 +9,7 @@ $core-gray: #eaeaea;
 $core-gray-semidark: #9b9b9b;
 $core-gray-dark: #a5a5a5;
 $core-gray-extra-dark: #575855;
+$core-black: #000;
 /* Control colors */
 $control-color: #c5c5c5;
 $control-color-empty: #575855;

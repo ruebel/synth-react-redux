@@ -6,7 +6,7 @@ import Synth from './Synth';
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <DeviceSelector />
       <Synth />
       <Keyboard />

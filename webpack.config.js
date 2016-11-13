@@ -39,7 +39,7 @@ module.exports = {
   module: {
     preLoaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'eslint'
       }
@@ -47,7 +47,7 @@ module.exports = {
 
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'babel',
         query: {
@@ -56,11 +56,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss',
-        exclude: /thirdparty/
+        loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss'
       },
       {
-        test: /\.(png|jpg|wav)$/,
+        test: /\.(gif|svg|otf|eot|ttf|woff[2]?|png|jpe?g|wav)(\?[a-z0-9=\.]+)?$/i,
         loader: 'url-loader?limit=8192'
       }
     ]

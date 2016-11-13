@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
+const styles = require('./styles.css');
 
 /**
  * Effect
@@ -102,7 +103,7 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
 
     render () {
       return (
-        <div>
+        <div className={styles.wrapper}>
           <button onClick={() => this.props.remove(this.props.settings.id)}>X</button>
           <button onClick={() => this.props.move(this.props.settings.id, true)}>^</button>
           <button onClick={() => this.props.move(this.props.settings.id)}>v</button>
