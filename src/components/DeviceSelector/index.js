@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
+import Select from 'react-select';
 import {connect} from 'react-redux';
 import {setDevice} from '../../actions/input';
+const styles = require('./styles.css');
 
 class DeviceSelector extends React.Component {
   constructor(props) {
@@ -9,23 +11,26 @@ class DeviceSelector extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
-    const device = this.props.devices.find(d => d.id === e.target.value);
+  handleChange(val) {
+    const device = this.props.devices.find(d => d.id === val.id);
     this.props.setDevice(device);
   }
 
   render() {
-    let options = this.props.devices.map((d, i) => {
-      return <option key={i} value={d.id}>{d.name}</option>;
-    });
-    const none = <option key={-1} value={{}}>None</option>;
-    options = [none, ...options];
+    const options = [{id: -1, name: 'None'}, ...this.props.devices];
     return (
-      <div>
+      <div className={styles.wrapper}>
         <h3>Input</h3>
-        <select value={this.props.selectedDevice.id} onChange={this.handleChange}>
-          {options}
-        </select>
+        <Select
+          labelKey="name"
+          name="inputSelect"
+          onChange={this.handleChange}
+          options={options}
+          placeholder="Select Input..."
+          searchable={false}
+          value={this.props.selectedDevice.id}
+          valueKey="id"
+        />
       </div>
     );
   }

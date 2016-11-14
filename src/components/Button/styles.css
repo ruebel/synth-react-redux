@@ -1,0 +1,43 @@
+@import 'global';
+
+.primary {
+  background-color: $control-color-info;
+  color: $core-light-color;
+  min-height: 44px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin: 0;
+  transition: background-color 100ms ease-in;
+
+  &:hover {
+    background-color: color($control-color-info b(10%));
+  }
+
+  &:disabled {
+    background-color: $control-color-disabled;
+    cursor: not-allowed;
+  }
+}
+
+.link {
+  background-color: $core-light-color;
+  color: $body-font-color;
+  min-height: 44px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  padding: 0 10px;
+  margin: 0;
+  transition: color, background-color 100ms ease-in;
+
+  &:hover {
+    color: $control-color-info;
+    background-color: color($core-light-color b(5%));
+  }
+
+  &:disabled {
+    color: $control-color-disabled;
+    cursor: not-allowed;
+  }
+}

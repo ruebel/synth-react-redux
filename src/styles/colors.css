@@ -10,6 +10,7 @@ $core-gray-semidark: #9b9b9b;
 $core-gray-dark: #a5a5a5;
 $core-gray-extra-dark: #575855;
 $core-black: #000;
+$core-border-color: $core-gray-semidark;
 /* Control colors */
 $control-color: #c5c5c5;
 $control-color-empty: #575855;
@@ -17,3 +18,4 @@ $control-color-success: #81c784;
 $control-color-info: #3e73cc;
 $control-color-warning: #f9c233;
 $control-color-danger: #e85600;
+$control-color-disabled: #cccccc;

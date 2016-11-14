@@ -56,7 +56,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss'
+        loader: 'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!postcss',
+        exclude: /thirdparty/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css!postcss',
+        include: /thirdparty/,
       },
       {
         test: /\.(gif|svg|otf|eot|ttf|woff[2]?|png|jpe?g|wav)(\?[a-z0-9=\.]+)?$/i,

@@ -1,5 +1,6 @@
 /* eslint-disable import/default */
 import './styles/main.css';
+import './styles/thirdparty.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
