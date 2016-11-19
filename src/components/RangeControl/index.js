@@ -4,7 +4,7 @@ const styles = require('./styles.css');
 
 const RangeControl = ({max, min, onSet, step, title, value}) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <h3>{title}</h3>
       <ReactSlider
         className={styles.slider}
@@ -16,7 +16,7 @@ const RangeControl = ({max, min, onSet, step, title, value}) => {
         pearling={true}
         step={step || 0.01}
         withBars={true}>
-          <div>{value}</div>
+          <div>{Math.abs(value) < 1 ? value.toFixed(2) : value.toFixed(1)}</div>
         </ReactSlider>
     </div>
   );

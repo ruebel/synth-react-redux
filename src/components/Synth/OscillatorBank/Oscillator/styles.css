@@ -4,9 +4,31 @@
   border: 2px $core-border-color solid;
   padding: 20px;
   width: 50%;
+  position: relative;
 
-  & button {
-    margin-top: -20px;
-    margin-left: -20px;
+  & > button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width:40px;
+  }
+}
+
+.colContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  & > div {
+    flex: 1;
+
+    & > h3 {
+      margin-top: 0;
+    }
+  }
+
+  & > div:not(:first-of-type) {
+    margin-left: 10px;
   }
 }

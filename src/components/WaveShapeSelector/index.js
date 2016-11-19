@@ -1,14 +1,21 @@
 import React, {PropTypes} from 'react';
+import Select from 'react-select';
 import {waveShapes} from '../../utils/audio';
+const styles = require('./styles.css');
 
 const WaveShapeSelector = ({value, change}) => {
-  let options = waveShapes.map((s, i) => {
-    return <option key={i} value={s}>{s}</option>;
-  });
+  let options = waveShapes.map(s => ({id: s, name: s}));
   return (
-    <select value={value} onChange={e => change(e.target.value)}>
-      {options}
-    </select>
+    <div className={styles.wrapper}>
+      <h3>Shape</h3>
+      <Select
+        labelKey="name"
+        onChange={e => change(e.id)}
+        options={options}
+        searchable={false}
+        value={value}
+        valueKey="id" />
+    </div>
   );
 };
 

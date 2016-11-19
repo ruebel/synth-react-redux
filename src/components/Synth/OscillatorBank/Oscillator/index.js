@@ -14,15 +14,19 @@ const Oscillator = ({oscillator, remove, setValue}) => {
         click={() => remove(oscillator.id)}
         text="X"
         type="link" />
-      <h3>Octave</h3>
-      <Select
-        labelKey="name"
-        onChange={e => setValue(oscillator.id, e.id, 'octave')}
-        options={octaves}
-        searchable={false}
-        value={oscillator.octave}
-        valueKey="id" />
-      <WaveShapeSelector value={oscillator.waveShape} change={e => setValue(oscillator.id, e, 'waveShape')}/>
+      <div className={styles.colContainer}>
+        <div>
+          <h3>Octave</h3>
+          <Select
+            labelKey="name"
+            onChange={e => setValue(oscillator.id, e.id, 'octave')}
+            options={octaves}
+            searchable={false}
+            value={oscillator.octave}
+            valueKey="id" />
+        </div>
+        <WaveShapeSelector value={oscillator.waveShape} change={e => setValue(oscillator.id, e, 'waveShape')}/>
+      </div>
       <RangeControl title="Detune"
                     value={oscillator.detune}
                     onSet={e => setValue(oscillator.id, e, 'detune')}
