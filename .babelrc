@@ -1,7 +1,8 @@
 {
   "presets": [
-    "es2015",
-    "react"
+    "latest",
+    "react",
+    "stage-2"
   ],
   "plugins": ["transform-object-rest-spread"],
   "env": {

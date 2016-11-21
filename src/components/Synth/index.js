@@ -3,13 +3,16 @@ import Envelope from './Envelope';
 import Modulation from './Modulation';
 import OscillatorBank from './OscillatorBank';
 import Portamento from './Portamento';
+const styles = require('./styles.css');
 
 const Synth = () => {
   return (
     <div>
       <OscillatorBank />
-      <Envelope />
-      <Modulation />
+      <div className={styles.cols}>
+        <Envelope />
+        <Modulation />
+      </div>
       <Portamento />
     </div>
   );

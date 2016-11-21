@@ -22,7 +22,7 @@ export const addEffect = (effect) => (dispatch, getState) => {
   dispatch(addEffectAfter(payload));
 };
 
-export const getImpulseResponse = (settings) => (dispatch, getState) => {
+export const getImpulseResponse = (settings) => async(dispatch, getState) => {
   // Make sure we received a url to fetch
   if (!settings.irUrl) {
     // No url so just clear the IR
@@ -34,21 +34,15 @@ export const getImpulseResponse = (settings) => (dispatch, getState) => {
     // Received url so we will have to fetch
     const state = getState();
     // Get the IR file from the server
-    let ajaxRequest = new XMLHttpRequest();
-    ajaxRequest.open('GET', settings.irUrl, true);
-    ajaxRequest.responseType = 'arraybuffer';
-    ajaxRequest.onload = () => {
-      // Create the audio buffer source
-      let audioData = ajaxRequest.response;
-      state.audio.context.decodeAudioData(audioData, (buffer) => {
-        let source = state.audio.context.createBufferSource();
-        source.buffer = buffer;
-        settings.irBuffer = buffer;
-        // Pass along to settings
-        dispatch(setEffectSettings(settings));
-      });
-    };
-    ajaxRequest.send();
+    const response = await fetch(settings.irUrl);
+    const audioData = await response.arrayBuffer();
+    state.audio.context.decodeAudioData(audioData, (buffer) => {
+      let source = state.audio.context.createBufferSource();
+      source.buffer = buffer;
+      settings.irBuffer = buffer;
+      // Pass along to settings
+      dispatch(setEffectSettings(settings));
+    });
   }
 };
 

@@ -98,6 +98,9 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'bundle.common.js'
+    }),
+    new webpack.ProvidePlugin({
+      'regeneratorRuntime': 'regenerator-runtime/runtime'
     })
   ],
 

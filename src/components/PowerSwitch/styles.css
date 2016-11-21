@@ -1,0 +1,34 @@
+@import 'global';
+
+$size: 32px;
+$borderSize: 2px;
+$transTime: 200ms;
+
+.switch {
+  border: $borderSize $core-border-color solid;
+  border-radius: $size;
+  width: calc(2 * $size);
+  height: $size;
+  transition: background $transTime ease-in;
+  display: inline-block;
+
+  & > div {
+    border-radius: 50%;
+    border: $borderSize $core-border-color solid;
+    background: $core-light-color;
+    width: $size;
+    height: $size;
+    margin-top: -$borderSize;
+    margin-left: -$borderSize;
+    transition: transform $transTime ease-in;
+  }
+}
+
+.switch.on {
+  background: $control-color-success;
+
+  & > div {
+    transform: translateX($size);
+    transition: transform $transTime ease-in;
+  }
+}
