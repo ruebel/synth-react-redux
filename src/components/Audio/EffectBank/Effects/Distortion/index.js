@@ -5,7 +5,8 @@ import RangeControl from '../../../../RangeControl';
 export const defaultSettings = {
   amount: 0,
   effectLevel: 1,
-  oversample: '4x'
+  oversample: '4x',
+  title: 'Distortion'
 };
 
 class Distortion extends React.Component {
@@ -61,8 +62,7 @@ class Distortion extends React.Component {
   render() {
     return (
       <div>
-        <h3>Distortion</h3>
-        <span> Oversampling</span>
+        <span>Oversampling</span>
         <select value={this.props.settings.oversample}
                 onChange={e => this.props.handleSettingsChange('oversample', e)}>
           <option key="0" value="none">None</option>

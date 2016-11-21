@@ -8,7 +8,8 @@ export const defaultSettings = {
   filterType: 'lowshelf',
   frequency: 100,
   gain: 1,
-  q: 0
+  q: 0,
+  title: 'Filter'
 };
 
 class Filter extends React.Component {
@@ -57,7 +58,6 @@ class Filter extends React.Component {
     const showQ = ['lowshelf', 'highshelf'].indexOf(this.props.settings.filterType) < 0;
     return (
       <div>
-        <h3>Filter</h3>
         <select value={this.props.settings.filterType}
                 onChange={e => this.props.handleSettingsChange('filterType', e)}>
           {filterTypes.map((f, i) => <option key={i} value={f}>{f}</option>)}

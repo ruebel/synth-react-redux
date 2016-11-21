@@ -1,15 +1,25 @@
 import React, {PropTypes} from 'react';
+import Button from '../Button';
+import PowerSwitch from '../PowerSwitch';
 import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
 
-const Container = ({active, children}) => {
+const Container = ({active, activeChange, close, children, full, tight, title, titleControl}) => {
   const containerStyle = cx({
     active,
     container: true,
+    full,
+    tight
   });
   return (
     <div className={containerStyle}>
+      <div className={styles.header}>
+        <h3>{title}</h3>
+        {activeChange && <PowerSwitch value={active} change={activeChange} />}
+        {close && <Button active click={close} text="X" type="link" />}
+        {titleControl}
+      </div>
       {children}
     </div>
   );
@@ -17,10 +27,16 @@ const Container = ({active, children}) => {
 
 Container.propTypes = {
   active: PropTypes.bool,
+  activeChange: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element)
-  ])
+  ]),
+  close: PropTypes.func,
+  full: PropTypes.bool,
+  tight: PropTypes.bool,
+  title: PropTypes.string,
+  titleControl: PropTypes.element
 };
 
 export default Container;

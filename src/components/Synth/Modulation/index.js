@@ -2,18 +2,12 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions/synth';
 import Container from '../../Container';
-import PowerSwitch from '../../PowerSwitch';
 import RangeControl from '../../RangeControl';
 import WaveShapeSelector from '../../WaveShapeSelector';
-const styles = require('./styles.css');
 
 const Modulation = ({modulation, setModulationDepth, setModulationSpeed, setModulationOn, setModulationShape}) => {
   return (
-    <Container active={modulation.on}>
-      <div className={styles.header}>
-        <h3>Modulation</h3>
-        <PowerSwitch value={modulation.on} change={setModulationOn} />
-      </div>
+    <Container active={modulation.on} activeChange={setModulationOn} title="Modulation">
       <WaveShapeSelector value={modulation.waveShape} change={setModulationShape} />
       <RangeControl title="Depth"
                     value={modulation.depth}

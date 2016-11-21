@@ -4,7 +4,8 @@ import RangeControl from '../../../../RangeControl';
 
 export const defaultSettings = {
   cutoff:  0.065,
-  resonance: 3.99
+  resonance: 3.99,
+  title: 'Moog Filter'
 };
 
 class MoogFilter extends React.Component {
@@ -78,7 +79,6 @@ class MoogFilter extends React.Component {
   render() {
     return (
       <div>
-        <h3>Moog Filter</h3>
         <RangeControl title="Cutoff"
                       min={0}
                       max={1}

@@ -6,7 +6,8 @@ export const defaultSettings = {
   effectLevel: 1,
   // This will be set after the component loads since it needs to
   // download the ir
-  irUrl: ''
+  irUrl: '',
+  title: 'Reverb'
 };
 
 class Reverb extends React.Component {
@@ -50,7 +51,6 @@ class Reverb extends React.Component {
   render() {
     return (
       <div>
-        <h3>Reverb</h3>
         <select value={this.props.settings.ir}
                 onChange={e => this.props.handleSettingsChange('irUrl', e)}>
           {Object.keys(irs).map((ir, i) => <option key={i} value={irs[ir].url}>{irs[ir].name}</option>)}

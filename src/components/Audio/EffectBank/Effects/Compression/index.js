@@ -3,11 +3,12 @@ import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 
 export const defaultSettings = {
-  threshold: -50,
+  attack: 0,
   knee: 40,
   ratio: 12,
-  attack: 0,
-  release: 0.25
+  release: 0.25,
+  threshold: -50,
+  title: 'Compression'
 };
 
 class Compression extends React.Component {
@@ -53,7 +54,6 @@ class Compression extends React.Component {
   render() {
     return (
       <div>
-        <h3>Compression</h3>
         <RangeControl title="Threshold"
                       min={this.effect.threshold.minValue}
                       max={this.effect.threshold.maxValue}

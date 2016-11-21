@@ -1,19 +1,18 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions/synth';
+import Container from '../../Container';
 import RangeControl from '../../RangeControl';
 
 const Portamento = ({on, setPortamento, setPortamentoSpeed, speed}) => {
   return (
-    <div>
-      <h3>Portamento</h3>
-      <input type="checkbox" value={on} onChange={setPortamento} />
+    <Container active={on} activeChange={setPortamento} title="Portamento">
       <RangeControl title="Speed"
                     value={speed}
                     onSet={setPortamentoSpeed}
                     min={5}
                     max={100}/>
-    </div>
+    </Container>
   );
 };
 

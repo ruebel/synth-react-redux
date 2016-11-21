@@ -4,7 +4,8 @@ import RangeControl from '../../../../RangeControl';
 
 export const defaultSettings = {
   bits: 4,
-  normfreq: 0.2
+  normfreq: 0.2,
+  title: 'Bit Crusher'
 };
 
 class BitCrusher extends React.Component {
@@ -69,7 +70,6 @@ class BitCrusher extends React.Component {
   render() {
     return (
       <div>
-        <h3>Bit Crusher</h3>
         <span> Bit Depth</span>
         <select value={this.props.settings.bits}
                 onChange={e => this.props.handleSettingsChange('bits', e)}>

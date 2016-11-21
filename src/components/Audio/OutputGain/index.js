@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import Container from '../../Container';
 import RangeControl from '../../RangeControl';
 import {setOutputLevel} from '../../../actions/audio';
 
@@ -29,15 +30,14 @@ class OutputGain extends React.Component {
 
   render() {
     return (
-      <div>
-      <h1>Volume</h1>
-      <RangeControl title="Volume"
-                    min={0}
-                    max={1}
-                    onSet={e => this.handleLevelChange(e)}
-                    value={this.props.level || 1}
-        />
-      </div>
+      <Container active title="Volume">
+        <RangeControl
+                      min={0}
+                      max={1}
+                      onSet={e => this.handleLevelChange(e)}
+                      value={this.props.level || 1}
+          />
+      </Container>
     );
   }
 }

@@ -2,15 +2,14 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import RangeControl from '../../RangeControl';
 import {setAttack, setRelease} from '../../../actions/synth';
-const styles = require('./styles.css');
+import Container from '../../Container';
 
 const Envelope = ({envelope, setAttack, setRelease}) => {
   return (
-    <div className={styles.wrapper}>
-      <h3>Envelope</h3>
+    <Container active title="Envelope">
       <RangeControl title="Attack" value={envelope.attack} onSet={setAttack}/>
       <RangeControl title="Release" value={envelope.release} onSet={setRelease}/>
-    </div>
+    </Container>
   );
 };
 

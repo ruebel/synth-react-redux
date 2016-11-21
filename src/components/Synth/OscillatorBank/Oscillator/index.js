@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Select from 'react-select';
-import Button from '../../../Button';
+import Container from '../../../Container';
 import RangeControl from '../../../RangeControl';
 import WaveShapeSelector from '../../../WaveShapeSelector';
 const styles = require('./styles.css');
@@ -8,12 +8,7 @@ const styles = require('./styles.css');
 const Oscillator = ({oscillator, remove, setValue}) => {
   const octaves = [-2, -1, 0, 1, 2].map((s) => ({id: s, name: s}));
   return (
-    <div className={styles.wrapper}>
-      <Button
-        active
-        click={() => remove(oscillator.id)}
-        text="X"
-        type="link" />
+    <Container active close={() => remove(oscillator.id)}>
       <div className={styles.colContainer}>
         <div>
           <h3>Octave</h3>
@@ -37,7 +32,7 @@ const Oscillator = ({oscillator, remove, setValue}) => {
                     onSet={e => setValue(oscillator.id, e, 'gain')}
                     min={0}
                     max={1} />
-    </div>
+    </Container>
   );
 };
 

@@ -12,8 +12,8 @@ const Synth = () => {
       <div className={styles.cols}>
         <Envelope />
         <Modulation />
+        <Portamento />
       </div>
-      <Portamento />
     </div>
   );
 };

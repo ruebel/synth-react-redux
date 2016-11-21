@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Select from 'react-select';
 import {connect} from 'react-redux';
 import {setDevice} from '../../actions/input';
-const styles = require('./styles.css');
+import Container from '../Container';
 
 class DeviceSelector extends React.Component {
   constructor(props) {
@@ -19,8 +19,7 @@ class DeviceSelector extends React.Component {
   render() {
     const options = [{id: -1, name: 'None'}, ...this.props.devices];
     return (
-      <div className={styles.wrapper}>
-        <h3>Input</h3>
+      <Container active={this.props.selectedDevice.id} title="Input">
         <Select
           labelKey="name"
           name="inputSelect"
@@ -31,7 +30,7 @@ class DeviceSelector extends React.Component {
           value={this.props.selectedDevice.id}
           valueKey="id"
         />
-      </div>
+      </Container>
     );
   }
 }

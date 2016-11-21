@@ -5,8 +5,9 @@ import {equalPower} from '../../../../../utils/audio';
 
 export const defaultSettings = {
   effectLevel: 1,
+  feedback: 1,
   time: 0.2,
-  feedback: 1
+  title: 'Delay'
 };
 
 class Delay extends React.Component {
@@ -65,7 +66,6 @@ class Delay extends React.Component {
   render() {
     return (
       <div>
-        <h3>Delay</h3>
         <RangeControl title="Time"
                       min={0.01}
                       max={2}

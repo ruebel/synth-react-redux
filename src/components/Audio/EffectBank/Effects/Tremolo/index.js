@@ -7,6 +7,7 @@ export const defaultSettings = {
   depth: 5,
   effectLevel: 1,
   speed: 5,
+  title: 'Tremolo',
   waveShape: 'sine'
 };
 
@@ -56,7 +57,6 @@ class Tremolo extends React.Component {
   render() {
     return (
       <div>
-        <h3>Tremolo</h3>
         <WaveShapeSelector value={this.props.settings.waveShape}
                            change={e => this.props.handleSettingsChange('waveShape', e)} />
         <RangeControl title="Depth"

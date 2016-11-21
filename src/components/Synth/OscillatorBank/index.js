@@ -2,13 +2,14 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions/synth';
 import Button from '../../Button';
+import Container from '../../Container';
 import Oscillator from './Oscillator';
 const styles = require('./styles.css');
 
 const OscillatorBank = ({addOscillator, oscillators, setOscillatorSetting, removeOscillator}) => {
+  const addButton = <Button active click={addOscillator} text="+" type="round"/>;
   return (
-    <div>
-      <h3>Oscillators <Button active click={addOscillator} text="+" type="round"/></h3>
+    <Container full title="Oscillators" titleControl={addButton}>
       <div className={styles.bank}>
         {
           oscillators.map((o, i) => {
@@ -22,7 +23,7 @@ const OscillatorBank = ({addOscillator, oscillators, setOscillatorSetting, remov
               })
           }
       </div>
-    </div>
+    </Container>
   );
 };
 
