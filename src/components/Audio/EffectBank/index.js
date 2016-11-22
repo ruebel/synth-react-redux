@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../../actions/audio';
+import AddEffect from './AddEffect';
 import Effects from './Effects';
 const styles = require('./styles.css');
 
@@ -28,14 +29,7 @@ const EffectBank = ({context, effects, inputGain, outputGain, addEffect, removeE
   }
   return (
     <div>
-      <button onClick={() => addEffect('BitCrusher')}>Add Bit Crusher</button>
-      <button onClick={() => addEffect('Compression')}>Add Compression</button>
-      <button onClick={() => addEffect('Delay')}>Add Delay</button>
-      <button onClick={() => addEffect('Distortion')}>Add Distortion</button>
-      <button onClick={() => addEffect('Filter')}>Add Filter</button>
-      <button onClick={() => addEffect('MoogFilter')}>Add Moog Filter</button>
-      <button onClick={() => addEffect('Reverb')}>Add Reverb</button>
-      <button onClick={() => addEffect('Tremolo')}>Add Tremolo</button>
+      <AddEffect add={addEffect} />
       <div className={styles.bank}>
         {units}
       </div>

@@ -16,9 +16,9 @@ const Container = ({active, activeChange, close, children, full, tight, title, t
     <div className={containerStyle}>
       <div className={styles.header}>
         <h3>{title}</h3>
+        {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}
         {close && <Button active click={close} text="X" type="link" />}
-        {titleControl}
       </div>
       {children}
     </div>

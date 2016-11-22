@@ -11,13 +11,9 @@
   position: relative;
   vertical-align: top;
   margin-right: -1px;
-
-  & .on {
-    background: $control-color-success;
-  }
 }
 
-.on {
+.key.on {
   background: $control-color-success;
 }
 

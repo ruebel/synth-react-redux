@@ -5,7 +5,7 @@ import RangeControl from '../../../../RangeControl';
 export const defaultSettings = {
   cutoff:  0.065,
   resonance: 3.99,
-  title: 'Moog Filter'
+  title: 'Resonance Filter'
 };
 
 class MoogFilter extends React.Component {

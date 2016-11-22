@@ -1,4 +1,6 @@
 .wrapper {
   height: 100px;
   position: relative;
+  overflow: hidden;
+  margin: 20px 0;
 }

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Container from '../../../../Container';
+import Mover from './Mover';
 import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
 // const styles = require('./styles.css');
@@ -103,14 +104,15 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     }
 
     render () {
+      const move = (<Mover
+        close={() => this.props.remove(this.props.settings.id)}
+        down={() => this.props.move(this.props.settings.id)}
+        up={() => this.props.move(this.props.settings.id, true)}/>);
       return (
         <Container
             active
-            close={() => this.props.remove(this.props.settings.id)}
-            title={this.props.settings.title}>
-          <button onClick={() => this.props.remove(this.props.settings.id)}>X</button>
-          <button onClick={() => this.props.move(this.props.settings.id, true)}>^</button>
-          <button onClick={() => this.props.move(this.props.settings.id)}>v</button>
+            title={this.props.settings.title}
+            titleControl={move}>
           <WrappedComponent {...this.props}
                             handleSettingsChange={this.handleSettingsChange}
                             wire={this.wire}/>

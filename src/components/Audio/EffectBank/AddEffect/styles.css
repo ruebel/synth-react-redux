@@ -1,0 +1,28 @@
+@import 'global';
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+
+  & > button {
+    margin-right: 10px;
+  }
+}
+
+.buttonList {
+  background: $core-gray-semidark;
+  border: 5px solid $core-gray-semidark;
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: flex-start;
+
+  & > button {
+    flex: 1;
+  }
+
+  & > button:not(:first-of-type) {
+    margin-left: 5px;
+  }
+}
