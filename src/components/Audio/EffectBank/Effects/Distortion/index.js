@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
+import Select from '../../../../Select';
 
 export const defaultSettings = {
   amount: 0,
@@ -8,6 +9,8 @@ export const defaultSettings = {
   oversample: '4x',
   title: 'Distortion'
 };
+
+const oversamples = [{id: 'none', name: 'None'}, {id: '2x', name: '2x'}, {id: '4x', name: '4x'}];
 
 class Distortion extends React.Component {
   constructor(props) {
@@ -62,13 +65,17 @@ class Distortion extends React.Component {
   render() {
     return (
       <div>
-        <span>Oversampling</span>
-        <select value={this.props.settings.oversample}
-                onChange={e => this.props.handleSettingsChange('oversample', e)}>
-          <option key="0" value="none">None</option>
-          <option key="1" value="2x">2x</option>
-          <option key="2" value="4x">4x</option>
-        </select>
+        <Select
+          labelKey="name"
+          name="oversampleSelect"
+          onChange={e => this.props.handleSettingsChange('oversample', e.id)}
+          options={oversamples}
+          placeholder="Select Oversampling..."
+          searchable={false}
+          title="Oversampling"
+          value={this.props.settings.oversample}
+          valueKey="id"
+        />
         <RangeControl title="Amount"
                       max={100}
                       onSet={e => this.props.handleSettingsChange('amount', e)}

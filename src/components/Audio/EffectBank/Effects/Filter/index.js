@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
+import Select from '../../../../Select';
 import {filterTypes} from '../../../../../utils/audio';
 
 export const defaultSettings = {
@@ -58,10 +59,17 @@ class Filter extends React.Component {
     const showQ = ['lowshelf', 'highshelf'].indexOf(this.props.settings.filterType) < 0;
     return (
       <div>
-        <select value={this.props.settings.filterType}
-                onChange={e => this.props.handleSettingsChange('filterType', e)}>
-          {filterTypes.map((f, i) => <option key={i} value={f}>{f}</option>)}
-        </select>
+        <Select
+          labelKey="name"
+          name="oversampleSelect"
+          onChange={e => this.props.handleSettingsChange('filterType', e.id)}
+          options={filterTypes.map(f => ({id: f, name: f}))}
+          placeholder="Select Filter Type..."
+          searchable={false}
+          title="Type"
+          value={this.props.settings.filterType}
+          valueKey="id"
+        />
         {showQ && (<RangeControl title="Q"
                       min={-1}
                       max={1}

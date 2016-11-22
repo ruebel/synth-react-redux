@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
+import Select from '../../../../Select';
 import irs from './IRs';
 
 export const defaultSettings = {
@@ -9,6 +10,8 @@ export const defaultSettings = {
   irUrl: '',
   title: 'Reverb'
 };
+
+const irOptions = Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name}));
 
 class Reverb extends React.Component {
   constructor(props) {
@@ -51,10 +54,17 @@ class Reverb extends React.Component {
   render() {
     return (
       <div>
-        <select value={this.props.settings.ir}
-                onChange={e => this.props.handleSettingsChange('irUrl', e)}>
-          {Object.keys(irs).map((ir, i) => <option key={i} value={irs[ir].url}>{irs[ir].name}</option>)}
-        </select>
+        <Select
+          labelKey="name"
+          name="irSelect"
+          onChange={e => this.props.handleSettingsChange('irUrl', e.id)}
+          options={irOptions}
+          placeholder="Select Impulse Response..."
+          searchable={false}
+          title="Impulse Response"
+          value={this.props.settings.irUrl}
+          valueKey="id"
+        />
       </div>
     );
   }

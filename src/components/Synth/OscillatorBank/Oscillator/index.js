@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Select from 'react-select';
+import Select from '../../../Select';
 import Container from '../../../Container';
 import RangeControl from '../../../RangeControl';
 import WaveShapeSelector from '../../../WaveShapeSelector';
@@ -11,12 +11,12 @@ const Oscillator = ({oscillator, remove, setValue}) => {
     <Container active close={() => remove(oscillator.id)}>
       <div className={styles.colContainer}>
         <div>
-          <h3>Octave</h3>
           <Select
             labelKey="name"
             onChange={e => setValue(oscillator.id, e.id, 'octave')}
             options={octaves}
             searchable={false}
+            title="Octave"
             value={oscillator.octave}
             valueKey="id" />
         </div>

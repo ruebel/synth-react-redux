@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Select from 'react-select';
+import Select from '../Select';
 import {connect} from 'react-redux';
 import {setDevice} from '../../actions/input';
 import Container from '../Container';

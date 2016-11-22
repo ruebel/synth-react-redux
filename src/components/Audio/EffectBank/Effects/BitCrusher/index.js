@@ -1,12 +1,15 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
+import Select from '../../../../Select';
 
 export const defaultSettings = {
   bits: 4,
   normfreq: 0.2,
   title: 'Bit Crusher'
 };
+
+const depths = [1, 2, 4, 8, 16].map(v => ({id: v, name: v}));
 
 class BitCrusher extends React.Component {
   constructor(props) {
@@ -70,15 +73,17 @@ class BitCrusher extends React.Component {
   render() {
     return (
       <div>
-        <span> Bit Depth</span>
-        <select value={this.props.settings.bits}
-                onChange={e => this.props.handleSettingsChange('bits', e)}>
-          <option key="0" value="1">1</option>
-          <option key="1" value="2">2</option>
-          <option key="2" value="4">4</option>
-          <option key="3" value="8">8</option>
-          <option key="4" value="16">16</option>
-        </select>
+        <Select
+          labelKey="name"
+          name="bitDepthSelect"
+          onChange={e => this.props.handleSettingsChange('bits', e)}
+          options={depths}
+          placeholder="Select Bit Depth..."
+          searchable={false}
+          title="Bit Depth"
+          value={this.props.settings.bits}
+          valueKey="id"
+        />
         <RangeControl title="Rate"
                       min={0}
                       max={1}
