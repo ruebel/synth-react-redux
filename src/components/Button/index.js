@@ -9,7 +9,7 @@ const Button = ({active, click, type, text}) => {
   });
   return (
     <button className={style} onClick={() => click()} disabled={!active}>
-      {text || 'Click Me!'}
+      <div>{text || 'Click Me!'}</div>
     </button>
   );
 };

@@ -1,10 +1,10 @@
 /* eslint-env node */
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var webpack = require('webpack');
+import path from 'path';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-var indexHTMLBuilder = new HtmlWebpackPlugin({
-    template: 'index.ejs',
+let indexHTMLBuilder = new HtmlWebpackPlugin({
+    template: 'src/index.ejs',
     title: 'Synth-React-Redux',
     minify: {
       removeComments: true,
@@ -19,14 +19,19 @@ const PATHS = {
   build: path.join(__dirname, 'build')
 };
 
-var env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')});
+const env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')});
 
-module.exports = {
-  context: PATHS.src,
-  entry: 'index.js',
+export default {
+  debug: true,
+  devtool: 'source-map',
+  // context: PATHS.src,
+  entry: [
+    'webpack-hot-middleware/client?reload=true',
+    './src/index.js'
+  ],
 
   output: {
-    publicPath: 'http://localhost:8080/',
+    publicPath: 'http://localhost:3000/',
     path: PATHS.build,
     filename: 'bundle.js'
   },
@@ -49,10 +54,7 @@ module.exports = {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015']
-        }
+        loaders: ['babel'],
       },
       {
         test: /\.css$/,
@@ -102,11 +104,5 @@ module.exports = {
     new webpack.ProvidePlugin({
       'regeneratorRuntime': 'regenerator-runtime/runtime'
     })
-  ],
-
-  devServer: {
-    historyApiFallback: true,
-    inline: true,
-    contentBase: path.resolve('./build')
-  }
+  ]
 };

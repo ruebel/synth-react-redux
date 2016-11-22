@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../../actions/audio';
 import Effects from './Effects';
+const styles = require('./styles.css');
 
 const EffectBank = ({context, effects, inputGain, outputGain, addEffect, removeEffect, reorderEffects, setEffectSettings}) => {
   let units = effects.map((e, i) => {
@@ -35,7 +36,9 @@ const EffectBank = ({context, effects, inputGain, outputGain, addEffect, removeE
       <button onClick={() => addEffect('MoogFilter')}>Add Moog Filter</button>
       <button onClick={() => addEffect('Reverb')}>Add Reverb</button>
       <button onClick={() => addEffect('Tremolo')}>Add Tremolo</button>
-      {units}
+      <div className={styles.bank}>
+        {units}
+      </div>
     </div>
   );
 };

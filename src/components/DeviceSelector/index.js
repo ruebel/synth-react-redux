@@ -19,7 +19,7 @@ class DeviceSelector extends React.Component {
   render() {
     const options = [{id: -1, name: 'None'}, ...this.props.devices];
     return (
-      <Container active={this.props.selectedDevice.id} title="Input">
+      <Container active={Boolean(this.props.selectedDevice.id)} title="Input">
         <Select
           labelKey="name"
           name="inputSelect"

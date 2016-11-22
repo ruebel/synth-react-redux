@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import App from './components/App';
 import actions from './actions';
-// import initialState from './store/initialState';
 
 const store = configureStore();
 store.dispatch(actions.input.getInputDevices());

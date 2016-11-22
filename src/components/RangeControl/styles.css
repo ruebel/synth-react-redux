@@ -24,6 +24,7 @@ $handleSize: 30px;
   border-radius: 50%;
   height: $handleSize;
   margin-top: -calc($handleSize/2);
+  z-index: 0 !important;
 
   & :hover, & :active {
     background: $control-color-info;

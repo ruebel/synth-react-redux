@@ -8,7 +8,7 @@
   cursor: pointer;
   font-size: 1.2em;
   margin: 0;
-  transition: background-color 100ms ease-in;
+  transition: background-color 150ms ease-in;
 
   &:hover {
     background-color: color($control-color-info b(10%));
@@ -29,7 +29,7 @@
   font-size: 1.2em;
   padding: 0 10px;
   margin: 0;
-  transition: color, background-color 100ms ease-in;
+  transition: color 150ms ease-in, background-color 150ms ease-in;
 
   &:hover {
     color: $control-color-info;
@@ -54,11 +54,15 @@ $buttonSize: 38px;
   border: none;
   padding: 0;
   cursor: pointer;
-  font-size: 1.8em;
   margin: 0 5px;
   display: inline-block;
   text-align: center;
-  transition: transform 100ms ease-in, background-color 100ms ease-in;
+  transition: transform 150ms ease-in, background-color 150ms ease-in;
+
+  & > div {
+    font-size: 1.8em;
+    margin-top: -5px;
+  }
 
   &:hover {
     background-color: color($control-color-info b(10%));

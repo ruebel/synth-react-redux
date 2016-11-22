@@ -8,7 +8,7 @@ import WaveShapeSelector from '../../WaveShapeSelector';
 const Modulation = ({modulation, setModulationDepth, setModulationSpeed, setModulationOn, setModulationShape}) => {
   return (
     <Container active={modulation.on} activeChange={setModulationOn} title="Modulation">
-      <WaveShapeSelector value={modulation.waveShape} change={setModulationShape} />
+      <WaveShapeSelector value={modulation.shape} change={setModulationShape} />
       <RangeControl title="Depth"
                     value={modulation.depth}
                     onSet={setModulationDepth}

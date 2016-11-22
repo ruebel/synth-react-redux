@@ -1,0 +1,12 @@
+.bank {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: middle;
+  flex-wrap: wrap;
+
+  & > div {
+    margin-left: 5px;
+    width: 49%;
+  }
+}

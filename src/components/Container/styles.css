@@ -6,6 +6,7 @@
   border: 2px $core-border-color solid;
   background: $core-gray-extra-light;
   width: 50%;
+  transition: background 200ms ease-in;
 }
 
 .container.active {

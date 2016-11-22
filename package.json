@@ -4,7 +4,18 @@
   "description": "Synthesizer using React and Redux",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server -d"
+    "prestart": "npm-run-all --parallel start-message remove-dist",
+    "start": "npm-run-all --parallel open:src lint:watch",
+    "open:src": "babel-node ./tools/srcServer",
+    "open:dist": "babel-node tools/distServer.js",
+    "lint": "esw -f simple-detail --color src tools",
+    "lint:watch": "npm run lint -- --watch",
+    "clean-dist": "npm run remove-dist && mkdir dist",
+    "remove-dist": "rimraf ./dist",
+    "prebuild": "npm run clean-dist && npm run lint",
+    "build": "babel-node tools/build.js && npm run open:dist",
+    "build-simple": "babel-node tools/build.js",
+    "start-message": "babel-node ./tools/startMessage"
   },
   "repository": {
     "type": "git",
@@ -45,6 +56,7 @@
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-2": "6.18.0",
     "babel-register": "6.14.0",
+    "browser-sync": "2.18.2",
     "connect-history-api-fallback": "1.3.0",
     "css-loader": "0.25.0",
     "eslint": "3.5.0",
