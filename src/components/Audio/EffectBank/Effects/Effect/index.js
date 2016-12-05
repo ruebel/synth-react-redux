@@ -116,12 +116,12 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
           <WrappedComponent {...this.props}
                             handleSettingsChange={this.handleSettingsChange}
                             wire={this.wire}/>
-          { effectLevelMode !== 'none' && <RangeControl title="Effect Level"
+          {effectLevelMode !== 'none' ? (<RangeControl title="Effect Level"
                         min={0}
                         max={1}
                         onSet={e => this.handleSettingsChange('effectLevel', e)}
                         value={this.props.settings.effectLevel || 1}
-                        /> }
+                      />) : null}
         </Container>
       );
     }
