@@ -82,7 +82,13 @@ function getDevices() {
         return devices;
       });
   } else {
-    throw 'No Web MIDI support detected!';
+    // throw 'No Web MIDI support detected!';
+    let devices = [{
+      id: '0',
+      device: 'KEYBOARD',
+      name: 'Computer Keyboard'
+    }];
+    return (new Promise(resolve => resolve(devices)));
   }
 }
 /**

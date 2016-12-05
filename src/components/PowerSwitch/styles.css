@@ -32,3 +32,23 @@ $transTime: 200ms;
     transition: transform $transTime ease-in;
   }
 }
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  & > h3 {
+    margin-right: 30px;
+    color: $body-font-light-color;
+    transition: color $transTime ease-in;
+  }
+}
+
+.wrapper.on {
+  & > h3 {
+    color: $body-font-color;
+    transition: color $transTime ease-in;
+  }
+}

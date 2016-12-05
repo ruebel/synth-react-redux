@@ -40,7 +40,7 @@ function bend(state = initialState.synth.bend, action) {
 function ignoreVelocity(state = initialState.synth.ignoreVelocity, action) {
   switch(action.type) {
     case 'SET_IGNORE_VELOCITY':
-      return action.payload;
+      return action.payload === null || action.payload === undefined ? !state : action.payload;
     default:
       return state;
   }
