@@ -4,12 +4,23 @@ import RangeControl from '../../../../RangeControl';
 import Select from '../../../../Select';
 
 export const defaultSettings = {
-  bits: 4,
-  normfreq: 0.2,
+  bits: {
+    options: [1, 2, 4, 8, 16].map(v => ({id: v, name: v})),
+    value: 4
+  },
+  color: '#539dc2',
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
+  normfreq: {
+    min: 0,
+    max: 1,
+    value: 0.2
+  },
   title: 'Bit Crusher'
 };
-
-const depths = [1, 2, 4, 8, 16].map(v => ({id: v, name: v}));
 
 class BitCrusher extends React.Component {
   constructor(props) {
@@ -30,12 +41,12 @@ class BitCrusher extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.bits !== prev.settings.bits) {
-      let bits = parseInt(next.settings.bits, 10);
+    if (!prev || next.settings.bits.value !== prev.settings.bits.value) {
+      let bits = parseInt(next.settings.bits.value, 10);
       this.effect.bits = bits;
     }
-    if (!prev || next.settings.normfreq !== prev.settings.normfreq) {
-      this.effect.normfreq = next.settings.normfreq;
+    if (!prev || next.settings.normfreq.value !== prev.settings.normfreq.value) {
+      this.effect.normfreq = next.settings.normfreq.value;
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -44,9 +55,9 @@ class BitCrusher extends React.Component {
     const bufferSize = 1024;
     let node = context.createScriptProcessor(bufferSize, 1, 1);
     // between 1 and 16
-    node.bits = defaultSettings.bits;
+    node.bits = defaultSettings.bits.value;
     // between 0.0 and 1.0
-    node.normfreq = defaultSettings.normfreq;
+    node.normfreq = defaultSettings.normfreq.value;
     let step = Math.pow(1 / 2, node.bits);
     let phaser = 0;
     let last = 0;
@@ -77,18 +88,18 @@ class BitCrusher extends React.Component {
           labelKey="name"
           name="bitDepthSelect"
           onChange={e => this.props.handleSettingsChange('bits', e)}
-          options={depths}
+          options={defaultSettings.bits.options}
           placeholder="Select Bit Depth..."
           searchable={false}
           title="Bit Depth"
-          value={this.props.settings.bits}
+          value={this.props.settings.bits.value}
           valueKey="id"
         />
         <RangeControl title="Rate"
-                      min={0}
-                      max={1}
+                      min={defaultSettings.normfreq.min}
+                      max={defaultSettings.normfreq.max}
                       onSet={e => this.props.handleSettingsChange('normfreq', e)}
-                      value={this.props.settings.normfreq}
+                      value={this.props.settings.normfreq.value}
                       />
       </div>
     );

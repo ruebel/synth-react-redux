@@ -1,7 +1,9 @@
 /* Colors */
-/* Brand colors */
+/* Primay colors */
 $body-bg: #fff;
 $core-light-color: #fff;
+$brand-primary: #4682b4;
+$brand-secondary: #42647f;
 /* Grayscale */
 $core-gray-extra-light: #f9f9f9;
 $core-gray-light: #f1f1f1;

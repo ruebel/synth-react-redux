@@ -25,9 +25,10 @@ $handleSize: 30px;
   height: $handleSize;
   margin-top: -calc($handleSize/2);
   z-index: 0 !important;
+  transition: transform 0.2s ease-in, background 0.2s ease-in;
 
   & :hover, & :active {
-    background: $control-color-info;
+    background: $brand-primary;
     border-radius: 50%;
     transform: scaleX(1.2) scaleY(1.2);
     transition: transform 0.2s ease-in, background 0.2s ease-in;

@@ -4,9 +4,22 @@ import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
 
 export const defaultSettings = {
-  effectLevel: 1,
-  feedback: 1,
-  time: 0.2,
+  color: '#3299cc',
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
+  feedback: {
+    min: 0,
+    max: 2,
+    value: 1
+  },
+  time: {
+    min: 0.01,
+    max: 2,
+    value: 0.2
+  },
   title: 'Delay'
 };
 
@@ -67,16 +80,16 @@ class Delay extends React.Component {
     return (
       <div>
         <RangeControl title="Time"
-                      min={0.01}
-                      max={2}
+                      min={defaultSettings.time.min}
+                      max={defaultSettings.time.max}
                       onSet={e => this.props.handleSettingsChange('time', e)}
-                      value={this.props.settings.time || 0.2}
+                      value={this.props.settings.time.value}
                       />
         <RangeControl title="Feedback"
-                      min={0}
-                      max={2}
+                      min={defaultSettings.feedback.min}
+                      max={defaultSettings.feedback.max}
                       onSet={e => this.props.handleSettingsChange('feedback', e)}
-                      value={this.props.settings.feedback || 0}
+                      value={this.props.settings.feedback.value}
                       />
       </div>
     );
@@ -91,5 +104,6 @@ Delay.propTypes = {
   output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
+
 
 export default Effect(Delay, 'wet');

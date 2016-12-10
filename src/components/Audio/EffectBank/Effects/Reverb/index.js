@@ -4,6 +4,7 @@ import Select from '../../../../Select';
 import irs from './IRs';
 
 export const defaultSettings = {
+  color: '#0198e1',
   effectLevel: 1,
   // This will be set after the component loads since it needs to
   // download the ir

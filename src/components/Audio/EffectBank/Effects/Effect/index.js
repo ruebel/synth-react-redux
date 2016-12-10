@@ -47,8 +47,10 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     }
 
     handleSettingsChange(property, e) {
-      let settings = Object.assign({}, this.props.settings, {
-        [property]: (e.target ? e.target.value : e)
+      const settings = Object.assign({}, this.props.settings, {
+        [property]: Object.assign({}, this.props.settings[property], {
+          value: e.target ? e.target.value : e
+        })
       });
       this.props.changeSettings(settings, property);
     }
@@ -120,7 +122,7 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
                         min={0}
                         max={1}
                         onSet={e => this.handleSettingsChange('effectLevel', e)}
-                        value={this.props.settings.effectLevel || 1}
+                        value={this.props.settings.effectLevel.value}
                       />) : null}
         </Container>
       );

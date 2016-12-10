@@ -3,11 +3,27 @@ import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 
 export const defaultSettings = {
-  attack: 0,
-  knee: 40,
-  ratio: 12,
-  release: 0.25,
-  threshold: -50,
+  attack: {
+    value: 0
+  },
+  color: '#236b8e',
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
+  knee: {
+    value: 40
+  },
+  ratio: {
+    value: 12
+  },
+  release: {
+    value: 0.25
+  },
+  threshold: {
+    value: -50
+  },
   title: 'Compression'
 };
 
@@ -48,7 +64,16 @@ class Compression extends React.Component {
   setupAudio() {
     // Create waveshaper node
     this.effect = this.props.context.createDynamicsCompressor();
-    this.applySettings(this.props);
+    const defaultProps = Object.assign({}, this.props, {
+      settings: Object.assign({}, this.props.settings, {
+        attack: defaultSettings.attack.value,
+        knee: defaultSettings.knee.value,
+        ratio: defaultSettings.ratio.value,
+        release: defaultSettings.release.value,
+        threshold: defaultSettings.threshold.value
+      })
+    });
+    this.applySettings(defaultProps);
   }
 
   render() {

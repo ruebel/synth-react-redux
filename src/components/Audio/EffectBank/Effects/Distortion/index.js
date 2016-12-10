@@ -5,6 +5,7 @@ import Select from '../../../../Select';
 
 export const defaultSettings = {
   amount: 0,
+  color: '#82cffd',
   effectLevel: 1,
   oversample: '4x',
   title: 'Distortion'

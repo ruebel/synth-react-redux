@@ -4,6 +4,7 @@ import RangeControl from '../../../../RangeControl';
 import WaveShapeSelector from '../../../../WaveShapeSelector';
 
 export const defaultSettings = {
+  color: '#517693',
   depth: 5,
   effectLevel: 1,
   speed: 5,

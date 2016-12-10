@@ -5,6 +5,7 @@ import Select from '../../../../Select';
 import {filterTypes} from '../../../../../utils/audio';
 
 export const defaultSettings = {
+  color: '#517693',
   effectLevel: 1,
   filterType: 'lowshelf',
   frequency: 100,

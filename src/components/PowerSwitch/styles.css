@@ -11,6 +11,13 @@ $transTime: 200ms;
   height: $size;
   transition: background $transTime ease-in;
   display: inline-block;
+  cursor: pointer;
+
+  &:hover {
+    & > div {
+      background: color($brand-primary l(90%));
+    }
+  }
 
   & > div {
     border-radius: 50%;
@@ -20,7 +27,7 @@ $transTime: 200ms;
     height: $size;
     margin-top: -$borderSize;
     margin-left: -$borderSize;
-    transition: transform $transTime ease-in;
+    transition: background $transTime ease-in-out, transform $transTime ease-in-out;
   }
 }
 

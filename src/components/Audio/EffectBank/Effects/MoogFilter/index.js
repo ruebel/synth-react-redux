@@ -3,6 +3,7 @@ import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 
 export const defaultSettings = {
+  color: '#325c74',
   cutoff:  0.065,
   resonance: 3.99,
   title: 'Resonance Filter'

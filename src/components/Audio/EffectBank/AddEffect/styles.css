@@ -3,9 +3,10 @@
 .wrapper {
   display: flex;
   flex-direction: row;
+  align-items: center;
 
   & > button {
-    margin-right: 10px;
+    margin: 5px 10px 5px 0;;
   }
 }
 
