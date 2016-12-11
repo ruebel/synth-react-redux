@@ -24,17 +24,17 @@ export const addEffect = (effect) => (dispatch, getState) => {
 
 export const getImpulseResponse = (settings) => async(dispatch, getState) => {
   // Make sure we received a url to fetch
-  if (!settings.irUrl) {
+  if (!settings.irUrl.value) {
     // No url so just clear the IR
     settings.irBuffer = null;
-    settings.irUrl = null;
+    settings.irUrl.value = null;
     settings.effectLevel = 0;
     dispatch(setEffectSettings(settings));
   } else {
     // Received url so we will have to fetch
     const state = getState();
     // Get the IR file from the server
-    const response = await fetch(settings.irUrl);
+    const response = await fetch(settings.irUrl.value);
     const audioData = await response.arrayBuffer();
     state.audio.context.decodeAudioData(audioData, (buffer) => {
       let source = state.audio.context.createBufferSource();

@@ -1,4 +1,4 @@
-import input from '../utils/input';
+import * as input from '../utils/input';
 
 const gotInputDevices = (devices) => {
   return {

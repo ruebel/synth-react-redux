@@ -3,8 +3,7 @@ import Container from '../../../../Container';
 import Mover from './Mover';
 import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
-// const styles = require('./styles.css');
-
+import {checkPropChange} from '../../../../../utils/effect';
 /**
  * Effect
  *
@@ -32,15 +31,15 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     }
 
     applySettings(next, prev) {
-      if (!prev || prev.settings.effectLevel !== next.settings.effectLevel) {
+      if (checkPropChange(prev, next, 'effectLevel')) {
         switch(effectLevelMode) {
           case 'blend':
             // Cross Fade using equal power curve
-            this.bypassGain.gain.value = equalPower(next.settings.effectLevel, true);
-            this.effectGain.gain.value = equalPower(next.settings.effectLevel);
+            this.bypassGain.gain.value = equalPower(next.settings.effectLevel.value, true);
+            this.effectGain.gain.value = equalPower(next.settings.effectLevel.value);
             break;
           case 'wet':
-            this.effectGain.gain.value = equalPower(next.settings.effectLevel);
+            this.effectGain.gain.value = equalPower(next.settings.effectLevel.value);
             break;
         }
       }

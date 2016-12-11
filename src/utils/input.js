@@ -26,24 +26,19 @@ const keyMap = {
   72: startNote++,
   // U (Bb)
   85: startNote++,
-  // J (C)
+  // J (B)
   74: startNote++
-};
-const service = {
-  deactivateDevice,
-  getDevices,
-  setDevice
 };
 /**
  * Convert MIDI Velocity (0-127) to Web Audio Gain (0-1)
  */
-function convertVelocity(velocity) {
+const convertVelocity = (velocity) => {
   return (velocity / 127).toFixed(2);
-}
+};
 /**
  * Stop listening for device inputs
  */
-function deactivateDevice(device) {
+export const deactivateDevice = (device) => {
   if (!device) {
     return;
   }
@@ -56,11 +51,11 @@ function deactivateDevice(device) {
       document.removeEventListener('keyup', keyUpConnected);
       break;
   }
-}
+};
 /**
  * Get Midi Devices
  */
-function getDevices() {
+export const getDevices = () => {
   // Look for Web MIDI API Support
   if (window.navigator && 'function' === typeof window.navigator.requestMIDIAccess) {
     return window.navigator.requestMIDIAccess()
@@ -90,7 +85,7 @@ function getDevices() {
     }];
     return (new Promise(resolve => resolve(devices)));
   }
-}
+};
 /**
  * Handle Computer Keyboard key down
  */
@@ -168,7 +163,7 @@ const handleMidiMessage = (dispatch) => (e) => {
 /**
  * Set input device
  */
-function setDevice(device, dispatch) {
+export const setDevice = (device, dispatch) => {
   if (!device) {
     return;
   }
@@ -184,6 +179,4 @@ function setDevice(device, dispatch) {
       document.addEventListener('keyup', keyUpConnected);
       break;
   }
-}
-
-export default service;
+};

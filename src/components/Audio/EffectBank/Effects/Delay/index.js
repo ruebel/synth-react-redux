@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   color: '#3299cc',
@@ -42,14 +43,14 @@ class Delay extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.feedback !== prev.settings.feedback) {
+    if (checkPropChange(prev, next, 'feedback')) {
       this.effect.forEach((repeat, i) => {
         // Apply equal power fading of delays based on feedback amount
         const level = Math.max(0, Math.min(1, (i - (next.settings.feedback || 0)) / this.effect.length + 0.8));
         repeat.gain.gain.value = equalPower(level, true);
       });
     }
-    if (!prev || next.settings.time !== prev.settings.time) {
+    if (checkPropChange(prev, next, 'time')) {
       this.effect.forEach((repeat, i) => {
         repeat.delay.delayTime.value = (next.settings.time || 0.2) * (i + 1);
       });

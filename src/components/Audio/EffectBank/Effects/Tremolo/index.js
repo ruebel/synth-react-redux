@@ -2,14 +2,29 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 import WaveShapeSelector from '../../../../WaveShapeSelector';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   color: '#517693',
-  depth: 5,
-  effectLevel: 1,
-  speed: 5,
+  depth: {
+    min: 0,
+    max: 1,
+    value: 5
+  },
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
+  speed: {
+    min: 1,
+    max: 25,
+    value: 5
+  },
   title: 'Tremolo',
-  waveShape: 'sine'
+  waveShape: {
+    value: 'sine'
+  }
 };
 
 class Tremolo extends React.Component {
@@ -31,14 +46,14 @@ class Tremolo extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.waveShape !== prev.settings.waveShape) {
-      this.tremolo.type = next.settings.waveShape;
+    if (checkPropChange(prev, next, 'waveShape')) {
+      this.tremolo.type = next.settings.waveShape.value;
     }
-    if (!prev || next.settings.depth !== prev.settings.depth) {
-      this.depthGain.gain.value = next.settings.depth;
+    if (checkPropChange(prev, next, 'depth')) {
+      this.depthGain.gain.value = next.settings.depth.value;
     }
-    if (!prev || next.settings.speed !== prev.settings.speed) {
-      this.tremolo.frequency.value = next.settings.speed;
+    if (checkPropChange(prev, next, 'speed')) {
+      this.tremolo.frequency.value = next.settings.speed.value;
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -58,18 +73,18 @@ class Tremolo extends React.Component {
   render() {
     return (
       <div>
-        <WaveShapeSelector value={this.props.settings.waveShape}
+        <WaveShapeSelector value={this.props.settings.waveShape.value}
                            change={e => this.props.handleSettingsChange('waveShape', e)} />
         <RangeControl title="Depth"
-                      value={this.props.settings.depth}
+                      value={this.props.settings.depth.value}
                       onSet={e => this.props.handleSettingsChange('depth', e)}
-                      min={0}
-                      max={1}/>
+                      min={defaultSettings.depth.min}
+                      max={defaultSettings.depth.max}/>
         <RangeControl title="Speed"
-                      value={this.props.settings.speed}
+                      value={this.props.settings.speed.value}
                       onSet={e => this.props.handleSettingsChange('speed', e)}
-                      min={1}
-                      max={25}/>
+                      min={defaultSettings.speed.min}
+                      max={defaultSettings.speed.max}/>
       </div>
     );
   }

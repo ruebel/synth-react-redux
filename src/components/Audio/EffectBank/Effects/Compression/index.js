@@ -1,9 +1,12 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   attack: {
+    min: 0,
+    max: 1,
     value: 0
   },
   color: '#236b8e',
@@ -13,15 +16,23 @@ export const defaultSettings = {
     value: 1
   },
   knee: {
+    min: 0,
+    max: 40,
     value: 40
   },
   ratio: {
+    min: 0,
+    max: 20,
     value: 12
   },
   release: {
+    min: 0,
+    max: 1,
     value: 0.25
   },
   threshold: {
+    min: -100,
+    max: 0,
     value: -50
   },
   title: 'Compression'
@@ -43,20 +54,20 @@ class Compression extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.threshold !== prev.settings.threshold) {
-      this.effect.threshold.value = next.settings.threshold;
+    if (checkPropChange(prev, next, 'threshold')) {
+      this.effect.threshold.value = next.settings.threshold.value;
     }
-    if (!prev || next.settings.knee !== prev.settings.knee) {
-      this.effect.knee.value = next.settings.knee;
+    if (checkPropChange(prev, next, 'knee')) {
+      this.effect.knee.value = next.settings.knee.value;
     }
-    if (!prev || next.settings.ratio !== prev.settings.ratio) {
-      this.effect.ratio.value = next.settings.ratio;
+    if (checkPropChange(prev, next, 'ratio')) {
+      this.effect.ratio.value = next.settings.ratio.value;
     }
-    if (!prev || next.settings.attack !== prev.settings.attack) {
-      this.effect.attack.value = next.settings.attack;
+    if (checkPropChange(prev, next, 'attack')) {
+      this.effect.attack.value = next.settings.attack.value;
     }
-    if (!prev || next.settings.release !== prev.settings.release) {
-      this.effect.release.value = next.settings.release;
+    if (checkPropChange(prev, next, 'release')) {
+      this.effect.release.value = next.settings.release.value;
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -64,55 +75,46 @@ class Compression extends React.Component {
   setupAudio() {
     // Create waveshaper node
     this.effect = this.props.context.createDynamicsCompressor();
-    const defaultProps = Object.assign({}, this.props, {
-      settings: Object.assign({}, this.props.settings, {
-        attack: defaultSettings.attack.value,
-        knee: defaultSettings.knee.value,
-        ratio: defaultSettings.ratio.value,
-        release: defaultSettings.release.value,
-        threshold: defaultSettings.threshold.value
-      })
-    });
-    this.applySettings(defaultProps);
+    this.applySettings(this.props);
   }
 
   render() {
     return (
       <div>
         <RangeControl title="Threshold"
-                      min={this.effect.threshold.minValue}
-                      max={this.effect.threshold.maxValue}
+                      min={defaultSettings.threshold.min}
+                      max={defaultSettings.threshold.max}
                       step={1}
                       onSet={e => this.props.handleSettingsChange('threshold', e)}
-                      value={this.props.settings.threshold}
+                      value={this.props.settings.threshold.value}
                       />
         <RangeControl title="Knee"
-                      min={this.effect.knee.minValue}
-                      max={this.effect.knee.maxValue}
+                      min={defaultSettings.knee.min}
+                      max={defaultSettings.knee.max}
                       step={1}
                       onSet={e => this.props.handleSettingsChange('knee', e)}
-                      value={this.props.settings.knee}
+                      value={this.props.settings.knee.value}
                       />
         <RangeControl title="Ratio"
-                      min={this.effect.ratio.minValue}
-                      max={this.effect.ratio.maxValue}
+                      min={defaultSettings.ratio.min}
+                      max={defaultSettings.ratio.max}
                       step={1}
                       onSet={e => this.props.handleSettingsChange('ratio', e)}
-                      value={this.props.settings.ratio}
+                      value={this.props.settings.ratio.value}
                       />
         <RangeControl title="Attack"
-                      min={this.effect.attack.minValue}
-                      max={this.effect.attack.maxValue}
+                      min={defaultSettings.attack.min}
+                      max={defaultSettings.attack.max}
                       step={0.01}
                       onSet={e => this.props.handleSettingsChange('attack', e)}
-                      value={this.props.settings.attack}
+                      value={this.props.settings.attack.value}
                       />
         <RangeControl title="Release"
-                      min={this.effect.release.minValue}
-                      max={this.effect.release.maxValue}
+                      min={defaultSettings.release.min}
+                      max={defaultSettings.release.max}
                       step={0.01}
                       onSet={e => this.props.handleSettingsChange('release', e)}
-                      value={this.props.settings.release}
+                      value={this.props.settings.release.value}
                       />
       </div>
     );

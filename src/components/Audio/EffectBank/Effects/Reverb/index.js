@@ -2,17 +2,23 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import Select from '../../../../Select';
 import irs from './IRs';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   color: '#0198e1',
-  effectLevel: 1,
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
   // This will be set after the component loads since it needs to
   // download the ir
-  irUrl: '',
+  irUrl: {
+    options: Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name})),
+    value: ''
+  },
   title: 'Reverb'
 };
-
-const irOptions = Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name}));
 
 class Reverb extends React.Component {
   constructor(props) {
@@ -33,7 +39,7 @@ class Reverb extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.irUrl !== prev.settings.irUrl) {
+    if (checkPropChange(prev, next, 'irUrl')) {
       if (next.settings.irBuffer) {
         this.effect.buffer = next.settings.irBuffer;
       } else {
@@ -59,11 +65,11 @@ class Reverb extends React.Component {
           labelKey="name"
           name="irSelect"
           onChange={e => this.props.handleSettingsChange('irUrl', e.id)}
-          options={irOptions}
+          options={defaultSettings.irUrl.options}
           placeholder="Select Impulse Response..."
           searchable={false}
           title="Impulse Response"
-          value={this.props.settings.irUrl}
+          value={this.props.settings.irUrl.value}
           valueKey="id"
         />
       </div>

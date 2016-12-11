@@ -1,11 +1,25 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   color: '#325c74',
-  cutoff:  0.065,
-  resonance: 3.99,
+  cutoff:  {
+    min: 0,
+    max: 1,
+    value: 0.065
+  },
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
+  resonance: {
+    min: 0,
+    max: 4,
+    value: 3.99
+  },
   title: 'Resonance Filter'
 };
 
@@ -28,11 +42,11 @@ class MoogFilter extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.cutoff !== prev.settings.cutoff) {
-      this.effect.cutoff = next.settings.cutoff;
+    if (checkPropChange(prev, next, 'cutoff')) {
+      this.effect.cutoff = next.settings.cutoff.value;
     }
-    if (!prev || next.settings.resonance !== prev.settings.resonance) {
-      this.effect.resonance = next.settings.resonance;
+    if (checkPropChange(prev, next, 'resonance')) {
+      this.effect.resonance = next.settings.resonance.value;
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -81,16 +95,16 @@ class MoogFilter extends React.Component {
     return (
       <div>
         <RangeControl title="Cutoff"
-                      min={0}
-                      max={1}
+                      min={defaultSettings.cutoff.min}
+                      max={defaultSettings.cutoff.max}
                       onSet={e => this.props.handleSettingsChange('cutoff', e)}
-                      value={this.props.settings.cutoff}
+                      value={this.props.settings.cutoff.value}
                       />
         <RangeControl title="Resonance"
-                      min={0}
-                      max={4}
+                      min={defaultSettings.resonance.min}
+                      max={defaultSettings.resonance.max}
                       onSet={e => this.props.handleSettingsChange('resonance', e)}
-                      value={this.props.settings.resonance}
+                      value={this.props.settings.resonance.value}
                       />
       </div>
     );

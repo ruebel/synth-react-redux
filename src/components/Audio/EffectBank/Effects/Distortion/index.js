@@ -2,16 +2,26 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 import Select from '../../../../Select';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
-  amount: 0,
+  amount: {
+    min: 0,
+    max: 100,
+    value: 20
+  },
   color: '#82cffd',
-  effectLevel: 1,
-  oversample: '4x',
+  effectLevel: {
+    min: 0,
+    max: 1,
+    value: 1
+  },
+  oversample: {
+    options: [{id: 'none', name: 'None'}, {id: '2x', name: '2x'}, {id: '4x', name: '4x'}],
+    value: '4x'
+  },
   title: 'Distortion'
 };
-
-const oversamples = [{id: 'none', name: 'None'}, {id: '2x', name: '2x'}, {id: '4x', name: '4x'}];
 
 class Distortion extends React.Component {
   constructor(props) {
@@ -33,14 +43,14 @@ class Distortion extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.amount !== prev.settings.amount) {
+    if (checkPropChange(prev, next, 'amount')) {
+      const val = parseInt(next.settings.amount.value, 10);
       // Make curve to apply distortion
-      let val = parseInt(next.settings.amount, 10);
       this.effect.curve = this.makeDistortionCurve(val);
     }
-    if (!prev || next.settings.oversample !== prev.settings.oversample) {
+    if (checkPropChange(prev, next, 'oversample')) {
       // Enumerated value (none, 2x, 4x)
-      this.effect.oversample = next.settings.oversample || defaultSettings.oversample;
+      this.effect.oversample = next.settings.oversample.value;
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -70,18 +80,19 @@ class Distortion extends React.Component {
           labelKey="name"
           name="oversampleSelect"
           onChange={e => this.props.handleSettingsChange('oversample', e.id)}
-          options={oversamples}
+          options={defaultSettings.oversample.options}
           placeholder="Select Oversampling..."
           searchable={false}
           title="Oversampling"
-          value={this.props.settings.oversample}
+          value={this.props.settings.oversample.value}
           valueKey="id"
         />
         <RangeControl title="Amount"
-                      max={100}
-                      onSet={e => this.props.handleSettingsChange('amount', e)}
-                      value={this.props.settings.amount}
-                      />
+          min={defaultSettings.amount.min}
+          max={defaultSettings.amount.max}
+          onSet={e => this.props.handleSettingsChange('amount', e)}
+          value={this.props.settings.amount.value}
+          />
       </div>
     );
   }

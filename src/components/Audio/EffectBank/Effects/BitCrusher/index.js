@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import RangeControl from '../../../../RangeControl';
 import Select from '../../../../Select';
+import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   bits: {
@@ -41,11 +42,11 @@ class BitCrusher extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev || next.settings.bits.value !== prev.settings.bits.value) {
+    if (checkPropChange(prev, next, 'bits')) {
       let bits = parseInt(next.settings.bits.value, 10);
       this.effect.bits = bits;
     }
-    if (!prev || next.settings.normfreq.value !== prev.settings.normfreq.value) {
+    if (checkPropChange(prev, next, 'normfreq')) {
       this.effect.normfreq = next.settings.normfreq.value;
     }
     this.props.wire(next, prev, this.effect);
