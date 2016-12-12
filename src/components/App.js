@@ -3,6 +3,7 @@ import Audio from './Audio';
 import DeviceSelector from './DeviceSelector';
 import Keyboard from './Keyboard';
 import Synth from './Synth';
+import AssignControl from './AssignControl';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Synth />
       <Keyboard />
       <Audio />
+      <AssignControl />
     </div>
   );
 };

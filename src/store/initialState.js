@@ -25,6 +25,11 @@ export default {
     effects: [],
     keys: generateKeys()
   },
+  control: {
+    assign: null,
+    controls: {},
+    last: null
+  },
   input: {
     devices: [],
     selectedDevice: {}

@@ -2,13 +2,6 @@ import { combineReducers } from 'redux';
 import initialState from '../store/initialState';
 import gain from './gain';
 
-const audio = combineReducers({
-  context,
-  effects,
-  gain,
-  keys
-});
-
 function context(state = initialState.audio.context, action) {
   switch(action.type) {
     case 'SETUP_AUDIO':
@@ -63,4 +56,9 @@ function keys(state = initialState.audio.keys, action) {
   }
 }
 
-export default audio;
+export default combineReducers({
+  context,
+  effects,
+  gain,
+  keys
+});

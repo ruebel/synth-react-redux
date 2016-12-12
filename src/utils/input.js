@@ -1,4 +1,5 @@
 import {keyDown, keyUp} from '../actions/audio';
+import {setControl} from '../actions/control';
 import {setPitchBend, setSustain} from '../actions/synth';
 let keyUpConnected;
 let keyDownConnected;
@@ -129,16 +130,12 @@ const handleMidiMessage = (dispatch) => (e) => {
       dispatch(keyUp(e.data[1]));
       break;
     // Trigger Bank
-    case 153:
-      // 36 - 49
-      break;
+    // case 153:
+    //   // 36 - 49
+    //   break;
     // Control
     case 176:
       switch(e.data[1]) {
-        // Modulation
-        case 1:
-
-          break;
         // Sustain Pedal
         case 64:
           if (e.data[2] == 0) {
@@ -149,6 +146,9 @@ const handleMidiMessage = (dispatch) => (e) => {
             dispatch(setSustain(true));
           }
           break;
+        default:
+          dispatch(setControl(e.data));
+          break;
       }
       break;
     // Pitch Bend
@@ -157,6 +157,9 @@ const handleMidiMessage = (dispatch) => (e) => {
       // 64 = no detune
       // 127 = max positive
       dispatch(setPitchBend(e.data[2] - 64));
+      break;
+    default:
+      // dispatch(setControl(e.data));
       break;
   }
 };
