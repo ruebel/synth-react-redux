@@ -1,0 +1,13 @@
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 50px;
+}
+
+.wrapper {
+  & > h2 {
+    text-align: center;
+  }
+}

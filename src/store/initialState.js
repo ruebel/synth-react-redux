@@ -26,7 +26,7 @@ export default {
     keys: generateKeys()
   },
   control: {
-    assign: null,
+    assign: true,
     controls: {},
     last: null
   },
