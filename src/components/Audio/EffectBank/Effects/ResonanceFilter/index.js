@@ -23,7 +23,7 @@ export const defaultSettings = {
   title: 'Resonance Filter'
 };
 
-class MoogFilter extends React.Component {
+class ResonanceFilter extends React.Component {
   constructor(props) {
     super(props);
 
@@ -111,7 +111,7 @@ class MoogFilter extends React.Component {
   }
 }
 
-MoogFilter.propTypes = {
+ResonanceFilter.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
   input: PropTypes.object,
@@ -120,4 +120,4 @@ MoogFilter.propTypes = {
   wire: PropTypes.func.isRequired
 };
 
-export default Effect(MoogFilter);
+export default Effect(ResonanceFilter);

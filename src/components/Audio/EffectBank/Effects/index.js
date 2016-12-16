@@ -3,7 +3,7 @@ import Compression, {defaultSettings as compDefaultSettings} from './Compression
 import Delay, {defaultSettings as delayDefaultSettings} from './Delay';
 import Distortion, {defaultSettings as distortionDefaultSettings} from './Distortion';
 import Filter, {defaultSettings as filterDefaultSettings} from './Filter';
-import MoogFilter, {defaultSettings as moogFilterDefaultSettings} from './MoogFilter';
+import ResonanceFilter, {defaultSettings as resFilterDefaultSettings} from './ResonanceFilter';
 import Reverb, {defaultSettings as reverbDefaultSettings} from './Reverb';
 import Tremolo, {defaultSettings as tremoloDefaultSettings} from './Tremolo';
 
@@ -13,7 +13,7 @@ export const defaultSettings = {
   Delay: delayDefaultSettings,
   Distortion: distortionDefaultSettings,
   Filter: filterDefaultSettings,
-  MoogFilter: moogFilterDefaultSettings,
+  ResonanceFilter: resFilterDefaultSettings,
   Reverb: reverbDefaultSettings,
   Tremolo: tremoloDefaultSettings
 };
@@ -24,7 +24,7 @@ export default {
   Delay,
   Distortion,
   Filter,
-  MoogFilter,
+  ResonanceFilter,
   Reverb,
   Tremolo
 };

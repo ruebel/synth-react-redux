@@ -5,6 +5,8 @@ const assign = (state = initialState.control.assign, action) => {
   switch(action.type) {
     case 'ASSIGN_CONTROL':
       return action.payload;
+    case 'ADD_CONTROL':
+      return null;
     default:
       return state;
   }
@@ -14,7 +16,7 @@ const controls = (state = initialState.control.controls, action) => {
   switch(action.type) {
     case 'ADD_CONTROL':
       return Object.assign({}, state, {
-        [action.payload.id]: action.payload.control
+        [action.payload.control]: action.payload
       });
     case 'REMOVE_CONTROL':
       return Object.keys(state)

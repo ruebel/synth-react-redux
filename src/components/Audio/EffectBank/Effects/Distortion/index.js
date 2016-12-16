@@ -16,6 +16,7 @@ export const defaultSettings = {
     max: 1,
     value: 1
   },
+  name: 'Distortion',
   oversample: {
     options: [{id: 'none', name: 'None'}, {id: '2x', name: '2x'}, {id: '4x', name: '4x'}],
     value: '4x'
@@ -87,7 +88,13 @@ class Distortion extends React.Component {
           value={this.props.settings.oversample.value}
           valueKey="id"
         />
-        <RangeControl title="Amount"
+        <RangeControl
+          assign={{
+            id: this.props.settings.id,
+            effect: defaultSettings.name,
+            property: 'amount'
+          }}
+          title="Amount"
           min={defaultSettings.amount.min}
           max={defaultSettings.amount.max}
           onSet={e => this.props.handleSettingsChange('amount', e)}

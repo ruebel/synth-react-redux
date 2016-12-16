@@ -1,11 +1,21 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import ReactSlider from 'react-slider';
+import {assignControl} from '../../actions/control';
 const styles = require('./styles.css');
 
-const RangeControl = ({max, min, onSet, step, title, value}) => {
+const RangeControl = ({assign, assignControl, max, min, onSet, step, title, value}) => {
   return (
     <div className={styles.wrapper}>
-      <h3>{title}</h3>
+      {assign ? (
+        <h3
+          className={styles.assign}
+          onClick={() => assignControl(assign)}>
+          {title}
+        </h3>
+      ) : (
+        <h3>{title}</h3>
+      )}
       <ReactSlider
         className={styles.slider}
         handleClassName={styles.handle}
@@ -23,6 +33,12 @@ const RangeControl = ({max, min, onSet, step, title, value}) => {
 };
 
 RangeControl.propTypes = {
+  assign: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    effect: PropTypes.string.isRequired,
+    property: PropTypes.string.isRequired
+  }),
+  assignControl: PropTypes.func.isRequired,
   max: PropTypes.number,
   min: PropTypes.number,
   onSet: PropTypes.func.isRequired,
@@ -31,4 +47,4 @@ RangeControl.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default RangeControl;
+export default connect(null, {assignControl})(RangeControl);

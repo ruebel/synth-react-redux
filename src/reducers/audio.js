@@ -27,6 +27,20 @@ function effects(state = initialState.audio.effects, action) {
       let newState = [...state];
       newState.splice(end, 0, newState.splice(start, 1)[0]);
       return newState;
+    case 'SEND_CONTROL_MESSAGE':
+      return state.map(e => {
+        if (e.id === action.payload.control.id) {
+          const property = e[action.payload.control.property];
+          // TODO: Do the right math idiot!
+          const value = property.max * ((action.payload.value / 127) - property.min);
+          return Object.assign({}, e, {
+            [action.payload.control.property]: Object.assign({}, property, {
+              value
+            })
+          });
+        }
+        return e;
+      });
     case 'SET_EFFECT_SETTINGS':
       return state.map(e => {
         if (e.id === action.payload.id) {

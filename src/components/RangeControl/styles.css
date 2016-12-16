@@ -34,3 +34,8 @@ $handleSize: 30px;
     transition: transform 0.2s ease-in, background 0.2s ease-in;
   }
 }
+
+.assign {
+  color: $brand-primary;
+  cursor: pointer;
+}
