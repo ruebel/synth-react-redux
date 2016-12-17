@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import Select from '../../../../Select';
 import {checkPropChange} from '../../../../../utils/effect';
 
@@ -88,17 +88,12 @@ class Distortion extends React.Component {
           value={this.props.settings.oversample.value}
           valueKey="id"
         />
-        <RangeControl
-          assign={{
-            id: this.props.settings.id,
-            effect: defaultSettings.name,
-            property: 'amount'
-          }}
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="amount"
+          settings={this.props.settings}
           title="Amount"
-          min={defaultSettings.amount.min}
-          max={defaultSettings.amount.max}
-          onSet={e => this.props.handleSettingsChange('amount', e)}
-          value={this.props.settings.amount.value}
           />
       </div>
     );

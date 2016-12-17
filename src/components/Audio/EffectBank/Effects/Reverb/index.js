@@ -17,6 +17,7 @@ export const defaultSettings = {
     options: Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name})),
     value: ''
   },
+  name: 'Reverb',
   title: 'Reverb'
 };
 

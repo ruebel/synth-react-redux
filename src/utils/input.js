@@ -159,7 +159,7 @@ const handleMidiMessage = (dispatch) => (e) => {
       dispatch(setPitchBend(e.data[2] - 64));
       break;
     default:
-      // dispatch(setControl(e.data));
+      dispatch(setControl(e.data));
       break;
   }
 };

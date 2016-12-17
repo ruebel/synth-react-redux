@@ -1,6 +1,6 @@
 @import 'global';
 
-.primary {
+.button {
   background-color: $brand-primary;
   color: $core-light-color;
   min-height: 44px;
@@ -11,8 +11,8 @@
   transition: background-color 100ms ease-in-out, transform 100ms ease-in-out;
 
   &:hover {
-    background-color: color($brand-primary b(10%));
     transform: scaleX(1.1) scaleY(1.1);
+    background-color: color($brand-primary b(10%));
   }
 
   &:disabled {
@@ -77,5 +77,23 @@ $buttonSize: 38px;
 
   &:focus {
     outline: 0;
+  }
+}
+
+.primary {
+  background-color: $brand-primary;
+  color: $core-light-color;
+
+  &:hover {
+    background-color: color($brand-primary b(10%));
+  }
+}
+
+.danger {
+  background-color: $control-color-danger;
+  color: $core-light-color;
+
+  &:hover {
+    background-color: color($control-color-danger b(10%));
   }
 }

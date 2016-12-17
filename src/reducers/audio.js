@@ -13,10 +13,32 @@ function context(state = initialState.audio.context, action) {
 
 function effects(state = initialState.audio.effects, action) {
   switch(action.type) {
+    case 'ADD_CONTROL':
+      return state.map(e => {
+        if (e.id === action.payload.id) {
+          return Object.assign({}, e, {
+            [action.payload.property]: Object.assign({}, e[action.payload.property], {
+              control: action.payload.control
+            })
+          });
+        }
+        return e;
+      });
     case 'ADD_EFFECT':
       return [...state, action.payload];
     case 'REMOVE_EFFECT':
       return state.filter(e => e.id !== action.payload);
+    case 'REMOVE_CONTROL':
+      return state.map(e => {
+        if (e.id === action.payload.id) {
+          return Object.assign({}, e, {
+            [action.payload.property]: Object.assign({}, e[action.payload.property], {
+              control: null
+            })
+          });
+        }
+        return e;
+      });
     case 'REORDER_EFFECTS':
       const start = state.findIndex(e => e.id === action.payload.id);
       const up = action.payload.up;
@@ -31,8 +53,8 @@ function effects(state = initialState.audio.effects, action) {
       return state.map(e => {
         if (e.id === action.payload.control.id) {
           const property = e[action.payload.control.property];
-          // TODO: Do the right math idiot!
-          const value = property.max * ((action.payload.value / 127) - property.min);
+          // transform midi range to target value range
+          const value = ((action.payload.value / 127) * (property.max - property.min)) + property.min;
           return Object.assign({}, e, {
             [action.payload.control.property]: Object.assign({}, property, {
               value

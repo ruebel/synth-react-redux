@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
@@ -15,6 +15,7 @@ export const defaultSettings = {
     max: 1,
     value: 1
   },
+  name: 'ResonanceFilter',
   resonance: {
     min: 0,
     max: 4,
@@ -94,18 +95,20 @@ class ResonanceFilter extends React.Component {
   render() {
     return (
       <div>
-        <RangeControl title="Cutoff"
-                      min={defaultSettings.cutoff.min}
-                      max={defaultSettings.cutoff.max}
-                      onSet={e => this.props.handleSettingsChange('cutoff', e)}
-                      value={this.props.settings.cutoff.value}
-                      />
-        <RangeControl title="Resonance"
-                      min={defaultSettings.resonance.min}
-                      max={defaultSettings.resonance.max}
-                      onSet={e => this.props.handleSettingsChange('resonance', e)}
-                      value={this.props.settings.resonance.value}
-                      />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="cutoff"
+          settings={this.props.settings}
+          title="Cutoff"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="resonance"
+          settings={this.props.settings}
+          title="Resonance"
+        />
       </div>
     );
   }

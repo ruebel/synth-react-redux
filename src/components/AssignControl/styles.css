@@ -3,18 +3,27 @@
 .buttonRow {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: space-between;
+  justify-content: center;
   margin-top: 50px;
+
+  & > button {
+    flex: 1;
+    margin-right: 5px;
+  }
 }
 
 .wrapper {
-  & h3 {
-    text-align: center;
+  text-align: center;
 
+  & h1 {
+    margin-top: 0;
+  }
+
+  & h3 {
     & span {
       color: $brand-primary;
-      margin-right: 10px;
+      margin-left: 10px;
     }
   }
 }

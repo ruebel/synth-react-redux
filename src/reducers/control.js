@@ -6,6 +6,7 @@ const assign = (state = initialState.control.assign, action) => {
     case 'ASSIGN_CONTROL':
       return action.payload;
     case 'ADD_CONTROL':
+    case 'REMOVE_CONTROL':
       return null;
     default:
       return state;
@@ -19,8 +20,9 @@ const controls = (state = initialState.control.controls, action) => {
         [action.payload.control]: action.payload
       });
     case 'REMOVE_CONTROL':
+      const val = `${action.payload.channel}:${action.payload.control}`;
       return Object.keys(state)
-        .filter(k => k !== action.payload)
+        .filter(k => k !== val)
         .reduce((result, k) => {
           result[k] = state[k];
           return result;
@@ -34,6 +36,8 @@ const last = (state = initialState.control.last, action) => {
   switch(action.type) {
     case 'MIDI_EVENT':
       return action.payload;
+    case 'ASSIGN_CONTROL':
+      return null;
     default:
       return state;
   }

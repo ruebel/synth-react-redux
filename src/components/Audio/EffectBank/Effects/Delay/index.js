@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import {equalPower} from '../../../../../utils/audio';
 import {checkPropChange} from '../../../../../utils/effect';
 
@@ -16,6 +16,7 @@ export const defaultSettings = {
     max: 2,
     value: 1
   },
+  name: 'Delay',
   time: {
     min: 0.01,
     max: 2,
@@ -46,13 +47,13 @@ class Delay extends React.Component {
     if (checkPropChange(prev, next, 'feedback')) {
       this.effect.forEach((repeat, i) => {
         // Apply equal power fading of delays based on feedback amount
-        const level = Math.max(0, Math.min(1, (i - (next.settings.feedback || 0)) / this.effect.length + 0.8));
+        const level = Math.max(0, Math.min(1, (i - (next.settings.feedback.value || 0)) / this.effect.length + 0.8));
         repeat.gain.gain.value = equalPower(level, true);
       });
     }
     if (checkPropChange(prev, next, 'time')) {
       this.effect.forEach((repeat, i) => {
-        repeat.delay.delayTime.value = (next.settings.time || 0.2) * (i + 1);
+        repeat.delay.delayTime.value = (next.settings.time.value || 0.2) * (i + 1);
       });
     }
     this.props.wire(next, prev, this.effect);
@@ -80,18 +81,20 @@ class Delay extends React.Component {
   render() {
     return (
       <div>
-        <RangeControl title="Time"
-                      min={defaultSettings.time.min}
-                      max={defaultSettings.time.max}
-                      onSet={e => this.props.handleSettingsChange('time', e)}
-                      value={this.props.settings.time.value}
-                      />
-        <RangeControl title="Feedback"
-                      min={defaultSettings.feedback.min}
-                      max={defaultSettings.feedback.max}
-                      onSet={e => this.props.handleSettingsChange('feedback', e)}
-                      value={this.props.settings.feedback.value}
-                      />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="time"
+          settings={this.props.settings}
+          title="Time"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="feedback"
+          settings={this.props.settings}
+          title="Feedback"
+        />
       </div>
     );
   }

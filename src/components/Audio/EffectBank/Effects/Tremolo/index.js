@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import WaveShapeSelector from '../../../../WaveShapeSelector';
 import {checkPropChange} from '../../../../../utils/effect';
 
@@ -16,6 +16,7 @@ export const defaultSettings = {
     max: 1,
     value: 1
   },
+  name: 'Tremolo',
   speed: {
     min: 1,
     max: 25,
@@ -73,18 +74,24 @@ class Tremolo extends React.Component {
   render() {
     return (
       <div>
-        <WaveShapeSelector value={this.props.settings.waveShape.value}
-                           change={e => this.props.handleSettingsChange('waveShape', e)} />
-        <RangeControl title="Depth"
-                      value={this.props.settings.depth.value}
-                      onSet={e => this.props.handleSettingsChange('depth', e)}
-                      min={defaultSettings.depth.min}
-                      max={defaultSettings.depth.max}/>
-        <RangeControl title="Speed"
-                      value={this.props.settings.speed.value}
-                      onSet={e => this.props.handleSettingsChange('speed', e)}
-                      min={defaultSettings.speed.min}
-                      max={defaultSettings.speed.max}/>
+        <WaveShapeSelector
+          value={this.props.settings.waveShape.value}
+          change={e => this.props.handleSettingsChange('waveShape', e)}
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="depth"
+          settings={this.props.settings}
+          title="Depth"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="speed"
+          settings={this.props.settings}
+          title="Speed"
+        />
       </div>
     );
   }

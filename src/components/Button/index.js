@@ -5,7 +5,8 @@ const cx = classNames.bind(styles);
 
 const Button = ({active, click, color, type, text}) => {
   const style = cx({
-    [type]: true
+    button: type !== 'link' && type !== 'round',
+    [type || 'primary']: true,
   });
   return (
     <button
@@ -22,6 +23,7 @@ Button.propTypes = {
   active: PropTypes.bool,
   click: PropTypes.func.isRequired,
   color: PropTypes.string,
+  flavor: PropTypes.string,
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 };

@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import Select from '../../../../Select';
 import {checkPropChange} from '../../../../../utils/effect';
 
@@ -15,6 +15,7 @@ export const defaultSettings = {
     max: 1,
     value: 1
   },
+  name: 'BitCrusher',
   normfreq: {
     min: 0,
     max: 1,
@@ -96,12 +97,13 @@ class BitCrusher extends React.Component {
           value={this.props.settings.bits.value}
           valueKey="id"
         />
-        <RangeControl title="Rate"
-                      min={defaultSettings.normfreq.min}
-                      max={defaultSettings.normfreq.max}
-                      onSet={e => this.props.handleSettingsChange('normfreq', e)}
-                      value={this.props.settings.normfreq.value}
-                      />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="normfreq"
+          settings={this.props.settings}
+          title="Rate"
+        />
       </div>
     );
   }

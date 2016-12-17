@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import Select from '../../../../Select';
 import {filterTypes} from '../../../../../utils/audio';
 import {checkPropChange} from '../../../../../utils/effect';
@@ -26,6 +26,7 @@ export const defaultSettings = {
     max: 1,
     value: 1
   },
+  name: 'Filter',
   q: {
     min: -1,
     max: 1,
@@ -92,29 +93,31 @@ class Filter extends React.Component {
           value={this.props.settings.filterType.value}
           valueKey="id"
         />
-        {showQ && (<RangeControl title="Q"
-                      min={defaultSettings.q.min}
-                      max={defaultSettings.q.max}
-                      step={0.01}
-                      onSet={e => this.props.handleSettingsChange('q', e)}
-                      value={this.props.settings.q.value}
-                      />)}
-        <RangeControl title="Frequency"
-                      min={defaultSettings.frequency.min}
-                      max={defaultSettings.frequency.max}
-                      step={1}
-                      onSet={e => this.props.handleSettingsChange('frequency', e)}
-                      value={this.props.settings.frequency.value}
-                      />
+        {showQ && (
+          <EffectRange
+            change={this.props.handleSettingsChange}
+            defaults={defaultSettings}
+            property="q"
+            settings={this.props.settings}
+            title="Q"
+          />
+        )}
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="frequency"
+          settings={this.props.settings}
+          title="Frequency"
+        />
         {showGain && (
-        <RangeControl title="Gain"
-                      min={defaultSettings.gain.min}
-                      max={defaultSettings.gain.max}
-                      step={0.01}
-                      onSet={e => this.props.handleSettingsChange('gain', e)}
-                      value={this.props.settings.gain.value}
-                      />)}
-
+          <EffectRange
+            change={this.props.handleSettingsChange}
+            defaults={defaultSettings}
+            property="gain"
+            settings={this.props.settings}
+            title="Gain"
+          />
+        )}
       </div>
     );
   }

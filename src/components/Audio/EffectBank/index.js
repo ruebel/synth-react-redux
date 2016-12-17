@@ -2,20 +2,21 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../../actions/audio';
 import AddEffect from './AddEffect';
-import Effects from './Effects';
+import Effects, {defaultSettings} from './Effects';
 const styles = require('./styles.css');
 
 const EffectBank = ({context, effects, inputGain, outputGain, addEffect, removeEffect, reorderEffects, setEffectSettings}) => {
-  let units = effects.map((e, i) => {
+  const units = effects.map((e, i) => {
     let output = outputGain;
     if (i < effects.length - 1) {
       output = effects[i + 1].input;
     }
     // Load effect type dynamically
-    let Effect = Effects[e.type];
+    const Effect = Effects[e.type];
     return (<Effect key={i}
             changeSettings={setEffectSettings}
             context={context}
+            defaults={defaultSettings[e.type]}
             input={i == 0 ? inputGain : null}
             move={reorderEffects}
             output={output}

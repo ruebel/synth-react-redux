@@ -12,14 +12,14 @@ export const addControl = (control, note) => {
 export const assignControl = (assign) => {
   return {
     type: 'ASSIGN_CONTROL',
-    payload: {...assign}
+    payload: assign ? {...assign} : null
   };
 };
 
-export const removeControl = (id) => {
+export const removeControl = (control) => {
   return {
     type: 'REMOVE_CONTROL',
-    payload: id
+    payload: {...control}
   };
 };
 

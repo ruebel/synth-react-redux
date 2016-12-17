@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
-import RangeControl from '../../../../RangeControl';
+import EffectRange from '../../EffectRange';
 import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
@@ -20,6 +20,7 @@ export const defaultSettings = {
     max: 40,
     value: 40
   },
+  name: 'Compression',
   ratio: {
     min: 0,
     max: 20,
@@ -81,41 +82,41 @@ class Compression extends React.Component {
   render() {
     return (
       <div>
-        <RangeControl title="Threshold"
-                      min={defaultSettings.threshold.min}
-                      max={defaultSettings.threshold.max}
-                      step={1}
-                      onSet={e => this.props.handleSettingsChange('threshold', e)}
-                      value={this.props.settings.threshold.value}
-                      />
-        <RangeControl title="Knee"
-                      min={defaultSettings.knee.min}
-                      max={defaultSettings.knee.max}
-                      step={1}
-                      onSet={e => this.props.handleSettingsChange('knee', e)}
-                      value={this.props.settings.knee.value}
-                      />
-        <RangeControl title="Ratio"
-                      min={defaultSettings.ratio.min}
-                      max={defaultSettings.ratio.max}
-                      step={1}
-                      onSet={e => this.props.handleSettingsChange('ratio', e)}
-                      value={this.props.settings.ratio.value}
-                      />
-        <RangeControl title="Attack"
-                      min={defaultSettings.attack.min}
-                      max={defaultSettings.attack.max}
-                      step={0.01}
-                      onSet={e => this.props.handleSettingsChange('attack', e)}
-                      value={this.props.settings.attack.value}
-                      />
-        <RangeControl title="Release"
-                      min={defaultSettings.release.min}
-                      max={defaultSettings.release.max}
-                      step={0.01}
-                      onSet={e => this.props.handleSettingsChange('release', e)}
-                      value={this.props.settings.release.value}
-                      />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="threshold"
+          settings={this.props.settings}
+          title="Threshold"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="knee"
+          settings={this.props.settings}
+          title="Knee"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="ratio"
+          settings={this.props.settings}
+          title="Ratio"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="attack"
+          settings={this.props.settings}
+          title="Attack"
+        />
+        <EffectRange
+          change={this.props.handleSettingsChange}
+          defaults={defaultSettings}
+          property="release"
+          settings={this.props.settings}
+          title="Release"
+        />
       </div>
     );
   }

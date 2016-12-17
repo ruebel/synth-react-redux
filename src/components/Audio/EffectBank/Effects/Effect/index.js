@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import Container from '../../../../Container';
+import EffectRange from '../../EffectRange';
 import Mover from './Mover';
-import RangeControl from '../../../../RangeControl';
 import {equalPower} from '../../../../../utils/audio';
 import {checkPropChange} from '../../../../../utils/effect';
 /**
@@ -117,12 +117,15 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
           <WrappedComponent {...this.props}
                             handleSettingsChange={this.handleSettingsChange}
                             wire={this.wire}/>
-          {effectLevelMode !== 'none' ? (<RangeControl title="Effect Level"
-                        min={0}
-                        max={1}
-                        onSet={e => this.handleSettingsChange('effectLevel', e)}
-                        value={this.props.settings.effectLevel.value}
-                      />) : null}
+          {effectLevelMode !== 'none' ? (
+            <EffectRange
+              change={this.handleSettingsChange}
+              defaults={this.props.defaults}
+              property="effectLevel"
+              settings={this.props.settings}
+              title="Effect Level"
+            />
+            ) : null}
         </Container>
       );
     }
@@ -131,6 +134,7 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
   EffectComponent.propTypes = {
     changeSettings: PropTypes.func.isRequired,
     context: PropTypes.object.isRequired,
+    defaults: PropTypes.object.isRequired,
     move: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired
