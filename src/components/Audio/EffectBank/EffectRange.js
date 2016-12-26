@@ -10,9 +10,9 @@ const EffectRange = ({change, defaults, property, settings, title}) => {
         channel: control ? control.split(':')[0] : null,
         control: control ? control.split(':')[1] : null,
         effect: defaults.name,
-        property,
+        property: defaults[property].name,
       }}
-      title={title}
+      title={title || defaults[property].name}
       min={defaults[property].min}
       max={defaults[property].max}
       onSet={e => change(property, e)}
@@ -26,7 +26,7 @@ EffectRange.propTypes = {
   defaults: PropTypes.object.isRequired,
   property: PropTypes.string.isRequired,
   settings: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
 };
 
 export default EffectRange;

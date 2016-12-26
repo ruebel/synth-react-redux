@@ -8,7 +8,7 @@ const styles = require('./styles.css');
 
 const AssignControl = ({addControl, assignControl, control, note, removeControl}) => {
   return control ? (
-    <Modal close={addControl}>
+    <Modal close={assignControl}>
       <div className={styles.wrapper}>
         <h1>Assign MIDI Control</h1>
         <h3 className={styles.control}>{control.effect} - {control.property}</h3>

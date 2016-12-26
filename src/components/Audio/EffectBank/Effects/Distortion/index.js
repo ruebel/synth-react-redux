@@ -8,16 +8,19 @@ export const defaultSettings = {
   amount: {
     min: 0,
     max: 100,
+    name: 'Amount',
     value: 20
   },
   color: '#82cffd',
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   name: 'Distortion',
   oversample: {
+    name: 'Oversampling',
     options: [{id: 'none', name: 'None'}, {id: '2x', name: '2x'}, {id: '4x', name: '4x'}],
     value: '4x'
   },
@@ -84,7 +87,7 @@ class Distortion extends React.Component {
           options={defaultSettings.oversample.options}
           placeholder="Select Oversampling..."
           searchable={false}
-          title="Oversampling"
+          title={defaultSettings.oversample.name}
           value={this.props.settings.oversample.value}
           valueKey="id"
         />
@@ -93,7 +96,6 @@ class Distortion extends React.Component {
           defaults={defaultSettings}
           property="amount"
           settings={this.props.settings}
-          title="Amount"
           />
       </div>
     );

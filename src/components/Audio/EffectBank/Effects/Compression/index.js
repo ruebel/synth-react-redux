@@ -7,33 +7,39 @@ export const defaultSettings = {
   attack: {
     min: 0,
     max: 1,
+    name: 'Attack',
     value: 0
   },
   color: '#236b8e',
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   knee: {
     min: 0,
     max: 40,
+    name: 'Knee',
     value: 40
   },
   name: 'Compression',
   ratio: {
     min: 0,
     max: 20,
+    name: 'Ratio',
     value: 12
   },
   release: {
     min: 0,
     max: 1,
+    name: 'Release',
     value: 0.25
   },
   threshold: {
     min: -100,
     max: 0,
+    name: 'Threshold',
     value: -50
   },
   title: 'Compression'
@@ -87,35 +93,30 @@ class Compression extends React.Component {
           defaults={defaultSettings}
           property="threshold"
           settings={this.props.settings}
-          title="Threshold"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="knee"
           settings={this.props.settings}
-          title="Knee"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="ratio"
           settings={this.props.settings}
-          title="Ratio"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="attack"
           settings={this.props.settings}
-          title="Attack"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="release"
           settings={this.props.settings}
-          title="Release"
         />
       </div>
     );

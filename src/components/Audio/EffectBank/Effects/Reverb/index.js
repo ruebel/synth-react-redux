@@ -9,11 +9,13 @@ export const defaultSettings = {
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   // This will be set after the component loads since it needs to
   // download the ir
   irUrl: {
+    name: 'Impulse Response',
     options: Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name})),
     value: ''
   },
@@ -69,7 +71,7 @@ class Reverb extends React.Component {
           options={defaultSettings.irUrl.options}
           placeholder="Select Impulse Response..."
           searchable={false}
-          title="Impulse Response"
+          title={defaultSettings.irUrl.name}
           value={this.props.settings.irUrl.value}
           valueKey="id"
         />

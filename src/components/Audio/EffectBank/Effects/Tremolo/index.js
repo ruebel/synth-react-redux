@@ -9,17 +9,20 @@ export const defaultSettings = {
   depth: {
     min: 0,
     max: 1,
+    name: 'Depth',
     value: 5
   },
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   name: 'Tremolo',
   speed: {
     min: 1,
     max: 25,
+    name: 'Speed',
     value: 5
   },
   title: 'Tremolo',
@@ -83,14 +86,12 @@ class Tremolo extends React.Component {
           defaults={defaultSettings}
           property="depth"
           settings={this.props.settings}
-          title="Depth"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="speed"
           settings={this.props.settings}
-          title="Speed"
         />
       </div>
     );

@@ -10,6 +10,7 @@ export const defaultSettings = {
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   filterType: {
@@ -19,17 +20,20 @@ export const defaultSettings = {
   frequency: {
     min: 0,
     max: 22050,
+    name: 'Frequency',
     value: 100
   },
   gain: {
     min: -1,
     max: 1,
+    name: 'Gain',
     value: 1
   },
   name: 'Filter',
   q: {
     min: -1,
     max: 1,
+    name: 'Q',
     value: 0.1
   },
   title: 'Filter'
@@ -89,7 +93,7 @@ class Filter extends React.Component {
           options={defaultSettings.filterType.options}
           placeholder="Select Filter Type..."
           searchable={false}
-          title="Type"
+          title={defaultSettings.filterType.name}
           value={this.props.settings.filterType.value}
           valueKey="id"
         />
@@ -99,7 +103,6 @@ class Filter extends React.Component {
             defaults={defaultSettings}
             property="q"
             settings={this.props.settings}
-            title="Q"
           />
         )}
         <EffectRange
@@ -107,7 +110,6 @@ class Filter extends React.Component {
           defaults={defaultSettings}
           property="frequency"
           settings={this.props.settings}
-          title="Frequency"
         />
         {showGain && (
           <EffectRange
@@ -115,7 +117,6 @@ class Filter extends React.Component {
             defaults={defaultSettings}
             property="gain"
             settings={this.props.settings}
-            title="Gain"
           />
         )}
       </div>

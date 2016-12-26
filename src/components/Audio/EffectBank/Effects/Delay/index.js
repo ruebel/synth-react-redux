@@ -9,17 +9,20 @@ export const defaultSettings = {
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   feedback: {
     min: 0,
     max: 2,
+    name: 'Feedback',
     value: 1
   },
   name: 'Delay',
   time: {
     min: 0.01,
     max: 2,
+    name: 'Time',
     value: 0.2
   },
   title: 'Delay'
@@ -86,14 +89,12 @@ class Delay extends React.Component {
           defaults={defaultSettings}
           property="time"
           settings={this.props.settings}
-          title="Time"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="feedback"
           settings={this.props.settings}
-          title="Feedback"
         />
       </div>
     );

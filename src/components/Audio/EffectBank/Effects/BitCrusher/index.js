@@ -6,6 +6,7 @@ import {checkPropChange} from '../../../../../utils/effect';
 
 export const defaultSettings = {
   bits: {
+    name: 'Bit Depth',
     options: [1, 2, 4, 8, 16].map(v => ({id: v, name: v})),
     value: 4
   },
@@ -13,12 +14,14 @@ export const defaultSettings = {
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   name: 'BitCrusher',
   normfreq: {
     min: 0,
     max: 1,
+    name: 'Rate',
     value: 0.2
   },
   title: 'Bit Crusher'
@@ -93,7 +96,7 @@ class BitCrusher extends React.Component {
           options={defaultSettings.bits.options}
           placeholder="Select Bit Depth..."
           searchable={false}
-          title="Bit Depth"
+          title={defaultSettings.bits.name}
           value={this.props.settings.bits.value}
           valueKey="id"
         />
@@ -102,7 +105,6 @@ class BitCrusher extends React.Component {
           defaults={defaultSettings}
           property="normfreq"
           settings={this.props.settings}
-          title="Rate"
         />
       </div>
     );

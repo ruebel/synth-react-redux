@@ -8,17 +8,20 @@ export const defaultSettings = {
   cutoff:  {
     min: 0,
     max: 1,
+    name: 'Cutoff',
     value: 0.065
   },
   effectLevel: {
     min: 0,
     max: 1,
+    name: 'Effect Level',
     value: 1
   },
   name: 'ResonanceFilter',
   resonance: {
     min: 0,
     max: 4,
+    name: 'Resonance',
     value: 3.99
   },
   title: 'Resonance Filter'
@@ -100,14 +103,12 @@ class ResonanceFilter extends React.Component {
           defaults={defaultSettings}
           property="cutoff"
           settings={this.props.settings}
-          title="Cutoff"
         />
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="resonance"
           settings={this.props.settings}
-          title="Resonance"
         />
       </div>
     );
