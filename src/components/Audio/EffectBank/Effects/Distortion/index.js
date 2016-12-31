@@ -2,9 +2,9 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import Select from '../../../../Select';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   amount: {
     min: 0,
     max: 100,
@@ -12,12 +12,6 @@ export const defaultSettings = {
     value: 20
   },
   color: '#82cffd',
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
-  },
   name: 'Distortion',
   oversample: {
     name: 'Oversampling',
@@ -25,7 +19,7 @@ export const defaultSettings = {
     value: '4x'
   },
   title: 'Distortion'
-};
+});
 
 class Distortion extends React.Component {
   constructor(props) {

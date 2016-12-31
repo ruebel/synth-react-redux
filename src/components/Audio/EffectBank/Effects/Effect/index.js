@@ -31,15 +31,25 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     }
 
     applySettings(next, prev) {
-      if (checkPropChange(prev, next, 'effectLevel')) {
+      if (checkPropChange(prev, next, 'effectLevel') ||
+          checkPropChange(prev, next, 'on')) {
         switch(effectLevelMode) {
           case 'blend':
-            // Cross Fade using equal power curve
-            this.bypassGain.gain.value = equalPower(next.settings.effectLevel.value, true);
-            this.effectGain.gain.value = equalPower(next.settings.effectLevel.value);
+            if (next.settings.on.value) {
+              // Cross Fade using equal power curve
+              this.bypassGain.gain.value = equalPower(next.settings.effectLevel.value, true);
+              this.effectGain.gain.value = equalPower(next.settings.effectLevel.value);
+            } else {
+              this.bypassGain.gain.value = 1;
+              this.effectGain.gain.value = 0;
+            }
             break;
           case 'wet':
-            this.effectGain.gain.value = equalPower(next.settings.effectLevel.value);
+            if (next.settings.on.value) {
+              this.effectGain.gain.value = equalPower(next.settings.effectLevel.value);
+            } else {
+              this.effectGain.gain.value = 0;
+            }
             break;
         }
       }
@@ -108,10 +118,12 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
       const move = (<Mover
         close={() => this.props.remove(this.props.settings.id)}
         down={() => this.props.move(this.props.settings.id)}
+        on={this.props.settings.on.value}
+        power={() => this.handleSettingsChange('on', !this.props.settings.on.value)}
         up={() => this.props.move(this.props.settings.id, true)}/>);
       return (
         <Container
-            active
+            active={this.props.settings.on.value}
             title={this.props.settings.title}
             titleControl={move}>
           <WrappedComponent {...this.props}

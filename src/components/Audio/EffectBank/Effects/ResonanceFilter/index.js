@@ -1,21 +1,15 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#325c74',
   cutoff:  {
     min: 0,
     max: 1,
     name: 'Cutoff',
     value: 0.065
-  },
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
   },
   name: 'ResonanceFilter',
   resonance: {
@@ -25,7 +19,7 @@ export const defaultSettings = {
     value: 3.99
   },
   title: 'Resonance Filter'
-};
+});
 
 class ResonanceFilter extends React.Component {
   constructor(props) {

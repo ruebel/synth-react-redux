@@ -2,16 +2,10 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import Select from '../../../../Select';
 import irs from './IRs';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#0198e1',
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
-  },
   // This will be set after the component loads since it needs to
   // download the ir
   irUrl: {
@@ -21,7 +15,7 @@ export const defaultSettings = {
   },
   name: 'Reverb',
   title: 'Reverb'
-};
+});
 
 class Reverb extends React.Component {
   constructor(props) {

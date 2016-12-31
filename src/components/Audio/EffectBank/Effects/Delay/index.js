@@ -2,16 +2,10 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import {equalPower} from '../../../../../utils/audio';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#3299cc',
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
-  },
   feedback: {
     min: 0,
     max: 2,
@@ -26,7 +20,7 @@ export const defaultSettings = {
     value: 0.2
   },
   title: 'Delay'
-};
+});
 
 class Delay extends React.Component {
   constructor(props) {

@@ -22,7 +22,7 @@
 }
 
 .link {
-  background-color: $core-light-color;
+  background-color: transparent;
   color: $body-font-color;
   min-height: 44px;
   border: none;

@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   attack: {
     min: 0,
     max: 1,
@@ -11,12 +11,6 @@ export const defaultSettings = {
     value: 0
   },
   color: '#236b8e',
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
-  },
   knee: {
     min: 0,
     max: 40,
@@ -43,7 +37,7 @@ export const defaultSettings = {
     value: -50
   },
   title: 'Compression'
-};
+});
 
 class Compression extends React.Component {
   constructor(props) {

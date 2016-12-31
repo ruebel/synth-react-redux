@@ -8,16 +8,11 @@ $transTime: 200ms;
   border: $borderSize $core-border-color solid;
   border-radius: $size;
   width: calc(2 * $size);
+  min-width: calc(2 * $size);
   height: $size;
   transition: background $transTime ease-in;
   display: inline-block;
   cursor: pointer;
-
-  &:hover {
-    & > div {
-      background: color($brand-primary l(90%));
-    }
-  }
 
   & > div {
     border-radius: 50%;

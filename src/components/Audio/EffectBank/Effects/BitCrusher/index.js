@@ -2,21 +2,15 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import Select from '../../../../Select';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   bits: {
     name: 'Bit Depth',
     options: [1, 2, 4, 8, 16].map(v => ({id: v, name: v})),
     value: 4
   },
   color: '#539dc2',
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
-  },
   name: 'BitCrusher',
   normfreq: {
     min: 0,
@@ -25,7 +19,7 @@ export const defaultSettings = {
     value: 0.2
   },
   title: 'Bit Crusher'
-};
+});
 
 class BitCrusher extends React.Component {
   constructor(props) {

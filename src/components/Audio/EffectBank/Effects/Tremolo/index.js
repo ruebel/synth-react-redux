@@ -2,21 +2,15 @@ import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import WaveShapeSelector from '../../../../WaveShapeSelector';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#517693',
   depth: {
     min: 0,
     max: 1,
     name: 'Depth',
     value: 5
-  },
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
   },
   name: 'Tremolo',
   speed: {
@@ -29,7 +23,7 @@ export const defaultSettings = {
   waveShape: {
     value: 'sine'
   }
-};
+});
 
 class Tremolo extends React.Component {
   constructor(props) {

@@ -3,16 +3,10 @@ import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import Select from '../../../../Select';
 import {filterTypes} from '../../../../../utils/audio';
-import {checkPropChange} from '../../../../../utils/effect';
+import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
 
-export const defaultSettings = {
+export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#517693',
-  effectLevel: {
-    min: 0,
-    max: 1,
-    name: 'Effect Level',
-    value: 1
-  },
   filterType: {
     options: filterTypes.map(f => ({id: f, name: f})),
     value: 'lowshelf'
@@ -37,7 +31,7 @@ export const defaultSettings = {
     value: 0.1
   },
   title: 'Filter'
-};
+});
 
 class Filter extends React.Component {
   constructor(props) {
