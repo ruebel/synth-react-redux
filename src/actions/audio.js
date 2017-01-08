@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import {generateKey} from '../utils/audio';
 import {defaultSettings} from '../components/Audio/EffectBank/Effects';
-const defaultVelocity = 0.4;
+export const defaultVelocity = 0.4;
 
 const addEffectAfter = (payload) => {
   return {
@@ -10,13 +10,10 @@ const addEffectAfter = (payload) => {
   };
 };
 
-export const addEffect = (effect) => (dispatch, getState) => {
-  const state = getState();
-  let input = state.audio.context.createGain();
+export const addEffect = (effect) => (dispatch) => {
   let payload = {
     id: uuid.v4(),
     type: effect,
-    input,
     ...defaultSettings[effect]
   };
   dispatch(addEffectAfter(payload));
@@ -36,8 +33,8 @@ export const getImpulseResponse = (settings) => async(dispatch, getState) => {
     // Get the IR file from the server
     const response = await fetch(settings.irUrl.value);
     const audioData = await response.arrayBuffer();
-    state.audio.context.decodeAudioData(audioData, (buffer) => {
-      let source = state.audio.context.createBufferSource();
+    state.context.decodeAudioData(audioData, (buffer) => {
+      let source = state.context.createBufferSource();
       source.buffer = buffer;
       settings.irBuffer = buffer;
       // Pass along to settings

@@ -1,5 +1,8 @@
 import React, {PropTypes} from 'react';
 import {convertNoteFrequency, createGain} from '../../../utils/audio';
+import {defaultVelocity} from '../../../actions/audio';
+const minTime = 0.001;
+const defaultBendSpeed = 0.05;
 
 class Tone extends React.Component {
   constructor(props) {
@@ -20,7 +23,7 @@ class Tone extends React.Component {
 
   componentWillReceiveProps(next) {
     if (next.settings.waveShape !== this.props.settings.waveShape) {
-      // Change oscillator wave shape when props change
+      // Change oscillator wave shape
       this.oscillator.type = next.settings.waveShape;
     }
     if (next.settings.bend !== this.props.settings.bend) {
@@ -32,8 +35,10 @@ class Tone extends React.Component {
       this.bendNote(next.tone.id, next.settings, 1 / next.settings.portamento.speed);
     }
     if (next.settings.oscillators.length !== this.props.settings.oscillators.length) {
+      // Number of oscillators has changed
       this.setupAudio(next);
     } else {
+      // Apply other settings
       next.settings.oscillators.forEach((o, i) => {
         if(o != this.props.settings.oscillators[i]) {
           this.setupOscillator(this.oscillators[i], o);
@@ -42,7 +47,7 @@ class Tone extends React.Component {
     }
   }
 
-  bendNote(bendTo, settings, speed = 0.05) {
+  bendNote(bendTo, settings, speed = defaultBendSpeed) {
     const now = this.props.context.currentTime;
     this.oscillators.forEach((o, i) => {
       // calculate frequency based on octave and bend destination
@@ -73,8 +78,9 @@ class Tone extends React.Component {
 
   setupAudio(props) {
     if (this.oscillators) {
+      // Oscillators have been created so we have to either add one or remove one
       if (props.settings.oscillators.length < this.oscillators.length) {
-        // Remove oscillator
+        // Remove an oscillator
         this.oscillators.filter(o => {
           if (!props.settings.oscillators.some(p => p.id === o.id)) {
             o.osc.disconnect();
@@ -85,10 +91,11 @@ class Tone extends React.Component {
           }
         });
       } else if (props.settings.oscillators.length > this.oscillators.length){
-        // Add oscillator
+        // Add an oscillator
         this.oscillators.push(this.createOscillator(props, props.settings.oscillators[props.settings.oscillators.length - 1]));
       }
     } else {
+      // Oscillators have not been created yet so create them all
       this.oscillators = props.settings.oscillators.map(o => this.createOscillator(props, o));
     }
   }
@@ -116,12 +123,12 @@ class Tone extends React.Component {
           // Transition to ramp down
           this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
           // Ramp down
-          this.envelope.gain.setTargetAtTime(0.0, now, release || 0.001);
+          this.envelope.gain.setTargetAtTime(0.0, now, release || minTime);
         } else {
           // Note ON
-          velocity = ignoreVel ? 0.4 : velocity;
+          velocity = ignoreVel ? defaultVelocity : velocity;
           // Find end time for attack envelope
-          const envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 10.0) + 0.001;
+          const envAttackEnd = now + ((this.props.settings.envelope.attack || 0) / 10.0) + minTime;
           // Transition to envelope
           this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
           // Start envelope

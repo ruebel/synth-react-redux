@@ -1,4 +1,5 @@
 import {createStore, applyMiddleware, compose} from 'redux';
+import {autoRehydrate} from 'redux-persist';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 
@@ -7,6 +8,7 @@ let middlewares = [thunk];
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
     applyMiddleware(...middlewares),
+    autoRehydrate(),
     window.devToolsExtension ? window.devToolsExtension() : f => f // add support for Redux dev tools
     )
   );

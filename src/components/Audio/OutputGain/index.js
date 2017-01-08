@@ -50,7 +50,6 @@ OutputGain.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    gain: state.audio.gain.output,
     level: state.audio.gain.outputLevel
   };
 };

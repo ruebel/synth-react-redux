@@ -68,7 +68,8 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
       // Make sure we need to rewire everything
       if (!prev ||
         prev.input !== next.input ||
-        prev.settings.input !== next.settings.input ||
+        // prev.settings.input !== next.settings.input ||
+        prev.gain !== next.gain ||
         prev.output !== next.output) {
           // Make sure we have already made gains
           if (!this.effectGain) {
@@ -82,11 +83,11 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
           // Connect Gain Stage Input if required
           if (next.input) {
             next.input.disconnect();
-            next.input.connect(next.settings.input);
+            next.input.connect(next.gain);
           }
           // Connect output
-          next.settings.input.disconnect();
-          next.settings.input.connect(this.effectGain);
+          next.gain.disconnect();
+          next.gain.connect(this.effectGain);
           if (Array.isArray(effect)) {
             effect.forEach(e => this.effectGain.connect(e.input));
           } else {
@@ -94,12 +95,12 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
           }
           if (effectLevelMode === 'blend') {
             // Bypass Gain for blending
-            next.settings.input.connect(this.bypassGain);
+            next.gain.connect(this.bypassGain);
             this.bypassGain.disconnect();
             this.bypassGain.connect(next.output);
           } else {
             // Direct connect input
-            next.settings.input.connect(next.output);
+            next.gain.connect(next.output);
           }
           // Effect Gain
           if (Array.isArray(effect)) {
@@ -147,6 +148,7 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     changeSettings: PropTypes.func.isRequired,
     context: PropTypes.object.isRequired,
     defaults: PropTypes.object.isRequired,
+    gain: PropTypes.object.isRequired,
     move: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired
