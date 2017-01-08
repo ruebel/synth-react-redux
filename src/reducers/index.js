@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import audio from './audio';
 import control from './control';
 import input from './input';
+import presets from './presets';
 import synth from './synth';
 import initialState from '../store/initialState';
 
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   context,
   control,
   input,
+  presets,
   synth
 });
 

@@ -28,6 +28,10 @@ export default {
     devices: [],
     selectedDevice: {}
   },
+  presets: {
+    loadedId: null,
+    presets: []
+  },
   synth: {
     bend: 0,
     envelope: {
