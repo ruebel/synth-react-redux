@@ -55,7 +55,10 @@ class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]),
   close: PropTypes.func.isRequired
 };
 
