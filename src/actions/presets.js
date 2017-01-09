@@ -7,10 +7,38 @@ export const clearPresets = () => {
   };
 };
 
-export const loadPreset = (id) => {
+const createPreset = (name, state, id) => {
+  let newName = name;
+  if (!name && id) {
+    const existing = state.presets.presets.find(p => p.id === id);
+    if (existing) {
+      newName = existing.name;
+    }
+  }
+  return Object.assign({}, state, {
+    audio: Object.assign({}, state.audio, {
+      keys: undefined
+    }),
+    context: undefined,
+    id: id || uuid.v4(),
+    input: Object.assign({}, state.input, {
+      devices: undefined
+    }),
+    name: newName,
+    presets: undefined
+  });
+};
+
+export const loadPreset = (id) => (dispatch, getState) => {
+  const state = getState();
+  const preset = state.presets.presets.find(p => p.id === id);
+  dispatch(loadPresetAfter(preset));
+};
+
+export const loadPresetAfter = (preset) => {
   return {
     type: 'LOAD_PRESET',
-    payload: id
+    payload: preset
   };
 };
 
@@ -21,18 +49,28 @@ export const removePreset = (id) => {
   };
 };
 
-export const saveNewPreset = (preset) => {
+export const saveNewPreset = (name) => (dispatch, getState) => {
+  const state = getState();
+  const preset = createPreset(name, state);
+  dispatch(saveNewPresetAfter(preset));
+};
+
+const saveNewPresetAfter = (preset) => {
   return {
     type: 'SAVE_NEW_PRESET',
-    payload: Object.assign({}, preset, {
-      id: uuid.v4()
-    })
+    payload: preset
   };
 };
 
-export const savePreset = (id) => {
+export const savePreset = (id) => (dispatch, getState) => {
+  const state = getState();
+  const preset = createPreset(null, state, id);
+  dispatch(savePresetAfter(preset));
+};
+
+export const savePresetAfter = (preset) => {
   return {
     type: 'SAVE_PRESET',
-    payload: id
+    payload: preset
   };
 };

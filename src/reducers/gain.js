@@ -9,6 +9,8 @@ function outputLevel(state = initialState.audio.gain.outputLevel, action) {
   switch(action.type){
     case 'SET_OUTPUT_LEVEL':
       return action.payload;
+    case 'LOAD_PRESET':
+      return action.payload.audio.gain.outputLevel;
     default:
       return state;
   }

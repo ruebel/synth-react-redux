@@ -10,7 +10,13 @@ class PresetBank extends React.Component {
     this.state = {
       showAdd: false
     };
+    this.handleSave = this.handleSave.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
+  }
+
+  handleSave(name) {
+    this.toggleEditModal();
+    this.props.saveNewPreset(name);
   }
 
   toggleEditModal() {
@@ -25,7 +31,7 @@ class PresetBank extends React.Component {
       <div>
         <AddPreset
           close={this.toggleEditModal}
-          save={this.props.saveNewPreset}
+          save={this.handleSave}
           show={this.state.showAdd}/>
         <Button
           active={Boolean(loadedId)}

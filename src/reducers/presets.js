@@ -4,7 +4,6 @@ import initialState from '../store/initialState';
 const loadedId = (state = initialState.presets.loadedId, action) => {
   switch(action.type) {
     case 'LOAD_PRESET':
-      return action.payload;
     case 'SAVE_NEW_PRESET':
       return action.payload.id;
     case 'REMOVE_PRESET':

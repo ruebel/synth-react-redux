@@ -1,0 +1,10 @@
+@import 'global';
+
+.input {
+  border: 2px $core-border-color solid;
+  border-radius: 3px;
+  font-size: $body-font-size;
+  height: 5rem;
+  padding: 10px 24px;
+  width: 100%;
+}

@@ -19,6 +19,8 @@ const controls = (state = initialState.control.controls, action) => {
       return Object.assign({}, state, {
         [action.payload.control]: action.payload
       });
+    case 'LOAD_PRESET':
+      return action.payload.control.controls;
     case 'REMOVE_CONTROL':
       const val = `${action.payload.channel}:${action.payload.control}`;
       return Object.keys(state)

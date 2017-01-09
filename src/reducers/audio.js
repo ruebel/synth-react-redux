@@ -17,6 +17,8 @@ function effects(state = initialState.audio.effects, action) {
       });
     case 'ADD_EFFECT':
       return [...state, action.payload];
+    case 'LOAD_PRESET':
+      return action.payload.audio.effects;
     case 'REMOVE_EFFECT':
       return state.filter(e => e.id !== action.payload);
     case 'REMOVE_CONTROL':
