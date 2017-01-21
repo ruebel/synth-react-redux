@@ -36,11 +36,11 @@ class PresetBank extends React.Component {
         <Button
           active={Boolean(loadedId)}
           click={() => savePreset(loadedId)}
-          text="Save Preset"/>
+          text="Save"/>
         <Button
           active
           click={this.toggleEditModal}
-          text="Save New Preset"/>
+          text="Save As"/>
         <Button
           active={Boolean(loadedId)}
           click={() => removePreset(loadedId)}

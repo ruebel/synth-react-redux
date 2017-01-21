@@ -78,21 +78,25 @@ class Tone extends React.Component {
 
   setupAudio(props) {
     if (this.oscillators) {
-      // Oscillators have been created so we have to either add one or remove one
-      if (props.settings.oscillators.length < this.oscillators.length) {
-        // Remove an oscillator
-        this.oscillators.filter(o => {
-          if (!props.settings.oscillators.some(p => p.id === o.id)) {
-            o.osc.disconnect();
-            o.gain.disconnect();
-            return false;
-          } else {
-            return true;
+      // Oscillators have been created or removed so we have to reconcile them
+      // Remove obsolete oscillators
+      this.oscillators = this.oscillators.filter(o => {
+        if (!props.settings.oscillators.some(p => p.id === o.id)) {
+          o.osc.disconnect();
+          o.gain.disconnect();
+          return false;
+        } else {
+          return true;
+        }
+      });
+      // Check if we need to add
+      if (props.settings.oscillators.length > this.oscillators.length) {
+        // Add new oscillators
+        props.settings.oscillators.forEach(o => {
+          if (!this.oscillators.some(p => p.id === o.id)) {
+            this.oscillators.push(this.createOscillator(props, o));
           }
         });
-      } else if (props.settings.oscillators.length > this.oscillators.length){
-        // Add an oscillator
-        this.oscillators.push(this.createOscillator(props, props.settings.oscillators[props.settings.oscillators.length - 1]));
       }
     } else {
       // Oscillators have not been created yet so create them all
