@@ -2,7 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import AddPreset from './AddPreset';
 import Button from '../Button';
+import Container from '../Container';
 import * as actions from '../../actions/presets';
+const styles = require('./styles.css');
 
 class PresetBank extends React.Component {
   constructor(props) {
@@ -27,12 +29,8 @@ class PresetBank extends React.Component {
 
   render() {
     const {loadedId, loadPreset, presets, removePreset, savePreset} = this.props;
-    return (
-      <div>
-        <AddPreset
-          close={this.toggleEditModal}
-          save={this.handleSave}
-          show={this.state.showAdd}/>
+    const menu = (
+      <div className={styles.menu}>
         <Button
           active={Boolean(loadedId)}
           click={() => savePreset(loadedId)}
@@ -40,24 +38,38 @@ class PresetBank extends React.Component {
         <Button
           active
           click={this.toggleEditModal}
-          text="Save As"/>
+          text="Save As"
+          type="success"
+        />
         <Button
           active={Boolean(loadedId)}
           click={() => removePreset(loadedId)}
-          text="Remove Preset"
+          text="Remove"
           type="danger"
         />
-        {presets.map((p, i) => {
-          return (
-            <Button
-              active={p.id !== loadedId}
-              click={() => loadPreset(p.id)}
-              key={i}
-              text={p.name}
-            />
-          );
-        })}
       </div>
+    );
+    return (
+      <Container active title="Presets" titleControl={menu}>
+        <AddPreset
+          close={this.toggleEditModal}
+          save={this.handleSave}
+          show={this.state.showAdd}/>
+        <div className={styles.bank}>
+          {presets.map((p, i) => {
+            return (
+              <Button
+                active
+                click={() => loadPreset(p.id)}
+                key={i}
+                selected={p.id === loadedId}
+                text={p.name}
+                type={p.id !== loadedId ? 'empty' : 'success'}
+              />
+            );
+          })}
+        </div>
+      </Container>
     );
   }
 }

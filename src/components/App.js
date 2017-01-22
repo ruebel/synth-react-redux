@@ -5,12 +5,15 @@ import Keyboard from './Keyboard';
 import PresetBank from './PresetBank';
 import Synth from './Synth';
 import AssignControl from './AssignControl';
+const styles = require('./styles.css');
 
 const App = () => {
   return (
     <div className="container">
-      <DeviceSelector />
-      <PresetBank />
+      <div className={styles.inline}>
+        <DeviceSelector />
+        <PresetBank />
+      </div>
       <Synth />
       <Keyboard />
       <Audio />

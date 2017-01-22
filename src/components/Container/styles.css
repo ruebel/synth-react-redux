@@ -1,8 +1,8 @@
 @import 'global';
 
 .container {
-  margin: 20px 0;
-  padding: 20px;
+  margin: 10px 0;
+  padding: 10px;
   border: 2px $core-border-color solid;
   background: $core-gray-extra-light;
   width: 50%;
@@ -39,4 +39,8 @@
     margin-top: -10px;
     margin-right: -10px;
   }
+}
+
+.header.pullUp {
+  margin-bottom: -40px;
 }

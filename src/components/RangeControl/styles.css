@@ -24,10 +24,10 @@ $handleSize: 30px;
   border-radius: 50%;
   height: $handleSize;
   margin-top: -calc($handleSize/2);
-  z-index: 0 !important;
+  z-index: 0;
   transition: transform 0.2s ease-in, background 0.2s ease-in;
 
-  & :hover, & :active {
+  &:hover, &:active {
     background: $brand-primary;
     border-radius: 50%;
     transform: scaleX(1.2) scaleY(1.2);
@@ -40,6 +40,10 @@ $handleSize: 30px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
+
+  &:hover {
+    color: color($brand-primary b(10%));
+  }
 
   & > div {
     display: inline-block;

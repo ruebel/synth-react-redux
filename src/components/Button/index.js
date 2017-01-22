@@ -3,10 +3,11 @@ import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
 
-const Button = ({active, click, color, type, text}) => {
+const Button = ({active, click, color, type, selected, text}) => {
   const style = cx({
     button: type !== 'link' && type !== 'round',
     [type || 'primary']: true,
+    selected
   });
   return (
     <button
@@ -24,6 +25,7 @@ Button.propTypes = {
   click: PropTypes.func.isRequired,
   color: PropTypes.string,
   flavor: PropTypes.string,
+  selected: PropTypes.bool,
   text: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired
 };

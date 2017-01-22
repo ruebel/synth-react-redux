@@ -12,9 +12,13 @@ const Container = ({active, activeChange, close, children, full, tight, title, t
     full,
     tight
   });
+  const headerStyle = cx({
+    header: true,
+    pullUp: !title && (titleControl || close)
+  });
   return (
     <div className={containerStyle}>
-      <div className={styles.header}>
+      <div className={headerStyle}>
         <h3>{title}</h3>
         {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}

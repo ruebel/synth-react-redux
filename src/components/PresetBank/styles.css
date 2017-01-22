@@ -1,0 +1,18 @@
+.menu {
+  & button {
+    margin-left: 2px;
+    padding: 4px;
+    min-height: 30px;
+  }
+}
+
+.bank {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+
+  & button {
+    margin-right: 5px;
+    flex: 1;
+  }
+}

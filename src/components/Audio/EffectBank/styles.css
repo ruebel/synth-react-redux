@@ -4,9 +4,10 @@
   align-items: flex-start;
   justify-content: middle;
   flex-wrap: wrap;
+  margin-left: -5px;
 
   & > div {
-    margin-left: 5px;
     width: 49%;
+    margin-left: 5px;
   }
 }

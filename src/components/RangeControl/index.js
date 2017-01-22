@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import ReactTooltip from 'react-tooltip';
 import {connect} from 'react-redux';
 import ReactSlider from 'react-slider';
 import {assignControl} from '../../actions/control';
@@ -16,9 +17,35 @@ const RangeControl = ({assign, assignControl, max, min, onSet, step, title, valu
       {assign ? (
         <h3
           className={styles.assign}
+          data-tip
+          data-for="midi"
           onClick={() => assignControl(assign)}>
           {title}
           {assign.channel && <div>{assign.channel}:{assign.control}</div>}
+          <ReactTooltip id="midi">
+            {assign.channel ?
+              (
+                <div>
+                  <h3>
+                    Click to edit MIDI control
+                  </h3>
+                  <h3>
+                    Channel:
+                    <span>
+                      {assign.channel}
+                    </span>
+                  </h3>
+                  <h3>
+                    Control:
+                    <span>
+                      {assign.control}
+                    </span>
+                  </h3>
+                </div>
+              ) :
+              'Click to assign MIDI control'
+            }
+          </ReactTooltip>
         </h3>
       ) : (
         <h3>{title}</h3>
