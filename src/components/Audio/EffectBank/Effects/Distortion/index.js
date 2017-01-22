@@ -54,9 +54,9 @@ class Distortion extends React.Component {
   }
 
   makeDistortionCurve(amount) {
-    let k = (typeof amount === 'number' && !isNaN(amount)) ? amount : 50;
+    const k = (typeof amount === 'number' && !isNaN(amount)) ? amount : 50;
     const numSamples = 44100;
-    let curve = new Float32Array(numSamples);
+    const curve = new Float32Array(numSamples);
     let x;
     for (let i = 0; i < numSamples; ++i ) {
       x = i * 2 / numSamples - 1;

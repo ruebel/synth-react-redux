@@ -2,7 +2,7 @@ import uuid from 'uuid';
 import {generateKey, getContext} from '../utils/audio';
 
 const generateKeys = (startPoint = 0, numKeys = 88) => {
-  let keys = {};
+  const keys = {};
   for(let i = startPoint; i < (startPoint + numKeys); i++) {
     const key = generateKey(i);
     keys[key.id] = key;

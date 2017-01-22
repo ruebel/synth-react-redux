@@ -8,7 +8,7 @@ const gotInputDevices = (devices) => {
 };
 
 export const setDevice = (device) => (dispatch, getState) => {
-  let state = getState();
+  const state = getState();
   // Deactivate current device
   input.deactivateDevice(state.input.selectedDevice);
   // Start listening for inputs from new device
@@ -30,7 +30,7 @@ export const getInputDevices = () => (dispatch) => {
     // Set default device
     if (devices.length > 0) {
       // Try to default to first midi device
-      let midi = devices.find(d => d.device === 'MIDI');
+      const midi = devices.find(d => d.device === 'MIDI');
       if (midi) {
         dispatch(setDevice(midi));
       } else {

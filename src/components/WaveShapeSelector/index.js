@@ -4,7 +4,7 @@ import {waveShapes} from '../../utils/audio';
 const styles = require('./styles.css');
 
 const WaveShapeSelector = ({value, change}) => {
-  let options = waveShapes.map(s => ({id: s, name: s}));
+  const options = waveShapes.map(s => ({id: s, name: s}));
   return (
     <div className={styles.wrapper}>
       <Select

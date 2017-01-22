@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 const styles = require('./styles.css');
 import classNames from 'classnames/bind';
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 class Key extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Key extends React.Component {
   }
 
   render() {
-    let style = cx({
+    const style = cx({
       key: true,
       on: this.props.tone.velocity > 0,
       ebony: this.props.tone.note.length > 1

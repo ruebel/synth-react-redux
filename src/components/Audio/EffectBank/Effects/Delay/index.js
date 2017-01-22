@@ -61,7 +61,7 @@ class Delay extends React.Component {
     // this will allow us to have falling gain as the delays get later
     this.effect = [];
     for(let i = 1; i < 6; i++) {
-      let repeat = {
+      const repeat = {
         input: this.props.context.createDelay(2 * i),
         output: this.props.context.createGain()
       };

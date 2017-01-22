@@ -11,7 +11,7 @@ const addEffectAfter = (payload) => {
 };
 
 export const addEffect = (effect) => (dispatch) => {
-  let payload = {
+  const payload = {
     id: uuid.v4(),
     type: effect,
     ...defaultSettings[effect]
@@ -34,7 +34,7 @@ export const getImpulseResponse = (settings) => async(dispatch, getState) => {
     const response = await fetch(settings.irUrl.value);
     const audioData = await response.arrayBuffer();
     state.context.decodeAudioData(audioData, (buffer) => {
-      let source = state.context.createBufferSource();
+      const source = state.context.createBufferSource();
       source.buffer = buffer;
       settings.irBuffer = buffer;
       // Pass along to settings

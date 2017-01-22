@@ -30,9 +30,9 @@ const RangeControl = ({assign, assignControl, max, min, onSet, step, title, valu
         onChange={(e) => onSet(e)}
         min={min || 0}
         max={max || 1.5}
-        pearling={true}
+        pearling
         step={step || 0.01}
-        withBars={true}>
+        withBars>
           <div>{Math.abs(value) < 1 ? value.toFixed(2) : value.toFixed(1)}</div>
         </ReactSlider>
     </div>

@@ -60,14 +60,14 @@ class Tone extends React.Component {
   }
 
   createOscillator(props, o) {
-    let osc = props.context.createOscillator();
+    const osc = props.context.createOscillator();
     // Connect modulation oscillator to frequency
     props.modulation.connect(osc.frequency);
     osc.start();
-    let gain = props.context.createGain();
+    const gain = props.context.createGain();
     osc.connect(gain);
     gain.connect(this.envelope);
-    let oscItem = {
+    const oscItem = {
       id: o.id,
       osc,
       gain

@@ -51,7 +51,7 @@ class ResonanceFilter extends React.Component {
 
   createFilter(context) {
     const bufferSize = 1024;
-    let node = context.createScriptProcessor(bufferSize, 1, 1);
+    const node = context.createScriptProcessor(bufferSize, 1, 1);
     let in1, in2, in3, in4, out1, out2, out3, out4;
     in1 = in2 = in3 = in4 = out1 = out2 = out3 = out4 = 0.0;
     // between 0.0 and 1.0

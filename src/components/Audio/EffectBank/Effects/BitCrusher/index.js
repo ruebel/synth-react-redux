@@ -41,7 +41,7 @@ class BitCrusher extends React.Component {
 
   applySettings(next, prev) {
     if (checkPropChange(prev, next, 'bits')) {
-      let bits = parseInt(next.settings.bits.value, 10);
+      const bits = parseInt(next.settings.bits.value, 10);
       this.effect.bits = bits;
     }
     if (checkPropChange(prev, next, 'normfreq')) {
@@ -52,17 +52,17 @@ class BitCrusher extends React.Component {
 
   createCrusher(context) {
     const bufferSize = 1024;
-    let node = context.createScriptProcessor(bufferSize, 1, 1);
+    const node = context.createScriptProcessor(bufferSize, 1, 1);
     // between 1 and 16
     node.bits = defaultSettings.bits.value;
     // between 0.0 and 1.0
     node.normfreq = defaultSettings.normfreq.value;
-    let step = Math.pow(1 / 2, node.bits);
+    const step = Math.pow(1 / 2, node.bits);
     let phaser = 0;
     let last = 0;
     node.onaudioprocess = (e) => {
-      let input = e.inputBuffer.getChannelData(0);
-      let output = e.outputBuffer.getChannelData(0);
+      const input = e.inputBuffer.getChannelData(0);
+      const output = e.outputBuffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
         phaser += node.normfreq;
         if (phaser >= 1.0) {

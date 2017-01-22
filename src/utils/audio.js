@@ -40,7 +40,7 @@ export const convertNoteFrequency = (note) => {
  * Create Gain Node
  */
 export const createGain = (context, velocity) => {
-  let gain = context.createGain();
+  const gain = context.createGain();
   gain.gain.value = velocity;
   return gain;
 };
@@ -48,7 +48,7 @@ export const createGain = (context, velocity) => {
  * Create Oscillator using settings
  */
 export const createOscillator = (context, note, shape) => {
-  let osc = context.createOscillator();
+  const osc = context.createOscillator();
   osc.type = shape;
   osc.frequency.value = convertNoteFrequency(note);
   osc.start();
@@ -89,6 +89,6 @@ const generateKeyOctave = (i) => {
  */
 export const getContext = () => {
   window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.oAudioContext;
-  let context = new AudioContext();
+  const context = new AudioContext();
   return context;
 };

@@ -39,7 +39,7 @@ function effects(state = initialState.audio.effects, action) {
       if (end < 0 || end === state.length) {
         return state;
       }
-      let newState = [...state];
+      const newState = [...state];
       newState.splice(end, 0, newState.splice(start, 1)[0]);
       return newState;
     case 'SEND_CONTROL_MESSAGE':

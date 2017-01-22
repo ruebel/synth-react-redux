@@ -62,15 +62,15 @@ export const getDevices = () => {
     return window.navigator.requestMIDIAccess()
       .then(access => {
         // Add computer keyboard support
-        let devices = [{
+        const devices = [{
           id: '0',
           device: 'KEYBOARD',
           name: 'Computer Keyboard'
         }];
         if (access.inputs && access.inputs.size > 0) {
-          let inputs = access.inputs.values();
+          const inputs = access.inputs.values();
           for (let input = inputs.next(); input && !input.done; input = inputs.next()) {
-            let device = input.value;
+            const device = input.value;
             device.device = 'MIDI';
             devices.push(device);
           }
@@ -79,7 +79,7 @@ export const getDevices = () => {
       });
   } else {
     // throw 'No Web MIDI support detected!';
-    let devices = [{
+    const devices = [{
       id: '0',
       device: 'KEYBOARD',
       name: 'Computer Keyboard'
@@ -91,7 +91,7 @@ export const getDevices = () => {
  * Handle Computer Keyboard key down
  */
 const handleKeyDown = (dispatch) => (e) => {
-  let note = keyMap[e.keyCode];
+  const note = keyMap[e.keyCode];
   if (note) {
     dispatch(keyDown(note));
   }
@@ -100,7 +100,7 @@ const handleKeyDown = (dispatch) => (e) => {
  * Handle Computer Keyboard key up
  */
 const handleKeyUp = (dispatch) => (e) => {
-  let note = keyMap[e.keyCode];
+  const note = keyMap[e.keyCode];
   if (note) {
     dispatch(keyUp(note));
   }
@@ -118,7 +118,7 @@ const handleMidiMessage = (dispatch) => (e) => {
   switch (e.data[0]) {
     // Note On
     case 144:
-      let velocity = convertVelocity(e.data[2]);
+      const velocity = convertVelocity(e.data[2]);
       if (velocity > 0) {
         dispatch(keyDown(e.data[1], velocity));
       } else {

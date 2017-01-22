@@ -39,9 +39,9 @@ class Modal extends React.Component {
     return (
       <CSSTransitionGroup
         transitionName={styles}
-        transitionAppear={true}
+        transitionAppear
         transitionEnter={false}
-        transitionLeave={true}
+        transitionLeave
         transitionAppearTimeout={150}
         transitionLeaveTimeout={150}>
         <div className={styles.wrapper} onClick={this.handleClose} key="1">
