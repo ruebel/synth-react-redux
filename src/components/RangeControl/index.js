@@ -7,6 +7,13 @@ import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
 
+const scaleNumber = (n) => {
+  const abs = Math.abs(n);
+  return abs > 1000 ? `${(n / 1000).toFixed(1)}k` :
+  abs < 1 ? n.toFixed(2) :
+  n.toFixed(1);
+};
+
 const RangeControl = ({assign, assignControl, max, min, onSet, step, title, value}) => {
   const style = cx({
     assigned: assign && assign.channel,
@@ -60,7 +67,7 @@ const RangeControl = ({assign, assignControl, max, min, onSet, step, title, valu
         pearling
         step={step || 0.01}
         withBars>
-          <div>{Math.abs(value) < 1 ? value.toFixed(2) : value.toFixed(1)}</div>
+          <div>{scaleNumber(value)}</div>
         </ReactSlider>
     </div>
   );

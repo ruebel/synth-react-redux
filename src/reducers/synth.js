@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import uuid from 'uuid';
 import initialState from '../store/initialState';
 import modulation from './modulation';
 
@@ -11,6 +12,7 @@ const synth = combineReducers({
   ignoreVelocity,
   lastDown,
   modulation,
+  oscId,
   oscillators,
   portamento: combineReducers({
     on,
@@ -65,6 +67,18 @@ function on(state = initialState.synth.portamento.on, action) {
       return !state;
     case 'LOAD_PRESET':
       return action.payload.synth.portamento.on;
+    default:
+      return state;
+  }
+}
+
+function oscId(state = initialState.synth.oscId, action) {
+  switch(action.type) {
+    case 'ADD_OSCILLATOR':
+    case 'LOAD_PRESET':
+    case 'REMOVE_OSCILLATOR':
+    case 'SET_OSCILLATOR_SETTING':
+      return uuid.v4();
     default:
       return state;
   }

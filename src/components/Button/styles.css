@@ -10,9 +10,9 @@
   margin: 0;
   transition: background-color 100ms ease-in-out, transform 100ms ease-in-out;
 
-  &:hover {
+  &:hover:enabled {
     transform: scaleX(1.1) scaleY(1.1);
-    background-color: color($brand-primary b(10%));
+    background-color: color($brand-primary b(15%));
   }
 
   &:disabled {
@@ -84,8 +84,8 @@ $buttonSize: 32px;
   background-color: $control-color-empty;
   color: $core-light-color;
 
-  &:hover {
-    background-color: color($control-color-empty b(10%));
+  &:hover:enabled {
+    background-color: color($control-color-success b(15%));
   }
 }
 
@@ -93,17 +93,17 @@ $buttonSize: 32px;
   background-color: $brand-primary;
   color: $core-light-color;
 
-  &:hover {
-    background-color: color($brand-primary b(10%));
+  &:hover:enabled {
+    background-color: color($brand-primary b(15%));
   }
 }
 
-.success {
+.success, :disabled.selected {
   background-color: $control-color-success;
   color: $core-light-color;
 
-  &:hover {
-    background-color: color($control-color-success b(10%));
+  &:hover:enabled {
+    background-color: color($control-color-success b(15%));
   }
 }
 
@@ -111,7 +111,7 @@ $buttonSize: 32px;
   background-color: $control-color-danger;
   color: $core-light-color;
 
-  &:hover {
+  &:hover:enabled {
     background-color: color($control-color-danger b(10%));
   }
 }

@@ -46,6 +46,7 @@ export default {
       shape: 'sine',
       speed: 4.5
     },
+    oscId: uuid.v4(),
     oscillators: [{
       id: uuid.v4(),
       detune: 0,

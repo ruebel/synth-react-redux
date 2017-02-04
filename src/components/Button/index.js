@@ -12,7 +12,7 @@ const Button = ({active, click, color, type, selected, text}) => {
   return (
     <button
       className={style}
-      disabled={!active}
+      disabled={!active || selected}
       onClick={() => click()}
       style={{background: color}}>
       <div>{text || 'Click Me!'}</div>

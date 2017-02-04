@@ -47,4 +47,5 @@
   border-radius: 0;
   border-width: 2px;
   border-style: solid;
+  z-index: 2;
 }

@@ -59,7 +59,7 @@ class PresetBank extends React.Component {
           {presets.map((p, i) => {
             return (
               <Button
-                active
+                active={p.id !== loadedId}
                 click={() => loadPreset(p.id)}
                 key={i}
                 selected={p.id === loadedId}
