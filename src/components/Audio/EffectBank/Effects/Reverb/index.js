@@ -3,6 +3,7 @@ import Effect from '../Effect';
 import Select from '../../../../Select';
 import irs from './IRs';
 import {checkPropChange, defaultEffectSettings} from '../../../../../utils/effect';
+import {getImpulseResponse} from '../../../../../utils/audio';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#0198e1',
@@ -37,12 +38,7 @@ class Reverb extends React.Component {
 
   applySettings(next, prev) {
     if (checkPropChange(prev, next, 'irUrl')) {
-      if (next.settings.irBuffer &&
-        next.settings.irBuffer.constructor === AudioBuffer) {
-        this.effect.buffer = next.settings.irBuffer;
-      } else {
-        this.effect.buffer = null;
-      }
+      getImpulseResponse(next.settings, this.effect, next.context);
     }
     this.props.wire(next, prev, this.effect);
   }

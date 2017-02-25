@@ -92,3 +92,23 @@ export const getContext = () => {
   const context = new AudioContext();
   return context;
 };
+
+export const getImpulseResponse = async(settings, effect, context)  => {
+  // Make sure we received a url to fetch
+  if (!settings.irUrl.value) {
+    // No url so just clear the IR
+    settings.irUrl.value = null;
+    settings.effectLevel = 0;
+    effect.buffer = null;
+  } else {
+    // Received url so we will have to fetch
+    // Get the IR file from the server
+    const response = await fetch(settings.irUrl.value);
+    const audioData = await response.arrayBuffer();
+    context.decodeAudioData(audioData, (buffer) => {
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      effect.buffer = buffer;
+    });
+  }
+};
