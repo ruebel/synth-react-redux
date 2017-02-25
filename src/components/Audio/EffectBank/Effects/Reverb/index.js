@@ -37,7 +37,8 @@ class Reverb extends React.Component {
 
   applySettings(next, prev) {
     if (checkPropChange(prev, next, 'irUrl')) {
-      if (next.settings.irBuffer) {
+      if (next.settings.irBuffer &&
+        next.settings.irBuffer.constructor === AudioBuffer) {
         this.effect.buffer = next.settings.irBuffer;
       } else {
         this.effect.buffer = null;
