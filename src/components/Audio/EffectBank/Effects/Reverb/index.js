@@ -49,7 +49,7 @@ class Reverb extends React.Component {
     // Handle default settings
     this.applySettings(this.props);
     // Get the first IR loaded
-    this.props.handleSettingsChange('irUrl', irs[Object.keys(irs)[0]].url);
+    this.props.handleSettingsChange('irUrl', this.props.settings.irUrl.value || irs[Object.keys(irs)[0]].url);
   }
 
   render() {
