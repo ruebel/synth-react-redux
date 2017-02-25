@@ -1,4 +1,4 @@
-@import 'global';
+@import 'colors';
 
 $size: 28px;
 $borderSize: 2px;
@@ -43,14 +43,14 @@ $transTime: 200ms;
 
   & > h3 {
     margin-right: 30px;
-    color: $body-font-light-color;
+    color: $core-gray-semidark;
     transition: color $transTime ease-in;
   }
 }
 
 .wrapper.on {
   & > h3 {
-    color: $body-font-color;
+    color: $core-gray-extra-dark;
     transition: color $transTime ease-in;
   }
 }

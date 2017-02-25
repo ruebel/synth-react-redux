@@ -1,4 +1,4 @@
-@import 'global';
+@import 'colors';
 
 .button {
   background-color: $brand-primary;
@@ -23,7 +23,7 @@
 
 .link {
   background-color: transparent;
-  color: $body-font-color;
+  color: $core-gray-extra-dark;
   min-height: 44px;
   border: none;
   cursor: pointer;

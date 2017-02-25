@@ -1,4 +1,5 @@
-@import 'global.css';
+@import 'colors';
+@import 'typography';
 
 .wrapper {
   margin-top: 30px;
