@@ -3,6 +3,8 @@ A customizable synth built on React/Redux using the Web Audio and Web MIDI APIs.
 
 `* As of right now only Chrome and Opera support the Web MIDI API`
 
+[Live Demo](https://ruebel.github.io/synth-react-redux/)
+
 ## features
 1. Recallable Presets
 1. Assignable MIDI control of effect parameters
