@@ -28,7 +28,7 @@ export default {
   target: 'web',
   output: {
     path: PATHS.dist,
-    publicPath: '/',
+    publicPath: '/synth-react-redux',
     filename: '[name].[chunkhash].js'
   },
   module: {
