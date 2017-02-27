@@ -15,7 +15,9 @@
     "prebuild": "npm run clean-dist && npm run lint",
     "build": "babel-node tools/build.js && npm run open:dist",
     "build-simple": "babel-node tools/build.js",
-    "start-message": "babel-node ./tools/startMessage"
+    "start-message": "babel-node ./tools/startMessage",
+    "deploy": "cd dist && git add --all && git commit -m \"Release: $(date)\" && git push",
+    "deploy:clean": "rm -rf dist && git clone https://github.com/ruebel/synth-react-redux --branch gh-pages dist && npm run deploy && npm run build"
   },
   "repository": {
     "type": "git",

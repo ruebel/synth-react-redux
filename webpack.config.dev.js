@@ -3,7 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-let indexHTMLBuilder = new HtmlWebpackPlugin({
+const indexHTMLBuilder = new HtmlWebpackPlugin({
     template: 'src/index.ejs',
     title: 'Synth-React-Redux',
     minify: {
