@@ -1,8 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../../actions/synth';
 import Container from '../../Container';
 import RangeControl from '../../RangeControl';
+import * as actions from '../../../actions/synth';
+import {getPortamentoOn, getPortamentoSpeed} from '../../../selectors/synth';
 
 const Portamento = ({on, setPortamento, setPortamentoSpeed, speed}) => {
   return (
@@ -25,8 +26,8 @@ Portamento.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    on: state.synth.portamento.on,
-    speed: state.synth.portamento.speed
+    on: getPortamentoOn(state),
+    speed: getPortamentoSpeed(state)
   };
 };
 

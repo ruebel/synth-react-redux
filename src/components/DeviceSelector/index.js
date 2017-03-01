@@ -3,6 +3,11 @@ import Select from '../Select';
 import {connect} from 'react-redux';
 import {setDevice} from '../../actions/input';
 import Container from '../Container';
+import {getDevices, getSelectedDevice} from '../../selectors/input';
+const noneOption = {
+  id: -1,
+  name: 'None'
+};
 
 class DeviceSelector extends React.Component {
   constructor(props) {
@@ -17,7 +22,7 @@ class DeviceSelector extends React.Component {
   }
 
   render() {
-    const options = [{id: -1, name: 'None'}, ...this.props.devices];
+    const options = [noneOption, ...this.props.devices];
     return (
       <Container active={Boolean(this.props.selectedDevice.id)} title="Input">
         <Select
@@ -37,8 +42,8 @@ class DeviceSelector extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    devices: state.input.devices,
-    selectedDevice: state.input.selectedDevice
+    devices: getDevices(state),
+    selectedDevice: getSelectedDevice(state)
   };
 };
 

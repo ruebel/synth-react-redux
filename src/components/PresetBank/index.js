@@ -4,6 +4,7 @@ import AddPreset from './AddPreset';
 import Button from '../Button';
 import Container from '../Container';
 import * as actions from '../../actions/presets';
+import {getLoadedId, getPresets} from '../../selectors/presets';
 const styles = require('./styles.css');
 
 class PresetBank extends React.Component {
@@ -84,8 +85,8 @@ PresetBank.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  loadedId: state.presets.loadedId,
-  presets: state.presets.presets
+  loadedId: getLoadedId(state),
+  presets: getPresets(state)
 });
 
 export default connect(mapStateToProps, actions)(PresetBank);

@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../../actions/synth';
 import Button from '../../Button';
 import Container from '../../Container';
 import Oscillator from './Oscillator';
+import * as actions from '../../../actions/synth';
+import {getOscillators} from '../../../selectors/synth';
 const styles = require('./styles.css');
 
 const OscillatorBank = ({addOscillator, oscillators, setOscillatorSetting, removeOscillator}) => {
@@ -36,7 +37,7 @@ OscillatorBank.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    oscillators: state.synth.oscillators
+    oscillators: getOscillators(state)
   };
 };
 

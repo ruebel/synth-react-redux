@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../../../actions/synth';
 import Container from '../../Container';
 import RangeControl from '../../RangeControl';
 import WaveShapeSelector from '../../WaveShapeSelector';
+import * as actions from '../../../actions/synth';
+import {getModulation} from '../../../selectors/synth';
 
 const Modulation = ({modulation, setModulationDepth, setModulationSpeed, setModulationOn, setModulationShape}) => {
   return (
@@ -33,7 +34,7 @@ Modulation.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    modulation: state.synth.modulation
+    modulation: getModulation(state)
   };
 };
 

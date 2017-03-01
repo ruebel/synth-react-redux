@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import Container from '../../Container';
 import PowerSwitch from '../../PowerSwitch';
 import RangeControl from '../../RangeControl';
 import {setAttack, setIgnoreVelocity, setRelease} from '../../../actions/synth';
-import Container from '../../Container';
+import {getEnvelope, getIgnoreVelocity} from '../../../selectors/synth';
 
 const Envelope = ({envelope, ignoreVelocity, setAttack, setIgnoreVelocity, setRelease}) => {
   return (
@@ -25,8 +26,8 @@ Envelope.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    envelope: state.synth.envelope,
-    ignoreVelocity: state.synth.ignoreVelocity
+    envelope: getEnvelope(state),
+    ignoreVelocity: getIgnoreVelocity(state)
   };
 };
 

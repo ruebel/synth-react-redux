@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Container from '../../Container';
 import RangeControl from '../../RangeControl';
 import {setOutputLevel} from '../../../actions/audio';
+import {getOutputLevel} from '../../../selectors/audio';
 
 class OutputGain extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ OutputGain.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    level: state.audio.gain.outputLevel
+    level: getOutputLevel(state)
   };
 };
 

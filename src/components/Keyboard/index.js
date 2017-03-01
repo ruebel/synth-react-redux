@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Key from './Key';
 import {keyDown, keyUp} from '../../actions/audio';
+import {getKeys} from '../../selectors/audio';
 const styles = require('./styles.css');
 
 const Keyboard = ({keys, keyDown, keyUp}) => {
@@ -26,7 +27,7 @@ Keyboard.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    keys: state.audio.keys
+    keys: getKeys(state)
   };
 };
 

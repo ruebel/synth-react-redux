@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import EffectBank from './EffectBank';
 import OutputGain from './OutputGain';
 import ToneBank from './ToneBank';
+import {getContext} from '../../selectors/context';
 
 class Audio extends React.Component {
   constructor(props) {
@@ -33,7 +34,7 @@ Audio.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  context: state.context
+  context: getContext(state)
 });
 
 export default connect(mapStateToProps, null)(Audio);

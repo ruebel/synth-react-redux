@@ -1,6 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Tone from './Tone';
+import {getKeys} from '../../../selectors/audio';
+import {getContext} from '../../../selectors/context';
+import {getSynth} from '../../../selectors/synth';
 
 class ToneBank extends React.Component {
   constructor(props) {
@@ -75,9 +78,9 @@ ToneBank.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    tones: state.audio.keys,
-    context: state.context,
-    settings: state.synth
+    tones: getKeys(state),
+    context: getContext(state),
+    settings: getSynth(state)
   };
 };
 

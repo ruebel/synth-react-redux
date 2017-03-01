@@ -4,6 +4,7 @@ import Button from '../Button';
 import RangeControl from '../RangeControl';
 import Modal from '../Modal';
 import {addControl, assignControl, removeControl} from '../../actions/control';
+import {getAssign, getLast} from '../../selectors/control';
 const styles = require('./styles.css');
 
 const AssignControl = ({addControl, assignControl, control, note, removeControl}) => {
@@ -76,8 +77,8 @@ AssignControl.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  control: state.control.assign,
-  note: state.control.last
+  control: getAssign(state),
+  note: getLast(state)
 });
 
 export default connect(mapStateToProps, {

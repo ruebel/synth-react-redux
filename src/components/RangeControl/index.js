@@ -3,16 +3,10 @@ import ReactTooltip from 'react-tooltip';
 import {connect} from 'react-redux';
 import ReactSlider from 'react-slider';
 import {assignControl} from '../../actions/control';
+import {scaleNumber} from '../../utils/math';
 import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
-
-const scaleNumber = (n) => {
-  const abs = Math.abs(n);
-  return abs > 1000 ? `${(n / 1000).toFixed(1)}k` :
-  abs < 1 ? n.toFixed(2) :
-  n.toFixed(1);
-};
 
 const RangeControl = ({assign, assignControl, max, min, onSet, step, title, value}) => {
   const style = cx({

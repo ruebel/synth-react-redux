@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../../actions/audio';
 import AddEffect from './AddEffect';
 import Effects, {defaultSettings} from './Effects';
+import {getEffects} from '../../../selectors/audio';
+import {getContext} from '../../../selectors/context';
 const styles = require('./styles.css');
 
 const createGains = (gains = {}, effects, context) => {
@@ -69,8 +71,8 @@ class EffectBank extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    context: state.context,
-    effects: state.audio.effects
+    context: getContext(state),
+    effects: getEffects(state)
   };
 };
 
