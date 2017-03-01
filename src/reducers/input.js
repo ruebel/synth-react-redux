@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import {C} from '../actions/input';
 import initialState from '../store/initialState';
 
 const input = combineReducers({
@@ -8,7 +9,7 @@ const input = combineReducers({
 
 function devices(state = initialState.input.devices, action) {
   switch(action.type) {
-    case 'GET_INPUT_DEVICES':
+    case C.GET_INPUT_DEVICES:
       return action.payload;
     default:
       return state;
@@ -17,7 +18,7 @@ function devices(state = initialState.input.devices, action) {
 
 function selectedDevice(state = initialState.input.selectedDevice, action) {
   switch(action.type) {
-    case 'SET_INPUT_DEVICE':
+    case C.SET_INPUT_DEVICE:
       return action.payload;
     default:
       return state;

@@ -1,8 +1,25 @@
 import uuid from 'uuid';
+const name = 'synth';
+export const C = {
+  ADD_OSCILLATOR: `${name}/ADD_OSCILLATOR`,
+  REMOVE_OSCILLATOR: `${name}/REMOVE_OSCILLATOR`,
+  SET_SYNTH_ATTACK: `${name}/SET_SYNTH_ATTACK`,
+  SET_IGNORE_VELOCITY: `${name}/SET_IGNORE_VELOCITY`,
+  SET_MODULATION_DEPTH: `${name}/SET_MODULATION_DEPTH`,
+  SET_MODULATION_ON: `${name}/SET_MODULATION_ON`,
+  SET_MODULATION_SHAPE: `${name}/SET_MODULATION_SHAPE`,
+  SET_MODULATION_SPEED: `${name}/SET_MODULATION_SPEED`,
+  SET_OSCILLATOR_SETTING: `${name}/SET_OSCILLATOR_SETTING`,
+  SET_PITCH_BEND: `${name}/SET_PITCH_BEND`,
+  SET_PORTAMENTO: `${name}/SET_PORTAMENTO`,
+  SET_PORTAMENTO_SPEED: `${name}/SET_PORTAMENTO_SPEED`,
+  SET_SYNTH_RELEASE: `${name}/SET_SYNTH_RELEASE`,
+  SET_SUSTAIN: `${name}/SET_SUSTAIN`,
+};
 
 export const addOscillator = () => {
   return {
-    type: 'ADD_OSCILLATOR',
+    type: C.ADD_OSCILLATOR,
     payload: {
       id: uuid.v4(),
       detune: 0,
@@ -15,56 +32,56 @@ export const addOscillator = () => {
 
 export const removeOscillator = (id) => {
   return {
-    type: 'REMOVE_OSCILLATOR',
+    type: C.REMOVE_OSCILLATOR,
     payload: id
   };
 };
 
 export const setAttack = (attack) => {
   return {
-    type: 'SET_SYNTH_ATTACK',
+    type: C.SET_SYNTH_ATTACK,
     payload: attack
   };
 };
 
 export const setIgnoreVelocity = (ignore) => {
   return {
-    type: 'SET_IGNORE_VELOCITY',
+    type: C.SET_IGNORE_VELOCITY,
     payload: ignore
   };
 };
 
 export const setModulationDepth = (depth) => {
   return {
-    type: 'SET_MODULATION_DEPTH',
+    type: C.SET_MODULATION_DEPTH,
     payload: depth
   };
 };
 
 export const setModulationOn = () => {
   return {
-    type: 'SET_MODULATION_ON',
+    type: C.SET_MODULATION_ON,
     payload: null
   };
 };
 
 export const setModulationShape = (shape) => {
   return {
-    type: 'SET_MODULATION_SHAPE',
+    type: C.SET_MODULATION_SHAPE,
     payload: shape
   };
 };
 
 export const setModulationSpeed = (speed) => {
   return {
-    type: 'SET_MODULATION_SPEED',
+    type: C.SET_MODULATION_SPEED,
     payload: speed
   };
 };
 
 export const setOscillatorSetting = (id, value, setting) => {
   return {
-    type: 'SET_OSCILLATOR_SETTING',
+    type: C.SET_OSCILLATOR_SETTING,
     payload: {
       id,
       setting,
@@ -75,35 +92,35 @@ export const setOscillatorSetting = (id, value, setting) => {
 
 export const setPitchBend = (bend) => {
   return {
-    type: 'SET_PITCH_BEND',
+    type: C.SET_PITCH_BEND,
     payload: bend
   };
 };
 
 export const setPortamento = () => {
   return {
-    type: 'SET_PORTAMENTO',
+    type: C.SET_PORTAMENTO,
     payload: null
   };
 };
 
 export const setPortamentoSpeed = (speed) => {
   return {
-    type: 'SET_PORTAMENTO_SPEED',
+    type: C.SET_PORTAMENTO_SPEED,
     payload: speed
   };
 };
 
 export const setRelease = (release) => {
   return {
-    type: 'SET_SYNTH_RELEASE',
+    type: C.SET_SYNTH_RELEASE,
     payload: release
   };
 };
 
 export const setSustain = (sustain) => {
   return {
-    type: 'SET_SUSTAIN',
+    type: C.SET_SUSTAIN,
     payload: sustain
   };
 };

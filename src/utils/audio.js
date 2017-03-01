@@ -92,7 +92,9 @@ export const getContext = () => {
   const context = new AudioContext();
   return context;
 };
-
+/**
+ * Fetch Impulse Response from server
+ */
 export const getImpulseResponse = async(settings, effect, context)  => {
   // Make sure we received a url to fetch
   if (!settings.irUrl.value) {

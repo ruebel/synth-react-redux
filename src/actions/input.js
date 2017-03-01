@@ -1,8 +1,13 @@
 import * as input from '../utils/input';
+const name = 'input';
+export const C = {
+  GET_INPUT_DEVICES: `${name}/GET_INPUT_DEVICES`,
+  SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`
+};
 
 const gotInputDevices = (devices) => {
   return {
-    type: 'GET_INPUT_DEVICES',
+    type: C.GET_INPUT_DEVICES,
     payload: devices
   };
 };
@@ -18,7 +23,7 @@ export const setDevice = (device) => (dispatch, getState) => {
 
 const setInputDevice = (device) => {
   return {
-    type: 'SET_INPUT_DEVICE',
+    type: C.SET_INPUT_DEVICE,
     payload: device
   };
 };
@@ -30,7 +35,7 @@ export const getInputDevices = () => (dispatch) => {
     // Set default device
     if (devices.length > 0) {
       // Try to default to first midi device
-      const midi = devices.find(d => d.device === 'MIDI');
+      const midi = devices.find(d => d.device === input.inputTypes.midi);
       if (midi) {
         dispatch(setDevice(midi));
       } else {

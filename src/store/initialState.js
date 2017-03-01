@@ -1,6 +1,8 @@
 import uuid from 'uuid';
 import {generateKey, getContext} from '../utils/audio';
-
+/**
+ * Generate keys for oscillator bank
+ */
 const generateKeys = (startPoint = 0, numKeys = 88) => {
   const keys = {};
   for(let i = startPoint; i < (startPoint + numKeys); i++) {

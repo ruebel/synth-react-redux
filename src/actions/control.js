@@ -1,6 +1,15 @@
+const name = 'control';
+export const C = {
+  ADD_CONTROL: `${name}/ADD_CONTROL`,
+  ASSIGN_CONTROL: `${name}/ASSIGN_CONTROL`,
+  MIDI_EVENT: `${name}/MIDI_EVENT`,
+  REMOVE_CONTROL: `${name}/REMOVE_CONTROL`,
+  SEND_CONTROL_MESSAGE: `${name}/SEND_CONTROL_MESSAGE`
+};
+
 export const addControl = (control, note) => {
   return {
-    type: 'ADD_CONTROL',
+    type: C.ADD_CONTROL,
     payload: {
       control: `${note[0]}:${note[1]}`,
       id: control.id,
@@ -11,14 +20,14 @@ export const addControl = (control, note) => {
 
 export const assignControl = (assign) => {
   return {
-    type: 'ASSIGN_CONTROL',
+    type: C.ASSIGN_CONTROL,
     payload: assign ? {...assign} : null
   };
 };
 
 export const removeControl = (control) => {
   return {
-    type: 'REMOVE_CONTROL',
+    type: C.REMOVE_CONTROL,
     payload: {...control}
   };
 };
@@ -34,7 +43,7 @@ export const setControl = (control) => (dispatch, getState) => {
 };
 
 const sendControlMessage = (control, value) => ({
-  type: 'SEND_CONTROL_MESSAGE',
+  type: C.SEND_CONTROL_MESSAGE,
   payload: {
     control,
     value
@@ -43,7 +52,7 @@ const sendControlMessage = (control, value) => ({
 
 const midiEvent = (event) => {
   return {
-    type: 'MIDI_EVENT',
+    type: C.MIDI_EVENT,
     payload: event
   };
 };

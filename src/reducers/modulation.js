@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import {C} from '../actions/synth';
+import {C as presetActions} from '../actions/presets';
 import initialState from '../store/initialState';
 
 const modulation = combineReducers({
@@ -10,9 +12,9 @@ const modulation = combineReducers({
 
 function depth(state = initialState.synth.modulation.depth, action) {
   switch(action.type) {
-    case 'SET_MODULATION_DEPTH':
+    case C.SET_MODULATION_DEPTH:
       return action.payload;
-    case 'LOAD_PRESET':
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.modulation.depth;
     default:
       return state;
@@ -21,9 +23,9 @@ function depth(state = initialState.synth.modulation.depth, action) {
 
 function on(state = initialState.synth.modulation.on, action) {
   switch(action.type) {
-    case 'SET_MODULATION_ON':
+    case C.SET_MODULATION_ON:
       return !state;
-    case 'LOAD_PRESET':
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.modulation.on;
     default:
       return state;
@@ -32,9 +34,9 @@ function on(state = initialState.synth.modulation.on, action) {
 
 function shape(state = initialState.synth.modulation.shape, action) {
   switch(action.type) {
-    case 'SET_MODULATION_SHAPE':
+    case C.SET_MODULATION_SHAPE:
       return action.payload;
-    case 'LOAD_PRESET':
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.modulation.shape;
     default:
       return state;
@@ -43,9 +45,9 @@ function shape(state = initialState.synth.modulation.shape, action) {
 
 function speed(state = initialState.synth.modulation.speed, action) {
   switch(action.type) {
-    case 'SET_MODULATION_SPEED':
+    case C.SET_MODULATION_SPEED:
       return action.payload;
-    case 'LOAD_PRESET':
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.modulation.speed;
     default:
       return state;

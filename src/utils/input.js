@@ -1,35 +1,21 @@
 import {keyDown, keyUp} from '../actions/audio';
 import {setControl} from '../actions/control';
 import {setPitchBend, setSustain} from '../actions/synth';
+import keyMap from './keyMap';
+export const inputTypes = {
+  keyboard: 'KEYBOARD',
+  midi: 'MIDI'
+};
+const keyboardInput = {
+  id: '0',
+  device: inputTypes.keyboard,
+  name: 'Computer Keyboard'
+};
+/**
+ * References to Key Up / Key Down event listeners
+ */
 let keyUpConnected;
 let keyDownConnected;
-let startNote = 48;
-const keyMap = {
-  // A (C)
-  65: startNote++,
-  // W (C#)
-  87: startNote++,
-  // S (D)
-  83: startNote++,
-  // E (Eb)
-  69: startNote++,
-  // D (E)
-  68: startNote++,
-  // F (F)
-  70: startNote++,
-  // T (F#)
-  84: startNote++,
-  // G (G)
-  71: startNote++,
-  // Y (G#)
-  89: startNote++,
-  // H (A)
-  72: startNote++,
-  // U (Bb)
-  85: startNote++,
-  // J (B)
-  74: startNote++
-};
 /**
  * Convert MIDI Velocity (0-127) to Web Audio Gain (0-1)
  */
@@ -44,10 +30,10 @@ export const deactivateDevice = (device) => {
     return;
   }
   switch (device.device) {
-    case 'MIDI':
+    case inputTypes.midi:
       device.onmidimessage = null;
       break;
-    case 'KEYBOARD':
+    case inputTypes.keyboard:
       document.removeEventListener('keydown', keyDownConnected);
       document.removeEventListener('keyup', keyUpConnected);
       break;
@@ -62,16 +48,12 @@ export const getDevices = () => {
     return window.navigator.requestMIDIAccess()
       .then(access => {
         // Add computer keyboard support
-        const devices = [{
-          id: '0',
-          device: 'KEYBOARD',
-          name: 'Computer Keyboard'
-        }];
+        const devices = [keyboardInput];
         if (access.inputs && access.inputs.size > 0) {
           const inputs = access.inputs.values();
           for (let input = inputs.next(); input && !input.done; input = inputs.next()) {
             const device = input.value;
-            device.device = 'MIDI';
+            device.device = inputTypes.midi;
             devices.push(device);
           }
         }
@@ -79,11 +61,7 @@ export const getDevices = () => {
       });
   } else {
     // throw 'No Web MIDI support detected!';
-    const devices = [{
-      id: '0',
-      device: 'KEYBOARD',
-      name: 'Computer Keyboard'
-    }];
+    const devices = [keyboardInput];
     return (new Promise(resolve => resolve(devices)));
   }
 };
@@ -172,10 +150,10 @@ export const setDevice = (device, dispatch) => {
   }
   const handleMidi = handleMidiMessage(dispatch);
   switch (device.device) {
-    case 'MIDI':
+    case inputTypes.midi:
       device.onmidimessage = handleMidi;
       break;
-    case 'KEYBOARD':
+    case inputTypes.keyboard:
       keyUpConnected = handleKeyUp(dispatch);
       keyDownConnected = handleKeyDown(dispatch);
       document.addEventListener('keydown', keyDownConnected);

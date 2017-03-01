@@ -1,8 +1,16 @@
 import uuid from 'uuid';
+const name = 'presets';
+export const C = {
+  CLEAR_PRESETS: `${name}/CLEAR_PRESETS`,
+  LOAD_PRESET: `${name}/LOAD_PRESET`,
+  REMOVE_PRESET: `${name}/REMOVE_PRESET`,
+  SAVE_NEW_PRESET: `${name}/SAVE_NEW_PRESET`,
+  SAVE_PRESET: `${name}/SAVE_PRESET`
+};
 
 export const clearPresets = () => {
   return {
-    type: 'CLEAR_PRESETS',
+    type: C.CLEAR_PRESETS,
     payload: null
   };
 };
@@ -37,14 +45,14 @@ export const loadPreset = (id) => (dispatch, getState) => {
 
 export const loadPresetAfter = (preset) => {
   return {
-    type: 'LOAD_PRESET',
+    type: C.LOAD_PRESET,
     payload: preset
   };
 };
 
 export const removePreset = (id) => {
   return {
-    type: 'REMOVE_PRESET',
+    type: C.REMOVE_PRESET,
     payload: id
   };
 };
@@ -57,7 +65,7 @@ export const saveNewPreset = (name) => (dispatch, getState) => {
 
 const saveNewPresetAfter = (preset) => {
   return {
-    type: 'SAVE_NEW_PRESET',
+    type: C.SAVE_NEW_PRESET,
     payload: preset
   };
 };
@@ -70,7 +78,7 @@ export const savePreset = (id) => (dispatch, getState) => {
 
 export const savePresetAfter = (preset) => {
   return {
-    type: 'SAVE_PRESET',
+    type: C.SAVE_PRESET,
     payload: preset
   };
 };

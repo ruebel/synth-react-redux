@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware, compose} from 'redux';
-import {autoRehydrate} from 'redux-persist';
+import {autoRehydrate, persistStore} from 'redux-persist';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 
@@ -7,9 +7,9 @@ const middlewares = [thunk];
 
 export default function configureStore(initialState) {
   const store = createStore(rootReducer, initialState, compose(
-    applyMiddleware(...middlewares),
-    autoRehydrate(),
-    window.devToolsExtension ? window.devToolsExtension() : f => f // add support for Redux dev tools
+      applyMiddleware(...middlewares),
+      autoRehydrate(),
+      window.devToolsExtension ? window.devToolsExtension() : f => f // add support for Redux dev tools
     )
   );
 
@@ -20,6 +20,10 @@ export default function configureStore(initialState) {
       store.replaceReducer(nextReducer);
     });
   }
+
+  persistStore(store, {
+    blacklist: ['context']
+  });
 
   return store;
 }

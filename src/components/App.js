@@ -9,7 +9,7 @@ const styles = require('./styles.css');
 
 const App = () => {
   return (
-    <div className="container">
+    <div className={styles.container}>
       <div className={styles.inline}>
         <DeviceSelector />
         <PresetBank />
