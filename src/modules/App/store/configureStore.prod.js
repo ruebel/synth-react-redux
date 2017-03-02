@@ -6,7 +6,7 @@ import rootReducer from '../rootReducer';
 const middlewares = [thunk];
 
 export default function configureStore() {
-  const store = createStore(rootReducer, null, compose(
+  const store = createStore(rootReducer, compose(
       applyMiddleware(...middlewares),
       autoRehydrate()
     )
