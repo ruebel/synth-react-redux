@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import uuid from 'uuid';
 import {C} from '../actions';
 import {actions as presetActions} from '../../Presets';
-import {actions as inputActions} from '../../Input';
+import {C as audioActions} from '../../Audio/constants';
 import modulation from './modulation';
 
 const initialState = {
@@ -13,12 +13,6 @@ const initialState = {
   },
   ignoreVelocity: false,
   lastDown: null,
-  modulation: {
-    on: false,
-    depth: 4.3,
-    shape: 'sine',
-    speed: 4.5
-  },
   oscId: uuid.v4(),
   oscillators: [{
     id: uuid.v4(),
@@ -84,8 +78,8 @@ function ignoreVelocity(state = initialState.ignoreVelocity, action) {
 }
 
 function lastDown(state = initialState.lastDown, action) {
-  switch(action.type){
-    case inputActions.C.KEY_DOWN:
+  switch(action.type) {
+    case audioActions.KEY_DOWN:
       return action.payload.id;
     default:
       return state;

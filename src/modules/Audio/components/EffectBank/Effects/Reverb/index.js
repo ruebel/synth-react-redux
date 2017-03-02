@@ -12,7 +12,7 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   irUrl: {
     name: 'Impulse Response',
     options: Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name})),
-    value: ''
+    value: irs[Object.keys(irs)[0]].url
   },
   name: 'Reverb',
   title: 'Reverb'
@@ -24,9 +24,6 @@ class Reverb extends React.Component {
 
     this.applySettings = this.applySettings.bind(this);
     this.setupAudio = this.setupAudio.bind(this);
-  }
-
-  componentDidMount() {
     this.setupAudio();
   }
 
@@ -48,8 +45,6 @@ class Reverb extends React.Component {
     this.effect = this.props.context.createConvolver();
     // Handle default settings
     this.applySettings(this.props);
-    // Get the first IR loaded
-    this.props.handleSettingsChange('irUrl', this.props.settings.irUrl.value || irs[Object.keys(irs)[0]].url);
   }
 
   render() {

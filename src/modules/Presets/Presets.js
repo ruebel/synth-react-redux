@@ -1,13 +1,13 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import AddPreset from './AddPreset';
-import Button from '../../../components/Button';
-import Container from '../../../components/Container';
-import * as actions from '../../actions';
-import {getLoadedId, getPresets} from '../../selectors';
+import AddPreset from './components/AddPreset';
+import Button from '../components/Button';
+import Container from '../components/Container';
+import * as actions from './actions';
+import {getLoadedId, getPresets} from './selectors';
 const styles = require('./styles.css');
 
-class PresetBank extends React.Component {
+class Presets extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,7 +75,7 @@ class PresetBank extends React.Component {
   }
 }
 
-PresetBank.propTypes = {
+Presets.propTypes = {
   loadedId: PropTypes.string,
   loadPreset: PropTypes.func.isRequired,
   presets: PropTypes.array.isRequired,
@@ -89,4 +89,4 @@ const mapStateToProps = (state) => ({
   presets: getPresets(state)
 });
 
-export default connect(mapStateToProps, actions)(PresetBank);
+export default connect(mapStateToProps, actions)(Presets);

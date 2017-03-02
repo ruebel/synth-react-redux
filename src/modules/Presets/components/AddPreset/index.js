@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
-import Button from '../../../../components/Button';
+import Button from '../../../components/Button';
 import InputGroup from './InputGroup';
-import Modal from '../../../../components/Modal';
+import Modal from '../../../components/Modal';
 import TextInput from './TextInput';
 const styles = require('./styles.css');
 
