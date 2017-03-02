@@ -1,6 +1,6 @@
-import {keyDown, keyUp} from '../actions/audio';
-import {setControl} from '../actions/control';
-import {setPitchBend, setSustain} from '../actions/synth';
+import {actions as audioActions} from '../modules/Audio';
+import {actions as controlActions} from '../modules/Control';
+import {actions as synthActions} from '../modules/Synth';
 import keyMap from './keyMap';
 export const inputTypes = {
   keyboard: 'KEYBOARD',
@@ -71,7 +71,7 @@ export const getDevices = () => {
 const handleKeyDown = (dispatch) => (e) => {
   const note = keyMap[e.keyCode];
   if (note) {
-    dispatch(keyDown(note));
+    dispatch(audioActions.keyDown(note));
   }
 };
 /**
@@ -80,7 +80,7 @@ const handleKeyDown = (dispatch) => (e) => {
 const handleKeyUp = (dispatch) => (e) => {
   const note = keyMap[e.keyCode];
   if (note) {
-    dispatch(keyUp(note));
+    dispatch(audioActions.keyUp(note));
   }
 };
 /**
@@ -98,14 +98,14 @@ const handleMidiMessage = (dispatch) => (e) => {
     case 144:
       const velocity = convertVelocity(e.data[2]);
       if (velocity > 0) {
-        dispatch(keyDown(e.data[1], velocity));
+        dispatch(audioActions.keyDown(e.data[1], velocity));
       } else {
-        dispatch(keyUp(e.data[1]));
+        dispatch(audioActions.keyUp(e.data[1]));
       }
       break;
     // Note Off
     case 128:
-      dispatch(keyUp(e.data[1]));
+      dispatch(audioActions.keyUp(e.data[1]));
       break;
     // Trigger Bank
     // case 153:
@@ -118,14 +118,14 @@ const handleMidiMessage = (dispatch) => (e) => {
         case 64:
           if (e.data[2] == 0) {
             // Sustain off
-            dispatch(setSustain(false));
+            dispatch(synthActions.setSustain(false));
           } else {
             // Sustain on
-            dispatch(setSustain(true));
+            dispatch(synthActions.setSustain(true));
           }
           break;
         default:
-          dispatch(setControl(e.data));
+          dispatch(controlActions.setControl(e.data));
           break;
       }
       break;
@@ -134,10 +134,10 @@ const handleMidiMessage = (dispatch) => (e) => {
       // 0 = max negative
       // 64 = no detune
       // 127 = max positive
-      dispatch(setPitchBend(e.data[2] - 64));
+      dispatch(synthActions.setPitchBend(e.data[2] - 64));
       break;
     default:
-      dispatch(setControl(e.data));
+      dispatch(controlActions.setControl(e.data));
       break;
   }
 };
