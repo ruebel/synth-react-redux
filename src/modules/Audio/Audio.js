@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import EffectBank from './components/EffectBank';
 import OutputGain from './components/OutputGain';
-import ToneBank from './components/ToneBank';
+import Arpeggiator from './components/Arpeggiator';
+// import ToneBank from './components/ToneBank';
 import {selectors as appSelectors} from '../App';
 
 class Audio extends React.Component {
@@ -17,8 +18,10 @@ class Audio extends React.Component {
   render() {
     return (
       <div>
-        <ToneBank
+        <Arpeggiator
           output={this.inputGain}/>
+        {/* <ToneBank
+          output={this.inputGain}/> */}
         <EffectBank
           inputGain={this.inputGain}
           outputGain={this.outputGain}/>
