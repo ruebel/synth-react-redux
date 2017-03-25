@@ -16,6 +16,7 @@ const keyboardInput = {
  */
 let keyUpConnected;
 let keyDownConnected;
+const downKeys = {};
 /**
  * Convert MIDI Velocity (0-127) to Web Audio Gain (0-1)
  */
@@ -69,9 +70,13 @@ export const getDevices = () => {
  * Handle Computer Keyboard key down
  */
 const handleKeyDown = (dispatch) => (e) => {
+  if (downKeys[e.keyCode]) {
+    return;
+  }
   const note = keyMap[e.keyCode];
   if (note) {
     dispatch(audioActions.keyDown(note));
+    downKeys[e.keyCode] = true;
   }
 };
 /**
@@ -79,6 +84,7 @@ const handleKeyDown = (dispatch) => (e) => {
  */
 const handleKeyUp = (dispatch) => (e) => {
   const note = keyMap[e.keyCode];
+  downKeys[e.keyCode] = false;
   if (note) {
     dispatch(audioActions.keyUp(note));
   }

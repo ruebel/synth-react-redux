@@ -30,6 +30,17 @@ export const waveShapes = [
   'sawtooth',
   'triangle'
 ];
+
+export const arpeggiatorModes = [{
+  id: 'down',
+  name: 'Down'
+}, {
+  id: 'up',
+  name: 'Up'
+}, {
+  id: 'upDown',
+  name: 'Up / Down'
+}];
 /**
 * Convert Note Number to Frequency
 */
@@ -112,5 +123,36 @@ export const getImpulseResponse = async(settings, effect, context)  => {
       source.buffer = buffer;
       effect.buffer = buffer;
     });
+  }
+};
+
+export const getNextIndex = (current, previous, length, mode) => {
+  switch(mode) {
+    case 'down':
+      if (current - 1 >= 0) {
+        return current - 1;
+      } else {
+        return length - 1;
+      }
+    case 'up':
+      if (current + 1 < length) {
+        return current + 1;
+      } else {
+        return 0;
+      }
+    case 'upDown':
+      if (previous < current) {
+        if (current + 1 < length) {
+          return current + 1;
+        } else {
+          return current - 1;
+        }
+      } else {
+        if (current - 1 >= 0) {
+          return current - 1;
+        } else {
+          return current + 1;
+        }
+      }
   }
 };

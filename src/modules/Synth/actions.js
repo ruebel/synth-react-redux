@@ -3,7 +3,9 @@ import {name} from './__init__';
 export const C = {
   ADD_OSCILLATOR: `${name}/ADD_OSCILLATOR`,
   REMOVE_OSCILLATOR: `${name}/REMOVE_OSCILLATOR`,
-  SET_SYNTH_ATTACK: `${name}/SET_SYNTH_ATTACK`,
+  SET_ARPEGGIATOR: `${name}/SET_ARPEGGIATOR`,
+  SET_ARPEGGIATOR_INTERVAL: `${name}/SET_ARPEGGIATOR_INTERVAL`,
+  SET_ARPEGGIATOR_MODE: `${name}/SET_ARPEGGIATOR_MODE`,
   SET_IGNORE_VELOCITY: `${name}/SET_IGNORE_VELOCITY`,
   SET_MODULATION_DEPTH: `${name}/SET_MODULATION_DEPTH`,
   SET_MODULATION_ON: `${name}/SET_MODULATION_ON`,
@@ -13,8 +15,9 @@ export const C = {
   SET_PITCH_BEND: `${name}/SET_PITCH_BEND`,
   SET_PORTAMENTO: `${name}/SET_PORTAMENTO`,
   SET_PORTAMENTO_SPEED: `${name}/SET_PORTAMENTO_SPEED`,
-  SET_SYNTH_RELEASE: `${name}/SET_SYNTH_RELEASE`,
   SET_SUSTAIN: `${name}/SET_SUSTAIN`,
+  SET_SYNTH_ATTACK: `${name}/SET_SYNTH_ATTACK`,
+  SET_SYNTH_RELEASE: `${name}/SET_SYNTH_RELEASE`
 };
 
 export const addOscillator = () => {
@@ -41,6 +44,26 @@ export const setAttack = (attack) => {
   return {
     type: C.SET_SYNTH_ATTACK,
     payload: attack
+  };
+};
+
+export const setArpeggiatorInterval = (interval) => {
+  return {
+    type: C.SET_ARPEGGIATOR_INTERVAL,
+    payload: interval
+  };
+};
+
+export const setArpeggiatorMode = (mode) => {
+  return {
+    type: C.SET_ARPEGGIATOR_MODE,
+    payload: mode.id
+  };
+};
+
+export const setArpeggiatorOn = () => {
+  return {
+    type: C.SET_ARPEGGIATOR
   };
 };
 

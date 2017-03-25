@@ -34,6 +34,9 @@ class Tone extends React.Component {
       // Portamento Note Change
       this.bendNote(next.tone.id, next.settings, 1 / next.settings.portamento.speed);
     }
+    if (!next.settings.portamento.on && next.tone.freq !== this.props.tone.freq) {
+      this.bendNote(next.tone.id, next.settings, 0.000001);
+    }
     if (next.settings.oscId !== this.props.settings.oscId) {
       // An oscillator setting has changed
       if (next.settings.oscillators.length !== this.props.settings.oscillators.length) {
@@ -48,6 +51,10 @@ class Tone extends React.Component {
         });
       }
     }
+  }
+
+  componentWillUnmount() {
+    this.oscillators.forEach(o => o.osc.stop());
   }
 
   bendNote(bendTo, settings, speed = defaultBendSpeed) {
