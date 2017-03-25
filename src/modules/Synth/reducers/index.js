@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import {C} from '../actions';
 import {actions as presetActions} from '../../Presets';
 import {C as audioActions} from '../../Audio/constants';
+import arpeggiator from './arpeggiator';
 import modulation from './modulation';
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
 };
 
 const synth = combineReducers({
+  arpeggiator,
   bend,
   envelope: combineReducers({
     attack,

@@ -1,13 +1,16 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import Arpeggiator from './Arpeggiator';
+import PowerSwitch from '../../../components/PowerSwitch';
 import Tone from './Tone';
 import {getKeys} from '../../selectors';
 import {selectors as appSelectors} from '../../../App';
-import {selectors as synthSelectors} from '../../../Synth';
+import {selectors as synthSelectors, actions as synthActions} from '../../../Synth';
 
 class ToneBank extends React.Component {
   constructor(props) {
     super(props);
+
     // Setup modulation
     this.modulation = this.props.context.createOscillator();
     this.modulation.type = this.props.settings.modulation.shape;
@@ -44,26 +47,40 @@ class ToneBank extends React.Component {
   }
 
   render () {
-    let toneMap = Object.keys(this.props.tones);
-    if (this.props.settings.portamento.on) {
-      // When portamento is on we only render one tone
-      // We render the last pressed tone (last down holds the id of the last pressed note)
-      toneMap = this.props.settings.lastDown ? [this.props.settings.lastDown] : [];
+    let inner;
+    if (this.props.settings.arpeggiator.on) {
+      inner = (
+        <Arpeggiator
+          {...this.props}
+          modulationGain={this.modulationGain}
+        />
+      );
+    } else {
+      let toneMap = Object.keys(this.props.tones);
+      if (this.props.settings.portamento.on) {
+        // When portamento is on we only render one tone
+        // We render the last pressed tone (last down holds the id of the last pressed note)
+        toneMap = this.props.settings.lastDown ? [this.props.settings.lastDown] : [];
+      }
+      inner = toneMap.map((k, i) => {
+        return (
+          <Tone
+            key={i}
+            tone={this.props.tones[k]}
+            context={this.props.context}
+            modulation={this.modulationGain}
+            output={this.props.output}
+            settings={this.props.settings}
+          />);
+        });
     }
-    const tones = toneMap.map((k, i) => {
-      return (
-        <Tone
-          key={i}
-          tone={this.props.tones[k]}
-          context={this.props.context}
-          modulation={this.modulationGain}
-          output={this.props.output}
-          settings={this.props.settings}
-        />);
-      });
     return (
       <div>
-        {tones}
+        <PowerSwitch
+          change={this.props.setArpeggiatorOn}
+          title="Arpeggiator"
+          value={this.props.settings.arpeggiator.on}/>
+        {inner}
       </div>
       );
   }
@@ -72,6 +89,9 @@ class ToneBank extends React.Component {
 ToneBank.propTypes = {
   context: PropTypes.object.isRequired,
   output: PropTypes.object.isRequired,
+  setArpeggiatorInterval: PropTypes.func.isRequired,
+  setArpeggiatorMode: PropTypes.func.isRequired,
+  setArpeggiatorOn: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
   tones: PropTypes.object.isRequired
 };
@@ -84,4 +104,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ToneBank);
+export default connect(mapStateToProps, {
+  setArpeggiatorInterval: synthActions.setArpeggiatorInterval,
+  setArpeggiatorMode: synthActions.setArpeggiatorMode,
+  setArpeggiatorOn: synthActions.setArpeggiatorOn
+})(ToneBank);
