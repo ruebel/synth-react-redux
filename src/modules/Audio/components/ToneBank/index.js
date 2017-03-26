@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Arpeggiator from './Arpeggiator';
-import PowerSwitch from '../../../components/PowerSwitch';
+import Container from '../../../components/Container';
 import Tone from './Tone';
 import {getKeys} from '../../selectors';
 import {selectors as appSelectors} from '../../../App';
@@ -75,13 +75,13 @@ class ToneBank extends React.Component {
         });
     }
     return (
-      <div>
-        <PowerSwitch
-          change={this.props.setArpeggiatorOn}
-          title="Arpeggiator"
-          value={this.props.settings.arpeggiator.on}/>
+      <Container
+        active={this.props.settings.arpeggiator.on}
+        activeChange={this.props.setArpeggiatorOn}
+        title="Arpeggiator"
+      >
         {inner}
-      </div>
+      </Container>
       );
   }
 }
@@ -91,6 +91,7 @@ ToneBank.propTypes = {
   output: PropTypes.object.isRequired,
   setArpeggiatorInterval: PropTypes.func.isRequired,
   setArpeggiatorMode: PropTypes.func.isRequired,
+  setArpeggiatorOctave: PropTypes.func.isRequired,
   setArpeggiatorOn: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
   tones: PropTypes.object.isRequired
@@ -107,5 +108,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   setArpeggiatorInterval: synthActions.setArpeggiatorInterval,
   setArpeggiatorMode: synthActions.setArpeggiatorMode,
+  setArpeggiatorOctave: synthActions.setArpeggiatorOctave,
   setArpeggiatorOn: synthActions.setArpeggiatorOn
 })(ToneBank);

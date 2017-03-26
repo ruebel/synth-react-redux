@@ -6,6 +6,7 @@ export const C = {
   SET_ARPEGGIATOR: `${name}/SET_ARPEGGIATOR`,
   SET_ARPEGGIATOR_INTERVAL: `${name}/SET_ARPEGGIATOR_INTERVAL`,
   SET_ARPEGGIATOR_MODE: `${name}/SET_ARPEGGIATOR_MODE`,
+  SET_ARPEGGIATOR_OCTAVE: `${name}/SET_ARPEGGIATOR_OCTAVE`,
   SET_IGNORE_VELOCITY: `${name}/SET_IGNORE_VELOCITY`,
   SET_MODULATION_DEPTH: `${name}/SET_MODULATION_DEPTH`,
   SET_MODULATION_ON: `${name}/SET_MODULATION_ON`,
@@ -58,6 +59,13 @@ export const setArpeggiatorMode = (mode) => {
   return {
     type: C.SET_ARPEGGIATOR_MODE,
     payload: mode.id
+  };
+};
+
+export const setArpeggiatorOctave = (octave) => {
+  return {
+    type: C.SET_ARPEGGIATOR_OCTAVE,
+    payload: octave.id
   };
 };
 

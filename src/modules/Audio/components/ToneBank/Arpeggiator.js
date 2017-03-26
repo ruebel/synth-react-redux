@@ -1,14 +1,16 @@
 import React, {PropTypes} from 'react';
-import Select from 'react-select';
+import Indicator from './Indicator';
 import RangeControl from '../../../components/RangeControl';
+import Select from '../../../components/Select';
 import Tone from '../ToneBank/Tone';
-import {arpeggiatorModes, getNextIndex} from '../../../../utils/audio';
+import {arpeggiatorModes, arpeggiatorOctaves, getNextIndex} from '../../../../utils/audio';
 
 class Arpeggiator extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      indicator: false,
       noteIndex: 0,
       previousIndex: 0,
       tones: []
@@ -18,20 +20,29 @@ class Arpeggiator extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(this.next, this.props.settings.arpeggiator.interval);
+    this.timer = setTimeout(this.next, this.props.settings.arpeggiator.interval);
   }
 
   componentWillReceiveProps(next) {
     this.setState(state => {
+      const octave = next.settings.arpeggiator.octave;
       return {
         tones: Object.keys(next.tones)
-          .filter(t => next.tones[t].velocity > 0)
+          .filter((t, i, origin) => next.tones[t].velocity > 0 ||
+            (i > 11 && octave > 1 && next.tones[origin[i - 12]].velocity > 0) ||
+            (i > 23 && octave > 2 && next.tones[origin[i - 24]].velocity > 0))
           .map((t, i) => Object.assign({}, next.tones[t], {
-            originalVelocity: next.tones[t].velocity,
+            originalVelocity: next.tones[t].velocity || 64,
             velocity: i === state.noteIndex ? next.tones[t].velocity : 0
           }))
       };
     });
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
   }
 
   next() {
@@ -49,7 +60,8 @@ class Arpeggiator extends React.Component {
         };
       });
     }
-    setTimeout(this.next, this.props.settings.arpeggiator.interval);
+    this.setState((state) => ({indicator: !state.indicator}));
+    this.timer = setTimeout(this.next, this.props.settings.arpeggiator.interval);
   }
 
   render() {
@@ -66,6 +78,7 @@ class Arpeggiator extends React.Component {
       });
     return (
       <div>
+        <Indicator on={this.state.indicator}/>
         <RangeControl
           min={30}
           max={1000}
@@ -78,8 +91,17 @@ class Arpeggiator extends React.Component {
           onChange={this.props.setArpeggiatorMode}
           options={arpeggiatorModes}
           searchable={false}
-          title="Mode"
+          title="Direction"
           value={this.props.settings.arpeggiator.mode}
+          valueKey="id"
+        />
+        <Select
+          labelKey="name"
+          onChange={this.props.setArpeggiatorOctave}
+          options={arpeggiatorOctaves}
+          searchable={false}
+          title="Octave"
+          value={this.props.settings.arpeggiator.octave}
           valueKey="id"
         />
         <div>
@@ -96,6 +118,7 @@ Arpeggiator.propTypes = {
   output: PropTypes.object.isRequired,
   setArpeggiatorInterval: PropTypes.func.isRequired,
   setArpeggiatorMode: PropTypes.func.isRequired,
+  setArpeggiatorOctave: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
   tones: PropTypes.object.isRequired
 };

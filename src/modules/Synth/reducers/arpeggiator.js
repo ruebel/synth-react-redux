@@ -4,12 +4,14 @@ import {actions as presetActions} from '../../Presets';
 const initialState = {
   interval: 400,
   mode: 'down',
+  octave: 1,
   on: false
 };
 
 const arpeggiator = combineReducers({
     interval,
     mode,
+    octave,
     on
 });
 
@@ -30,6 +32,17 @@ function mode(state = initialState.mode, action) {
       return action.payload;
     case presetActions.C.LOAD_PRESET:
       return action.payload.synth.arpeggiator.mode;
+    default:
+      return state;
+  }
+}
+
+function octave(state = initialState.octave, action) {
+  switch(action.type) {
+    case C.SET_ARPEGGIATOR_OCTAVE:
+      return action.payload;
+    case presetActions.C.LOAD_PRESET:
+      return action.payload.synth.arpeggiator.octave;
     default:
       return state;
   }

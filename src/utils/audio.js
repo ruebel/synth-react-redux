@@ -41,6 +41,8 @@ export const arpeggiatorModes = [{
   id: 'upDown',
   name: 'Up / Down'
 }];
+
+export const arpeggiatorOctaves = [{id: 1, name: 1}, {id: 2, name: 2}, {id: 3, name: 3}];
 /**
 * Convert Note Number to Frequency
 */
