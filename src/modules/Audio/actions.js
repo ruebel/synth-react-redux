@@ -15,19 +15,25 @@ export const addEffect = (effect) => {
   };
 };
 
-export const keyDown = (id, velocity = defaultVelocity) => {
-  return {
-    type: C.KEY_DOWN,
-    payload: generateKey(id, velocity)
-  };
+export const keyDown = (id, velocity = defaultVelocity) => (dispatch, getState) => {
+  const state = getState();
+  dispatch(keyDownAfter(generateKey(id + state.synth.transpose, velocity)));
 };
 
-export const keyUp = (id) => {
-  return {
-    type: C.KEY_UP,
-    payload: id
-  };
+const keyDownAfter = (key) => ({
+  type: C.KEY_DOWN,
+  payload: key
+});
+
+export const keyUp = (id) => (dispatch, getState) => {
+  const state = getState();
+  dispatch(keyUpAfter(id + state.synth.transpose));
 };
+
+const keyUpAfter = (key) => ({
+  type: C.KEY_UP,
+  payload: key
+});
 
 export const removeEffect = (id) => {
   return {

@@ -11,3 +11,5 @@ export const getPortamentoOn = (state) => state.synth.portamento.on;
 export const getPortamentoSpeed = (state) => state.synth.portamento.speed;
 
 export const getSynth = (state) => state.synth;
+
+export const getTranspose = (state) => state.synth.transpose;

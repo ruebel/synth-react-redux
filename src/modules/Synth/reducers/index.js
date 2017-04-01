@@ -26,7 +26,8 @@ const initialState = {
     on: false,
     speed: 75
   },
-  sustain: false
+  sustain: false,
+  transpose: 0
 };
 
 const synth = combineReducers({
@@ -45,7 +46,8 @@ const synth = combineReducers({
     on,
     speed
   }),
-  sustain
+  sustain,
+  transpose
 });
 
 function attack(state = initialState.envelope.attack, action) {
@@ -158,6 +160,15 @@ function speed(state = initialState.portamento.speed, action) {
 function sustain(state = initialState.sustain, action) {
   switch(action.type) {
     case C.SET_SUSTAIN:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function transpose(state = initialState.transpose, action) {
+  switch(action.type) {
+    case C.SET_TRANSPOSE:
       return action.payload;
     default:
       return state;

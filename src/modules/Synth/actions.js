@@ -18,7 +18,8 @@ export const C = {
   SET_PORTAMENTO_SPEED: `${name}/SET_PORTAMENTO_SPEED`,
   SET_SUSTAIN: `${name}/SET_SUSTAIN`,
   SET_SYNTH_ATTACK: `${name}/SET_SYNTH_ATTACK`,
-  SET_SYNTH_RELEASE: `${name}/SET_SYNTH_RELEASE`
+  SET_SYNTH_RELEASE: `${name}/SET_SYNTH_RELEASE`,
+  SET_TRANSPOSE: `${name}/SET_TRANSPOSE`
 };
 
 export const addOscillator = () => {
@@ -153,5 +154,12 @@ export const setSustain = (sustain) => {
   return {
     type: C.SET_SUSTAIN,
     payload: sustain
+  };
+};
+
+export const setTranspose = (amount) => {
+  return {
+    type: C.SET_TRANSPOSE,
+    payload: amount
   };
 };
