@@ -11,6 +11,7 @@ const EffectRange = ({change, defaults, property, settings, title}) => {
         control: control ? control.split(':')[1] : null,
         effect: defaults.name,
         property: defaults[property].name,
+        propertyId: property
       }}
       title={title || defaults[property].name}
       min={defaults[property].min}

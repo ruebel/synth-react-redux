@@ -71,7 +71,8 @@ RangeControl.propTypes = {
   assign: PropTypes.shape({
     id: PropTypes.string.isRequired,
     effect: PropTypes.string.isRequired,
-    property: PropTypes.string.isRequired
+    property: PropTypes.string.isRequired,
+    propertyId: PropTypes.string.isRequired
   }),
   assignControl: PropTypes.func.isRequired,
   max: PropTypes.number,
