@@ -127,7 +127,13 @@ export const getImpulseResponse = async(settings, effect, context)  => {
     });
   }
 };
-
+/**
+ * Gets next index in arpeggiator note array based on
+ * current - current index
+ * previous - previous index
+ * length - length of array
+ * mode - arpeggiator direction (up, down, upDown)
+ */
 export const getNextIndex = (current, previous, length, mode) => {
   switch(mode) {
     case 'down':

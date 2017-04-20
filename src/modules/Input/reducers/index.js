@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import {C} from './actions';
+import {C} from '../actions';
+import socket from './socket';
 const initialState = {
   devices: [],
   selectedDevice: {}
@@ -7,7 +8,8 @@ const initialState = {
 
 const input = combineReducers({
   devices,
-  selectedDevice
+  selectedDevice,
+  socket
 });
 
 function devices(state = initialState.devices, action) {
