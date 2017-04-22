@@ -4,7 +4,8 @@ const name = 'input';
 export const C = {
   GET_INPUT_DEVICES: `${name}/GET_INPUT_DEVICES`,
   ON_SOCKET_INPUT: `${name}/ON_SOCKET_INPUT`,
-  SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`
+  SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`,
+  SET_SOCKET_SETTINGS: `${name}/SET_SOCKET_SETTINGS`
 };
 
 export const getInputDevices = () => (dispatch) => {
@@ -37,7 +38,7 @@ export const setDevice = (device) => (dispatch, getState) => {
   // Deactivate current device
   input.deactivateDevice(state.input.selectedDevice);
   // Start listening for inputs from new device
-  input.setDevice(device, dispatch);
+  input.setDevice(device, dispatch, state.input.socket.settings);
   dispatch(setInputDevice(device || {}));
 };
 
@@ -48,12 +49,21 @@ const setInputDevice = (device) => {
   };
 };
 
+export const setSocketSettings = (settings) => (dispatch) => {
+  input.startSocket(settings, dispatch);
+  dispatch(setSocketSettingsAfter(settings));
+};
+
+const setSocketSettingsAfter = (settings) => ({
+  type: C.SET_SOCKET_SETTINGS,
+  payload: settings
+});
+
 export const socketMessage = (message) => (dispatch, getState) => {
   const state = getState();
-  const note = input.getRandomScaleNote(state.input.socket, message);
-  console.log(note);
+  const note = input.getRandomScaleNote(state.input.socket.settings, state.input.socket.previous, message);
   dispatch(audioActions.keyDown(note.note, note.velocity));
-  dispatch(socketMessageAfter(note));
+  dispatch(socketMessageAfter(Object.assign({}, note, {raw: message})));
   setTimeout(() => {
     dispatch(audioActions.keyUp(note.note));
   }, note.length);

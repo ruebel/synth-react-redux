@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import Button from '../../../components/Button';
-import InputGroup from './InputGroup';
+import ButtonGroup from '../../../components/ButtonGroup';
+import InputGroup from '../../../components/InputGroup';
 import Modal from '../../../components/Modal';
-import TextInput from './TextInput';
-const styles = require('./styles.css');
+import TextInput from '../../../components/TextInput';
 
 class AddPreset extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class AddPreset extends React.Component {
             required
             value={this.state.name}/>
         </InputGroup>
-        <div className={styles.buttonGroup}>
+        <ButtonGroup>
           <Button
             active
             click={this.handleClose}
@@ -60,7 +60,7 @@ class AddPreset extends React.Component {
             click={this.handleSave}
             text="Save"
           />
-        </div>
+        </ButtonGroup>
       </Modal>
     ) : null;
   }

@@ -5,9 +5,12 @@ const initialState = {
     velocity: 0,
     velocityScalar: 0
   },
-  scale: [0, 2, 4, 5, 7, 9, 11],
-  url: 'ws://wikimon.hatnote.com/en/',
-  velocityScalar: 'change_size'
+  settings: {
+    noteLength: [100, 5000],
+    scale: [0, 3, 7, 10],
+    url: 'ws://wikimon.hatnote.com/en/',
+    velocityScalar: 'change_size'
+  }
 };
 
 function previous(state = initialState.previous, action) {
@@ -19,27 +22,9 @@ function previous(state = initialState.previous, action) {
   }
 }
 
-function scale(state = initialState.scale, action) {
+function settings(state = initialState.settings, action) {
   switch(action.type) {
-    case C.SET_SOCKET_SCALE:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-function url(state = initialState.url, action) {
-  switch(action.type) {
-    case C.SET_SOCKET_URL:
-      return action.payload;
-    default:
-      return state;
-  }
-}
-
-function velocityScalar(state = initialState.velocityScalar, action) {
-  switch(action.type) {
-    case C.SET_SOCKET_VELOCITY_SCALAR:
+    case C.SET_SOCKET_SETTINGS:
       return action.payload;
     default:
       return state;
@@ -48,7 +33,5 @@ function velocityScalar(state = initialState.velocityScalar, action) {
 
 export default combineReducers({
   previous,
-  scale,
-  url,
-  velocityScalar
+  settings
 });

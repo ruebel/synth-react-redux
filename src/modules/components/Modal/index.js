@@ -45,6 +45,9 @@ class Modal extends React.Component {
         transitionAppearTimeout={150}
         transitionLeaveTimeout={150}>
         <div className={styles.wrapper} onClick={this.handleClose} key="1">
+          {this.props.icon && (
+            <div className={styles.icon}>{this.props.icon}</div>
+          )}
           <div className={styles.inner} onClick={this.stopClose}>
             {this.props.children}
           </div>
@@ -59,7 +62,8 @@ Modal.propTypes = {
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element)
   ]),
-  close: PropTypes.func.isRequired
+  close: PropTypes.func.isRequired,
+  icon: PropTypes.element
 };
 
 export default Modal;

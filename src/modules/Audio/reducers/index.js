@@ -3,6 +3,7 @@ import {C} from '../constants';
 import gain from './gain';
 import {generateKey} from '../../../utils/audio';
 import {C as controls} from '../../Control';
+import {C as presets} from '../../Presets';
 
 /**
  * Generate keys for oscillator bank
@@ -36,7 +37,7 @@ function effects(state = initialState.effects, action) {
       });
     case C.ADD_EFFECT:
       return [...state, action.payload];
-    case C.LOAD_PRESET:
+    case presets.LOAD_PRESET:
       return action.payload.audio.effects;
     case controls.REMOVE_EFFECT:
       return state.filter(e => e.id !== action.payload);
@@ -94,11 +95,21 @@ function keys(state = initialState.keys, action) {
         [action.payload.id]: action.payload
       });
     case C.KEY_UP:
-    return Object.assign({}, state, {
-      [action.payload]: Object.assign({}, state[action.payload], {
-        velocity: 0
-      })
-    });
+      return Object.assign({}, state, {
+        [action.payload]: Object.assign({}, state[action.payload], {
+          velocity: 0
+        })
+      });
+    case C.CLEAR_KEYS:
+    case presets.LOAD_PRESET:
+    case 'persist/REHYDRATE':
+      return state ? Object.keys(state).reduce((total, key) => {
+        return Object.assign({}, total, {
+          [key]: Object.assign({}, state[key], {
+            velocity: 0
+          })
+        });
+      }, {}) : state;
     default:
       return state;
   }

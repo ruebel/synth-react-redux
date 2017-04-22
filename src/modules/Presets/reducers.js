@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {C} from './actions';
+import {C} from './constants';
 const initialState = {
   loadedId: null,
   presets: []

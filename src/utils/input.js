@@ -76,32 +76,32 @@ export const getDevices = () => {
   }
 };
 
-export const getRandomScaleNote = (settings, message) => {
+export const getRandomScaleNote = (settings, previous, message) => {
   return Object.assign({
-    length: getRandomLength(),
+    length: getRandomLength(settings),
     note: getRandomNote(settings, message)
-  }, getRandomVelocity(settings, message));
+  }, getRandomVelocity(settings, previous, message));
 };
 
 export const getRandomNote = (settings) => {
   const index = getRandomInt(0, settings.scale.length);
   const octaveNote = settings.scale[index];
-  const note = getRandomInt(0, 8) * 12 + octaveNote;
+  const note = getRandomInt(0, 6) * 12 + octaveNote;
   return note;
 };
 
-export const getRandomLength = () => {
-  return getRandomInt(50, 2000);
+export const getRandomLength = (settings) => {
+  return getRandomInt(settings.noteLength[0] || 0, settings.noteLength[1] || 5000);
 };
 
-export const getRandomVelocity = (settings, message) => {
+export const getRandomVelocity = (settings, previous, message) => {
   let velocityScalar = message[settings.velocityScalar];
   if (!Number.isInteger(velocityScalar)) {
     velocityScalar = 100;
   }
-  const lastVelocity = Math.max(settings.previous.velocity, 0.5);
-  const lastScalar = Math.max(settings.previous.velocityScalar, 100);
-  const velocity = convertVelocity(Math.max(Math.min(velocityScalar / lastScalar * lastVelocity, 127), 0));
+  const lastVelocity = Math.max(Math.abs(previous.velocity), 0.5);
+  const lastScalar = Math.max(previous.velocityScalar, 100);
+  const velocity = Math.max(Math.min(velocityScalar / lastScalar * lastVelocity, 1), 0.3);
   return {
     velocity,
     velocityScalar
@@ -189,9 +189,16 @@ const handleMidiMessage = (dispatch) => (e) => {
   }
 };
 /**
+ * Handle Web Socket Message
+ */
+const handleSocketMessage = (dispatch) => ({data}) => {
+  const message = JSON.parse(data);
+  dispatch(inputActions.socketMessage(message));
+};
+/**
  * Set input device
  */
-export const setDevice = (device, dispatch) => {
+export const setDevice = (device, dispatch, settings) => {
   if (webSocket) {
     webSocket.close();
     webSocket = null;
@@ -211,11 +218,19 @@ export const setDevice = (device, dispatch) => {
       document.addEventListener('keyup', keyUpConnected);
       break;
     case inputTypes.websocket:
-      webSocket = new WebSocket('ws://wikimon.hatnote.com/en/');
-      webSocket.onmessage = ({data}) => {
-        const message = JSON.parse(data);
-        dispatch(inputActions.socketMessage(message));
-      };
+      startSocket(settings, dispatch);
       break;
+  }
+};
+
+export const startSocket = (settings, dispatch) => {
+  stopSocket();
+  webSocket = new WebSocket(settings.url);
+  webSocket.onmessage = handleSocketMessage(dispatch);
+};
+
+export const stopSocket = () => {
+  if (webSocket) {
+    webSocket.close();
   }
 };
