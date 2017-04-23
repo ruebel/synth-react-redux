@@ -86,6 +86,17 @@ export const generateKey = (i, velocity = 0) => {
   };
 };
 /**
+ * Generate keys for oscillator bank
+ */
+export const generateKeys = (startPoint = 0, numKeys = 88) => {
+  const keys = {};
+  for(let i = startPoint; i < (startPoint + numKeys); i++) {
+    const key = generateKey(i);
+    keys[key.id] = key;
+  }
+  return keys;
+};
+/**
 * Return Key note in plain english (i.e. C#)
 */
 const generateKeyNote = (i) => {

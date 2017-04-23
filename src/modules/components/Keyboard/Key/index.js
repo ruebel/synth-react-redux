@@ -7,7 +7,14 @@ class Key extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleUp = this.handleUp.bind(this);
     this.toggleKey = this.toggleKey.bind(this);
+  }
+
+  handleUp() {
+    if (!this.props.noUp) {
+      this.toggleKey();
+    }
   }
 
   toggleKey() {
@@ -27,7 +34,7 @@ class Key extends React.Component {
     return (
       <div
         onMouseDown={this.toggleKey}
-        onMouseUp={this.toggleKey}
+        onMouseUp={this.handleUp}
         className={style} />
     );
   }
@@ -36,6 +43,7 @@ class Key extends React.Component {
 Key.propTypes = {
   keyDown: PropTypes.func.isRequired,
   keyUp: PropTypes.func.isRequired,
+  noUp: PropTypes.bool,
   tone: PropTypes.object.isRequired
 };
 

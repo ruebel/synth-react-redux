@@ -1,21 +1,9 @@
 import { combineReducers } from 'redux';
 import {C} from '../constants';
 import gain from './gain';
-import {generateKey} from '../../../utils/audio';
+import {generateKeys} from '../../../utils/audio';
 import {C as controls} from '../../Control';
 import {C as presets} from '../../Presets';
-
-/**
- * Generate keys for oscillator bank
- */
-const generateKeys = (startPoint = 0, numKeys = 88) => {
-  const keys = {};
-  for(let i = startPoint; i < (startPoint + numKeys); i++) {
-    const key = generateKey(i);
-    keys[key.id] = key;
-  }
-  return keys;
-};
 
 const initialState = {
   effects: [],

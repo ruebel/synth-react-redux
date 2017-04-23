@@ -1,8 +1,10 @@
-.data {
-  width: 100%;
-  max-width: 100%;
-  min-width: 100%;
-  overflow: scroll;
-  background-color: #222222;
-  color: #59AFD9;
+.actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.wrapper {
+  width: 60vw;
+  flex: 1;
 }
