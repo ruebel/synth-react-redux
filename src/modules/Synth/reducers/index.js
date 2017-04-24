@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import uuid from 'uuid';
 import {C} from '../actions';
-import {actions as presetActions} from '../../Presets';
+import {C as presetActions} from '../../Presets';
 import {C as audioActions} from '../../Audio/constants';
 import arpeggiator from './arpeggiator';
 import modulation from './modulation';
@@ -54,7 +54,7 @@ function attack(state = initialState.envelope.attack, action) {
   switch(action.type) {
     case C.SET_SYNTH_ATTACK:
       return action.payload;
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.envelope.attack;
     default:
       return state;
@@ -74,7 +74,7 @@ function ignoreVelocity(state = initialState.ignoreVelocity, action) {
   switch(action.type) {
     case C.SET_IGNORE_VELOCITY:
       return action.payload === null || action.payload === undefined ? !state : action.payload;
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.ignoreVelocity;
     default:
       return state;
@@ -94,7 +94,7 @@ function on(state = initialState.portamento.on, action) {
   switch(action.type) {
     case C.SET_PORTAMENTO:
       return !state;
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.portamento.on;
     default:
       return state;
@@ -104,7 +104,7 @@ function on(state = initialState.portamento.on, action) {
 function oscId(state = initialState.oscId, action) {
   switch(action.type) {
     case C.ADD_OSCILLATOR:
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
     case C.REMOVE_OSCILLATOR:
     case C.SET_OSCILLATOR_SETTING:
       return uuid.v4();
@@ -117,7 +117,7 @@ function oscillators(state = initialState.oscillators, action) {
   switch(action.type) {
     case C.ADD_OSCILLATOR:
       return [...state, action.payload];
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.oscillators;
     case C.REMOVE_OSCILLATOR:
       return state.filter(e => e.id !== action.payload);
@@ -139,7 +139,7 @@ function release(state = initialState.envelope.release, action) {
   switch(action.type) {
     case C.SET_SYNTH_RELEASE:
       return action.payload;
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.envelope.release;
     default:
       return state;
@@ -150,7 +150,7 @@ function speed(state = initialState.portamento.speed, action) {
   switch(action.type) {
     case C.SET_PORTAMENTO_SPEED:
       return action.payload;
-    case presetActions.C.LOAD_PRESET:
+    case presetActions.LOAD_PRESET:
       return action.payload.synth.portamento.speed;
     default:
       return state;

@@ -8,7 +8,7 @@
   left: 0;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
 }
 
@@ -34,14 +34,37 @@
 
 .inner {
   background-color: #fff;
-  margin-top: 10%;
   position: relative;
   box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.3), 0px 0px 50px 0 rgba(0,0,0,0.1);
   padding: 50px 50px;
+  max-width: 90%;
+  max-height: 100%;
+  overflow: scroll;
 }
 
 .close {
   position: absolute;
   top: -35px;
   right: 0;
+}
+
+.icon {
+  position: absolute;
+  left: -60%;
+  pointer-events: none;
+  height: 100vh;
+  width: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+
+  & > div {
+    margin: 0;
+    animation: spin 200s infinite linear;
+  }
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
 }

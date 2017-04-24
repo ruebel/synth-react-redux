@@ -1,0 +1,10 @@
+.actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.wrapper {
+  width: 60vw;
+  flex: 1;
+}

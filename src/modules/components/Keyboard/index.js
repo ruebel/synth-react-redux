@@ -1,10 +1,8 @@
 import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
 import Key from './Key';
-import {actions as audioActions, selectors as audioSelectors} from '../../Audio';
 const styles = require('./styles.css');
 
-const Keyboard = ({keys, keyDown, keyUp}) => {
+const Keyboard = ({keys, keyDown, keyUp, noUp}) => {
   return (
     <div className={styles.wrapper}>
       {Object.keys(keys).map((k, i) => {
@@ -12,7 +10,9 @@ const Keyboard = ({keys, keyDown, keyUp}) => {
           <Key key={i}
                tone={keys[k]}
                keyDown={keyDown}
-               keyUp={keyUp}/>);
+               keyUp={keyUp}
+               noUp={noUp}
+             />);
         })}
     </div>
   );
@@ -21,16 +21,8 @@ const Keyboard = ({keys, keyDown, keyUp}) => {
 Keyboard.propTypes = {
   keys: PropTypes.object.isRequired,
   keyDown: PropTypes.func.isRequired,
-  keyUp: PropTypes.func.isRequired
+  keyUp: PropTypes.func.isRequired,
+  noUp: PropTypes.bool
 };
 
-const mapStateToProps = (state) => {
-  return {
-    keys: audioSelectors.getKeys(state)
-  };
-};
-
-export default connect(mapStateToProps, {
-  keyDown: audioActions.keyDown,
-  keyUp: audioActions.keyUp
-})(Keyboard);
+export default Keyboard;

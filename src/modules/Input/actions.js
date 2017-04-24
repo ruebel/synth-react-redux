@@ -1,31 +1,12 @@
 import * as input from '../../utils/input';
+import {actions as audioActions} from '../Audio';
 const name = 'input';
 export const C = {
   GET_INPUT_DEVICES: `${name}/GET_INPUT_DEVICES`,
-  SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`
-};
-
-const gotInputDevices = (devices) => {
-  return {
-    type: C.GET_INPUT_DEVICES,
-    payload: devices
-  };
-};
-
-export const setDevice = (device) => (dispatch, getState) => {
-  const state = getState();
-  // Deactivate current device
-  input.deactivateDevice(state.input.selectedDevice);
-  // Start listening for inputs from new device
-  input.setDevice(device, dispatch);
-  dispatch(setInputDevice(device || {}));
-};
-
-const setInputDevice = (device) => {
-  return {
-    type: C.SET_INPUT_DEVICE,
-    payload: device
-  };
+  ON_SOCKET_INPUT: `${name}/ON_SOCKET_INPUT`,
+  SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`,
+  SET_SOCKET_SETTINGS: `${name}/SET_SOCKET_SETTINGS`,
+  SET_SOCKET_STATUS: `${name}/SET_SOCKET_STATUS`
 };
 
 export const getInputDevices = () => (dispatch) => {
@@ -44,4 +25,46 @@ export const getInputDevices = () => (dispatch) => {
       }
     }
   });
+};
+
+const gotInputDevices = (devices) => {
+  return {
+    type: C.GET_INPUT_DEVICES,
+    payload: devices
+  };
+};
+
+export const setDevice = (device = {}) => {
+  return {
+    type: C.SET_INPUT_DEVICE,
+    payload: device
+  };
+};
+
+export const setSocketSettings = (settings) => ({
+  type: C.SET_SOCKET_SETTINGS,
+  payload: settings
+});
+
+export const socketMessage = (message) => (dispatch, getState) => {
+  const state = getState();
+  const note = input.getRandomScaleNote(state.input.socket.settings, state.input.socket.previous, message);
+  dispatch(audioActions.keyDown(note.note, note.velocity));
+  dispatch(socketMessageAfter(Object.assign({}, note, {raw: message})));
+  setTimeout(() => {
+    dispatch(audioActions.keyUp(note.note));
+  }, note.length);
+};
+
+const socketMessageAfter = (note) => {
+  return {
+    type: C.ON_SOCKET_INPUT,
+    payload: note
+  };
+};
+
+export const toggleSocket = () => {
+  return {
+    type: C.SET_SOCKET_STATUS
+  };
 };

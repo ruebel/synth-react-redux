@@ -86,6 +86,17 @@ export const generateKey = (i, velocity = 0) => {
   };
 };
 /**
+ * Generate keys for oscillator bank
+ */
+export const generateKeys = (startPoint = 0, numKeys = 88) => {
+  const keys = {};
+  for(let i = startPoint; i < (startPoint + numKeys); i++) {
+    const key = generateKey(i);
+    keys[key.id] = key;
+  }
+  return keys;
+};
+/**
 * Return Key note in plain english (i.e. C#)
 */
 const generateKeyNote = (i) => {
@@ -127,7 +138,13 @@ export const getImpulseResponse = async(settings, effect, context)  => {
     });
   }
 };
-
+/**
+ * Gets next index in arpeggiator note array based on
+ * current - current index
+ * previous - previous index
+ * length - length of array
+ * mode - arpeggiator direction (up, down, upDown)
+ */
 export const getNextIndex = (current, previous, length, mode) => {
   switch(mode) {
     case 'down':

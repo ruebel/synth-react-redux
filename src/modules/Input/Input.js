@@ -1,61 +1,48 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import Select from '../components/Select';
-import Container from '../components/Container';
-import {getInputDevices, setDevice} from './actions';
-import {getDevices, getSelectedDevice} from './selectors';
-const noneOption = {
-  id: -1,
-  name: 'None'
-};
+import InputSelector from './components/InputSelector';
+import SocketSettings from './components/SocketSettings';
+import * as actions from './actions';
 
 class Input extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      showSettings: false
+    };
+    this.handleSave = this.handleSave.bind(this);
+    this.toggleSettingsModal = this.toggleSettingsModal.bind(this);
   }
 
-  componentWillMount() {
-    this.props.getInputDevices();
+  handleSave(settings) {
+    this.toggleSettingsModal();
+    this.props.setSocketSettings(settings);
   }
 
-  handleChange(val) {
-    const device = this.props.devices.find(d => d.id === val.id);
-    this.props.setDevice(device);
+  toggleSettingsModal() {
+    this.setState({
+      showSettings: !this.state.showSettings
+    });
   }
 
   render() {
-    const options = [noneOption, ...this.props.devices];
     return (
-      <Container active={Boolean(this.props.selectedDevice.id)} title="Input">
-        <Select
-          labelKey="name"
-          name="inputSelect"
-          onChange={this.handleChange}
-          options={options}
-          placeholder="Select Input..."
-          searchable={false}
-          value={this.props.selectedDevice.id}
-          valueKey="id"
+      <div style={{flex: 1}}>
+        <InputSelector
+          showSettings={this.toggleSettingsModal}
         />
-      </Container>
+        <SocketSettings
+          close={this.toggleSettingsModal}
+          save={this.handleSave}
+          show={this.state.showSettings}
+        />
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    devices: getDevices(state),
-    selectedDevice: getSelectedDevice(state)
-  };
-};
-
 Input.propTypes = {
-  devices: PropTypes.array.isRequired,
-  getInputDevices: PropTypes.func.isRequired,
-  selectedDevice: PropTypes.object,
-  setDevice: PropTypes.func.isRequired
+  setSocketSettings: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, {getInputDevices, setDevice})(Input);
+export default connect(null, actions)(Input);
