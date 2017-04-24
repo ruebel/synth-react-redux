@@ -35,6 +35,12 @@ class SocketSettings extends React.Component {
     this.refreshMessage = this.refreshMessage.bind(this);
   }
 
+  componentWillReceiveProps(next) {
+    if (next.previous.raw && !this.state.raw) {
+      this.refreshMessage();
+    }
+  }
+
   handleClose() {
     if (this.state.hasChange) {
       this.props.save(this.state.previous);

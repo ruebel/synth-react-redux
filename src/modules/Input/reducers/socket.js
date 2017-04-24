@@ -10,7 +10,8 @@ const initialState = {
     scale: [0, 4, 7],
     url: 'ws://wikimon.hatnote.com/en/',
     velocityScalar: 'change_size'
-  }
+  },
+  status: false
 };
 
 function previous(state = initialState.previous, action) {
@@ -31,7 +32,17 @@ function settings(state = initialState.settings, action) {
   }
 }
 
+function status(state = initialState.status, action) {
+  switch(action.type) {
+    case C.SET_SOCKET_STATUS:
+      return !state;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   previous,
-  settings
+  settings,
+  status
 });

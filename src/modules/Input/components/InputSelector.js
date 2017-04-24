@@ -2,9 +2,11 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Container from '../../components/Container';
 import Gear from '../../components/icons/Gear';
+import InputDevice from './InputDevice';
+import PlayPauseButton from '../../components/PlayPauseButton';
 import Select from '../../components/Select';
-import {getInputDevices, setDevice} from '../actions';
-import {getDevices, getSelectedDevice} from '../selectors';
+import {getInputDevices, setDevice, toggleSocket} from '../actions';
+import {getDevices, getSelectedDevice, getSocketStatus} from '../selectors';
 const noneOption = {
   id: -1,
   name: 'None'
@@ -28,9 +30,10 @@ class InputSelector extends React.Component {
 
   render() {
     const options = [noneOption, ...this.props.devices];
+    const id = this.props.selectedDevice ? this.props.selectedDevice.id : null;
     return (
       <Container
-        active={Boolean(this.props.selectedDevice.id)}
+        active={Boolean(id)}
         title="Input"
         >
           <div>
@@ -41,13 +44,20 @@ class InputSelector extends React.Component {
               options={options}
               placeholder="Select Input..."
               searchable={false}
-              value={this.props.selectedDevice.id}
+              value={id}
               valueKey="id"
             />
-            {this.props.selectedDevice.id == 1 && (
-              <Gear click={this.props.showSettings}/>
+            {id == 1 && (
+              <div>
+                <Gear click={this.props.showSettings}/>
+                <PlayPauseButton
+                  click={this.props.toggleSocket}
+                  play={this.props.socketStatus}
+                />
+              </div>
             )}
           </div>
+          <InputDevice device={this.props.selectedDevice}/>
       </Container>
     );
   }
@@ -56,7 +66,8 @@ class InputSelector extends React.Component {
 const mapStateToProps = (state) => {
   return {
     devices: getDevices(state),
-    selectedDevice: getSelectedDevice(state)
+    selectedDevice: getSelectedDevice(state),
+    socketStatus: getSocketStatus(state)
   };
 };
 
@@ -65,7 +76,9 @@ InputSelector.propTypes = {
   getInputDevices: PropTypes.func.isRequired,
   selectedDevice: PropTypes.object,
   setDevice: PropTypes.func.isRequired,
-  showSettings: PropTypes.func.isRequired
+  showSettings: PropTypes.func.isRequired,
+  socketStatus: PropTypes.bool,
+  toggleSocket: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, {getInputDevices, setDevice})(InputSelector);
+export default connect(mapStateToProps, {getInputDevices, setDevice, toggleSocket})(InputSelector);

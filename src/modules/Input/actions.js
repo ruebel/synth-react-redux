@@ -5,7 +5,8 @@ export const C = {
   GET_INPUT_DEVICES: `${name}/GET_INPUT_DEVICES`,
   ON_SOCKET_INPUT: `${name}/ON_SOCKET_INPUT`,
   SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`,
-  SET_SOCKET_SETTINGS: `${name}/SET_SOCKET_SETTINGS`
+  SET_SOCKET_SETTINGS: `${name}/SET_SOCKET_SETTINGS`,
+  SET_SOCKET_STATUS: `${name}/SET_SOCKET_STATUS`
 };
 
 export const getInputDevices = () => (dispatch) => {
@@ -33,28 +34,14 @@ const gotInputDevices = (devices) => {
   };
 };
 
-export const setDevice = (device) => (dispatch, getState) => {
-  const state = getState();
-  // Deactivate current device
-  input.deactivateDevice(state.input.selectedDevice);
-  // Start listening for inputs from new device
-  input.setDevice(device, dispatch, state.input.socket.settings);
-  dispatch(setInputDevice(device || {}));
-};
-
-const setInputDevice = (device) => {
+export const setDevice = (device = {}) => {
   return {
     type: C.SET_INPUT_DEVICE,
     payload: device
   };
 };
 
-export const setSocketSettings = (settings) => (dispatch) => {
-  input.startSocket(settings, dispatch);
-  dispatch(setSocketSettingsAfter(settings));
-};
-
-const setSocketSettingsAfter = (settings) => ({
+export const setSocketSettings = (settings) => ({
   type: C.SET_SOCKET_SETTINGS,
   payload: settings
 });
@@ -73,5 +60,11 @@ const socketMessageAfter = (note) => {
   return {
     type: C.ON_SOCKET_INPUT,
     payload: note
+  };
+};
+
+export const toggleSocket = () => {
+  return {
+    type: C.SET_SOCKET_STATUS
   };
 };
