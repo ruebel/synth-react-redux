@@ -19,7 +19,7 @@ class InputSelector extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getInputDevices();
   }
 
@@ -34,6 +34,7 @@ class InputSelector extends React.Component {
     return (
       <Container
         active={Boolean(id)}
+        full
         title="Input"
         >
           <div>

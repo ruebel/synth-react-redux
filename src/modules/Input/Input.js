@@ -27,7 +27,7 @@ class Input extends React.Component {
 
   render() {
     return (
-      <div style={{flex: 1}}>
+      <div>
         <InputSelector
           showSettings={this.toggleSettingsModal}
         />

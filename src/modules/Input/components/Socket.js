@@ -18,16 +18,16 @@ class Socket extends React.Component {
 
   componentDidMount() {
     if (this.props.status) {
-      this.startSocket();
+      this.startSocket(this.props.settings);
     }
   }
 
   componentWillReceiveProps(next) {
     if (next.settings.url !== this.props.settings.url) {
-      this.startSocket();
+      this.startSocket(next.settings);
     } if (next.status !== this.props.status) {
       if (next.status) {
-        this.startSocket();
+        this.startSocket(next.settings);
       } else {
         this.stopSocket();
       }
@@ -47,9 +47,9 @@ class Socket extends React.Component {
     this.props.socketMessage(message);
   }
 
-  startSocket() {
+  startSocket(settings) {
     this.stopSocket();
-    const socket = new WebSocket(this.props.settings.url);
+    const socket = new WebSocket(settings.url);
     socket.onmessage = this.handleSocketMessage;
     this.setState({
       socket
