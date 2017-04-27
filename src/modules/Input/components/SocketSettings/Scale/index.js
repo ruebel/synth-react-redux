@@ -6,12 +6,12 @@ class Scale extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      keys: {}
-    };
-
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+
+    this.state = {
+      keys: this.transformKeyArray(props.keys)
+    };
   }
 
   componentWillReceiveProps(props) {
