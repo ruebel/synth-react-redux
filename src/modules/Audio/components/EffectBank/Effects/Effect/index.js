@@ -64,11 +64,10 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
       this.props.changeSettings(settings, property);
     }
 
-    wire(next, prev, effect) {
+    wire(next, prev, input, output = null) {
       // Make sure we need to rewire everything
       if (!prev ||
         prev.input !== next.input ||
-        // prev.settings.input !== next.settings.input ||
         prev.gain !== next.gain ||
         prev.output !== next.output) {
           // Make sure we have already made gains
@@ -88,11 +87,8 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
           // Connect output
           next.gain.disconnect();
           next.gain.connect(this.effectGain);
-          if (Array.isArray(effect)) {
-            effect.forEach(e => this.effectGain.connect(e.input));
-          } else {
-            this.effectGain.connect(effect);
-          }
+          this.effectGain.connect(input);
+
           if (effectLevelMode === 'blend') {
             // Bypass Gain for blending
             next.gain.connect(this.bypassGain);
@@ -103,15 +99,8 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
             next.gain.connect(next.output);
           }
           // Effect Gain
-          if (Array.isArray(effect)) {
-            effect.forEach(e => {
-              e.output.disconnect();
-              e.output.connect(next.output);
-            });
-          } else {
-            effect.disconnect();
-            effect.connect(next.output);
-          }
+          (output || input).disconnect();
+          (output || input).connect(next.output);
       }
     }
 

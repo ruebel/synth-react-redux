@@ -27,9 +27,9 @@ function effects(state = initialState.effects, action) {
       return [...state, action.payload];
     case presets.LOAD_PRESET:
       return action.payload.audio.effects;
-    case controls.REMOVE_EFFECT:
+    case C.REMOVE_EFFECT:
       return state.filter(e => e.id !== action.payload);
-    case C.REMOVE_CONTROL:
+    case controls.REMOVE_CONTROL:
       return state.map(e => {
         if (e.id === action.payload.id) {
           return Object.assign({}, e, {

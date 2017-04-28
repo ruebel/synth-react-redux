@@ -1,16 +1,15 @@
 import React, {PropTypes} from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
-import {equalPower} from '../../../../../../utils/audio';
 import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#3299cc',
   feedback: {
     min: 0,
-    max: 2,
+    max: 0.9,
     name: 'Feedback',
-    value: 1
+    value: 0.5
   },
   name: 'Delay',
   time: {
@@ -42,36 +41,21 @@ class Delay extends React.Component {
 
   applySettings(next, prev) {
     if (checkPropChange(prev, next, 'feedback')) {
-      this.effect.forEach((repeat, i) => {
-        // Apply equal power fading of delays based on feedback amount
-        const level = Math.max(0, Math.min(1, (i - (next.settings.feedback.value || 0)) / this.effect.length + 0.8));
-        repeat.gain.gain.value = equalPower(level, true);
-      });
+      this.feedback.gain.value = next.settings.feedback.value;
     }
     if (checkPropChange(prev, next, 'time')) {
-      this.effect.forEach((repeat, i) => {
-        repeat.delay.delayTime.value = (next.settings.time.value || 0.2) * (i + 1);
-      });
+      this.delay.delayTime.value = (next.settings.time.value || 0.2);
     }
-    this.props.wire(next, prev, this.effect);
+    this.props.wire(next, prev, this.delay, this.output);
   }
 
   setupAudio() {
-    // Create delay bank we will need a delay node and a gain node in each repeat
-    // this will allow us to have falling gain as the delays get later
-    this.effect = [];
-    for(let i = 1; i < 6; i++) {
-      const repeat = {
-        input: this.props.context.createDelay(2 * i),
-        output: this.props.context.createGain()
-      };
-      // Aliasing so I stop referencing these incorrectly
-      repeat.delay = repeat.input;
-      repeat.gain = repeat.output;
-      // Connect the delay and gain together
-      repeat.input.connect(repeat.output);
-      this.effect.push(repeat);
-    }
+    this.delay = this.props.context.createDelay(2);
+    this.feedback = this.props.context.createGain();
+    this.output = this.props.context.createGain();
+    this.delay.connect(this.feedback);
+    this.delay.connect(this.output);
+    this.feedback.connect(this.delay);
     this.applySettings(this.props);
   }
 
