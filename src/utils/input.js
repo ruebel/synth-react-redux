@@ -2,6 +2,7 @@ import {getRandomInt} from './math';
 export const inputTypes = {
   keyboard: 'KEYBOARD',
   midi: 'MIDI',
+  stream: 'STREAM',
   websocket: 'WEBSOCKET'
 };
 const keyboardInput = {
@@ -13,6 +14,11 @@ const websocketInput = {
   id: '1',
   device: inputTypes.websocket,
   name: 'Websocket'
+};
+const streamInput = {
+  id: '2',
+  device: inputTypes.stream,
+  name: 'Audio Input'
 };
 /**
  * Convert MIDI Velocity (0-127) to Web Audio Gain (0-1)
@@ -29,7 +35,7 @@ export const getDevices = () => {
     return window.navigator.requestMIDIAccess()
       .then(access => {
         // Add computer keyboard support
-        const devices = [keyboardInput, websocketInput];
+        const devices = [keyboardInput, streamInput, websocketInput];
         if (access.inputs && access.inputs.size > 0) {
           const inputs = access.inputs.values();
           for (let input = inputs.next(); input && !input.done; input = inputs.next()) {

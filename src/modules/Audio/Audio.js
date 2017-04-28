@@ -2,7 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import EffectBank from './components/EffectBank';
 import OutputGain from './components/OutputGain';
+import Stream from './components/Stream';
 import ToneBank from './components/ToneBank';
+import {inputTypes} from '../../utils/input';
 import {selectors as appSelectors} from '../App';
 
 class Audio extends React.Component {
@@ -17,8 +19,16 @@ class Audio extends React.Component {
   render() {
     return (
       <div>
-        <ToneBank
-          output={this.inputGain}/>
+        {
+          this.props.input && this.props.input.device === inputTypes.stream ? (
+            <Stream
+              context={this.props.context}
+              output={this.inputGain}/>
+          ) : (
+            <ToneBank
+              output={this.inputGain}/>
+          )
+        }
         <EffectBank
           inputGain={this.inputGain}
           outputGain={this.outputGain}/>
@@ -30,7 +40,8 @@ class Audio extends React.Component {
 }
 
 Audio.propTypes = {
-  context: PropTypes.object.isRequired
+  context: PropTypes.object.isRequired,
+  input: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({

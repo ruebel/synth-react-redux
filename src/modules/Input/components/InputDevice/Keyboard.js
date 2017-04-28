@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {actions as audioActions} from '../../Audio';
-import keyMap from '../../../utils/keyMap';
+import {actions as audioActions} from '../../../Audio';
+import keyMap from '../../../../utils/keyMap';
 
 class Keyboard extends React.Component {
   constructor(props) {

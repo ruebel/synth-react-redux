@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {socketMessage} from '../actions';
-import {getSocketSettings, getSocketStatus} from '../selectors';
+import {socketMessage} from '../../actions';
+import {getSocketSettings, getSocketStatus} from '../../selectors';
 
 class Socket extends React.Component {
   constructor(props) {

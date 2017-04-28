@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import Keyboard from './Keyboard';
 import Midi from './Midi';
 import Socket from './Socket';
-import {inputTypes} from '../../../utils/input';
+import Stream from './Stream';
+import {inputTypes} from '../../../../utils/input';
 
 const InputDevice = ({device}) => {
   if (!device) {
@@ -13,6 +14,8 @@ const InputDevice = ({device}) => {
       return <Midi device={device}/>;
     case inputTypes.keyboard:
       return <Keyboard />;
+    case inputTypes.stream:
+      return <Stream />;
     case inputTypes.websocket:
       return <Socket />;
   }

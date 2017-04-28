@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {actions as audioActions} from '../../Audio';
-import {actions as controlActions} from '../../Control';
-import {actions as synthActions} from '../../Synth';
-import {convertVelocity} from '../../../utils/input';
+import {actions as audioActions} from '../../../Audio';
+import {actions as controlActions} from '../../../Control';
+import {actions as synthActions} from '../../../Synth';
+import {convertVelocity} from '../../../../utils/input';
 
 class Midi extends React.Component {
   constructor(props) {

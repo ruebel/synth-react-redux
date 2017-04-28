@@ -6,7 +6,8 @@ export const C = {
   ON_SOCKET_INPUT: `${name}/ON_SOCKET_INPUT`,
   SET_INPUT_DEVICE: `${name}/SET_INPUT_DEVICE`,
   SET_SOCKET_SETTINGS: `${name}/SET_SOCKET_SETTINGS`,
-  SET_SOCKET_STATUS: `${name}/SET_SOCKET_STATUS`
+  SET_SOCKET_STATUS: `${name}/SET_SOCKET_STATUS`,
+  SET_STREAM: `${name}/SET_STREAM`
 };
 
 export const getInputDevices = () => (dispatch, getState) => {
@@ -48,6 +49,11 @@ export const setDevice = (device = {}) => {
 export const setSocketSettings = (settings) => ({
   type: C.SET_SOCKET_SETTINGS,
   payload: settings
+});
+
+export const setStream = (stream) => ({
+  type: C.SET_STREAM,
+  payload: stream
 });
 
 export const socketMessage = (message) => (dispatch, getState) => {
