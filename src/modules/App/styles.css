@@ -1,17 +1,3 @@
-.inline {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  & > div:not(:first-of-type) {
-    margin-left: 5px;
-  }
-
-  & > div {
-    flex: 1;
-  }
-}
-
 .container {
   padding: 0 30px;
   max-width: 1480px;

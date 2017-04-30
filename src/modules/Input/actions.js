@@ -1,6 +1,6 @@
+import {name} from './__init__';
 import * as input from '../../utils/input';
 import {actions as audioActions} from '../Audio';
-const name = 'input';
 export const C = {
   GET_INPUT_DEVICES: `${name}/GET_INPUT_DEVICES`,
   ON_SOCKET_INPUT: `${name}/ON_SOCKET_INPUT`,

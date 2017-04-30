@@ -6,4 +6,8 @@
   & > div:not(:first-of-type) {
     margin-left: 5px;
   }
+
+  & > div {
+    flex: 1;
+  }
 }

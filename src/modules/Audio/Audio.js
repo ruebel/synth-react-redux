@@ -48,4 +48,4 @@ const mapStateToProps = (state) => ({
   context: appSelectors.getContext(state)
 });
 
-export default connect(mapStateToProps, null)(Audio);
+export default connect(mapStateToProps)(Audio);
