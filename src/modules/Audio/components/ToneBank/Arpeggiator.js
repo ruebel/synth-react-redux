@@ -20,7 +20,7 @@ class Arpeggiator extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setTimeout(this.next, this.props.settings.arpeggiator.interval);
+    this.timer = setInterval(this.next, this.props.settings.arpeggiator.interval);
   }
 
   componentWillReceiveProps(next) {
@@ -31,17 +31,24 @@ class Arpeggiator extends React.Component {
           .filter((t, i, origin) => next.tones[t].velocity > 0 ||
             (i > 11 && octave > 1 && next.tones[origin[i - 12]].velocity > 0) ||
             (i > 23 && octave > 2 && next.tones[origin[i - 24]].velocity > 0))
-          .map((t, i) => Object.assign({}, next.tones[t], {
+          .map((t, i) => ({
+            ...next.tones[t],
             originalVelocity: next.tones[t].velocity || 64,
             velocity: i === state.noteIndex ? next.tones[t].velocity : 0
           }))
       };
     });
+    if (this.props.settings.arpeggiator.interval !== next.settings.arpeggiator.interval) {
+      if (this.timer) {
+        clearInterval(this.timer);
+      }
+      this.timer = setInterval(this.next, next.settings.arpeggiator.interval);
+    }
   }
 
   componentWillUnmount() {
     if (this.timer) {
-      clearTimeout(this.timer);
+      clearInterval(this.timer);
     }
   }
 
@@ -52,21 +59,18 @@ class Arpeggiator extends React.Component {
         return {
           noteIndex: noteIndex || 0,
           previousIndex: state.noteIndex || 0,
-          tones: state.tones.map((t, i) => {
-            return Object.assign({}, t, {
-              velocity: i === noteIndex ? t.originalVelocity : 0
-            });
-          })
+          tones: state.tones.map((t, i) => ({
+            ...t,
+            velocity: i === noteIndex ? t.originalVelocity : 0
+          }))
         };
       });
     }
     this.setState((state) => ({indicator: !state.indicator}));
-    this.timer = setTimeout(this.next, this.props.settings.arpeggiator.interval);
   }
 
   render() {
-    const tones = this.state.tones.map((t, i) => {
-      return (
+    const tones = this.state.tones.map((t, i) => (
         <Tone
           key={i}
           tone={t}
@@ -74,8 +78,7 @@ class Arpeggiator extends React.Component {
           modulation={this.props.modulationGain}
           output={this.props.output}
           settings={this.props.settings}
-        />);
-      });
+        />));
     return (
       <div>
         <Indicator on={this.state.indicator}/>
