@@ -30,8 +30,8 @@ const NoteGrid = ({beats, notes, position}) => {
 };
 
 NoteGrid.propTypes = {
-  beats: PropTypes.array,
-  notes: PropTypes.array,
+  beats: PropTypes.object,
+  notes: PropTypes.object,
   position: PropTypes.number
 };
 

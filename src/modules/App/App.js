@@ -2,10 +2,11 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {Audio, actions as audioActions} from '../Audio';
 import Columns from '../components/Columns';
+import {AssignControl} from '../Control';
 import {Input, selectors as inputSelectors} from '../Input';
 import {Presets} from '../Presets';
+import {Sequencer} from '../Sequencer';
 import {Synth} from '../Synth';
-import {AssignControl} from '../Control';
 import {inputTypes} from '../../utils/input';
 const styles = require('./styles.css');
 
@@ -16,6 +17,7 @@ const App = ({input, keyDown, keyUp}) => {
         <Input />
         <Presets />
       </Columns>
+      <Sequencer />
       {input && input.device !== inputTypes.stream && <Synth keyDown={keyDown} keyUp={keyUp}/>}
       <Audio input={input}/>
       <AssignControl />

@@ -24,7 +24,7 @@ const Cell = ({beat, note, on}) => {
 };
 
 Cell.propTypes = {
-  beat: PropTypes.objecct,
+  beat: PropTypes.number,
   note: PropTypes.object,
   on: PropTypes.bool
 };

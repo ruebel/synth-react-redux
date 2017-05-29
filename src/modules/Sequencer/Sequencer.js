@@ -1,4 +1,7 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+// import * as actions from './actions';
+import * as selectors from './selectors';
 import NoteGrid from './components/NoteGrid';
 
 class Sequencer extends React.Component {
@@ -109,4 +112,11 @@ Sequencer.propTypes = {
   })
 };
 
-export default Sequencer;
+const mapStateToProps = (state) => ({
+  measureCnt: selectors.getMeasureCnt(state),
+  notes: selectors.getNotes(state),
+  tempo: selectors.getTempo(state),
+  timeSig: selectors.getTimeSig(state),
+});
+
+export default connect(mapStateToProps)(Sequencer);

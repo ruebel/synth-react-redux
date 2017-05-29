@@ -17,8 +17,8 @@ const Row = ({beats, note, position}) => {
 };
 
 Row.propTypes = {
-  beats: PropTypes.array,
-  note: PropTypes.object,
+  beats: PropTypes.object,
+  note: PropTypes.number,
   position: PropTypes.number
 };
 
