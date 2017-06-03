@@ -3,27 +3,20 @@ import {connect} from 'react-redux';
 // import * as actions from './actions';
 import * as selectors from './selectors';
 import NoteGrid from './components/NoteGrid';
+import PowerSwitch from '../components/PowerSwitch';
 
 class Sequencer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeNotes: [],
-      beats: {},
-      notes: {},
-      position: 0,
-    };
-
-    this.next = this.next.bind(this);
-    this.setBeats = this.setBeats.bind(this);
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
+  state = {
+    activeNotes: [],
+    beats: {},
+    notes: {},
+    on: false,
+    position: -1,
   }
 
   componentDidMount() {
     this.setBeats(this.props);
-    this.start(this.props);
+    // this.start(this.props);
   }
 
   componentWillUnmount() {
@@ -43,7 +36,7 @@ class Sequencer extends React.Component {
     }
   }
 
-  next() {
+  next = () => {
     this.setState(state => {
       const nextPos = state.position ===
         this.props.timeSig.num * 16 / this.props.timeSig.den * this.props.measureCnt - 1
@@ -56,7 +49,7 @@ class Sequencer extends React.Component {
     });
   }
 
-  setBeats(props) {
+  setBeats = (props) => {
     this.setState(() => ({
         beats: Array.from(
           Array(props.timeSig.num * 16 / props.timeSig.den * props.measureCnt),
@@ -77,27 +70,39 @@ class Sequencer extends React.Component {
     );
   }
 
-  start(props) {
+  start = (props) => {
     this.stop();
     this.timer = setInterval(
       this.next,
       60000 / (props.tempo * props.timeSig.num),
     );
+    this.setState(() => ({on : true}));
   }
 
-  stop() {
+  stop = () => {
     if (this.timer) {
       clearInterval(this.timer);
     }
+    this.setState(() => ({on : false}));
+  }
+
+  togglePower = () => {
+    this.state.on ? this.stop() : this.start(this.props);
   }
 
   render() {
     return (
-      <NoteGrid
-        beats={this.state.beats}
-        notes={this.state.notes}
-        position={this.state.position}
-      />
+      <div>
+        <PowerSwitch
+          change={this.togglePower}
+          title="Sequencer"
+          value={this.state.on} />
+        <NoteGrid
+          beats={this.state.beats}
+          notes={this.state.notes}
+          position={this.state.position}
+        />
+      </div>
     );
   }
 }

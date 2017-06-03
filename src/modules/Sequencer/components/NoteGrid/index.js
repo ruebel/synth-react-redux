@@ -4,7 +4,6 @@ import Row from './Row';
 const NoteGrid = ({beats, notes, position}) => {
   return (
     <div style={{overflowX: scroll}}>
-      Note Grid
       <table>
         <tbody>
           <tr>
