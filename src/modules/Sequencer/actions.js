@@ -1,4 +1,5 @@
 import { C } from './constants';
+import { actions as audioActions } from '../Audio';
 
 export const addNote = note => ({
   type: C.ADD_NOTE,
@@ -29,3 +30,11 @@ export const setTimeSig = timeSig => ({
   type: C.SET_TIME_SIG,
   payload: timeSig
 });
+
+export const stop = () => dispatch => {
+  dispatch(audioActions.clearKeys());
+};
+
+export const triggerNotes = (notes = []) => dispatch => {
+  notes.map(n => dispatch(audioActions.keyDown(n.tone, n.velocity / 127)));
+};

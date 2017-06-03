@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { C } from './constants';
+import testNotes from './notes';
 
 const measureCnt = (state = 1, action) => {
   switch (action.type) {
@@ -10,7 +11,7 @@ const measureCnt = (state = 1, action) => {
   }
 };
 
-const notes = (state = [{ tone: 60, beat: 1 }], action) => {
+const notes = (state = testNotes, action) => {
   switch (action.type) {
     case C.ADD_NOTE:
       return [...state, action.payload];

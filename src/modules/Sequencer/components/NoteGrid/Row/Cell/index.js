@@ -12,7 +12,7 @@ const getStyle = (beat, on) => ({
 const Cell = ({ beat, note, on }) => {
   return (
     <td style={getStyle(beat, on)}>
-      {note && <span>{note.tone}</span>}
+      {note && note.velocity > 0 && <span>{note.tone}</span>}
     </td>
   );
 };

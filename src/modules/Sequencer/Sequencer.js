@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import * as actions from './actions';
+import * as actions from './actions';
 import * as selectors from './selectors';
 import NoteGrid from './components/NoteGrid';
 import PowerSwitch from '../components/PowerSwitch';
+import Refresh from '../components/icons/Refresh';
 
 class Sequencer extends React.Component {
   state = {
@@ -16,7 +17,6 @@ class Sequencer extends React.Component {
 
   componentDidMount() {
     this.setBeats(this.props);
-    // this.start(this.props);
   }
 
   componentWillUnmount() {
@@ -48,11 +48,17 @@ class Sequencer extends React.Component {
           1
         ? 0
         : state.position + 1;
+      const activeNotes = this.state.beats[nextPos].notes;
+      this.props.triggerNotes(activeNotes);
       return {
-        activeNotes: this.state.beats[nextPos],
+        activeNotes,
         position: nextPos
       };
     });
+  };
+
+  reset = () => {
+    this.setState(() => ({ position: -1 }));
   };
 
   setBeats = props => {
@@ -96,6 +102,7 @@ class Sequencer extends React.Component {
     if (this.timer) {
       clearInterval(this.timer);
     }
+    this.props.stop();
     this.setState(() => ({ on: false }));
   };
 
@@ -106,11 +113,20 @@ class Sequencer extends React.Component {
   render() {
     return (
       <div>
-        <PowerSwitch
-          change={this.togglePower}
-          title="Sequencer"
-          value={this.state.on}
-        />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          <PowerSwitch
+            change={this.togglePower}
+            title="Sequencer"
+            value={this.state.on}
+          />
+          <Refresh click={this.reset} />
+        </div>
         <NoteGrid
           beats={this.state.beats}
           notes={this.state.notes}
@@ -124,11 +140,13 @@ class Sequencer extends React.Component {
 Sequencer.propTypes = {
   measureCnt: PropTypes.number,
   notes: PropTypes.array,
+  stop: PropTypes.func.isRequired,
   tempo: PropTypes.number,
   timeSig: PropTypes.shape({
     num: PropTypes.number.isRequired,
     den: PropTypes.number.isRequired
-  })
+  }),
+  triggerNotes: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -138,4 +156,7 @@ const mapStateToProps = state => ({
   timeSig: selectors.getTimeSig(state)
 });
 
-export default connect(mapStateToProps)(Sequencer);
+export default connect(mapStateToProps, {
+  stop: actions.stop,
+  triggerNotes: actions.triggerNotes
+})(Sequencer);

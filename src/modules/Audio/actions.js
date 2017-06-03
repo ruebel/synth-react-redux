@@ -15,6 +15,10 @@ export const addEffect = effect => {
   };
 };
 
+export const clearKeys = () => ({
+  type: C.CLEAR_KEYS
+});
+
 export const keyDown = (id, velocity = defaultVelocity) => (
   dispatch,
   getState
