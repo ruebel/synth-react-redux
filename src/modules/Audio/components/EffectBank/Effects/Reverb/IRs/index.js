@@ -46,5 +46,5 @@ export default {
   TunnelToHell: {
     name: 'Tunnel To Hell',
     url: require('./TunnelToHell.wav')
-  },
+  }
 };

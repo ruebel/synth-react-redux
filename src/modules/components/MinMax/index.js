@@ -1,11 +1,11 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactSlider from 'react-slider';
-import {scaleNumber} from '../../../utils/math';
+import { scaleNumber } from '../../../utils/math';
 import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
 
-const MinMax = ({max, min, onSet, step, title, value}) => {
+const MinMax = ({ max, min, onSet, step, title, value }) => {
   const style = cx({
     wrapper: true
   });
@@ -16,15 +16,16 @@ const MinMax = ({max, min, onSet, step, title, value}) => {
         className={styles.slider}
         handleClassName={styles.handle}
         value={value}
-        onChange={(e) => onSet(e)}
+        onChange={e => onSet(e)}
         min={min || 0}
         max={max || 1.5}
         pearling
         step={step || 0.01}
-        withBars>
-          <div>{scaleNumber(value[0])}</div>
-          <div>{scaleNumber(value[1])}</div>
-        </ReactSlider>
+        withBars
+      >
+        <div>{scaleNumber(value[0])}</div>
+        <div>{scaleNumber(value[1])}</div>
+      </ReactSlider>
     </div>
   );
 };
@@ -35,7 +36,7 @@ MinMax.propTypes = {
   onSet: PropTypes.func.isRequired,
   step: PropTypes.number,
   title: PropTypes.string,
-  value: PropTypes.array.isRequired,
+  value: PropTypes.array.isRequired
 };
 
 export default MinMax;

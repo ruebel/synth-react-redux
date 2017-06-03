@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {actions as audioActions} from '../../../Audio';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { actions as audioActions } from '../../../Audio';
 import keyMap from '../../../../utils/keyMap';
 
 class Keyboard extends React.Component {
@@ -78,5 +78,5 @@ Keyboard.propTypes = {
 
 export default connect(null, {
   keyDown: audioActions.keyDown,
-  keyUp: audioActions.keyUp,
+  keyUp: audioActions.keyUp
 })(Keyboard);

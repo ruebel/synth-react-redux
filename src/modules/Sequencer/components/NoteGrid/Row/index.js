@@ -1,17 +1,18 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Cell from './Cell';
 
-const Row = ({beats, note, position}) => {
+const Row = ({ beats, note, position }) => {
   return (
     <tr>
       <td>{note}</td>
-      {Object.keys(beats).map((k, i) => (
+      {Object.keys(beats).map((k, i) =>
         <Cell
           beat={beats[k].beat}
           key={i}
           note={beats[k].notes.find(n => n.tone === note)}
-          on={k == position} />
-      ))}
+          on={k == position}
+        />
+      )}
     </tr>
   );
 };

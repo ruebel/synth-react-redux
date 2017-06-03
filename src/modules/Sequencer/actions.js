@@ -1,4 +1,4 @@
-import {C} from './constants';
+import { C } from './constants';
 
 export const addNote = note => ({
   type: C.ADD_NOTE,

@@ -1,11 +1,20 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Button from '../Button';
 import PowerSwitch from '../PowerSwitch';
 import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
 
-const Container = ({active, activeChange, close, children, full, tight, title, titleControl}) => {
+const Container = ({
+  active,
+  activeChange,
+  close,
+  children,
+  full,
+  tight,
+  title,
+  titleControl
+}) => {
   const containerStyle = cx({
     active,
     container: true,

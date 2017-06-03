@@ -1,12 +1,12 @@
-import {combineReducers} from 'redux';
-import {C} from './constants';
+import { combineReducers } from 'redux';
+import { C } from './constants';
 const initialState = {
   loadedId: null,
   presets: []
 };
 
 const loadedId = (state = initialState.loadedId, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case C.LOAD_PRESET:
     case C.SAVE_NEW_PRESET:
       return action.payload.id;
@@ -18,7 +18,7 @@ const loadedId = (state = initialState.loadedId, action) => {
 };
 
 const presets = (state = initialState.presets, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case C.CLEAR_PRESETS:
       return [];
     case C.REMOVE_PRESET:

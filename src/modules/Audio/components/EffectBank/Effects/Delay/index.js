@@ -1,7 +1,10 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#3299cc',
@@ -44,7 +47,7 @@ class Delay extends React.Component {
       this.feedback.gain.value = next.settings.feedback.value;
     }
     if (checkPropChange(prev, next, 'time')) {
-      this.delay.delayTime.value = (next.settings.time.value || 0.2);
+      this.delay.delayTime.value = next.settings.time.value || 0.2;
     }
     this.props.wire(next, prev, this.delay, this.output);
   }
@@ -87,6 +90,5 @@ Delay.propTypes = {
   output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
-
 
 export default Effect(Delay, 'wet');

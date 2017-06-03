@@ -1,9 +1,13 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Indicator from './Indicator';
 import RangeControl from '../../../components/RangeControl';
 import Select from '../../../components/Select';
 import Tone from '../ToneBank/Tone';
-import {arpeggiatorModes, arpeggiatorOctaves, getNextIndex} from '../../../../utils/audio';
+import {
+  arpeggiatorModes,
+  arpeggiatorOctaves,
+  getNextIndex
+} from '../../../../utils/audio';
 
 class Arpeggiator extends React.Component {
   constructor(props) {
@@ -20,7 +24,10 @@ class Arpeggiator extends React.Component {
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.next, this.props.settings.arpeggiator.interval);
+    this.timer = setInterval(
+      this.next,
+      this.props.settings.arpeggiator.interval
+    );
   }
 
   componentWillReceiveProps(next) {
@@ -28,9 +35,14 @@ class Arpeggiator extends React.Component {
       const octave = next.settings.arpeggiator.octave;
       return {
         tones: Object.keys(next.tones)
-          .filter((t, i, origin) => next.tones[t].velocity > 0 ||
-            (i > 11 && octave > 1 && next.tones[origin[i - 12]].velocity > 0) ||
-            (i > 23 && octave > 2 && next.tones[origin[i - 24]].velocity > 0))
+          .filter(
+            (t, i, origin) =>
+              next.tones[t].velocity > 0 ||
+              (i > 11 &&
+                octave > 1 &&
+                next.tones[origin[i - 12]].velocity > 0) ||
+              (i > 23 && octave > 2 && next.tones[origin[i - 24]].velocity > 0)
+          )
           .map((t, i) => ({
             ...next.tones[t],
             originalVelocity: next.tones[t].velocity || 64,
@@ -38,7 +50,10 @@ class Arpeggiator extends React.Component {
           }))
       };
     });
-    if (this.props.settings.arpeggiator.interval !== next.settings.arpeggiator.interval) {
+    if (
+      this.props.settings.arpeggiator.interval !==
+      next.settings.arpeggiator.interval
+    ) {
       if (this.timer) {
         clearInterval(this.timer);
       }
@@ -54,8 +69,13 @@ class Arpeggiator extends React.Component {
 
   next() {
     if (this.state.tones.length > 0) {
-      this.setState((state) => {
-        const noteIndex = getNextIndex(state.noteIndex, state.previousIndex, state.tones.length, this.props.settings.arpeggiator.mode);
+      this.setState(state => {
+        const noteIndex = getNextIndex(
+          state.noteIndex,
+          state.previousIndex,
+          state.tones.length,
+          this.props.settings.arpeggiator.mode
+        );
         return {
           noteIndex: noteIndex || 0,
           previousIndex: state.noteIndex || 0,
@@ -66,22 +86,23 @@ class Arpeggiator extends React.Component {
         };
       });
     }
-    this.setState((state) => ({indicator: !state.indicator}));
+    this.setState(state => ({ indicator: !state.indicator }));
   }
 
   render() {
-    const tones = this.state.tones.map((t, i) => (
-        <Tone
-          key={i}
-          tone={t}
-          context={this.props.context}
-          modulation={this.props.modulationGain}
-          output={this.props.output}
-          settings={this.props.settings}
-        />));
+    const tones = this.state.tones.map((t, i) =>
+      <Tone
+        key={i}
+        tone={t}
+        context={this.props.context}
+        modulation={this.props.modulationGain}
+        output={this.props.output}
+        settings={this.props.settings}
+      />
+    );
     return (
       <div>
-        <Indicator on={this.state.indicator}/>
+        <Indicator on={this.state.indicator} />
         <RangeControl
           min={30}
           max={1000}

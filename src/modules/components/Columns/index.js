@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 const styles = require('./styles.css');
 
-const Columns = ({children}) => {
+const Columns = ({ children }) => {
   return (
     <div className={styles.cols}>
       {children}

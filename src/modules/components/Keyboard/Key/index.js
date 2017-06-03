@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 const styles = require('./styles.css');
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
@@ -35,7 +35,8 @@ class Key extends React.Component {
       <div
         onMouseDown={this.toggleKey}
         onMouseUp={this.handleUp}
-        className={style} />
+        className={style}
+      />
     );
   }
 }

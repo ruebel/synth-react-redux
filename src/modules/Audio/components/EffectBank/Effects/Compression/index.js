@@ -1,7 +1,10 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   attack: {

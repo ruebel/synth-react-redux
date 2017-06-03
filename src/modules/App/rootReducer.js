@@ -1,5 +1,5 @@
-import {combineReducers} from 'redux';
-import {getContext} from '../../utils/audio';
+import { combineReducers } from 'redux';
+import { getContext } from '../../utils/audio';
 import * as audio from '../Audio';
 import * as control from '../Control';
 import * as input from '../Input';
@@ -12,11 +12,11 @@ const initialState = {
 };
 
 function context(state = initialState.context, action) {
-  switch(action.type) {
+  switch (action.type) {
     case 'SETUP_AUDIO':
-    return action.payload;
+      return action.payload;
     default:
-    return state;
+      return state;
   }
 }
 
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
   [input.name]: input.reducers,
   [presets.name]: presets.reducers,
   [sequencer.name]: sequencer.reducers,
-  [synth.name]: synth.reducers,
+  [synth.name]: synth.reducers
 });
 
 export default rootReducer;

@@ -1,4 +1,4 @@
-import {name} from './__init__';
+import { name } from './__init__';
 export const C = {
   ADD_EFFECT: `${name}/ADD_EFFECT`,
   CLEAR_KEYS: `${name}/CLEAR_KEYS`,

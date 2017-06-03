@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
@@ -17,11 +17,8 @@ const Icon = (WrappedComponent, isFill) => {
       });
       return (
         <div onClick={this.props.click} className={style}>
-          <WrappedComponent
-            {...this.props}
-            className={style}/>
+          <WrappedComponent {...this.props} className={style} />
         </div>
-
       );
     }
   }

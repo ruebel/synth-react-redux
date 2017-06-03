@@ -1,15 +1,16 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 const styles = require('./styles.css');
 
-const TextInput = ({change, placeholder, required, value}) => {
+const TextInput = ({ change, placeholder, required, value }) => {
   return (
     <input
-    type="text"
-    className={styles.input}
-    onChange={change}
-    placeholder={placeholder}
-    required={required}
-    value={value}/>
+      type="text"
+      className={styles.input}
+      onChange={change}
+      placeholder={placeholder}
+      required={required}
+      value={value}
+    />
   );
 };
 

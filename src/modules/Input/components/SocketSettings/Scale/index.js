@@ -1,6 +1,6 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Keyboard from '../../../../components/Keyboard';
-import {generateKeys} from '../../../../../utils/audio';
+import { generateKeys } from '../../../../../utils/audio';
 
 class Scale extends React.Component {
   constructor(props) {

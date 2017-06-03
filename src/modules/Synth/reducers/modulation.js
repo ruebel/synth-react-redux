@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import {C} from '../actions';
-import {C as presetActions} from '../../Presets';
+import { C } from '../actions';
+import { C as presetActions } from '../../Presets';
 const initialState = {
   on: false,
   depth: 4.3,
@@ -9,14 +9,14 @@ const initialState = {
 };
 
 const modulation = combineReducers({
-    depth,
-    on,
-    shape,
-    speed
-  });
+  depth,
+  on,
+  shape,
+  speed
+});
 
 function depth(state = initialState.depth, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_MODULATION_DEPTH:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -27,7 +27,7 @@ function depth(state = initialState.depth, action) {
 }
 
 function on(state = initialState.on, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_MODULATION_ON:
       return !state;
     case presetActions.LOAD_PRESET:
@@ -38,7 +38,7 @@ function on(state = initialState.on, action) {
 }
 
 function shape(state = initialState.shape, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_MODULATION_SHAPE:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -49,7 +49,7 @@ function shape(state = initialState.shape, action) {
 }
 
 function speed(state = initialState.speed, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_MODULATION_SPEED:
       return action.payload;
     case presetActions.LOAD_PRESET:

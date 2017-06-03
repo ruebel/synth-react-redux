@@ -13,8 +13,8 @@
     "open:src": "babel-node ./tools/srcServer",
     "open:dist": "babel-node tools/distServer.js",
     "prebuild": "npm run lint",
-    "prettier": "prettier --single-quote --trailing-comma es5 \"{src,tools/**/*.js\"",
-    "start": "run-p open:src lint:watch",
+    "prettier": "prettier --single-quote --write \"{src,tools}/**/*.js\"",
+    "start": "run-p open:src lint:watch ",
     "start-message": "babel-node ./tools/startMessage"
   },
   "repository": {

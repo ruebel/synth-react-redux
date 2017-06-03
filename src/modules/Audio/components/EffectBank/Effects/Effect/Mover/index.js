@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Button from '../../../../../../components/Button';
 import PowerSwitch from '../../../../../../components/PowerSwitch';
 const styles = require('./styles.css');
 
-const Mover = ({close, down, on, power, up}) => {
+const Mover = ({ close, down, on, power, up }) => {
   return (
     <div className={styles.mover}>
       <PowerSwitch value={on} change={power} />

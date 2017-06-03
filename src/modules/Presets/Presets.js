@@ -1,10 +1,10 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import AddPreset from './components/AddPreset';
 import Button from '../components/Button';
 import Container from '../components/Container';
 import * as actions from './actions';
-import {getLoadedId, getPresets} from './selectors';
+import { getLoadedId, getPresets } from './selectors';
 const styles = require('./styles.css');
 
 class Presets extends React.Component {
@@ -29,13 +29,20 @@ class Presets extends React.Component {
   }
 
   render() {
-    const {loadedId, loadPreset, presets, removePreset, savePreset} = this.props;
+    const {
+      loadedId,
+      loadPreset,
+      presets,
+      removePreset,
+      savePreset
+    } = this.props;
     const menu = (
       <div className={styles.menu}>
         <Button
           active={Boolean(loadedId)}
           click={() => savePreset(loadedId)}
-          text="Save"/>
+          text="Save"
+        />
         <Button
           active
           click={this.toggleEditModal}
@@ -55,7 +62,8 @@ class Presets extends React.Component {
         <AddPreset
           close={this.toggleEditModal}
           save={this.handleSave}
-          show={this.state.showAdd}/>
+          show={this.state.showAdd}
+        />
         <div className={styles.bank}>
           {presets.map((p, i) => {
             return (
@@ -84,7 +92,7 @@ Presets.propTypes = {
   savePreset: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loadedId: getLoadedId(state),
   presets: getPresets(state)
 });

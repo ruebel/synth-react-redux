@@ -1,11 +1,6 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
-const colors = [
-  '#75ABDC',
-  '#FAD394',
-  '#35B780',
-  '#F2F2F2'
-];
+const colors = ['#75ABDC', '#FAD394', '#35B780', '#F2F2F2'];
 
 const getStyle = (beat, on) => ({
   backgroundColor: on ? 'rebeccapurple' : colors[beat - 1],
@@ -14,8 +9,7 @@ const getStyle = (beat, on) => ({
   width: '45px'
 });
 
-
-const Cell = ({beat, note, on}) => {
+const Cell = ({ beat, note, on }) => {
   return (
     <td style={getStyle(beat, on)}>
       {note && <span>{note.tone}</span>}

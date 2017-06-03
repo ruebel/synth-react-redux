@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 const styles = require('./styles.css');
 
-const ButtonGroup = ({children}) => {
+const ButtonGroup = ({ children }) => {
   return (
     <div className={styles.buttonGroup}>
       {children}

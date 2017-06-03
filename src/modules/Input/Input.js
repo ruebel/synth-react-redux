@@ -1,5 +1,5 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import InputSelector from './components/InputSelector';
 import SocketSettings from './components/SocketSettings';
 import * as actions from './actions';
@@ -28,9 +28,7 @@ class Input extends React.Component {
   render() {
     return (
       <div>
-        <InputSelector
-          showSettings={this.toggleSettingsModal}
-        />
+        <InputSelector showSettings={this.toggleSettingsModal} />
         <SocketSettings
           close={this.toggleSettingsModal}
           save={this.handleSave}

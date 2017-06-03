@@ -1,10 +1,10 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Select from '../Select';
-import {waveShapes} from '../../../utils/audio';
+import { waveShapes } from '../../../utils/audio';
 const styles = require('./styles.css');
 
-const WaveShapeSelector = ({value, change}) => {
-  const options = waveShapes.map(s => ({id: s, name: s}));
+const WaveShapeSelector = ({ value, change }) => {
+  const options = waveShapes.map(s => ({ id: s, name: s }));
   return (
     <div className={styles.wrapper}>
       <Select
@@ -14,7 +14,8 @@ const WaveShapeSelector = ({value, change}) => {
         searchable={false}
         title="Shape"
         value={value}
-        valueKey="id" />
+        valueKey="id"
+      />
     </div>
   );
 };

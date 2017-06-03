@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 const styles = require('./styles.css');
 
@@ -43,11 +43,11 @@ class Modal extends React.Component {
         transitionEnter={false}
         transitionLeave
         transitionAppearTimeout={150}
-        transitionLeaveTimeout={150}>
+        transitionLeaveTimeout={150}
+      >
         <div className={styles.wrapper} onClick={this.handleClose} key="1">
-          {this.props.icon && (
-            <div className={styles.icon}>{this.props.icon}</div>
-          )}
+          {this.props.icon &&
+            <div className={styles.icon}>{this.props.icon}</div>}
           <div className={styles.inner} onClick={this.stopClose}>
             {this.props.children}
           </div>

@@ -1,9 +1,9 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames/bind';
 const styles = require('./styles.css');
 const cx = classNames.bind(styles);
 
-const Button = ({active, click, color, type, selected, text}) => {
+const Button = ({ active, click, color, type, selected, text }) => {
   const style = cx({
     button: type !== 'link' && type !== 'round',
     [type || 'primary']: true,
@@ -14,7 +14,8 @@ const Button = ({active, click, color, type, selected, text}) => {
       className={style}
       disabled={!active || selected}
       onClick={() => click()}
-      style={{background: color}}>
+      style={{ background: color }}
+    >
       <div>{text || 'Click Me!'}</div>
     </button>
   );

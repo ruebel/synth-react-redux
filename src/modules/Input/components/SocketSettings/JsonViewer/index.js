@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 const styles = require('./styles.css');
 
-const JsonViewer = ({children, data, minimized}) => {
+const JsonViewer = ({ children, data, minimized }) => {
   return (
     <div className={styles.data}>
       {children}

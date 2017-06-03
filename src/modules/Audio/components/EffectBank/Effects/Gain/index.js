@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import RangeControl from '../../../../../components/RangeControl';
 
 class Gain extends React.Component {
@@ -37,12 +37,13 @@ class Gain extends React.Component {
   render() {
     return (
       <div>
-        <RangeControl title={this.props.title || 'Volume'}
-                      min={0}
-                      max={1}
-                      onSet={e => this.handleLevelChange(e)}
-                      value={this.props.value || 1}
-          />
+        <RangeControl
+          title={this.props.title || 'Volume'}
+          min={0}
+          max={1}
+          onSet={e => this.handleLevelChange(e)}
+          value={this.props.value || 1}
+        />
       </div>
     );
   }
