@@ -1,16 +1,19 @@
 import React, { PropTypes } from 'react';
 import Cell from './Cell';
 
-const Row = ({ beats, note, position }) => {
+const Row = ({ addNote, beats, position, removeNote, tone }) => {
   return (
     <tr>
-      <td>{note}</td>
+      <td>{tone}</td>
       {Object.keys(beats).map((k, i) =>
         <Cell
+          addNote={addNote}
           beat={beats[k].beat}
           key={i}
-          note={beats[k].notes.find(n => n.tone === note)}
+          note={beats[k].notes.find(n => n.tone === tone)}
           on={k == position}
+          removeNote={removeNote}
+          tone={tone}
         />
       )}
     </tr>
@@ -18,9 +21,11 @@ const Row = ({ beats, note, position }) => {
 };
 
 Row.propTypes = {
+  addNote: PropTypes.func.isRequired,
   beats: PropTypes.object,
-  note: PropTypes.number,
-  position: PropTypes.number
+  position: PropTypes.number,
+  removeNote: PropTypes.func.isRequired,
+  tone: PropTypes.number
 };
 
 export default Row;

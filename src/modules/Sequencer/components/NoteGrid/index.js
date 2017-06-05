@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Row from './Row';
 
-const NoteGrid = ({ beats, notes, position }) => {
+const NoteGrid = ({ addNote, beats, notes, position, removeNote }) => {
   return (
     <div style={{ overflowX: scroll }}>
       <table>
@@ -17,7 +17,14 @@ const NoteGrid = ({ beats, notes, position }) => {
             )}
           </tr>
           {Object.keys(notes).map((k, i) =>
-            <Row beats={beats} key={i} note={notes[k]} position={position} />
+            <Row
+              addNote={addNote}
+              beats={beats}
+              key={i}
+              position={position}
+              removeNote={removeNote}
+              tone={notes[k]}
+            />
           )}
         </tbody>
       </table>
@@ -26,9 +33,11 @@ const NoteGrid = ({ beats, notes, position }) => {
 };
 
 NoteGrid.propTypes = {
+  addNote: PropTypes.func.isRequired,
   beats: PropTypes.object,
   notes: PropTypes.object,
-  position: PropTypes.number
+  position: PropTypes.number,
+  removeNote: PropTypes.func.isRequired
 };
 
 export default NoteGrid;

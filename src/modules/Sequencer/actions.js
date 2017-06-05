@@ -1,9 +1,14 @@
+import uuid from 'uuid';
 import { C } from './constants';
 import { actions as audioActions } from '../Audio';
 
 export const addNote = note => ({
   type: C.ADD_NOTE,
-  payload: note
+  payload: {
+    id: uuid.v4(),
+    velocity: 100,
+    ...note
+  }
 });
 
 export const editNote = note => ({

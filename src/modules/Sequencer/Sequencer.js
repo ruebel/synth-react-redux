@@ -8,7 +8,6 @@ import Refresh from '../components/icons/Refresh';
 
 class Sequencer extends React.Component {
   state = {
-    activeNotes: [],
     beats: {},
     notes: {},
     on: false,
@@ -25,14 +24,17 @@ class Sequencer extends React.Component {
 
   componenetWillReceiveProps(next) {
     if (
-      next.tempo !== this.props.tempo ||
-      next.props.timeSig.num !== this.props.timeSig.num
+      this.state.on &&
+      (next.tempo !== this.props.tempo ||
+        next.props.timeSig.num !== this.props.timeSig.num)
     ) {
       this.start(next);
     }
     if (
       next.timeSig.num !== this.props.timeSig.num ||
-      next.timeSig.den !== this.props.timeSig.den
+      next.timeSig.den !== this.props.timeSig.den ||
+      next.measureCnt !== this.props.measureCnt ||
+      next.notes.length !== this.props.notes.length
     ) {
       this.setBeats(next);
     }
@@ -40,6 +42,7 @@ class Sequencer extends React.Component {
 
   next = () => {
     this.setState(state => {
+      // Calculate next position
       const nextPos = state.position ===
         this.props.timeSig.num *
           16 /
@@ -48,38 +51,36 @@ class Sequencer extends React.Component {
           1
         ? 0
         : state.position + 1;
-      const activeNotes = this.state.beats[nextPos].notes;
-      this.props.triggerNotes(activeNotes);
+      // Trigger any note events in the next position
+      this.props.triggerNotes(this.state.beats[nextPos].notes);
+      // Set the state
       return {
-        activeNotes,
         position: nextPos
       };
     });
   };
 
-  reset = () => {
-    this.setState(() => ({ position: -1 }));
-  };
+  reset = () => this.setState(() => ({ position: -1 }));
 
-  setBeats = props => {
+  setBeats = ({measureCnt, notes, timeSig}) => {
     this.setState(() => ({
       beats: Array.from(
-        Array(props.timeSig.num * 16 / props.timeSig.den * props.measureCnt)
+        Array(timeSig.num * 16 / timeSig.den * measureCnt)
       ).reduce(
         (total, x, i) => ({
           ...total,
           [i]: {
             measure:
-              Math.floor(props.timeSig.den * i / (16 * props.timeSig.num)) + 1,
+              Math.floor(timeSig.den * i / (16 * timeSig.num)) + 1,
             beat:
-              Math.floor(props.timeSig.den * i / 16) % props.timeSig.num + 1,
-            division: i % (16 / props.timeSig.den) + 1,
-            notes: props.notes.filter(n => n.beat === i)
+              Math.floor(timeSig.den * i / 16) % timeSig.num + 1,
+            division: i % (16 / timeSig.den) + 1,
+            notes: notes.filter(n => n.beat === i)
           }
         }),
         {}
       ),
-      notes: props.notes.reduce(
+      notes: notes.reduce(
         (total, n) => ({
           ...total,
           [n.tone]: n.tone
@@ -89,11 +90,11 @@ class Sequencer extends React.Component {
     }));
   };
 
-  start = props => {
+  start = ({tempo, timeSig}) => {
     this.stop();
     this.timer = setInterval(
       this.next,
-      60000 / (props.tempo * props.timeSig.num)
+      60000 / (tempo * timeSig.num)
     );
     this.setState(() => ({ on: true }));
   };
@@ -128,9 +129,11 @@ class Sequencer extends React.Component {
           <Refresh click={this.reset} />
         </div>
         <NoteGrid
+          addNote={this.props.addNote}
           beats={this.state.beats}
           notes={this.state.notes}
           position={this.state.position}
+          removeNote={this.props.removeNote}
         />
       </div>
     );
@@ -138,8 +141,10 @@ class Sequencer extends React.Component {
 }
 
 Sequencer.propTypes = {
+  addNote: PropTypes.func.isRequired,
   measureCnt: PropTypes.number,
   notes: PropTypes.array,
+  removeNote: PropTypes.func.isRequired,
   stop: PropTypes.func.isRequired,
   tempo: PropTypes.number,
   timeSig: PropTypes.shape({
@@ -157,6 +162,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
+  addNote: actions.addNote,
+  removeNote: actions.removeNote,
   stop: actions.stop,
   triggerNotes: actions.triggerNotes
 })(Sequencer);

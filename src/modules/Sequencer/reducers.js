@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { C } from './constants';
 import testNotes from './notes';
 
-const measureCnt = (state = 1, action) => {
+const measureCnt = (state = 2, action) => {
   switch (action.type) {
     case C.SET_MEASURE_CNT:
       return action.payload;
@@ -33,7 +33,7 @@ const tempo = (state = 120, action) => {
   }
 };
 
-const timeSig = (state = { num: 4, den: 4 }, action) => {
+const timeSig = (state = { num: 3, den: 4 }, action) => {
   switch (action.type) {
     case C.SET_TIME_SIG:
       return action.payload;
