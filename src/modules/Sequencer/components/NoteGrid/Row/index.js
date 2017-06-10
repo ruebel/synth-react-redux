@@ -9,8 +9,9 @@ const Row = ({ addNote, beats, position, removeNote, tone }) => {
         <Cell
           addNote={addNote}
           beat={beats[k].beat}
+          id={beats[k].id}
           key={i}
-          note={beats[k].notes.find(n => n.tone === tone)}
+          note={beats[k].notes.find(n => n.tone === tone && n.velocity > 0)}
           on={k == position}
           removeNote={removeNote}
           tone={tone}

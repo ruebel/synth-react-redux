@@ -14,7 +14,7 @@ const measureCnt = (state = 2, action) => {
 const notes = (state = testNotes, action) => {
   switch (action.type) {
     case C.ADD_NOTE:
-      return [...state, action.payload];
+      return [...state, ...action.payload];
     case C.EDIT_NOTE:
       return state.map(n => (n.id === action.payload.id ? action.payload : n));
     case C.REMOVE_NOTE:

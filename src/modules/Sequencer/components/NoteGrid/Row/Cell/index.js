@@ -9,11 +9,12 @@ const getStyle = (beat, on) => ({
   width: '45px'
 });
 
-const Cell = ({ addNote, beat, note, on, removeNote, tone }) => {
+const Cell = ({ addNote, beat, id, note, on, removeNote, tone }) => {
   return (
     <td
-      onClick={() => note ? removeNote(note) : addNote({beat: beat - 1, tone})}
-      style={getStyle(beat, on)}>
+      onClick={() => (note ? removeNote(note) : addNote({ beat: id, tone }))}
+      style={getStyle(beat, on)}
+    >
       {note && note.velocity > 0 && <span>{note.tone}</span>}
     </td>
   );
@@ -22,6 +23,7 @@ const Cell = ({ addNote, beat, note, on, removeNote, tone }) => {
 Cell.propTypes = {
   addNote: PropTypes.func.isRequired,
   beat: PropTypes.number,
+  id: PropTypes.number,
   note: PropTypes.object,
   on: PropTypes.bool,
   removeNote: PropTypes.func.isRequired,

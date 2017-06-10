@@ -18,15 +18,11 @@ class Sequencer extends React.Component {
     this.setBeats(this.props);
   }
 
-  componentWillUnmount() {
-    this.stop();
-  }
-
-  componenetWillReceiveProps(next) {
+  componentWillReceiveProps(next) {
     if (
       this.state.on &&
       (next.tempo !== this.props.tempo ||
-        next.props.timeSig.num !== this.props.timeSig.num)
+        next.timeSig.num !== this.props.timeSig.num)
     ) {
       this.start(next);
     }
@@ -38,6 +34,10 @@ class Sequencer extends React.Component {
     ) {
       this.setBeats(next);
     }
+  }
+
+  componentWillUnmount() {
+    this.stop();
   }
 
   next = () => {
@@ -62,7 +62,7 @@ class Sequencer extends React.Component {
 
   reset = () => this.setState(() => ({ position: -1 }));
 
-  setBeats = ({measureCnt, notes, timeSig}) => {
+  setBeats = ({ measureCnt, notes, timeSig }) => {
     this.setState(() => ({
       beats: Array.from(
         Array(timeSig.num * 16 / timeSig.den * measureCnt)
@@ -70,10 +70,9 @@ class Sequencer extends React.Component {
         (total, x, i) => ({
           ...total,
           [i]: {
-            measure:
-              Math.floor(timeSig.den * i / (16 * timeSig.num)) + 1,
-            beat:
-              Math.floor(timeSig.den * i / 16) % timeSig.num + 1,
+            id: i,
+            measure: Math.floor(timeSig.den * i / (16 * timeSig.num)) + 1,
+            beat: Math.floor(timeSig.den * i / 16) % timeSig.num + 1,
             division: i % (16 / timeSig.den) + 1,
             notes: notes.filter(n => n.beat === i)
           }
@@ -90,12 +89,9 @@ class Sequencer extends React.Component {
     }));
   };
 
-  start = ({tempo, timeSig}) => {
+  start = ({ tempo, timeSig }) => {
     this.stop();
-    this.timer = setInterval(
-      this.next,
-      60000 / (tempo * timeSig.num)
-    );
+    this.timer = setInterval(this.next, 60000 / (tempo * timeSig.num));
     this.setState(() => ({ on: true }));
   };
 
