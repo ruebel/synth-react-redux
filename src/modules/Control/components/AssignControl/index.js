@@ -1,19 +1,66 @@
 import React, {PropTypes} from 'react';
+import styled from 'styled-components';
 import {connect} from 'react-redux';
 import Button from '../../../components/Button';
 import RangeControl from '../../../components/RangeControl';
 import Modal from '../../../components/Modal';
 import {addControl, assignControl, removeControl} from '../../actions';
 import {getAssign, getLast} from '../../selectors';
-const styles = require('./styles.css');
+
+const ButtonRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  justify-content: center;
+  margin-top: 50px;
+
+  & > button {
+    flex: 1;
+    margin-right: 5px;
+  }
+`;
+
+const Header = styled.h3`
+  font-size: 1.5em;
+  color: ${p => p.theme.color.secondary};
+`;
+
+const Midi = styled.div`
+  border: 2px solid ${p => p.theme.color.border};
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  & > div {
+    align-self: stretch;
+  }
+`;
+
+const Wrapper = styled.div`
+  text-align: center;
+
+  & h1 {
+    margin-top: 0;
+  }
+
+  & h3 {
+    & span {
+      color: ${p => p.theme.color.primary};
+      margin-left: 10px;
+    }
+  }
+`;
 
 const AssignControl = ({addControl, assignControl, control, note, removeControl}) => {
   return control ? (
     <Modal close={assignControl}>
-      <div className={styles.wrapper}>
+      <Wrapper>
         <h1>Assign MIDI Control</h1>
-        <h3 className={styles.control}>{control.effect} - {control.property}</h3>
-        <div className={styles.midi}>
+        <Header>{control.effect} - {control.property}</Header>
+        <Midi>
           {!note && !control.channel && <h3>Activate MIDI Control</h3>}
           {(note || control.channel) && (
             <div>
@@ -38,8 +85,8 @@ const AssignControl = ({addControl, assignControl, control, note, removeControl}
               />
             </div>
           )}
-        </div>
-        <div className={styles.buttonRow}>
+        </Midi>
+        <ButtonRow>
           <Button
             active
             click={() => assignControl()}
@@ -57,8 +104,8 @@ const AssignControl = ({addControl, assignControl, control, note, removeControl}
             click={() => addControl(control, note)}
             text="Assign"
           />
-        </div>
-      </div>
+        </ButtonRow>
+      </Wrapper>
     </Modal>
   ) : null;
 };

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import styled from 'styled-components';
 import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
 import Close from '../../../components/icons/Close';
@@ -13,7 +14,17 @@ import Scale from './Scale';
 import Select from '../../../components/Select';
 import TextInput from '../../../components/TextInput';
 import {getSocketPrevious, getSocketSettings} from '../../selectors';
-const styles = require('./styles.css');
+
+const Actions = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+`;
+
+const Wrapper = styled.div`
+  width: 60vw;
+  flex: 1;
+`;
 
 class SocketSettings extends React.Component {
   constructor(props) {
@@ -88,7 +99,7 @@ class SocketSettings extends React.Component {
       <Modal
         close={this.handleClose}
         icon={icon}>
-          <div className={styles.wrapper}>
+          <Wrapper>
             <h1>Socket Settings</h1>
             <InputGroup label="Url" required require={this.state.url}>
               <TextInput
@@ -98,10 +109,10 @@ class SocketSettings extends React.Component {
                 value={this.state.settings.url}/>
             </InputGroup>
             <JsonViewer data={this.state.raw} minimized={!this.state.showRaw}>
-              <div className={styles.actions}>
+              <Actions>
                 <Refresh click={this.refreshMessage}/>
                 {this.state.showRaw && <Close click={this.hideRaw}/>}
-              </div>
+              </Actions>
             </JsonViewer>
             <InputGroup label="Velocity Trigger">
               <Select
@@ -142,7 +153,7 @@ class SocketSettings extends React.Component {
                 text="Save"
               />
             </ButtonGroup>
-          </div>
+          </Wrapper>
       </Modal>
     ) : null;
   }

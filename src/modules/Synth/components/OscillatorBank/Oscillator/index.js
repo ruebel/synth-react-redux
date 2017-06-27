@@ -1,15 +1,34 @@
 import React, {PropTypes} from 'react';
+import styled from 'styled-components';
 import Select from '../../../../components/Select';
 import Container from '../../../../components/Container';
 import RangeControl from '../../../../components/RangeControl';
 import WaveShapeSelector from '../../../../components/WaveShapeSelector';
-const styles = require('./styles.css');
+
+const ColContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  & > div {
+    flex: 1;
+
+    & > h3 {
+      margin-top: 0;
+    }
+  }
+
+  & > div:not(:first-of-type) {
+    margin-left: 10px;
+  }
+`;
 
 const Oscillator = ({oscillator, remove, setValue}) => {
   const octaves = [-2, -1, 0, 1, 2].map((s) => ({id: s, name: s}));
   return (
     <Container active close={() => remove(oscillator.id)}>
-      <div className={styles.colContainer}>
+      <ColContainer>
         <div>
           <Select
             labelKey="name"
@@ -21,7 +40,7 @@ const Oscillator = ({oscillator, remove, setValue}) => {
             valueKey="id" />
         </div>
         <WaveShapeSelector value={oscillator.waveShape} change={e => setValue(oscillator.id, e, 'waveShape')}/>
-      </div>
+      </ColContainer>
       <RangeControl title="Detune"
                     value={oscillator.detune}
                     onSet={e => setValue(oscillator.id, e, 'detune')}

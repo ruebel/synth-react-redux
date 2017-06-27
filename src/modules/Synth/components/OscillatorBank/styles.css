@@ -1,9 +1,0 @@
-.bank {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  & > div:not(:first-of-type) {
-    margin-left: 5px;
-  }
-}

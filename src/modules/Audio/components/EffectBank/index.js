@@ -1,11 +1,25 @@
 import React, {PropTypes} from 'react';
+import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../actions';
 import AddEffect from './AddEffect';
 import Effects, {defaultSettings} from './Effects';
 import {getEffects} from '../../selectors';
 import {selectors as appSelectors} from '../../../App';
-const styles = require('./styles.css');
+
+const UnitsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: middle;
+  flex-wrap: wrap;
+  margin-left: -5px;
+
+  & > div {
+    width: 49%;
+    margin-left: 5px;
+  }
+`;
 
 const createGains = (gains = {}, effects, context) => {
   // Create new gain nodes
@@ -61,9 +75,9 @@ class EffectBank extends React.Component {
     return (
       <div>
         <AddEffect add={addEffect} />
-        <div className={styles.bank}>
+        <UnitsWrapper>
           {units}
-        </div>
+        </UnitsWrapper>
       </div>
     );
   }

@@ -1,17 +1,27 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import styled from 'styled-components';
 import Button from '../../../components/Button';
 import Container from '../../../components/Container';
 import Oscillator from './Oscillator';
 import * as actions from '../../actions';
 import {getOscillators} from '../../selectors';
-const styles = require('./styles.css');
+
+const Bank = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  & > div:not(:first-of-type) {
+    margin-left: 5px;
+  }
+`;
 
 const OscillatorBank = ({addOscillator, oscillators, setOscillatorSetting, removeOscillator}) => {
   const addButton = <Button active click={addOscillator} text="+" type="round"/>;
   return (
     <Container full title="Oscillators" titleControl={addButton}>
-      <div className={styles.bank}>
+      <Bank>
         {
           oscillators.map((o, i) => {
             return (
@@ -23,7 +33,7 @@ const OscillatorBank = ({addOscillator, oscillators, setOscillatorSetting, remov
                 />);
               })
           }
-      </div>
+      </Bank>
     </Container>
   );
 };
