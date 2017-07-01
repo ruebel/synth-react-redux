@@ -9,7 +9,8 @@ const Header = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  ${p => p.pullUp && 'margin-bottom: -40px;'} & > h3 {
+  margin-bottom: ${p => (p.pullUp ? '-40' : '0')}px;
+  & > h3 {
     margin: 0;
   }
 
@@ -21,16 +22,9 @@ const Header = styled.div`
 
 const Wrapper = styled.div`
   margin: 10px 0;
-  ${p =>
-    p.tight
-      ? `
-    padding: 5px;
-
-    & > div > button {
-      margin: 0;
-    }
-  `
-      : 'padding: 10px;'} border: 2px ${p => p.theme.color.border} solid;
+  padding: ${p => (p.tight ? '5' : '10')}px;
+  ${p => (p.tight ? '& > div > button { margin: 0; }' : '')};
+  border: 2px ${p => p.theme.color.border} solid;
   background: ${p => (p.active ? p.theme.light : p.theme.color.grayExtraLight)};
   width: ${p => (p.full ? '100' : '50')}%;
   transition: background 200ms ease-in;

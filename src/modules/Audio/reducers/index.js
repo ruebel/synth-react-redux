@@ -103,12 +103,12 @@ function keys(state = initialState.keys, action) {
     case 'persist/REHYDRATE':
       return state
         ? Object.keys(state).reduce((total, key) => {
-            return Object.assign({}, total, {
-              [key]: Object.assign({}, state[key], {
-                velocity: 0
-              })
-            });
-          }, {})
+          return Object.assign({}, total, {
+            [key]: Object.assign({}, state[key], {
+              velocity: 0
+            })
+          });
+        }, {})
         : state;
     default:
       return state;

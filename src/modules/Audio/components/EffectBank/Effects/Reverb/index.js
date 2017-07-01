@@ -76,8 +76,6 @@ class Reverb extends React.Component {
 Reverb.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
-  output: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };

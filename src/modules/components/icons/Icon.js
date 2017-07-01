@@ -34,10 +34,10 @@ const Wrapper = styled.div`
   display: inline-block;
   margin: 0 2px;
   ${p => getTransform(p.down, p.left, p.up)} ${p =>
-      getColor(p.active, p.theme.color, p.disabled, p.fill)} &:hover {
+  getColor(p.active, p.theme.color, p.disabled, p.fill)} &:hover {
     & g {
       ${p =>
-        !p.disabled &&
+    !p.disabled &&
         `${p.fill ? 'fill' : 'stroke'}: ${p.theme.color.controlDanger};`};
     }
   }

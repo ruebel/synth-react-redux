@@ -124,9 +124,7 @@ class Compression extends React.Component {
 Compression.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
 

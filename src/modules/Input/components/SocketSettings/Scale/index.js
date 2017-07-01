@@ -26,6 +26,7 @@ class Scale extends React.Component {
   }
 
   handleKeyUp(e) {
+    // eslint-disable-next-line eqeqeq
     this.props.onChange(this.props.keys.filter(k => k != e));
   }
 

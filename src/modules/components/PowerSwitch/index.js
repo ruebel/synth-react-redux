@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const size = '28px';
+const size = 28;
 const borderSize = '2px';
 const transTime = '200ms';
 
 const Inner = styled.div`
   background: ${p => (p.on ? p.theme.color.light : 'transparent')};
   border: ${borderSize} ${p => p.theme.color.border} solid;
-  border-radius: ${size};
-  width: ${2 * size};
-  min-width: ${2 * size};
-  height: ${size};
+  border-radius: ${size}px;
+  width: ${2 * size}px;
+  min-width: ${2 * size}px;
+  height: ${size}px;
   transition: background ${transTime} ease-in;
   display: inline-block;
   cursor: pointer;
@@ -21,14 +21,12 @@ const Inner = styled.div`
     border-radius: 50%;
     border: ${borderSize} ${p => p.theme.color.border} solid;
     background: ${p => p.theme.color.light};
-    width: ${size};
-    height: ${size};
+    width: ${size}px;
+    height: ${size}px;
     margin-top: -${borderSize};
     margin-left: -${borderSize};
-    ${p =>
-      p.on
-        ? `transform: translateX(${size});`
-        : ''} transition: background ${transTime} ease-in-out,
+    ${p => (p.on ? `transform: translateX(${size}px);` : '')};
+    transition: background ${transTime} ease-in-out,
       transform ${transTime} ease-in-out;
   }
 `;

@@ -33,7 +33,7 @@ export const getDevices = () => {
   // Look for Web MIDI API Support
   if (
     window.navigator &&
-    'function' === typeof window.navigator.requestMIDIAccess
+    typeof window.navigator.requestMIDIAccess === 'function'
   ) {
     return window.navigator.requestMIDIAccess().then(access => {
       // Add computer keyboard support

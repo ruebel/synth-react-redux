@@ -156,7 +156,6 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     changeSettings: PropTypes.func.isRequired,
     context: PropTypes.object.isRequired,
     defaults: PropTypes.object.isRequired,
-    gain: PropTypes.object.isRequired,
     move: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired

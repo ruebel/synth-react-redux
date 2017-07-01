@@ -53,8 +53,6 @@ class Gain extends React.Component {
 Gain.propTypes = {
   change: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   title: PropTypes.string,
   value: PropTypes.number.isRequired
 };

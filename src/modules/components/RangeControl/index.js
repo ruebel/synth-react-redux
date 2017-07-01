@@ -28,9 +28,9 @@ const Assign = styled.h3`
 const Wrapper = styled.div`
   margin: 20px 0;
   ${p =>
-    p.assigned
-      ? `background: color(${p.theme.color.primary} a(0.2));`
-      : ''} .slider {
+    p.assigned ? `background: color(${p.theme.color.primary} a(0.2));` : ''};
+
+  .slider {
     width: 100%;
     height: 2px;
     border: 1px solid ${p => p.theme.color.graySemidark};

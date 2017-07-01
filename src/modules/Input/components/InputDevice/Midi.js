@@ -76,6 +76,7 @@ class Midi extends React.Component {
         switch (e.data[1]) {
           // Sustain Pedal
           case 64:
+            // eslint-disable-next-line
             if (e.data[2] == 0) {
               // Sustain off
               this.props.setSustain(false);

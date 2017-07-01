@@ -116,9 +116,7 @@ class ResonanceFilter extends React.Component {
 ResonanceFilter.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
 

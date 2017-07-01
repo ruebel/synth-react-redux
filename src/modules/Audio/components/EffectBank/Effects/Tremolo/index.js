@@ -99,9 +99,7 @@ class Tremolo extends React.Component {
 Tremolo.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
 
