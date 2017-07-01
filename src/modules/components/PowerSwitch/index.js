@@ -7,7 +7,7 @@ const borderSize = '2px';
 const transTime = '200ms';
 
 const Inner = styled.div`
-  background: ${p => p.on ? p.theme.color.light : 'transparent'};
+  background: ${p => (p.on ? p.theme.color.light : 'transparent')};
   border: ${borderSize} ${p => p.theme.color.border} solid;
   border-radius: ${size};
   width: ${2 * size};
@@ -25,8 +25,11 @@ const Inner = styled.div`
     height: ${size};
     margin-top: -${borderSize};
     margin-left: -${borderSize};
-    ${p => p.on ? `transform: translateX(${size});` : ''}
-    transition: background ${transTime} ease-in-out, transform ${transTime} ease-in-out;
+    ${p =>
+      p.on
+        ? `transform: translateX(${size});`
+        : ''} transition: background ${transTime} ease-in-out,
+      transform ${transTime} ease-in-out;
   }
 `;
 
@@ -38,22 +41,23 @@ const Wrapper = styled.div`
 
   & > h3 {
     margin-right: 30px;
-    color: ${p => p.on ? p.theme.color.grayExtraDark : p.theme.color.graySemidark};
+    color: ${p =>
+      p.on ? p.theme.color.grayExtraDark : p.theme.color.graySemidark};
     transition: color ${transTime} ease-in;
   }
 `;
 
-const PowerSwitch = ({change, title, value}) => {
+const PowerSwitch = ({ change, title, value }) => {
   return (
     <Wrapper on={value}>
-      {title && <h3>{title}</h3>}
-      <Inner
-        on={value}
-        onClick={() => change()}>
-          <div/>
-        </Inner>
+      {title &&
+        <h3>
+          {title}
+        </h3>}
+      <Inner on={value} onClick={() => change()}>
+        <div />
+      </Inner>
     </Wrapper>
-
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const spin = keyframes`
   from {transform:rotate(0deg);}
@@ -26,7 +26,8 @@ const Icon = styled.div`
 const Inner = styled.div`
   background-color: #fff;
   position: relative;
-  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.3), 0px 0px 50px 0 rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3),
+    0px 0px 50px 0 rgba(0, 0, 0, 0.1);
   padding: 50px 50px;
   max-width: 90%;
   max-height: 100%;
@@ -83,9 +84,10 @@ class Modal extends React.Component {
   render() {
     return (
       <Wrapper onClick={this.handleClose} key="1">
-        {this.props.icon && (
-          <Icon>{this.props.icon}</Icon>
-        )}
+        {this.props.icon &&
+          <Icon>
+            {this.props.icon}
+          </Icon>}
         <Inner onClick={this.stopClose}>
           {this.props.children}
         </Inner>

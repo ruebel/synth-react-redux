@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
@@ -14,7 +14,7 @@ import Refresh from '../../../components/icons/Refresh';
 import Scale from './Scale';
 import Select from '../../../components/Select';
 import TextInput from '../../../components/TextInput';
-import {getSocketPrevious, getSocketSettings} from '../../selectors';
+import { getSocketPrevious, getSocketSettings } from '../../selectors';
 
 const Actions = styled.div`
   position: absolute;
@@ -95,24 +95,25 @@ class SocketSettings extends React.Component {
   }
 
   render() {
-    const icon = <Gear fill="rgba(0, 0, 0, 0.3)" height="100vw" width="100vw"/>;
-    return this.props.show ? (
-      <Modal
-        close={this.handleClose}
-        icon={icon}>
+    const icon = (
+      <Gear fill="rgba(0, 0, 0, 0.3)" height="100vw" width="100vw" />
+    );
+    return this.props.show
+      ? <Modal close={this.handleClose} icon={icon}>
           <Wrapper>
             <h1>Socket Settings</h1>
             <InputGroup label="Url" required require={this.state.url}>
               <TextInput
-                change={(e) => this.handleChange(e, 'url')}
+                change={e => this.handleChange(e, 'url')}
                 placeholder="Url"
                 required
-                value={this.state.settings.url}/>
+                value={this.state.settings.url}
+              />
             </InputGroup>
             <JsonViewer data={this.state.raw} minimized={!this.state.showRaw}>
               <Actions>
-                <Refresh click={this.refreshMessage}/>
-                {this.state.showRaw && <Close click={this.hideRaw}/>}
+                <Refresh click={this.refreshMessage} />
+                {this.state.showRaw && <Close click={this.hideRaw} />}
               </Actions>
             </JsonViewer>
             <InputGroup label="Velocity Trigger">
@@ -120,8 +121,8 @@ class SocketSettings extends React.Component {
                 labelKey="name"
                 onChange={e => this.handleChange(e.id, 'velocityScalar')}
                 options={Object.keys(this.state.raw || {}).map(k => ({
-                    id: k,
-                    name: k
+                  id: k,
+                  name: k
                 }))}
                 searchable={false}
                 value={this.state.settings.velocityScalar}
@@ -131,15 +132,17 @@ class SocketSettings extends React.Component {
             <InputGroup label="Scale">
               <Scale
                 keys={this.state.settings.scale}
-                onChange={(e) => this.handleChange(e, 'scale')}/>
+                onChange={e => this.handleChange(e, 'scale')}
+              />
             </InputGroup>
             <InputGroup label="Note Length">
               <MinMax
                 max={5000}
                 min={0}
                 step={10}
-                onSet={(e) => this.handleChange(e, 'noteLength')}
-                value={this.state.settings.noteLength}/>
+                onSet={e => this.handleChange(e, 'noteLength')}
+                value={this.state.settings.noteLength}
+              />
             </InputGroup>
             <ButtonGroup>
               <Button
@@ -155,8 +158,8 @@ class SocketSettings extends React.Component {
               />
             </ButtonGroup>
           </Wrapper>
-      </Modal>
-    ) : null;
+        </Modal>
+      : null;
   }
 }
 
@@ -168,7 +171,7 @@ SocketSettings.propTypes = {
   show: PropTypes.bool
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   previous: getSocketPrevious(state),
   settings: getSocketSettings(state)
 });

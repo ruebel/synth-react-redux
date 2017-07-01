@@ -7,7 +7,9 @@ const getColor = (active, colors, disabled, fill) => {
     return null;
   }
   const target = fill ? 'fill' : 'stroke';
-  const color = disabled ? colors.controlDisabled : fill ? colors.warning : colors.control;
+  const color = disabled
+    ? colors.controlDisabled
+    : fill ? colors.warning : colors.control;
   return `
     & g {
       ${target}: ${color};
@@ -17,7 +19,7 @@ const getColor = (active, colors, disabled, fill) => {
 
 const getTransform = (down, left, up) => {
   if (down || left || up) {
-    const rotation = down ? '90' : (left ? '180' : '-90');
+    const rotation = down ? '90' : left ? '180' : '-90';
     return `
       & > svg {
         transform: rotate(${rotation}deg);
@@ -28,22 +30,22 @@ const getTransform = (down, left, up) => {
 };
 
 const Wrapper = styled.div`
-  cursor: ${p => p.disabled ? 'not-allowed' : 'pointer'};
+  cursor: ${p => (p.disabled ? 'not-allowed' : 'pointer')};
   display: inline-block;
   margin: 0 2px;
-  ${p => getTransform(p.down, p.left, p.up)}
-  ${p => getColor(p.active, p.theme.color, p.disabled, p.fill)}
-
-  &:hover {
+  ${p => getTransform(p.down, p.left, p.up)} ${p =>
+      getColor(p.active, p.theme.color, p.disabled, p.fill)} &:hover {
     & g {
-      ${p => !p.disabled && `${p.fill ? 'fill' : 'stroke'}: ${p.theme.color.controlDanger};`}
+      ${p =>
+        !p.disabled &&
+        `${p.fill ? 'fill' : 'stroke'}: ${p.theme.color.controlDanger};`};
     }
   }
 `;
 
 const Icon = (WrappedComponent, isFill) => {
-  const IconComponent = (props) => {
-    const {active, click, disabled, down, left, up} = props;
+  const IconComponent = props => {
+    const { active, click, disabled, down, left, up } = props;
     return (
       <Wrapper
         active={active}
@@ -53,12 +55,9 @@ const Icon = (WrappedComponent, isFill) => {
         left={left}
         onClick={click}
         up={up}
-        >
-        <WrappedComponent
-          {...props}
-        />
+      >
+        <WrappedComponent {...props} />
       </Wrapper>
-
     );
   };
 

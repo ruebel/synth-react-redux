@@ -1,3 +1,3 @@
-export const getAssign = (state) => state.control.assign;
+export const getAssign = state => state.control.assign;
 
-export const getLast = (state) => state.control.last;
+export const getLast = state => state.control.last;

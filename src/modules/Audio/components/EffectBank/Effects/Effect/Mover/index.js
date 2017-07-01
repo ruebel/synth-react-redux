@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   margin-right: -10px;
 `;
 
-const Mover = ({close, down, on, power, up}) => {
+const Mover = ({ close, down, on, power, up }) => {
   return (
     <Wrapper>
       <PowerSwitch value={on} change={power} />

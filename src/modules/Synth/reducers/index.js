@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import uuid from 'uuid';
-import {C} from '../actions';
-import {C as presetActions} from '../../Presets';
-import {C as audioActions} from '../../Audio/constants';
+import { C } from '../actions';
+import { C as presetActions } from '../../Presets';
+import { C as audioActions } from '../../Audio/constants';
 import arpeggiator from './arpeggiator';
 import modulation from './modulation';
 
@@ -15,13 +15,15 @@ const initialState = {
   ignoreVelocity: false,
   lastDown: null,
   oscId: uuid.v4(),
-  oscillators: [{
-    id: uuid.v4(),
-    detune: 0,
-    gain: 1,
-    octave: 0,
-    waveShape: 'sine'
-  }],
+  oscillators: [
+    {
+      id: uuid.v4(),
+      detune: 0,
+      gain: 1,
+      octave: 0,
+      waveShape: 'sine'
+    }
+  ],
   portamento: {
     on: false,
     speed: 75
@@ -51,7 +53,7 @@ const synth = combineReducers({
 });
 
 function attack(state = initialState.envelope.attack, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_SYNTH_ATTACK:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -62,7 +64,7 @@ function attack(state = initialState.envelope.attack, action) {
 }
 
 function bend(state = initialState.bend, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_PITCH_BEND:
       return action.payload;
     default:
@@ -71,9 +73,11 @@ function bend(state = initialState.bend, action) {
 }
 
 function ignoreVelocity(state = initialState.ignoreVelocity, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_IGNORE_VELOCITY:
-      return action.payload === null || action.payload === undefined ? !state : action.payload;
+      return action.payload === null || action.payload === undefined
+        ? !state
+        : action.payload;
     case presetActions.LOAD_PRESET:
       return action.payload.synth.ignoreVelocity;
     default:
@@ -82,7 +86,7 @@ function ignoreVelocity(state = initialState.ignoreVelocity, action) {
 }
 
 function lastDown(state = initialState.lastDown, action) {
-  switch(action.type) {
+  switch (action.type) {
     case audioActions.KEY_DOWN:
       return action.payload.id;
     default:
@@ -91,7 +95,7 @@ function lastDown(state = initialState.lastDown, action) {
 }
 
 function on(state = initialState.portamento.on, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_PORTAMENTO:
       return !state;
     case presetActions.LOAD_PRESET:
@@ -102,7 +106,7 @@ function on(state = initialState.portamento.on, action) {
 }
 
 function oscId(state = initialState.oscId, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.ADD_OSCILLATOR:
     case presetActions.LOAD_PRESET:
     case C.REMOVE_OSCILLATOR:
@@ -114,7 +118,7 @@ function oscId(state = initialState.oscId, action) {
 }
 
 function oscillators(state = initialState.oscillators, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.ADD_OSCILLATOR:
       return [...state, action.payload];
     case presetActions.LOAD_PRESET:
@@ -136,7 +140,7 @@ function oscillators(state = initialState.oscillators, action) {
 }
 
 function release(state = initialState.envelope.release, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_SYNTH_RELEASE:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -147,7 +151,7 @@ function release(state = initialState.envelope.release, action) {
 }
 
 function speed(state = initialState.portamento.speed, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_PORTAMENTO_SPEED:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -158,7 +162,7 @@ function speed(state = initialState.portamento.speed, action) {
 }
 
 function sustain(state = initialState.sustain, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_SUSTAIN:
       return action.payload;
     default:
@@ -167,7 +171,7 @@ function sustain(state = initialState.sustain, action) {
 }
 
 function transpose(state = initialState.transpose, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_TRANSPOSE:
       return action.payload;
     default:

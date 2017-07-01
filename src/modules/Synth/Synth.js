@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {selectors as audioSelectors} from '../Audio';
+import { connect } from 'react-redux';
+import { selectors as audioSelectors } from '../Audio';
 import Columns from '../components/Columns';
 import Envelope from './components/Envelope';
 import Keyboard from '../components/Keyboard';
@@ -10,15 +10,11 @@ import OscillatorBank from './components/OscillatorBank';
 import Portamento from './components/Portamento';
 import Transpose from './components/Transpose';
 
-const Synth = ({keys, keyDown, keyUp}) => {
+const Synth = ({ keys, keyDown, keyUp }) => {
   return (
     <div>
       <Transpose />
-      <Keyboard
-        keys={keys}
-        keyDown={keyDown}
-        keyUp={keyUp}
-      />
+      <Keyboard keys={keys} keyDown={keyDown} keyUp={keyUp} />
       <OscillatorBank />
       <Columns>
         <Envelope />
@@ -35,7 +31,7 @@ Synth.propTypes = {
   keyUp: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   keys: audioSelectors.getKeys(state)
 });
 

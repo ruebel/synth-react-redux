@@ -8,13 +8,13 @@ const Data = styled.div`
   min-width: 100%;
   overflow: scroll;
   background-color: #222222;
-  color: #59AFD9;
+  color: #59afd9;
   position: relative;
   border-radius: 3px;
   padding-left: 5px;
 `;
 
-const JsonViewer = ({children, data, minimized}) => {
+const JsonViewer = ({ children, data, minimized }) => {
   return (
     <Data>
       {children}

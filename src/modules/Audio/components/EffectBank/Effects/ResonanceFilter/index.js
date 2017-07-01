@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#325c74',
-  cutoff:  {
+  cutoff: {
     min: 0,
     max: 1,
     name: 'Cutoff',
@@ -59,14 +62,14 @@ class ResonanceFilter extends React.Component {
     node.cutoff = defaultSettings.cutoff;
     // between 0.0 and 4.0
     node.resonance = defaultSettings.resonance;
-    node.onaudioprocess = (e) => {
+    node.onaudioprocess = e => {
       const input = e.inputBuffer.getChannelData(0);
       const output = e.outputBuffer.getChannelData(0);
       const f = node.cutoff * 1.16;
       const fb = node.resonance * (1.0 - 0.15 * f * f);
       for (let i = 0; i < bufferSize; i++) {
         input[i] -= out4 * fb;
-        input[i] *= 0.35013 * (f*f)*(f*f);
+        input[i] *= 0.35013 * (f * f) * (f * f);
         // Pole 1
         out1 = input[i] + 0.3 * in1 + (1 - f) * out1;
         in1 = input[i];

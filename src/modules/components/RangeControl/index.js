@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import ReactSlider from 'react-slider';
 import styled from 'styled-components';
-import {actions as controlActions} from '../../Control';
-import {scaleNumber} from '../../../utils/math';
+import { actions as controlActions } from '../../Control';
+import { scaleNumber } from '../../../utils/math';
 
 const Assign = styled.h3`
   color: ${p => p.theme.color.primary};
@@ -27,9 +27,10 @@ const Assign = styled.h3`
 
 const Wrapper = styled.div`
   margin: 20px 0;
-  ${p => p.assigned ? `background: color(${p.theme.color.primary} a(0.2));` : ''}
-
-  .slider {
+  ${p =>
+    p.assigned
+      ? `background: color(${p.theme.color.primary} a(0.2));`
+      : ''} .slider {
     width: 100%;
     height: 2px;
     border: 1px solid ${p => p.theme.color.graySemidark};
@@ -46,11 +47,12 @@ const Wrapper = styled.div`
     width: ${p => p.handleSize};
     border-radius: 50%;
     height: ${p => p.handleSize};
-    margin-top: ${p => -p.handleSize/2};
+    margin-top: ${p => -p.handleSize / 2};
     z-index: 0;
     transition: transform 0.2s ease-in, background 0.2s ease-in;
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       background: ${p => p.theme.color.primary};
       border-radius: 50%;
       transform: scaleX(1.2) scaleY(1.2);
@@ -59,56 +61,63 @@ const Wrapper = styled.div`
   }
 `;
 
-const RangeControl = ({assign, assignControl, max, min, onSet, step, title, value}) => {
+const RangeControl = ({
+  assign,
+  assignControl,
+  max,
+  min,
+  onSet,
+  step,
+  title,
+  value
+}) => {
   return (
     <Wrapper assigned={assign && assign.channel} handleSize="30px">
-      {assign ? (
-        <Assign
-          data-tip
-          data-for="midi"
-          onClick={() => assignControl(assign)}>
-          {title}
-          {assign.channel && <div>{assign.channel}:{assign.control}</div>}
-          <ReactTooltip id="midi">
-            {assign.channel ?
-              (
-                <div>
-                  <h3>
-                    Click to edit MIDI control
-                  </h3>
-                  <h3>
-                    Channel:
-                    <span>
-                      {assign.channel}
-                    </span>
-                  </h3>
-                  <h3>
-                    Control:
-                    <span>
-                      {assign.control}
-                    </span>
-                  </h3>
-                </div>
-              ) :
-              'Click to assign MIDI control'
-            }
-          </ReactTooltip>
-        </Assign>
-      ) : (
-        <h3>{title}</h3>
-      )}
+      {assign
+        ? <Assign
+            data-tip
+            data-for="midi"
+            onClick={() => assignControl(assign)}
+          >
+            {title}
+            {assign.channel &&
+              <div>
+                {assign.channel}:{assign.control}
+              </div>}
+            <ReactTooltip id="midi">
+              {assign.channel
+                ? <div>
+                    <h3>Click to edit MIDI control</h3>
+                    <h3>
+                      Channel:
+                      <span>{assign.channel}</span>
+                    </h3>
+                    <h3>
+                      Control:
+                      <span>{assign.control}</span>
+                    </h3>
+                  </div>
+                : 'Click to assign MIDI control'}
+            </ReactTooltip>
+          </Assign>
+        : <h3>
+            {title}
+          </h3>}
       <ReactSlider
         className="slider"
         handleClassName="handle"
         value={value}
-        onChange={(e) => onSet(e)}
+        onChange={e => onSet(e)}
         min={min || 0}
         max={max || 1.5}
         pearling
         step={step || 0.01}
-        withBars>
-          <div>{scaleNumber(value)}</div>
-        </ReactSlider>
+        withBars
+      >
+        <div>
+          {scaleNumber(value)}
+        </div>
+      </ReactSlider>
     </Wrapper>
   );
 };
@@ -126,7 +135,7 @@ RangeControl.propTypes = {
   onSet: PropTypes.func.isRequired,
   step: PropTypes.number,
   title: PropTypes.string,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };
 
 export default connect(null, {

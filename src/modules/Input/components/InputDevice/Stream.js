@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {setStream} from '../../actions';
-import {selectors as appSelectors} from '../../../App';
+import { connect } from 'react-redux';
+import { setStream } from '../../actions';
+import { selectors as appSelectors } from '../../../App';
 
 class Stream extends React.Component {
   componentDidMount() {
-    navigator.mediaDevices.getUserMedia({audio: true})
-    .then((stream) => {
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
       const source = this.props.context.createMediaStreamSource(stream);
       this.props.setStream(source);
     });
@@ -31,8 +30,8 @@ Stream.propTypes = {
   setStream: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   context: appSelectors.getContext(state)
 });
 
-export default connect(mapStateToProps, {setStream})(Stream);
+export default connect(mapStateToProps, { setStream })(Stream);

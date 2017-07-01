@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import WaveShapeSelector from '../../../../../components/WaveShapeSelector';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#517693',

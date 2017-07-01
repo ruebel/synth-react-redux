@@ -42,7 +42,8 @@ const Wrapper = styled.div`
   }
 
   .has-value.Select--single > .Select-control .Select-value .Select-value-label,
-  .has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {
+  .has-value.is-pseudo-focused.Select--single
+    > .Select-control .Select-value .Select-value-label {
     color: ${p => p.theme.color.grayExtraDark};
   }
 
@@ -54,11 +55,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const Select = (props) => {
+const Select = props => {
   return (
     <Wrapper>
-      <h3>{props.title}</h3>
-      <ReactSelect {...props}/>
+      <h3>
+        {props.title}
+      </h3>
+      <ReactSelect {...props} />
     </Wrapper>
   );
 };

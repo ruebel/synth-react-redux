@@ -5,7 +5,7 @@ const Indicator = styled.div`
   height: 20px;
   border-radius: 50%;
   border: 2px solid $core-border-color;
-  background-color: ${p => p.on ? '#e85600' : 'white'};
+  background-color: ${p => (p.on ? '#e85600' : 'white')};
 `;
 
 export default Indicator;

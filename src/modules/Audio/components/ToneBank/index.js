@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Arpeggiator from './Arpeggiator';
 import Container from '../../../components/Container';
 import Tone from './Tone';
-import {getKeys} from '../../selectors';
-import {selectors as appSelectors} from '../../../App';
-import {selectors as synthSelectors, actions as synthActions} from '../../../Synth';
+import { getKeys } from '../../selectors';
+import { selectors as appSelectors } from '../../../App';
+import {
+  selectors as synthSelectors,
+  actions as synthActions
+} from '../../../Synth';
 
 class ToneBank extends React.Component {
   constructor(props) {
@@ -30,38 +33,46 @@ class ToneBank extends React.Component {
   }
 
   applySettings(next, prev) {
-    if (!prev ||
+    if (
+      !prev ||
       next.settings.modulation.depth !== prev.settings.modulation.depth ||
       next.settings.modulation.on !== prev.settings.modulation.on
     ) {
       // Modulation depth
-      this.modulationGain.gain.value = next.settings.modulation.on ? next.settings.modulation.depth : 0;
+      this.modulationGain.gain.value = next.settings.modulation.on
+        ? next.settings.modulation.depth
+        : 0;
     }
-    if (!prev || next.settings.modulation.speed !== prev.settings.modulation.speed) {
+    if (
+      !prev ||
+      next.settings.modulation.speed !== prev.settings.modulation.speed
+    ) {
       // Modulation Speed
       this.modulation.frequency.value = next.settings.modulation.speed;
     }
-    if (!prev || next.settings.modulation.shape !== prev.settings.modulation.shape) {
+    if (
+      !prev ||
+      next.settings.modulation.shape !== prev.settings.modulation.shape
+    ) {
       // Modulation wave shape
       this.modulation.type = next.settings.modulation.shape;
     }
   }
 
-  render () {
+  render() {
     let inner;
     if (this.props.settings.arpeggiator.on) {
       inner = (
-        <Arpeggiator
-          {...this.props}
-          modulationGain={this.modulationGain}
-        />
+        <Arpeggiator {...this.props} modulationGain={this.modulationGain} />
       );
     } else {
       let toneMap = Object.keys(this.props.tones);
       if (this.props.settings.portamento.on) {
         // When portamento is on we only render one tone
         // We render the last pressed tone (last down holds the id of the last pressed note)
-        toneMap = this.props.settings.lastDown ? [this.props.settings.lastDown] : [];
+        toneMap = this.props.settings.lastDown
+          ? [this.props.settings.lastDown]
+          : [];
       }
       inner = toneMap.map((k, i) => {
         return (
@@ -72,8 +83,9 @@ class ToneBank extends React.Component {
             modulation={this.modulationGain}
             output={this.props.output}
             settings={this.props.settings}
-          />);
-        });
+          />
+        );
+      });
     }
     return (
       <Container
@@ -83,7 +95,7 @@ class ToneBank extends React.Component {
       >
         {inner}
       </Container>
-      );
+    );
   }
 }
 
@@ -98,7 +110,7 @@ ToneBank.propTypes = {
   tones: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     tones: getKeys(state),
     context: appSelectors.getContext(state),

@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const KeyElement = styled.div`
-  background: ${p => p.ebony ? (p.on ? `color(${p.theme.color.success} b(30%))` : p.theme.color.black) : p.on ? p.theme.color.success : p.theme.color.light};
+  background: ${p =>
+    p.ebony
+      ? p.on ? `color(${p.theme.color.success} b(30%))` : p.theme.color.black
+      : p.on ? p.theme.color.success : p.theme.color.light};
   border: 1px solid ${p => p.theme.color.black};
   border-radius: 0 0 2px 2px;
-  color: ${p => p.ebony ? p.theme.color.light : p.theme.color.black};
+  color: ${p => (p.ebony ? p.theme.color.light : p.theme.color.black)};
   display: inline-block;
-  height: ${p => p.ebony ? '60' : '100'}%;
-  margin-right: ${p => p.ebony ? '-8' : '-1'}px;
-  margin-left: ${p => p.ebony ? '-8' : '0'}px;
+  height: ${p => (p.ebony ? '60' : '100')}%;
+  margin-right: ${p => (p.ebony ? '-8' : '-1')}px;
+  margin-left: ${p => (p.ebony ? '-8' : '0')}px;
   position: relative;
   vertical-align: top;
-  width: ${p => p.ebony ? '16' : '20'}px;
-  ${p => p.ebony ? 'z-index: 2;' : ''}
+  width: ${p => (p.ebony ? '16' : '20')}px;
+  ${p => (p.ebony ? 'z-index: 2;' : '')};
 `;
 
 class Key extends React.Component {

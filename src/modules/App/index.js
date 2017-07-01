@@ -3,8 +3,4 @@ import App from './App';
 import configureStore from './store/configureStore';
 import * as selectors from './selectors';
 
-export {
-  App,
-  configureStore,
-  selectors
-};
+export { App, configureStore, selectors };

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSlider from 'react-slider';
 import styled from 'styled-components';
-import {scaleNumber} from '../../../utils/math';
+import { scaleNumber } from '../../../utils/math';
 
 const Wrapper = styled.div`
   margin: 20px 0;
@@ -21,7 +21,8 @@ const Wrapper = styled.div`
     z-index: 0;
     transition: transform 0.2s ease-in, background 0.2s ease-in;
 
-    &:hover, &:active {
+    &:hover,
+    &:active {
       background: ${p => p.theme.color.primary};
       border-radius: 50%;
       transform: scaleX(1.2) scaleY(1.2);
@@ -37,23 +38,30 @@ const Wrapper = styled.div`
   }
 `;
 
-const MinMax = ({max = 1.5, min = 0, onSet, step = 0.01, title, value}) => {
+const MinMax = ({ max = 1.5, min = 0, onSet, step = 0.01, title, value }) => {
   return (
     <Wrapper handleSize="30px">
-      <h3>{title}</h3>
+      <h3>
+        {title}
+      </h3>
       <ReactSlider
         className="slider"
         handleClassName="handle"
         value={value}
-        onChange={(e) => onSet(e)}
+        onChange={e => onSet(e)}
         min={min}
         max={max}
         pearling
         step={step}
-        withBars>
-          <div>{scaleNumber(value[0])}</div>
-          <div>{scaleNumber(value[1])}</div>
-        </ReactSlider>
+        withBars
+      >
+        <div>
+          {scaleNumber(value[0])}
+        </div>
+        <div>
+          {scaleNumber(value[1])}
+        </div>
+      </ReactSlider>
     </Wrapper>
   );
 };
@@ -64,7 +72,7 @@ MinMax.propTypes = {
   onSet: PropTypes.func.isRequired,
   step: PropTypes.number,
   title: PropTypes.string,
-  value: PropTypes.array.isRequired,
+  value: PropTypes.array.isRequired
 };
 
 export default MinMax;

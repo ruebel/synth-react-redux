@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {Audio, actions as audioActions} from '../Audio';
+import { connect } from 'react-redux';
+import { Audio, actions as audioActions } from '../Audio';
 import Columns from '../components/Columns';
-import {Input, selectors as inputSelectors} from '../Input';
-import {Presets} from '../Presets';
-import {Synth} from '../Synth';
-import {AssignControl} from '../Control';
-import {inputTypes} from '../../utils/input';
+import { Input, selectors as inputSelectors } from '../Input';
+import { Presets } from '../Presets';
+import { Synth } from '../Synth';
+import { AssignControl } from '../Control';
+import { inputTypes } from '../../utils/input';
 
 const Wrapper = styled.div`
   padding: 0 30px;
@@ -16,15 +16,17 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `;
 
-const App = ({input, keyDown, keyUp}) => {
+const App = ({ input, keyDown, keyUp }) => {
   return (
     <Wrapper>
       <Columns>
         <Input />
         <Presets />
       </Columns>
-      {input && input.device !== inputTypes.stream && <Synth keyDown={keyDown} keyUp={keyUp}/>}
-      <Audio input={input}/>
+      {input &&
+        input.device !== inputTypes.stream &&
+        <Synth keyDown={keyDown} keyUp={keyUp} />}
+      <Audio input={input} />
       <AssignControl />
     </Wrapper>
   );
@@ -36,7 +38,7 @@ App.propTypes = {
   keyUp: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   input: inputSelectors.getSelectedDevice(state)
 });
 

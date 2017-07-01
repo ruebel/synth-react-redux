@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 const Label = styled.div`
   margin-bottom: 0.5rem;
-  color: ${p => p.invalid ? p.theme.color.danger : p.theme.color.grayExtraDark};
+  color: ${p =>
+    p.invalid ? p.theme.color.danger : p.theme.color.grayExtraDark};
 
   & span {
     font-size: 2em;
@@ -14,11 +15,9 @@ const Label = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
-  margin-top: 30px;
-`;
+const Wrapper = styled.div`margin-top: 30px;`;
 
-const InputGroup = ({children, label, require, required}) => {
+const InputGroup = ({ children, label, require, required }) => {
   return (
     <Wrapper>
       <Label invalid={required && !require}>

@@ -39,31 +39,32 @@ class AddPreset extends React.Component {
   }
 
   render() {
-    return this.props.show ? (
-      <Modal close={this.handleClose}>
-        <h1>Add Preset</h1>
-        <InputGroup label="Preset Name" required require={this.state.name}>
-          <TextInput
-            change={this.handleNameChange}
-            placeholder="Preset Name"
-            required
-            value={this.state.name}/>
-        </InputGroup>
-        <ButtonGroup>
-          <Button
-            active
-            click={this.handleClose}
-            text="Cancel"
-            type="danger"
-          />
-          <Button
-            active={Boolean(this.state.name)}
-            click={this.handleSave}
-            text="Save"
-          />
-        </ButtonGroup>
-      </Modal>
-    ) : null;
+    return this.props.show
+      ? <Modal close={this.handleClose}>
+          <h1>Add Preset</h1>
+          <InputGroup label="Preset Name" required require={this.state.name}>
+            <TextInput
+              change={this.handleNameChange}
+              placeholder="Preset Name"
+              required
+              value={this.state.name}
+            />
+          </InputGroup>
+          <ButtonGroup>
+            <Button
+              active
+              click={this.handleClose}
+              text="Cancel"
+              type="danger"
+            />
+            <Button
+              active={Boolean(this.state.name)}
+              click={this.handleSave}
+              text="Save"
+            />
+          </ButtonGroup>
+        </Modal>
+      : null;
   }
 }
 

@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import Select from '../../../../../components/Select';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   amount: {
@@ -16,7 +19,11 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   name: 'Distortion',
   oversample: {
     name: 'Oversampling',
-    options: [{id: 'none', name: 'None'}, {id: '2x', name: '2x'}, {id: '4x', name: '4x'}],
+    options: [
+      { id: 'none', name: 'None' },
+      { id: '2x', name: '2x' },
+      { id: '4x', name: '4x' }
+    ],
     value: '4x'
   },
   title: 'Distortion'
@@ -55,11 +62,11 @@ class Distortion extends React.Component {
   }
 
   makeDistortionCurve(amount) {
-    const k = (typeof amount === 'number' && !isNaN(amount)) ? amount : 50;
+    const k = typeof amount === 'number' && !isNaN(amount) ? amount : 50;
     const numSamples = 44100;
     const curve = new Float32Array(numSamples);
     let x;
-    for (let i = 0; i < numSamples; ++i ) {
+    for (let i = 0; i < numSamples; ++i) {
       x = i * 2 / numSamples - 1;
       curve[i] = (Math.PI + k) * x / (Math.PI + k * Math.abs(x));
     }
@@ -91,7 +98,7 @@ class Distortion extends React.Component {
           defaults={defaultSettings}
           property="amount"
           settings={this.props.settings}
-          />
+        />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import {C} from './constants';
+import { C } from './constants';
 
 export const addControl = (control, note) => {
   return {
@@ -12,21 +12,21 @@ export const addControl = (control, note) => {
   };
 };
 
-export const assignControl = (assign) => {
+export const assignControl = assign => {
   return {
     type: C.ASSIGN_CONTROL,
-    payload: assign ? {...assign} : null
+    payload: assign ? { ...assign } : null
   };
 };
 
-export const removeControl = (control) => {
+export const removeControl = control => {
   return {
     type: C.REMOVE_CONTROL,
-    payload: {...control}
+    payload: { ...control }
   };
 };
 
-export const setControl = (control) => (dispatch, getState) => {
+export const setControl = control => (dispatch, getState) => {
   const state = getState();
   const c = state.control.controls[`${control[0]}:${control[1]}`];
   if (c) {
@@ -44,7 +44,7 @@ const sendControlMessage = (control, value) => ({
   }
 });
 
-const midiEvent = (event) => {
+const midiEvent = event => {
   return {
     type: C.MIDI_EVENT,
     payload: event

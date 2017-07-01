@@ -11,14 +11,15 @@ const Input = styled.input`
   width: 100%;
 `;
 
-const TextInput = ({change, placeholder, required, value}) => {
+const TextInput = ({ change, placeholder, required, value }) => {
   return (
     <Input
-    type="text"
-    onChange={change}
-    placeholder={placeholder}
-    required={required}
-    value={value}/>
+      type="text"
+      onChange={change}
+      placeholder={placeholder}
+      required={required}
+      value={value}
+    />
   );
 };
 

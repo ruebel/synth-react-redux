@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {C} from '../actions';
+import { C } from '../actions';
 const initialState = {
   previous: {
     velocity: 0,
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 function previous(state = initialState.previous, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.ON_SOCKET_INPUT:
       return action.payload;
     default:
@@ -24,7 +24,7 @@ function previous(state = initialState.previous, action) {
 }
 
 function settings(state = initialState.settings, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_SOCKET_SETTINGS:
       return action.payload;
     default:
@@ -33,7 +33,7 @@ function settings(state = initialState.settings, action) {
 }
 
 function status(state = initialState.status, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_SOCKET_STATUS:
       return !state;
     default:

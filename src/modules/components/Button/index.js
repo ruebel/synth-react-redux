@@ -7,7 +7,7 @@ const Wrapper = styled.button`
   color: ${p => p.theme.color.light};
   min-height: 42px;
   border: none;
-  cursor: ${p => p.selected ? 'not-allowed' : 'pointer'};
+  cursor: ${p => (p.selected ? 'not-allowed' : 'pointer')};
   font-size: 1.2em;
   margin: 0;
   transition: background-color 100ms ease-in-out, transform 100ms ease-in-out;
@@ -40,7 +40,8 @@ const Wrapper = styled.button`
     }
   }
 
-  .success, :disabled.selected {
+  .success,
+  :disabled.selected {
     background-color: ${p => p.theme.color.controlSuccess};
     color: ${p => p.theme.color.light};
 
@@ -59,14 +60,17 @@ const Wrapper = styled.button`
   }
 `;
 
-const Button = ({active, click, color, selected, text}) => {
+const Button = ({ active, click, color, selected, text }) => {
   return (
     <Wrapper
       disabled={!active || selected}
       onClick={() => click()}
       selected={selected}
-      style={{background: color}}>
-      <div>{text || 'Click Me!'}</div>
+      style={{ background: color }}
+    >
+      <div>
+        {text || 'Click Me!'}
+      </div>
     </Wrapper>
   );
 };
@@ -77,7 +81,7 @@ Button.propTypes = {
   color: PropTypes.string,
   flavor: PropTypes.string,
   selected: PropTypes.bool,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 };
 
 export default Button;

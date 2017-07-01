@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import {C} from '../actions';
-import {C as presetActions} from '../../Presets';
+import { C } from '../actions';
+import { C as presetActions } from '../../Presets';
 const initialState = {
   interval: 400,
   mode: 'down',
@@ -9,14 +9,14 @@ const initialState = {
 };
 
 const arpeggiator = combineReducers({
-    interval,
-    mode,
-    octave,
-    on
+  interval,
+  mode,
+  octave,
+  on
 });
 
 function interval(state = initialState.interval, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_ARPEGGIATOR_INTERVAL:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -27,7 +27,7 @@ function interval(state = initialState.interval, action) {
 }
 
 function mode(state = initialState.mode, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_ARPEGGIATOR_MODE:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -38,7 +38,7 @@ function mode(state = initialState.mode, action) {
 }
 
 function octave(state = initialState.octave, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_ARPEGGIATOR_OCTAVE:
       return action.payload;
     case presetActions.LOAD_PRESET:
@@ -49,7 +49,7 @@ function octave(state = initialState.octave, action) {
 }
 
 function on(state = initialState.on, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_ARPEGGIATOR:
       return !state;
     case presetActions.LOAD_PRESET:

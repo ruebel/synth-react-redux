@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import Select from '../../../../../components/Select';
 import irs from './IRs';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
-import {getImpulseResponse} from '../../../../../../utils/audio';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
+import { getImpulseResponse } from '../../../../../../utils/audio';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#0198e1',
@@ -12,7 +15,10 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   // download the ir
   irUrl: {
     name: 'Impulse Response',
-    options: Object.keys(irs).map(ir => ({id: irs[ir].url, name: irs[ir].name})),
+    options: Object.keys(irs).map(ir => ({
+      id: irs[ir].url,
+      name: irs[ir].name
+    })),
     value: irs[Object.keys(irs)[0]].url
   },
   name: 'Reverb',

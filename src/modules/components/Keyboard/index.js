@@ -10,18 +10,20 @@ const Wrapper = styled.div`
   margin: 0;
 `;
 
-const Keyboard = ({keys, keyDown, keyUp, noUp}) => {
+const Keyboard = ({ keys, keyDown, keyUp, noUp }) => {
   return (
     <Wrapper>
       {Object.keys(keys).map((k, i) => {
         return (
-          <Key key={i}
-               tone={keys[k]}
-               keyDown={keyDown}
-               keyUp={keyUp}
-               noUp={noUp}
-             />);
-        })}
+          <Key
+            key={i}
+            tone={keys[k]}
+            keyDown={keyDown}
+            keyUp={keyUp}
+            noUp={noUp}
+          />
+        );
+      })}
     </Wrapper>
   );
 };

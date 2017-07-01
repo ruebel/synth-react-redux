@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RangeControl from '../../../components/RangeControl';
 
-const EffectRange = ({change, defaults, property, settings, title}) => {
+const EffectRange = ({ change, defaults, property, settings, title }) => {
   const control = settings[property].control;
   return (
     <RangeControl
@@ -19,7 +19,7 @@ const EffectRange = ({change, defaults, property, settings, title}) => {
       max={defaults[property].max}
       onSet={e => change(property, e)}
       value={settings[property].value}
-      />
+    />
   );
 };
 

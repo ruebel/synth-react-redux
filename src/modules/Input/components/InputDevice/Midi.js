@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {actions as audioActions} from '../../../Audio';
-import {actions as controlActions} from '../../../Control';
-import {actions as synthActions} from '../../../Synth';
-import {convertVelocity} from '../../../../utils/input';
+import { connect } from 'react-redux';
+import { actions as audioActions } from '../../../Audio';
+import { actions as controlActions } from '../../../Control';
+import { actions as synthActions } from '../../../Synth';
+import { convertVelocity } from '../../../../utils/input';
 
 class Midi extends React.Component {
   constructor(props) {
@@ -73,7 +73,7 @@ class Midi extends React.Component {
       //   break;
       // Control
       case 176:
-        switch(e.data[1]) {
+        switch (e.data[1]) {
           // Sustain Pedal
           case 64:
             if (e.data[2] == 0) {
@@ -121,5 +121,5 @@ export default connect(null, {
   keyUp: audioActions.keyUp,
   setControl: controlActions.setControl,
   setPitchBend: synthActions.setPitchBend,
-  setSustain: synthActions.setSustain,
+  setSustain: synthActions.setSustain
 })(Midi);

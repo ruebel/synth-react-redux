@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import RangeControl from '../../../components/RangeControl';
-import {setTranspose} from '../../actions';
-import {getTranspose} from '../../selectors';
+import { setTranspose } from '../../actions';
+import { getTranspose } from '../../selectors';
 
-const Transpose = ({amount, setTranspose}) => {
+const Transpose = ({ amount, setTranspose }) => {
   return (
-    <RangeControl title="Transpose (half steps)"
-                  value={amount}
-                  onSet={setTranspose}
-                  min={-36}
-                  max={36}
-                  step={1}
-                />
+    <RangeControl
+      title="Transpose (half steps)"
+      value={amount}
+      onSet={setTranspose}
+      min={-36}
+      max={36}
+      step={1}
+    />
   );
 };
 
@@ -22,10 +23,10 @@ Transpose.propTypes = {
   setTranspose: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     amount: getTranspose(state)
   };
 };
 
-export default connect(mapStateToProps, {setTranspose})(Transpose);
+export default connect(mapStateToProps, { setTranspose })(Transpose);
