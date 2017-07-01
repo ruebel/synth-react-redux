@@ -1,10 +1,18 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Key from './Key';
-const styles = require('./styles.css');
+
+const Wrapper = styled.div`
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+`;
 
 const Keyboard = ({keys, keyDown, keyUp, noUp}) => {
   return (
-    <div className={styles.wrapper}>
+    <Wrapper>
       {Object.keys(keys).map((k, i) => {
         return (
           <Key key={i}
@@ -14,7 +22,7 @@ const Keyboard = ({keys, keyDown, keyUp, noUp}) => {
                noUp={noUp}
              />);
         })}
-    </div>
+    </Wrapper>
   );
 };
 

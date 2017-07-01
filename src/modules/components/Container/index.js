@@ -1,31 +1,56 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Button from '../Button';
 import PowerSwitch from '../PowerSwitch';
-import classNames from 'classnames/bind';
-const styles = require('./styles.css');
-const cx = classNames.bind(styles);
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  ${p => p.pullUp && 'margin-bottom: -40px;'}
+
+  & > h3 {
+    margin: 0;
+  }
+
+  & > button {
+    margin-top: -10px;
+    margin-right: -10px;
+  }
+`;
+
+const Wrapper = styled.div`
+  margin: 10px 0;
+  ${p => p.tight ? `
+    padding: 5px;
+
+    & > div > button {
+      margin: 0;
+    }
+  ` : 'padding: 10px;'}
+  border: 2px ${p => p.theme.color.border} solid;
+  background: ${p => p.active ? p.theme.light : p.theme.color.grayExtraLight};
+  width: ${p => p.full ? '100' : '50'}%;
+  transition: background 200ms ease-in;
+`;
 
 const Container = ({active, activeChange, close, children, full, tight, title, titleControl}) => {
-  const containerStyle = cx({
-    active,
-    container: true,
-    full,
-    tight
-  });
-  const headerStyle = cx({
-    header: true,
-    pullUp: !title && (titleControl || close)
-  });
   return (
-    <div className={containerStyle}>
-      <div className={headerStyle}>
+    <Wrapper
+      active={active}
+      full={full}
+      tight={tight}
+      >
+      <Header pullUp={!title && (titleControl || close)}>
         <h3>{title}</h3>
         {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}
         {close && <Button active click={close} text="X" type="link" />}
-      </div>
+      </Header>
       {children}
-    </div>
+    </Wrapper>
   );
 };
 

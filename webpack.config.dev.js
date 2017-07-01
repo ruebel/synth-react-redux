@@ -5,13 +5,13 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const indexHTMLBuilder = new HtmlWebpackPlugin({
-    template: 'src/index.ejs',
-    title: 'Synth-React-Redux',
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true
-    },
-    inject: true
+  template: 'src/index.ejs',
+  title: 'Synth-React-Redux',
+  minify: {
+    removeComments: true,
+    collapseWhitespace: true
+  },
+  inject: true
 });
 
 // DEFINE ROOT PATHS
@@ -23,39 +23,31 @@ const PATHS = {
 const env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')});
 
 export default {
-  debug: true,
-  devtool: 'source-map',
-  // context: PATHS.src,
   entry: [
     'webpack-hot-middleware/client?reload=true',
     './src/index.js'
   ],
-
   output: {
     publicPath: 'http://localhost:3000/',
     path: PATHS.build,
     filename: 'bundle.js'
   },
-
   resolve: {
-    extensions: ['', '.jsx', '.js', '.json'],
-    modulesDirectories: ['node_modules', 'src']
+    extensions: ['.jsx', '.js', '.json'],
+    modules: ['node_modules', 'src']
   },
-
   module: {
-    preLoaders: [
+    rules: [
       {
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        loader: 'eslint'
-      }
-    ],
-
-    loaders: [
+        test: /^(?!.*\.story\.js$).*\.js$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        exclude: /node_modules/
+      },
       {
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        loaders: ['babel'],
+        test: /^(?!.*\.story\.js$).*\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -70,12 +62,11 @@ export default {
       }
     ]
   },
-
   plugins: [
     indexHTMLBuilder,
     env,
+    new ExtractTextPlugin('styles.css'),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'bundle.common.js'
@@ -83,5 +74,8 @@ export default {
     new webpack.ProvidePlugin({
       'regeneratorRuntime': 'regenerator-runtime/runtime'
     })
-  ]
+  ],
+  devServer: {
+    stats: 'errors-only'
+  }
 };

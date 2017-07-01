@@ -1,9 +1,10 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Wrapper = styled.button`
   background-color: ${p => p.theme.color.primary};
-  color: $core-light-color;
+  color: ${p => p.theme.color.light};
   min-height: 42px;
   border: none;
   cursor: ${p => p.selected ? 'not-allowed' : 'pointer'};
@@ -13,7 +14,7 @@ const Wrapper = styled.button`
 
   &:hover:enabled {
     transform: scaleX(1.1) scaleY(1.1);
-    background-color: color($brand-primary b(15%));
+    background-color: color(${p => p.theme.color.primary} b(15%));
   }
 
   &:disabled {
@@ -23,7 +24,7 @@ const Wrapper = styled.button`
 
   .empty {
     background-color: ${p => p.theme.color.controlEmpty};
-    color: $core-light-color;
+    color: ${p => p.theme.color.light};
 
     &:hover:enabled {
       background-color: color(${p => p.theme.color.controlSuccess} b(15%));
@@ -32,7 +33,7 @@ const Wrapper = styled.button`
 
   .primary {
     background-color: ${p => p.theme.color.primary};
-    color: $core-light-color;
+    color: ${p => p.theme.color.light};
 
     &:hover:enabled {
       background-color: color(${p => p.theme.color.primary} b(15%));
@@ -41,7 +42,7 @@ const Wrapper = styled.button`
 
   .success, :disabled.selected {
     background-color: ${p => p.theme.color.controlSuccess};
-    color: $core-light-color;
+    color: ${p => p.theme.color.light};
 
     &:hover:enabled {
       background-color: color(${p => p.theme.color.controlSuccess} b(15%));
@@ -50,7 +51,7 @@ const Wrapper = styled.button`
 
   .danger {
     background-color: ${p => p.theme.color.controlDanger};
-    color: $core-light-color;
+    color: ${p => p.theme.color.light};
 
     &:hover:enabled {
       background-color: color(${p => p.theme.color.controlDanger} b(10%));

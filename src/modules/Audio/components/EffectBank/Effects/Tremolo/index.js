@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import WaveShapeSelector from '../../../../../components/WaveShapeSelector';

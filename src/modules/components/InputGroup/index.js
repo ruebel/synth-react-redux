@@ -1,18 +1,31 @@
-import React, {PropTypes} from 'react';
-import classNames from 'classnames/bind';
-const styles = require('./styles.css');
-const cx = classNames.bind(styles);
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Label = styled.div`
+  margin-bottom: 0.5rem;
+  color: ${p => p.invalid ? p.theme.color.danger : p.theme.color.grayExtraDark};
+
+  & span {
+    font-size: 2em;
+    position: absolute;
+    line-height: 0.9em;
+    margin-left: 0.2em;
+  }
+`;
+
+const Wrapper = styled.div`
+  margin-top: 30px;
+`;
 
 const InputGroup = ({children, label, require, required}) => {
-  const style = cx({
-    label: true,
-    invalid: required && !require
-  });
   return (
-    <div className={styles.wrapper}>
-      <div className={style}>{label} {required && !require && <span>*</span>}</div>
+    <Wrapper>
+      <Label invalid={required && !require}>
+        {label} {required && !require && <span>*</span>}
+      </Label>
       {children}
-    </div>
+    </Wrapper>
   );
 };
 

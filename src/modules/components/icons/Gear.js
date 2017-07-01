@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from './Icon';
 
 const Gear = ({height = '24', styleName, width = '24', fill = '#4682b4'}) => {

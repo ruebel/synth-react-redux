@@ -1,23 +1,69 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 import {connect} from 'react-redux';
 import ReactSlider from 'react-slider';
+import styled from 'styled-components';
 import {actions as controlActions} from '../../Control';
 import {scaleNumber} from '../../../utils/math';
-import classNames from 'classnames/bind';
-const styles = require('./styles.css');
-const cx = classNames.bind(styles);
+
+const Assign = styled.h3`
+  color: ${p => p.theme.color.primary};
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+
+  &:hover {
+    color: color(${p => p.theme.color.primary} b(10%));
+  }
+
+  & > div {
+    display: inline-block;
+    flex: 1;
+    text-align: right;
+    font-size: 0.7em;
+  }
+`;
+
+const Wrapper = styled.div`
+  margin: 20px 0;
+  ${p => p.assigned ? `background: color(${p.theme.color.primary} a(0.2));` : ''}
+
+  .slider {
+    width: 100%;
+    height: 2px;
+    border: 1px solid ${p => p.theme.color.graySemidark};
+    margin-bottom: 15px;
+  }
+
+  .handle {
+    font-size: 0.9em;
+    line-height: ${p => p.handleSize};
+    text-align: center;
+    background: ${p => p.theme.color.grayExtraDark};
+    color: ${p => p.theme.color.light};
+    cursor: pointer;
+    width: ${p => p.handleSize};
+    border-radius: 50%;
+    height: ${p => p.handleSize};
+    margin-top: ${p => -p.handleSize/2};
+    z-index: 0;
+    transition: transform 0.2s ease-in, background 0.2s ease-in;
+
+    &:hover, &:active {
+      background: ${p => p.theme.color.primary};
+      border-radius: 50%;
+      transform: scaleX(1.2) scaleY(1.2);
+      transition: transform 0.2s ease-in, background 0.2s ease-in;
+    }
+  }
+`;
 
 const RangeControl = ({assign, assignControl, max, min, onSet, step, title, value}) => {
-  const style = cx({
-    assigned: assign && assign.channel,
-    wrapper: true
-  });
   return (
-    <div className={style}>
+    <Wrapper assigned={assign && assign.channel} handleSize="30px">
       {assign ? (
-        <h3
-          className={styles.assign}
+        <Assign
           data-tip
           data-for="midi"
           onClick={() => assignControl(assign)}>
@@ -47,13 +93,13 @@ const RangeControl = ({assign, assignControl, max, min, onSet, step, title, valu
               'Click to assign MIDI control'
             }
           </ReactTooltip>
-        </h3>
+        </Assign>
       ) : (
         <h3>{title}</h3>
       )}
       <ReactSlider
-        className={styles.slider}
-        handleClassName={styles.handle}
+        className="slider"
+        handleClassName="handle"
         value={value}
         onChange={(e) => onSet(e)}
         min={min || 0}
@@ -63,7 +109,7 @@ const RangeControl = ({assign, assignControl, max, min, onSet, step, title, valu
         withBars>
           <div>{scaleNumber(value)}</div>
         </ReactSlider>
-    </div>
+    </Wrapper>
   );
 };
 

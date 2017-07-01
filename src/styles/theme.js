@@ -47,9 +47,14 @@ export const media = {
   desktop: `(max-width: ${deviceWidth.desktop})`
 };
 
+export const transition = {
+  fast: '100ms'
+};
+
 export default {
   color,
   deviceWidth,
   fontFamily,
-  fontWeight
+  fontWeight,
+  transition
 };

@@ -41,7 +41,7 @@ injectGlobal`
   }
 
   p {
-    color: color: ${color.grayExtraDark};
+    color: ${color.grayExtraDark};
     font-family: ${fontFamily.primary};
     font-style: normal;
     font-weight: 300;

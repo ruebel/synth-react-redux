@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Indicator from './Indicator';
 import RangeControl from '../../../components/RangeControl';
 import Select from '../../../components/Select';
