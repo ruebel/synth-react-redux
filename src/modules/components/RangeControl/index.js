@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import ReactSlider from 'react-slider';
 import styled from 'styled-components';
+import Color from 'color';
 import { actions as controlActions } from '../../Control';
 import { scaleNumber } from '../../../utils/math';
 
@@ -14,7 +15,7 @@ const Assign = styled.h3`
   flex-direction: row;
 
   &:hover {
-    color: color(${p => p.theme.color.primary} b(10%));
+    color: ${p => Color(p.theme.color.primary).darken(0.1).string()};
   }
 
   & > div {
@@ -28,26 +29,21 @@ const Assign = styled.h3`
 const Wrapper = styled.div`
   margin: 20px 0;
   ${p =>
-    p.assigned ? `background: color(${p.theme.color.primary} a(0.2));` : ''};
-
-  .slider {
-    width: 100%;
-    height: 2px;
-    border: 1px solid ${p => p.theme.color.graySemidark};
-    margin-bottom: 15px;
-  }
+    p.assigned
+      ? `background: ${Color(p.theme.color.primary).alpha(0.2).string()};`
+      : ''} position: relative;
 
   .handle {
     font-size: 0.9em;
-    line-height: ${p => p.handleSize};
+    line-height: ${p => p.handleSize}px;
     text-align: center;
     background: ${p => p.theme.color.grayExtraDark};
     color: ${p => p.theme.color.light};
     cursor: pointer;
-    width: ${p => p.handleSize};
+    width: ${p => p.handleSize}px;
     border-radius: 50%;
-    height: ${p => p.handleSize};
-    margin-top: ${p => -p.handleSize / 2};
+    height: ${p => p.handleSize}px;
+    margin-top: -${p => p.handleSize / 2}px;
     z-index: 0;
     transition: transform 0.2s ease-in, background 0.2s ease-in;
 
@@ -58,6 +54,14 @@ const Wrapper = styled.div`
       transform: scaleX(1.2) scaleY(1.2);
       transition: transform 0.2s ease-in, background 0.2s ease-in;
     }
+  }
+
+  .slider {
+    width: 100%;
+    height: 2px;
+    border: 1px solid ${p => p.theme.color.graySemidark};
+    margin-bottom: 15px;
+    position: relative;
   }
 `;
 
@@ -72,7 +76,7 @@ const RangeControl = ({
   value
 }) => {
   return (
-    <Wrapper assigned={assign && assign.channel} handleSize="30px">
+    <Wrapper assigned={assign && assign.channel} handleSize={30}>
       {assign
         ? <Assign
             data-tip

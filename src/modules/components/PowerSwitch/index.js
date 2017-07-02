@@ -7,7 +7,7 @@ const borderSize = '2px';
 const transTime = '200ms';
 
 const Inner = styled.div`
-  background: ${p => (p.on ? p.theme.color.light : 'transparent')};
+  background: ${p => (p.on ? p.theme.color.controlSuccess : 'transparent')};
   border: ${borderSize} ${p => p.theme.color.border} solid;
   border-radius: ${size}px;
   width: ${2 * size}px;

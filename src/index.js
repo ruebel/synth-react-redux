@@ -1,4 +1,5 @@
 import '../node_modules/react-select/dist/react-select.css';
+import './styles/global';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

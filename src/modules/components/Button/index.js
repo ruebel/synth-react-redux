@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Color from 'color';
 
 const Wrapper = styled.button`
   background-color: ${p => p.theme.color.primary};
@@ -14,7 +15,8 @@ const Wrapper = styled.button`
 
   &:hover:enabled {
     transform: scaleX(1.1) scaleY(1.1);
-    background-color: color(${p => p.theme.color.primary} b(15%));
+    background-color: ${p =>
+      Color(p.theme.color.primary).darken(0.15).string()};
   }
 
   &:disabled {
@@ -22,54 +24,59 @@ const Wrapper = styled.button`
     cursor: not-allowed;
   }
 
-  .empty {
+  &.empty {
     background-color: ${p => p.theme.color.controlEmpty};
     color: ${p => p.theme.color.light};
 
     &:hover:enabled {
-      background-color: color(${p => p.theme.color.controlSuccess} b(15%));
+      background-color: ${p =>
+        Color(p.theme.color.controlSuccess).darken(0.15).string()};
     }
   }
 
-  .primary {
+  &.primary {
     background-color: ${p => p.theme.color.primary};
     color: ${p => p.theme.color.light};
 
     &:hover:enabled {
-      background-color: color(${p => p.theme.color.primary} b(15%));
+      background-color: ${p =>
+        Color(p.theme.color.primary).darken(0.15).string()};
     }
   }
 
-  .success,
+  &.success,
   :disabled.selected {
     background-color: ${p => p.theme.color.controlSuccess};
     color: ${p => p.theme.color.light};
 
     &:hover:enabled {
-      background-color: color(${p => p.theme.color.controlSuccess} b(15%));
+      background-color: ${p =>
+        Color(p.theme.color.controlSuccess).darken(0.15).string()};
     }
   }
 
-  .danger {
+  &.danger {
     background-color: ${p => p.theme.color.controlDanger};
     color: ${p => p.theme.color.light};
 
     &:hover:enabled {
-      background-color: color(${p => p.theme.color.controlDanger} b(10%));
+      background-color: ${p =>
+        Color(p.theme.color.controlDanger).darken(0.1).string()};
     }
   }
 `;
 
-const Button = ({ active, click, color, selected, text }) => {
+const Button = ({ active, click, color, flavor, selected, text }) => {
   return (
     <Wrapper
+      className={flavor}
       disabled={!active || selected}
       onClick={() => click()}
       selected={selected}
       style={{ background: color }}
     >
       <div>
-        {text || 'Click Me!'}
+        {text}
       </div>
     </Wrapper>
   );

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../../../components/Button';
 import Container from '../../../components/Container';
 import Oscillator from './Oscillator';
+import RoundButton from '../../../components/Button/RoundButton';
 import * as actions from '../../actions';
 import { getOscillators } from '../../selectors';
 
@@ -24,9 +24,7 @@ const OscillatorBank = ({
   setOscillatorSetting,
   removeOscillator
 }) => {
-  const addButton = (
-    <Button active click={addOscillator} text="+" type="round" />
-  );
+  const addButton = <RoundButton active click={addOscillator} text="+" />;
   return (
     <Container full title="Oscillators" titleControl={addButton}>
       <Bank>
