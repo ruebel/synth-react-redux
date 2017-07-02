@@ -5,13 +5,13 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const indexHTMLBuilder = new HtmlWebpackPlugin({
-    template: 'src/index.ejs',
-    title: 'Synth-React-Redux',
-    minify: {
-      removeComments: true,
-      collapseWhitespace: true
-    },
-    inject: true
+  template: 'src/index.ejs',
+  title: 'Synth-React-Redux',
+  minify: {
+    removeComments: true,
+    collapseWhitespace: true
+  },
+  inject: true
 });
 
 // DEFINE ROOT PATHS
@@ -20,7 +20,9 @@ const PATHS = {
   dist: path.join(__dirname, 'dist')
 };
 
-const env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')});
+const env = new webpack.DefinePlugin({
+  'process.env.NODE_ENV': JSON.stringify('production')
+});
 
 export default {
   entry: './src/index',
@@ -51,7 +53,7 @@ export default {
         })
       },
       {
-        test: /\.(gif|svg|otf|eot|ttf|woff[2]?|png|jpe?g|wav)(\?[a-z0-9=\.]+)?$/i,
+        test: /\.(gif|svg|otf|eot|ttf|woff[2]?|png|jpe?g|wav)(\?[a-z0-9=.]+)?$/i,
         loader: 'url-loader?limit=8192'
       }
     ]
@@ -60,13 +62,13 @@ export default {
   plugins: [
     indexHTMLBuilder,
     env,
-    new webpack.NoErrorsPlugin(),
+    new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'bundle.common.js'
     }),
     new webpack.ProvidePlugin({
-      'regeneratorRuntime': 'regenerator-runtime/runtime'
+      regeneratorRuntime: 'regenerator-runtime/runtime'
     })
   ]
 };

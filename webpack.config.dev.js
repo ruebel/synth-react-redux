@@ -20,13 +20,12 @@ const PATHS = {
   build: path.join(__dirname, 'build')
 };
 
-const env = new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('development')});
+const env = new webpack.DefinePlugin({
+  'process.env.NODE_ENV': JSON.stringify('development')
+});
 
 export default {
-  entry: [
-    'webpack-hot-middleware/client?reload=true',
-    './src/index.js'
-  ],
+  entry: ['webpack-hot-middleware/client?reload=true', './src/index.js'],
   output: {
     publicPath: 'http://localhost:3000/',
     path: PATHS.build,
@@ -57,7 +56,7 @@ export default {
         })
       },
       {
-        test: /\.(gif|svg|otf|eot|ttf|woff[2]?|png|jpe?g|wav)(\?[a-z0-9=\.]+)?$/i,
+        test: /\.(gif|svg|otf|eot|ttf|woff[2]?|png|jpe?g|wav)(\?[a-z0-9=.]+)?$/i,
         loader: 'url-loader?limit=8192'
       }
     ]
@@ -72,7 +71,7 @@ export default {
       filename: 'bundle.common.js'
     }),
     new webpack.ProvidePlugin({
-      'regeneratorRuntime': 'regenerator-runtime/runtime'
+      regeneratorRuntime: 'regenerator-runtime/runtime'
     })
   ],
   devServer: {
