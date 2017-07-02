@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { convertNoteFrequency, createGain } from '../../../../utils/audio';
 import { defaultVelocity } from '../../actions';
 const minTime = 0.001;
@@ -58,6 +59,7 @@ class Tone extends React.Component {
       } else {
         // Apply other settings
         next.settings.oscillators.forEach((o, i) => {
+          // eslint-disable-next-line eqeqeq
           if (o != this.props.settings.oscillators[i]) {
             this.setupOscillator(this.oscillators[i], o);
           }
@@ -150,6 +152,7 @@ class Tone extends React.Component {
         const now = this.props.context.currentTime;
         // Cancel any scheduled changes
         this.envelope.gain.cancelScheduledValues(now);
+        // eslint-disable-next-line
         if (velocity == 0) {
           // Note OFF
           const release = this.props.settings.envelope.release;

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import Select from '../../../../../components/Select';
@@ -106,9 +107,7 @@ class Distortion extends React.Component {
 Distortion.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
 

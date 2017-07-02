@@ -1,14 +1,27 @@
-import React, { PropTypes } from 'react';
-const styles = require('./styles.css');
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Data = styled.div`
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  overflow: scroll;
+  background-color: #222222;
+  color: #59afd9;
+  position: relative;
+  border-radius: 3px;
+  padding-left: 5px;
+`;
 
 const JsonViewer = ({ children, data, minimized }) => {
   return (
-    <div className={styles.data}>
+    <Data>
       {children}
       <pre>
         {data && !minimized ? JSON.stringify(data, null, 2) : '{...}'}
       </pre>
-    </div>
+    </Data>
   );
 };
 

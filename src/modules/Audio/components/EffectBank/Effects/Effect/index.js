@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Container from '../../../../../components/Container';
 import EffectRange from '../../EffectRange';
 import Mover from './Mover';
@@ -155,7 +156,6 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
     changeSettings: PropTypes.func.isRequired,
     context: PropTypes.object.isRequired,
     defaults: PropTypes.object.isRequired,
-    gain: PropTypes.object.isRequired,
     move: PropTypes.func.isRequired,
     remove: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired

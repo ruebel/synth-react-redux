@@ -1,19 +1,11 @@
-import React, { PropTypes } from 'react';
-const styles = require('./styles.css');
+import styled from 'styled-components';
 
-const ButtonGroup = ({ children }) => {
-  return (
-    <div className={styles.buttonGroup}>
-      {children}
-    </div>
-  );
-};
+export default styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 
-ButtonGroup.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ])
-};
-
-export default ButtonGroup;
+  & > button {
+    margin: 10px 5px 10px 0;
+  }
+`;

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Container from '../../components/Container';
 import Gear from '../../components/icons/Gear';
@@ -44,7 +45,7 @@ class InputSelector extends React.Component {
             value={id}
             valueKey="id"
           />
-          {id == 1 &&
+          {id === 1 &&
             <div>
               <Gear click={this.props.showSettings} />
               <PlayPauseButton

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Keyboard from '../../../../components/Keyboard';
 import { generateKeys } from '../../../../../utils/audio';
 
@@ -25,6 +26,7 @@ class Scale extends React.Component {
   }
 
   handleKeyUp(e) {
+    // eslint-disable-next-line eqeqeq
     this.props.onChange(this.props.keys.filter(k => k != e));
   }
 

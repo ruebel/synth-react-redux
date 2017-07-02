@@ -1,11 +1,20 @@
-import React, { PropTypes } from 'react';
-const styles = require('./styles.css');
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Input = styled.input`
+  border: 2px ${p => p.theme.color.border} solid;
+  border-radius: 3px;
+  font-size: 1.3rem;
+  height: 4rem;
+  padding: 5px 24px;
+  width: 100%;
+`;
 
 const TextInput = ({ change, placeholder, required, value }) => {
   return (
-    <input
+    <Input
       type="text"
-      className={styles.input}
       onChange={change}
       placeholder={placeholder}
       required={required}

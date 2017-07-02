@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import Select from '../../../../../components/Select';
 import irs from './IRs';
@@ -75,8 +76,6 @@ class Reverb extends React.Component {
 Reverb.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
-  output: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };

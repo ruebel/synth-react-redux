@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actions as audioActions } from '../../../Audio';
 import { actions as controlActions } from '../../../Control';
@@ -75,6 +76,7 @@ class Midi extends React.Component {
         switch (e.data[1]) {
           // Sustain Pedal
           case 64:
+            // eslint-disable-next-line
             if (e.data[2] == 0) {
               // Sustain off
               this.props.setSustain(false);

@@ -1,11 +1,31 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import AddPreset from './components/AddPreset';
 import Button from '../components/Button';
 import Container from '../components/Container';
 import * as actions from './actions';
 import { getLoadedId, getPresets } from './selectors';
-const styles = require('./styles.css');
+
+const Bank = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+
+  & button {
+    margin-right: 5px;
+    flex: 1;
+  }
+`;
+
+const Menu = styled.div`
+  & button {
+    margin-left: 2px;
+    padding: 4px;
+    min-height: 30px;
+  }
+`;
 
 class Presets extends React.Component {
   constructor(props) {
@@ -37,7 +57,7 @@ class Presets extends React.Component {
       savePreset
     } = this.props;
     const menu = (
-      <div className={styles.menu}>
+      <Menu>
         <Button
           active={Boolean(loadedId)}
           click={() => savePreset(loadedId)}
@@ -55,7 +75,7 @@ class Presets extends React.Component {
           text="Remove"
           type="danger"
         />
-      </div>
+      </Menu>
     );
     return (
       <Container active title="Presets" titleControl={menu}>
@@ -64,7 +84,7 @@ class Presets extends React.Component {
           save={this.handleSave}
           show={this.state.showAdd}
         />
-        <div className={styles.bank}>
+        <Bank>
           {presets.map((p, i) => {
             return (
               <Button
@@ -77,7 +97,7 @@ class Presets extends React.Component {
               />
             );
           })}
-        </div>
+        </Bank>
       </Container>
     );
   }

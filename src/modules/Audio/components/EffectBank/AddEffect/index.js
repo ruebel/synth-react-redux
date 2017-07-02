@@ -1,7 +1,36 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Button from '../../../../components/Button';
 import { defaultSettings } from '../Effects';
-const styles = require('./styles.css');
+
+const ButtonList = styled.div`
+  background: ${p => p.theme.color.graySemidark};
+  border: 5px solid ${p => p.theme.color.graySemidark};
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: flex-start;
+
+  & > button {
+    flex: 1;
+  }
+
+  & > button:not(:first-of-type) {
+    margin-left: 5px;
+  }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  & > button {
+    margin: 5px 10px 5px 0;
+  }
+`;
 
 class AddEffect extends React.Component {
   constructor(props) {
@@ -38,13 +67,13 @@ class AddEffect extends React.Component {
       );
     });
     return (
-      <div className={styles.wrapper}>
+      <Wrapper>
         <Button active text="Add Effect" click={this.toggleOpen} />
         {this.state.open &&
-          <div className={styles.buttonList}>
+          <ButtonList>
             {effectList}
-          </div>}
-      </div>
+          </ButtonList>}
+      </Wrapper>
     );
   }
 }

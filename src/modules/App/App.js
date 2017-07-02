@@ -1,29 +1,34 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Audio, actions as audioActions } from '../Audio';
 import Columns from '../components/Columns';
-import { AssignControl } from '../Control';
 import { Input, selectors as inputSelectors } from '../Input';
 import { Presets } from '../Presets';
-import { Sequencer } from '../Sequencer';
 import { Synth } from '../Synth';
+import { AssignControl } from '../Control';
 import { inputTypes } from '../../utils/input';
-const styles = require('./styles.css');
+
+const Wrapper = styled.div`
+  padding: 0 30px;
+  max-width: 1480px;
+  margin: 0 auto;
+`;
 
 const App = ({ input, keyDown, keyUp }) => {
   return (
-    <div className={styles.container}>
+    <Wrapper>
       <Columns>
         <Input />
         <Presets />
       </Columns>
-      <Sequencer />
       {input &&
         input.device !== inputTypes.stream &&
         <Synth keyDown={keyDown} keyUp={keyUp} />}
       <Audio input={input} />
       <AssignControl />
-    </div>
+    </Wrapper>
   );
 };
 
