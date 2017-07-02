@@ -4,10 +4,4 @@ import reducers from './reducers';
 import * as selectors from './selectors';
 import Input from './Input';
 
-export {
-  actions,
-  reducers,
-  selectors,
-  Input,
-  name
-};
+export { actions, reducers, selectors, Input, name };

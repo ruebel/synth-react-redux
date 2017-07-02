@@ -1,5 +1,6 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Stream extends React.Component {
   componentWillReceiveProps(next) {
@@ -24,7 +25,7 @@ Stream.propTypes = {
   stream: PropTypes.object
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   stream: state.input.stream
 });
 

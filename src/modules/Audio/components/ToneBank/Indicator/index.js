@@ -1,19 +1,11 @@
-import React, {PropTypes} from 'react';
-const styles = require('./styles.css');
+import styled from 'styled-components';
 
-const Indicator = ({on}) => {
-  return (
-    <div
-      className={styles.indicator}
-      style={{
-        backgroundColor: on ? '#e85600' : 'white'
-      }}
-    />
-  );
-};
-
-Indicator.propTypes = {
-  on: PropTypes.bool
-};
+const Indicator = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid $core-border-color;
+  background-color: ${p => (p.on ? '#e85600' : 'white')};
+`;
 
 export default Indicator;

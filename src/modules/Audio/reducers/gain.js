@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import {C} from '../constants';
-import {C as presetActions} from '../../Presets';
+import { C } from '../constants';
+import { C as presetActions } from '../../Presets';
 
 const initialState = {
   outputLevel: 1
@@ -11,7 +11,7 @@ const gain = combineReducers({
 });
 
 function outputLevel(state = initialState.outputLevel, action) {
-  switch(action.type){
+  switch (action.type) {
     case C.SET_OUTPUT_LEVEL:
       return action.payload;
     case presetActions.LOAD_PRESET:

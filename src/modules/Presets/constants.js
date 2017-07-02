@@ -1,4 +1,4 @@
-import {name} from './__init__';
+import { name } from './__init__';
 export const C = {
   CLEAR_PRESETS: `${name}/CLEAR_PRESETS`,
   LOAD_PRESET: `${name}/LOAD_PRESET`,

@@ -1,16 +1,25 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Button from '../../../../../../components/Button';
 import PowerSwitch from '../../../../../../components/PowerSwitch';
-const styles = require('./styles.css');
 
-const Mover = ({close, down, on, power, up}) => {
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: middle;
+  margin-top: -5px;
+  margin-right: -10px;
+`;
+
+const Mover = ({ close, down, on, power, up }) => {
   return (
-    <div className={styles.mover}>
+    <Wrapper>
       <PowerSwitch value={on} change={power} />
       <Button active click={up} text="^" type="link" />
       <Button active click={down} text="v" type="link" />
       <Button active click={close} text="X" type="link" />
-    </div>
+    </Wrapper>
   );
 };
 

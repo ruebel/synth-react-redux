@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {C} from '../actions';
+import { C } from '../actions';
 import socket from './socket';
 const initialState = {
   devices: [],
@@ -15,7 +15,7 @@ const input = combineReducers({
 });
 
 function devices(state = initialState.devices, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.GET_INPUT_DEVICES:
       return action.payload;
     default:
@@ -24,7 +24,7 @@ function devices(state = initialState.devices, action) {
 }
 
 function selectedDevice(state = initialState.selectedDevice, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_INPUT_DEVICE:
       return action.payload;
     default:
@@ -33,7 +33,7 @@ function selectedDevice(state = initialState.selectedDevice, action) {
 }
 
 function stream(state = initialState.stream, action) {
-  switch(action.type) {
+  switch (action.type) {
     case C.SET_STREAM:
       return action.payload;
     default:

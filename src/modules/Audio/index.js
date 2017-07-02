@@ -5,11 +5,4 @@ import reducers from './reducers';
 import * as selectors from './selectors';
 import Audio from './Audio';
 
-export {
-  actions,
-  constants,
-  reducers,
-  selectors,
-  Audio,
-  name
-};
+export { actions, constants, reducers, selectors, Audio, name };

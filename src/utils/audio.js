@@ -24,29 +24,32 @@ const octave = [
   'B'
 ];
 
-export const waveShapes = [
-  'sine',
-  'square',
-  'sawtooth',
-  'triangle'
+export const waveShapes = ['sine', 'square', 'sawtooth', 'triangle'];
+
+export const arpeggiatorModes = [
+  {
+    id: 'down',
+    name: 'Down'
+  },
+  {
+    id: 'up',
+    name: 'Up'
+  },
+  {
+    id: 'upDown',
+    name: 'Up / Down'
+  }
 ];
 
-export const arpeggiatorModes = [{
-  id: 'down',
-  name: 'Down'
-}, {
-  id: 'up',
-  name: 'Up'
-}, {
-  id: 'upDown',
-  name: 'Up / Down'
-}];
-
-export const arpeggiatorOctaves = [{id: 1, name: 1}, {id: 2, name: 2}, {id: 3, name: 3}];
+export const arpeggiatorOctaves = [
+  { id: 1, name: 1 },
+  { id: 2, name: 2 },
+  { id: 3, name: 3 }
+];
 /**
 * Convert Note Number to Frequency
 */
-export const convertNoteFrequency = (note) => {
+export const convertNoteFrequency = note => {
   return Math.pow(2, (note - 69) / 12) * 440;
 };
 /**
@@ -90,7 +93,7 @@ export const generateKey = (i, velocity = 0) => {
  */
 export const generateKeys = (startPoint = 0, numKeys = 88) => {
   const keys = {};
-  for(let i = startPoint; i < (startPoint + numKeys); i++) {
+  for (let i = startPoint; i < startPoint + numKeys; i++) {
     const key = generateKey(i);
     keys[key.id] = key;
   }
@@ -99,27 +102,31 @@ export const generateKeys = (startPoint = 0, numKeys = 88) => {
 /**
 * Return Key note in plain english (i.e. C#)
 */
-const generateKeyNote = (i) => {
+const generateKeyNote = i => {
   return octave[(i + 9) % 12];
 };
 /**
 * Generate octave # for key
 */
-const generateKeyOctave = (i) => {
+const generateKeyOctave = i => {
   return Math.floor((i + 9) / 12);
 };
 /**
  * Get Window Audio Context
  */
 export const getContext = () => {
-  window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.oAudioContext;
+  window.AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext ||
+    window.mozAudioContext ||
+    window.oAudioContext;
   const context = new AudioContext();
   return context;
 };
 /**
  * Fetch Impulse Response from server
  */
-export const getImpulseResponse = async(settings, effect, context)  => {
+export const getImpulseResponse = async (settings, effect, context) => {
   // Make sure we received a url to fetch
   if (!settings.irUrl.value) {
     // No url so just clear the IR
@@ -131,7 +138,7 @@ export const getImpulseResponse = async(settings, effect, context)  => {
     // Get the IR file from the server
     const response = await fetch(settings.irUrl.value);
     const audioData = await response.arrayBuffer();
-    context.decodeAudioData(audioData, (buffer) => {
+    context.decodeAudioData(audioData, buffer => {
       const source = context.createBufferSource();
       source.buffer = buffer;
       effect.buffer = buffer;
@@ -146,7 +153,7 @@ export const getImpulseResponse = async(settings, effect, context)  => {
  * mode - arpeggiator direction (up, down, upDown)
  */
 export const getNextIndex = (current, previous, length, mode) => {
-  switch(mode) {
+  switch (mode) {
     case 'down':
       if (current - 1 >= 0) {
         return current - 1;

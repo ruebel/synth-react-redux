@@ -1,11 +1,31 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {addEffect, removeEffect, reorderEffects, setEffectSettings} from '../../actions';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import {
+  addEffect,
+  removeEffect,
+  reorderEffects,
+  setEffectSettings
+} from '../../actions';
 import AddEffect from './AddEffect';
-import Effects, {defaultSettings} from './Effects';
-import {getEffects} from '../../selectors';
-import {selectors as appSelectors} from '../../../App';
-const styles = require('./styles.css');
+import Effects, { defaultSettings } from './Effects';
+import { getEffects } from '../../selectors';
+import { selectors as appSelectors } from '../../../App';
+
+const UnitsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: middle;
+  flex-wrap: wrap;
+  margin-left: -5px;
+
+  & > div {
+    width: 49%;
+    margin-left: 5px;
+  }
+`;
 
 const createGains = (gains = {}, effects, context) => {
   // Create new gain nodes
@@ -16,24 +36,33 @@ const createGains = (gains = {}, effects, context) => {
   }, gains);
   // Remove old gain nodes
   return Object.keys(createdGains)
-  .filter(k => {
-    if (effects.some(e => e.id === k)) {
-      return true;
-    } else {
-      createdGains[k].disconnect();
-      return false;
-    }
-  })
-  .reduce((total, k) => {
-    return Object.assign({}, total, {
-      [k]: createdGains[k]
-    });
-  }, {});
+    .filter(k => {
+      if (effects.some(e => e.id === k)) {
+        return true;
+      } else {
+        createdGains[k].disconnect();
+        return false;
+      }
+    })
+    .reduce((total, k) => {
+      return Object.assign({}, total, {
+        [k]: createdGains[k]
+      });
+    }, {});
 };
 
 class EffectBank extends React.Component {
   render() {
-    const {context, effects, inputGain, outputGain, addEffect, removeEffect, reorderEffects, setEffectSettings} = this.props;
+    const {
+      context,
+      effects,
+      inputGain,
+      outputGain,
+      addEffect,
+      removeEffect,
+      reorderEffects,
+      setEffectSettings
+    } = this.props;
     this.effectGains = createGains(this.effectGains, effects, context);
     const units = effects.map((e, i) => {
       let output = outputGain;
@@ -42,16 +71,20 @@ class EffectBank extends React.Component {
       }
       // Load effect type dynamically
       const Effect = Effects[e.type];
-      return (<Effect key={i}
-              changeSettings={setEffectSettings}
-              context={context}
-              defaults={defaultSettings[e.type]}
-              gain={this.effectGains[e.id]}
-              input={i === 0 ? inputGain : null}
-              move={reorderEffects}
-              output={output}
-              remove={removeEffect}
-              settings={e} />);
+      return (
+        <Effect
+          key={i}
+          changeSettings={setEffectSettings}
+          context={context}
+          defaults={defaultSettings[e.type]}
+          gain={this.effectGains[e.id]}
+          input={i === 0 ? inputGain : null}
+          move={reorderEffects}
+          output={output}
+          remove={removeEffect}
+          settings={e}
+        />
+      );
     });
     // If no effects are present pass gain stage directly to audio output
     if (units.length === 0) {
@@ -61,15 +94,15 @@ class EffectBank extends React.Component {
     return (
       <div>
         <AddEffect add={addEffect} />
-        <div className={styles.bank}>
+        <UnitsWrapper>
           {units}
-        </div>
+        </UnitsWrapper>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     context: appSelectors.getContext(state),
     effects: getEffects(state)
@@ -91,4 +124,5 @@ export default connect(mapStateToProps, {
   addEffect,
   removeEffect,
   reorderEffects,
-  setEffectSettings})(EffectBank);
+  setEffectSettings
+})(EffectBank);

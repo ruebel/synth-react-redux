@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
 import InputGroup from '../../../components/InputGroup';
@@ -38,15 +39,16 @@ class AddPreset extends React.Component {
   }
 
   render() {
-    return this.props.show ? (
-      <Modal close={this.handleClose}>
+    return this.props.show
+      ? <Modal close={this.handleClose}>
         <h1>Add Preset</h1>
         <InputGroup label="Preset Name" required require={this.state.name}>
           <TextInput
             change={this.handleNameChange}
             placeholder="Preset Name"
             required
-            value={this.state.name}/>
+            value={this.state.name}
+          />
         </InputGroup>
         <ButtonGroup>
           <Button
@@ -62,7 +64,7 @@ class AddPreset extends React.Component {
           />
         </ButtonGroup>
       </Modal>
-    ) : null;
+      : null;
   }
 }
 

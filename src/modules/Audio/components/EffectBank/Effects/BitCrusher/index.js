@@ -1,13 +1,17 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Effect from '../Effect';
 import EffectRange from '../../EffectRange';
 import Select from '../../../../../components/Select';
-import {checkPropChange, defaultEffectSettings} from '../../../../../../utils/effect';
+import {
+  checkPropChange,
+  defaultEffectSettings
+} from '../../../../../../utils/effect';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   bits: {
     name: 'Bit Depth',
-    options: [1, 2, 4, 8, 16].map(v => ({id: v, name: v})),
+    options: [1, 2, 4, 8, 16].map(v => ({ id: v, name: v })),
     value: 4
   },
   color: '#539dc2',
@@ -60,7 +64,7 @@ class BitCrusher extends React.Component {
     const step = Math.pow(1 / 2, node.bits);
     let phaser = 0;
     let last = 0;
-    node.onaudioprocess = (e) => {
+    node.onaudioprocess = e => {
       const input = e.inputBuffer.getChannelData(0);
       const output = e.outputBuffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
@@ -108,9 +112,7 @@ class BitCrusher extends React.Component {
 BitCrusher.propTypes = {
   context: PropTypes.object.isRequired,
   handleSettingsChange: PropTypes.func.isRequired,
-  input: PropTypes.object,
   settings: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   wire: PropTypes.func.isRequired
 };
 

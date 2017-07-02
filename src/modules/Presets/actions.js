@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import {C} from './constants';
+import { C } from './constants';
 
 export const clearPresets = () => {
   return {
@@ -30,46 +30,46 @@ const createPreset = (name, state, id) => {
   });
 };
 
-export const loadPreset = (id) => (dispatch, getState) => {
+export const loadPreset = id => (dispatch, getState) => {
   const state = getState();
   const preset = state.presets.presets.find(p => p.id === id);
   dispatch(loadPresetAfter(preset));
 };
 
-export const loadPresetAfter = (preset) => {
+export const loadPresetAfter = preset => {
   return {
     type: C.LOAD_PRESET,
     payload: preset
   };
 };
 
-export const removePreset = (id) => {
+export const removePreset = id => {
   return {
     type: C.REMOVE_PRESET,
     payload: id
   };
 };
 
-export const saveNewPreset = (name) => (dispatch, getState) => {
+export const saveNewPreset = name => (dispatch, getState) => {
   const state = getState();
   const preset = createPreset(name, state);
   dispatch(saveNewPresetAfter(preset));
 };
 
-const saveNewPresetAfter = (preset) => {
+const saveNewPresetAfter = preset => {
   return {
     type: C.SAVE_NEW_PRESET,
     payload: preset
   };
 };
 
-export const savePreset = (id) => (dispatch, getState) => {
+export const savePreset = id => (dispatch, getState) => {
   const state = getState();
   const preset = createPreset(null, state, id);
   dispatch(savePresetAfter(preset));
 };
 
-export const savePresetAfter = (preset) => {
+export const savePresetAfter = preset => {
   return {
     type: C.SAVE_PRESET,
     payload: preset

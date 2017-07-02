@@ -1,29 +1,44 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import Button from '../../../components/Button';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 import Container from '../../../components/Container';
 import Oscillator from './Oscillator';
+import RoundButton from '../../../components/Button/RoundButton';
 import * as actions from '../../actions';
-import {getOscillators} from '../../selectors';
-const styles = require('./styles.css');
+import { getOscillators } from '../../selectors';
 
-const OscillatorBank = ({addOscillator, oscillators, setOscillatorSetting, removeOscillator}) => {
-  const addButton = <Button active click={addOscillator} text="+" type="round"/>;
+const Bank = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  & > div:not(:first-of-type) {
+    margin-left: 5px;
+  }
+`;
+
+const OscillatorBank = ({
+  addOscillator,
+  oscillators,
+  setOscillatorSetting,
+  removeOscillator
+}) => {
+  const addButton = <RoundButton active click={addOscillator} text="+" />;
   return (
     <Container full title="Oscillators" titleControl={addButton}>
-      <div className={styles.bank}>
-        {
-          oscillators.map((o, i) => {
-            return (
-              <Oscillator
-                key={i}
-                oscillator={o}
-                remove={removeOscillator}
-                setValue={setOscillatorSetting}
-                />);
-              })
-          }
-      </div>
+      <Bank>
+        {oscillators.map((o, i) => {
+          return (
+            <Oscillator
+              key={i}
+              oscillator={o}
+              remove={removeOscillator}
+              setValue={setOscillatorSetting}
+            />
+          );
+        })}
+      </Bank>
     </Container>
   );
 };
@@ -35,7 +50,7 @@ OscillatorBank.propTypes = {
   removeOscillator: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     oscillators: getOscillators(state)
   };

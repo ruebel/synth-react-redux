@@ -1,19 +1,15 @@
-import React, {PropTypes} from 'react';
-const styles = require('./styles.css');
+import styled from 'styled-components';
 
-const Columns = ({children}) => {
-  return (
-    <div className={styles.cols}>
-      {children}
-    </div>
-  );
-};
+export default styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 
-Columns.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ])
-};
+  & > div:not(:first-of-type) {
+    margin-left: 5px;
+  }
 
-export default Columns;
+  & > div {
+    flex: 1;
+  }
+`;

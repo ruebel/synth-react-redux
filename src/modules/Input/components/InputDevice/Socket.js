@@ -1,7 +1,8 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
-import {socketMessage} from '../../actions';
-import {getSocketSettings, getSocketStatus} from '../../selectors';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { socketMessage } from '../../actions';
+import { getSocketSettings, getSocketStatus } from '../../selectors';
 
 class Socket extends React.Component {
   constructor(props) {
@@ -25,7 +26,8 @@ class Socket extends React.Component {
   componentWillReceiveProps(next) {
     if (next.settings.url !== this.props.settings.url) {
       this.startSocket(next.settings);
-    } if (next.status !== this.props.status) {
+    }
+    if (next.status !== this.props.status) {
       if (next.status) {
         this.startSocket(next.settings);
       } else {
@@ -42,7 +44,7 @@ class Socket extends React.Component {
     this.stopSocket();
   }
 
-  handleSocketMessage({data}) {
+  handleSocketMessage({ data }) {
     const message = JSON.parse(data);
     this.props.socketMessage(message);
   }
@@ -73,9 +75,9 @@ Socket.propTypes = {
   status: PropTypes.bool
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   settings: getSocketSettings(state),
   status: getSocketStatus(state)
 });
 
-export default connect(mapStateToProps, {socketMessage})(Socket);
+export default connect(mapStateToProps, { socketMessage })(Socket);

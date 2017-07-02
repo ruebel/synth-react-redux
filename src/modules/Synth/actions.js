@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import {name} from './__init__';
+import { name } from './__init__';
 export const C = {
   ADD_OSCILLATOR: `${name}/ADD_OSCILLATOR`,
   REMOVE_OSCILLATOR: `${name}/REMOVE_OSCILLATOR`,
@@ -35,35 +35,35 @@ export const addOscillator = () => {
   };
 };
 
-export const removeOscillator = (id) => {
+export const removeOscillator = id => {
   return {
     type: C.REMOVE_OSCILLATOR,
     payload: id
   };
 };
 
-export const setAttack = (attack) => {
+export const setAttack = attack => {
   return {
     type: C.SET_SYNTH_ATTACK,
     payload: attack
   };
 };
 
-export const setArpeggiatorInterval = (interval) => {
+export const setArpeggiatorInterval = interval => {
   return {
     type: C.SET_ARPEGGIATOR_INTERVAL,
     payload: interval
   };
 };
 
-export const setArpeggiatorMode = (mode) => {
+export const setArpeggiatorMode = mode => {
   return {
     type: C.SET_ARPEGGIATOR_MODE,
     payload: mode.id
   };
 };
 
-export const setArpeggiatorOctave = (octave) => {
+export const setArpeggiatorOctave = octave => {
   return {
     type: C.SET_ARPEGGIATOR_OCTAVE,
     payload: octave.id
@@ -76,14 +76,14 @@ export const setArpeggiatorOn = () => {
   };
 };
 
-export const setIgnoreVelocity = (ignore) => {
+export const setIgnoreVelocity = ignore => {
   return {
     type: C.SET_IGNORE_VELOCITY,
     payload: ignore
   };
 };
 
-export const setModulationDepth = (depth) => {
+export const setModulationDepth = depth => {
   return {
     type: C.SET_MODULATION_DEPTH,
     payload: depth
@@ -97,14 +97,14 @@ export const setModulationOn = () => {
   };
 };
 
-export const setModulationShape = (shape) => {
+export const setModulationShape = shape => {
   return {
     type: C.SET_MODULATION_SHAPE,
     payload: shape
   };
 };
 
-export const setModulationSpeed = (speed) => {
+export const setModulationSpeed = speed => {
   return {
     type: C.SET_MODULATION_SPEED,
     payload: speed
@@ -122,7 +122,7 @@ export const setOscillatorSetting = (id, value, setting) => {
   };
 };
 
-export const setPitchBend = (bend) => {
+export const setPitchBend = bend => {
   return {
     type: C.SET_PITCH_BEND,
     payload: bend
@@ -136,28 +136,28 @@ export const setPortamento = () => {
   };
 };
 
-export const setPortamentoSpeed = (speed) => {
+export const setPortamentoSpeed = speed => {
   return {
     type: C.SET_PORTAMENTO_SPEED,
     payload: speed
   };
 };
 
-export const setRelease = (release) => {
+export const setRelease = release => {
   return {
     type: C.SET_SYNTH_RELEASE,
     payload: release
   };
 };
 
-export const setSustain = (sustain) => {
+export const setSustain = sustain => {
   return {
     type: C.SET_SUSTAIN,
     payload: sustain
   };
 };
 
-export const setTranspose = (amount) => {
+export const setTranspose = amount => {
   return {
     type: C.SET_TRANSPOSE,
     payload: amount

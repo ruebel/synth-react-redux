@@ -1,31 +1,57 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Button from '../Button';
 import PowerSwitch from '../PowerSwitch';
-import classNames from 'classnames/bind';
-const styles = require('./styles.css');
-const cx = classNames.bind(styles);
 
-const Container = ({active, activeChange, close, children, full, tight, title, titleControl}) => {
-  const containerStyle = cx({
-    active,
-    container: true,
-    full,
-    tight
-  });
-  const headerStyle = cx({
-    header: true,
-    pullUp: !title && (titleControl || close)
-  });
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: ${p => (p.pullUp ? '-40' : '0')}px;
+  & > h3 {
+    margin: 0;
+  }
+
+  & > button {
+    margin-top: -10px;
+    margin-right: -10px;
+  }
+`;
+
+const Wrapper = styled.div`
+  margin: 10px 0;
+  padding: ${p => (p.tight ? '5' : '10')}px;
+  ${p => (p.tight ? '& > div > button { margin: 0; }' : '')};
+  border: 2px ${p => p.theme.color.border} solid;
+  background: ${p => (p.active ? p.theme.light : p.theme.color.grayExtraLight)};
+  width: ${p => (p.full ? '100' : '50')}%;
+  transition: background 200ms ease-in;
+`;
+
+const Container = ({
+  active,
+  activeChange,
+  close,
+  children,
+  full,
+  tight,
+  title,
+  titleControl
+}) => {
   return (
-    <div className={containerStyle}>
-      <div className={headerStyle}>
-        <h3>{title}</h3>
+    <Wrapper active={active} full={full} tight={tight}>
+      <Header pullUp={!title && (titleControl || close)}>
+        <h3>
+          {title}
+        </h3>
         {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}
         {close && <Button active click={close} text="X" type="link" />}
-      </div>
+      </Header>
       {children}
-    </div>
+    </Wrapper>
   );
 };
 

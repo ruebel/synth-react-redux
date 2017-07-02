@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import {C} from '../constants';
+import { C } from '../constants';
 import gain from './gain';
-import {generateKeys} from '../../../utils/audio';
-import {C as controls} from '../../Control';
-import {C as presets} from '../../Presets';
+import { generateKeys } from '../../../utils/audio';
+import { C as controls } from '../../Control';
+import { C as presets } from '../../Presets';
 
 const initialState = {
   effects: [],
@@ -11,14 +11,18 @@ const initialState = {
 };
 
 function effects(state = initialState.effects, action) {
-  switch(action.type) {
+  switch (action.type) {
     case controls.ADD_CONTROL:
       return state.map(e => {
         if (e.id === action.payload.id) {
           return Object.assign({}, e, {
-            [action.payload.propertyId]: Object.assign({}, e[action.payload.propertyId], {
-              control: action.payload.control
-            })
+            [action.payload.propertyId]: Object.assign(
+              {},
+              e[action.payload.propertyId],
+              {
+                control: action.payload.control
+              }
+            )
           });
         }
         return e;
@@ -33,9 +37,13 @@ function effects(state = initialState.effects, action) {
       return state.map(e => {
         if (e.id === action.payload.id) {
           return Object.assign({}, e, {
-            [action.payload.propertyId]: Object.assign({}, e[action.payload.propertyId], {
-              control: null
-            })
+            [action.payload.propertyId]: Object.assign(
+              {},
+              e[action.payload.propertyId],
+              {
+                control: null
+              }
+            )
           });
         }
         return e;
@@ -55,7 +63,9 @@ function effects(state = initialState.effects, action) {
         if (e.id === action.payload.control.id) {
           const property = e[action.payload.control.propertyId];
           // transform midi range to target value range
-          const value = ((action.payload.value / 127) * (property.max - property.min)) + property.min;
+          const value =
+            action.payload.value / 127 * (property.max - property.min) +
+            property.min;
           return Object.assign({}, e, {
             [action.payload.control.propertyId]: Object.assign({}, property, {
               value
@@ -77,7 +87,7 @@ function effects(state = initialState.effects, action) {
 }
 
 function keys(state = initialState.keys, action) {
-  switch(action.type){
+  switch (action.type) {
     case C.KEY_DOWN:
       return Object.assign({}, state, {
         [action.payload.id]: action.payload
@@ -91,13 +101,15 @@ function keys(state = initialState.keys, action) {
     case C.CLEAR_KEYS:
     case presets.LOAD_PRESET:
     case 'persist/REHYDRATE':
-      return state ? Object.keys(state).reduce((total, key) => {
-        return Object.assign({}, total, {
-          [key]: Object.assign({}, state[key], {
-            velocity: 0
-          })
-        });
-      }, {}) : state;
+      return state
+        ? Object.keys(state).reduce((total, key) => {
+          return Object.assign({}, total, {
+            [key]: Object.assign({}, state[key], {
+              velocity: 0
+            })
+          });
+        }, {})
+        : state;
     default:
       return state;
   }

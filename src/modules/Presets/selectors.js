@@ -1,3 +1,3 @@
-export const getLoadedId = (state) => state.presets.loadedId;
+export const getLoadedId = state => state.presets.loadedId;
 
-export const getPresets = (state) => state.presets.presets;
+export const getPresets = state => state.presets.presets;

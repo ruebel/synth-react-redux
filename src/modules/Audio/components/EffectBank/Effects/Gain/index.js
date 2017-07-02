@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import RangeControl from '../../../../../components/RangeControl';
 
 class Gain extends React.Component {
@@ -37,12 +38,13 @@ class Gain extends React.Component {
   render() {
     return (
       <div>
-        <RangeControl title={this.props.title || 'Volume'}
-                      min={0}
-                      max={1}
-                      onSet={e => this.handleLevelChange(e)}
-                      value={this.props.value || 1}
-          />
+        <RangeControl
+          title={this.props.title || 'Volume'}
+          min={0}
+          max={1}
+          onSet={e => this.handleLevelChange(e)}
+          value={this.props.value || 1}
+        />
       </div>
     );
   }
@@ -51,8 +53,6 @@ class Gain extends React.Component {
 Gain.propTypes = {
   change: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
-  output: PropTypes.object.isRequired,
   title: PropTypes.string,
   value: PropTypes.number.isRequired
 };

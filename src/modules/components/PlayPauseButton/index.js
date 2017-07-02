@@ -1,9 +1,10 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Pause from '../icons/Pause';
 import Play from '../icons/Play';
 
-const PlayPauseButton = ({click, play}) => {
-  return play ? <Pause click={click}/> : <Play click={click}/>;
+const PlayPauseButton = ({ click, play }) => {
+  return play ? <Pause click={click} /> : <Play click={click} />;
 };
 
 PlayPauseButton.propTypes = {

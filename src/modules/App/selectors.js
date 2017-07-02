@@ -1,1 +1,1 @@
-export const getContext = (state) => state.context;
+export const getContext = state => state.context;

@@ -1,11 +1,12 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import EffectBank from './components/EffectBank';
 import OutputGain from './components/OutputGain';
 import Stream from './components/Stream';
 import ToneBank from './components/ToneBank';
-import {inputTypes} from '../../utils/input';
-import {selectors as appSelectors} from '../App';
+import { inputTypes } from '../../utils/input';
+import { selectors as appSelectors } from '../App';
 
 class Audio extends React.Component {
   constructor(props) {
@@ -19,21 +20,11 @@ class Audio extends React.Component {
   render() {
     return (
       <div>
-        {
-          this.props.input && this.props.input.device === inputTypes.stream ? (
-            <Stream
-              context={this.props.context}
-              output={this.inputGain}/>
-          ) : (
-            <ToneBank
-              output={this.inputGain}/>
-          )
-        }
-        <EffectBank
-          inputGain={this.inputGain}
-          outputGain={this.outputGain}/>
-        <OutputGain
-          gain={this.outputGain}/>
+        {this.props.input && this.props.input.device === inputTypes.stream
+          ? <Stream context={this.props.context} output={this.inputGain} />
+          : <ToneBank output={this.inputGain} />}
+        <EffectBank inputGain={this.inputGain} outputGain={this.outputGain} />
+        <OutputGain gain={this.outputGain} />
       </div>
     );
   }
@@ -44,8 +35,8 @@ Audio.propTypes = {
   input: PropTypes.object
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   context: appSelectors.getContext(state)
 });
 
-export default connect(mapStateToProps, null)(Audio);
+export default connect(mapStateToProps)(Audio);

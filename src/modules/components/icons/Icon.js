@@ -1,30 +1,65 @@
-import React, {PropTypes} from 'react';
-import classNames from 'classnames/bind';
-const styles = require('./styles.css');
-const cx = classNames.bind(styles);
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-const Icon = (WrappedComponent, isFill) => {
-  class IconComponent extends React.Component {
-    render() {
-      const style = cx({
-        icon: true,
-        fill: isFill,
-        active: this.props.active,
-        disabled: this.props.disabled,
-        down: this.props.down,
-        left: this.props.left,
-        up: this.props.up
-      });
-      return (
-        <div onClick={this.props.click} className={style}>
-          <WrappedComponent
-            {...this.props}
-            className={style}/>
-        </div>
+const getColor = (active, colors, disabled, fill) => {
+  if (!active && !disabled) {
+    return null;
+  }
+  const target = fill ? 'fill' : 'stroke';
+  const color = disabled
+    ? colors.controlDisabled
+    : fill ? colors.warning : colors.control;
+  return `
+    & g {
+      ${target}: ${color};
+    }
+  `;
+};
 
-      );
+const getTransform = (down, left, up) => {
+  if (down || left || up) {
+    const rotation = down ? '90' : left ? '180' : '-90';
+    return `
+      & > svg {
+        transform: rotate(${rotation}deg);
+      }
+    `;
+  }
+  return null;
+};
+
+const Wrapper = styled.div`
+  cursor: ${p => (p.disabled ? 'not-allowed' : 'pointer')};
+  display: inline-block;
+  margin: 0 2px;
+  ${p => getTransform(p.down, p.left, p.up)} ${p =>
+  getColor(p.active, p.theme.color, p.disabled, p.fill)} &:hover {
+    & g {
+      ${p =>
+    !p.disabled &&
+        `${p.fill ? 'fill' : 'stroke'}: ${p.theme.color.controlDanger};`};
     }
   }
+`;
+
+const Icon = (WrappedComponent, isFill) => {
+  const IconComponent = props => {
+    const { active, click, disabled, down, left, up } = props;
+    return (
+      <Wrapper
+        active={active}
+        disabled={disabled}
+        down={down}
+        fill={isFill}
+        left={left}
+        onClick={click}
+        up={up}
+      >
+        <WrappedComponent {...props} />
+      </Wrapper>
+    );
+  };
 
   IconComponent.propTypes = {
     active: PropTypes.bool,
