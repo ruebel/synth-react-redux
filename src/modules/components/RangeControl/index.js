@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import ReactSlider from 'react-slider';
 import styled from 'styled-components';
 import Color from 'color';
-import { actions as controlActions } from '../../Control';
 import { scaleNumber } from '../../../utils/math';
+import { actions as controlActions } from '../../Control';
 
 const Assign = styled.h3`
   color: ${p => p.theme.color.primary};

@@ -48,6 +48,8 @@
     "extends": "gsandf-react",
     "parser": "babel-eslint",
     "rules": {
+      "eqeqeq": 1,
+      "indent": 0,
       "react/jsx-indent": 0,
       "react/jsx-indent-props": 0,
       "react/no-unused-prop-types": 0,

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import * as selectors from './selectors';
@@ -43,14 +44,15 @@ class Sequencer extends React.Component {
   next = () => {
     this.setState(state => {
       // Calculate next position
-      const nextPos = state.position ===
+      const nextPos =
+        state.position ===
         this.props.timeSig.num *
           16 /
           this.props.timeSig.den *
           this.props.measureCnt -
           1
-        ? 0
-        : state.position + 1;
+          ? 0
+          : state.position + 1;
       // Trigger any note events in the next position
       this.props.triggerNotes(this.state.beats[nextPos].notes);
       // Set the state

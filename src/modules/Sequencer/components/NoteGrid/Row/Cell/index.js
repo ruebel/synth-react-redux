@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const colors = ['117, 171, 220', '250, 211, 148', '53, 183, 128'];
 const getColor = (beat, hasNote, on) => {
@@ -23,7 +24,10 @@ const Cell = ({ addNote, beat, id, note, on, removeNote, tone }) => {
       onClick={() => (note ? removeNote(note) : addNote({ beat: id, tone }))}
       style={getStyle(beat, hasNote, on)}
     >
-      {hasNote && <span>{note.tone}</span>}
+      {hasNote &&
+        <span>
+          {note.tone}
+        </span>}
     </td>
   );
 };

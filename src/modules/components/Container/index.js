@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Button from '../Button';
+import LinkButton from '../Button/LinkButton';
 import PowerSwitch from '../PowerSwitch';
 
 const Header = styled.div`
@@ -48,7 +48,7 @@ const Container = ({
         </h3>
         {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}
-        {close && <Button active click={close} text="X" type="link" />}
+        {close && <LinkButton active click={close} text="X" />}
       </Header>
       {children}
     </Wrapper>
