@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import Row from './Row';
+
+const Wrapper = styled.div`overflow-x: scroll;`;
 
 const NoteGrid = ({ addNote, beats, notes, position, removeNote }) => {
   return (
-    <div style={{ overflowX: scroll }}>
+    <Wrapper>
       <table>
         <tbody>
           <tr>
@@ -29,7 +32,7 @@ const NoteGrid = ({ addNote, beats, notes, position, removeNote }) => {
           )}
         </tbody>
       </table>
-    </div>
+    </Wrapper>
   );
 };
 

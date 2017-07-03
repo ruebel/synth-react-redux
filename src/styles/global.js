@@ -5,6 +5,7 @@ injectGlobal`
   html {
     box-sizing: border-box;
     font-size: 10px;
+    font-family: ${fontFamily.primary};
   }
   body {
     font-size: 1.3rem;

@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import * as actions from './actions';
 import * as selectors from './selectors';
 import NoteGrid from './components/NoteGrid';
 import PowerSwitch from '../components/PowerSwitch';
 import Refresh from '../components/icons/Refresh';
+
+const ActionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 class Sequencer extends React.Component {
   state = {
@@ -112,20 +119,14 @@ class Sequencer extends React.Component {
   render() {
     return (
       <div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}
-        >
+        <ActionWrapper>
           <PowerSwitch
             change={this.togglePower}
             title="Sequencer"
             value={this.state.on}
           />
           <Refresh click={this.reset} />
-        </div>
+        </ActionWrapper>
         <NoteGrid
           addNote={this.props.addNote}
           beats={this.state.beats}

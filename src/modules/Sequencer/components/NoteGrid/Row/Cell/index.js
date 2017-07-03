@@ -1,5 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const Wrapper = styled.td`
+  background: ${p => getColor(p.beat, p.hasNote, p.on)};
+  color: ${p => (p.on ? 'white' : 'black')};
+  min-width: 20px;
+  width: 45px;
+`;
 
 const colors = ['117, 171, 220', '250, 211, 148', '53, 183, 128'];
 const getColor = (beat, hasNote, on) => {
@@ -10,25 +18,20 @@ const getColor = (beat, hasNote, on) => {
   }
 };
 
-const getStyle = (beat, hasNote, on) => ({
-  backgroundColor: getColor(beat, hasNote, on),
-  color: on ? 'white' : 'black',
-  minWidth: '20px',
-  width: '45px'
-});
-
 const Cell = ({ addNote, beat, id, note, on, removeNote, tone }) => {
   const hasNote = note && note.velocity > 0;
   return (
-    <td
+    <Wrapper
+      beat={beat}
+      hasNote={hasNote}
+      on={on}
       onClick={() => (note ? removeNote(note) : addNote({ beat: id, tone }))}
-      style={getStyle(beat, hasNote, on)}
     >
       {hasNote &&
         <span>
           {note.tone}
         </span>}
-    </td>
+    </Wrapper>
   );
 };
 
