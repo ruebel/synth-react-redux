@@ -9,15 +9,15 @@ const Wrapper = styled.div`
 
   .handle {
     font-size: 0.9em;
-    line-height: ${p => p.handleSize};
+    line-height: ${p => p.handleSize}px;
     text-align: center;
     background: ${p => p.theme.color.grayExtraDark};
     color: ${p => p.theme.color.light};
     cursor: pointer;
-    width: ${p => p.handleSize};
+    width: ${p => p.handleSize}px;
     border-radius: 50%;
-    height: ${p => p.handleSize};
-    margin-top: -calc(${p => p.handleSize}/2);
+    height: ${p => p.handleSize}px;
+    margin-top: -${p => p.handleSize / 2}px;
     z-index: 0;
     transition: transform 0.2s ease-in, background 0.2s ease-in;
 
@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 
 const MinMax = ({ max = 1.5, min = 0, onSet, step = 0.01, title, value }) => {
   return (
-    <Wrapper handleSize="30px">
+    <Wrapper handleSize={30}>
       <h3>
         {title}
       </h3>

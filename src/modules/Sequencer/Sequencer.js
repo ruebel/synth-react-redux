@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import * as actions from './actions';
 import * as selectors from './selectors';
+import Gear from '../components/icons/Gear';
 import NoteGrid from './components/NoteGrid';
 import PowerSwitch from '../components/PowerSwitch';
 import Refresh from '../components/icons/Refresh';
+import SequencerSettings from './SequencerSettings';
 
 const ActionWrapper = styled.div`
   display: flex;
@@ -19,7 +21,8 @@ class Sequencer extends React.Component {
     beats: {},
     notes: {},
     on: false,
-    position: -1
+    position: -1,
+    showSettings: false
   };
 
   componentDidMount() {
@@ -98,6 +101,10 @@ class Sequencer extends React.Component {
     }));
   };
 
+  saveSettings = () => {
+    console.log('saved');
+  };
+
   start = ({ tempo, timeSig }) => {
     this.stop();
     this.timer = setInterval(this.next, 60000 / (tempo * timeSig.num));
@@ -116,6 +123,12 @@ class Sequencer extends React.Component {
     this.state.on ? this.stop() : this.start(this.props);
   };
 
+  toggleSettingsModal = () => {
+    this.setState(state => ({
+      showSettings: !state.showSettings
+    }));
+  };
+
   render() {
     return (
       <div>
@@ -125,6 +138,7 @@ class Sequencer extends React.Component {
             title="Sequencer"
             value={this.state.on}
           />
+          <Gear click={this.toggleSettingsModal} />
           <Refresh click={this.reset} />
         </ActionWrapper>
         <NoteGrid
@@ -133,6 +147,11 @@ class Sequencer extends React.Component {
           notes={this.state.notes}
           position={this.state.position}
           removeNote={this.props.removeNote}
+        />
+        <SequencerSettings
+          close={this.toggleSettingsModal}
+          save={this.saveSettings}
+          show={this.state.showSettings}
         />
       </div>
     );

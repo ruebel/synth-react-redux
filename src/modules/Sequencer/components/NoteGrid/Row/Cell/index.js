@@ -2,16 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Color from 'color';
-const colors = [
-  'rgb(117, 171, 220)',
-  'rgb(250, 211, 148)',
-  'rgb(53, 183, 128)'
-];
+const colors = ['#73aade', '#fbd490', '#2cb87e'];
 
 const getColor = (beat, note, on, hover = false) => {
   const hasNote = note && note.velocity > 0;
   if (on) {
-    return 'rebeccapurple';
+    return '#672e9b';
   } else if (hover) {
     return Color(colors[beat - 1]).darken(hasNote ? 0.2 : 0).string();
   } else if (hasNote) {
@@ -19,13 +15,13 @@ const getColor = (beat, note, on, hover = false) => {
       .alpha(Math.min(1, note.velocity / 128 + 0.3))
       .string();
   } else {
-    return Color(colors[beat - 1]).desaturate(0.85).lighten(0.2).string();
+    return Color(colors[beat - 1]).desaturate(0.85).lighten(0.25).string();
   }
 };
 
 const Wrapper = styled.td`
   background: ${p => getColor(p.beat, p.note, p.on)};
-  color: ${p => (p.on ? 'white' : 'black')};
+  color: ${p => (p.on ? p.theme.color.light : p.theme.color.black)};
   cursor: pointer;
   min-width: 20px;
   width: 45px;
@@ -53,10 +49,9 @@ const Cell = ({ addNote, beat, id, note, on, removeNote, tone }) => {
       on={on}
       onClick={() => (note ? removeNote(note) : addNote({ beat: id, tone }))}
     >
-      {hasNote &&
-        <span>
-          {note.tone}
-        </span>}
+      <span>
+        {hasNote ? tone : '+'}
+      </span>
     </Wrapper>
   );
 };
