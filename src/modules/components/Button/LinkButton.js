@@ -9,7 +9,7 @@ export default styled(Button)`
   padding: 0 10px;
   transition: color 100ms ease-in-out, background-color 100ms ease-in-out;
 
-  &:hover {
+  &:hover:enabled {
     color: ${p => p.theme.color.primary};
     background-color: ${p => Color(p.theme.color.light).darken(0.05).string()};
   }

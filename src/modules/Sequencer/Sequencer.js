@@ -8,7 +8,7 @@ import Gear from '../components/icons/Gear';
 import NoteGrid from './components/NoteGrid';
 import PowerSwitch from '../components/PowerSwitch';
 import Refresh from '../components/icons/Refresh';
-import SequencerSettings from './SequencerSettings';
+import SequencerSettings from './components/SequencerSettings';
 
 const ActionWrapper = styled.div`
   display: flex;

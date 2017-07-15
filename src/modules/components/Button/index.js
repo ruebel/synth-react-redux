@@ -66,10 +66,10 @@ const Wrapper = styled.button`
   }
 `;
 
-const Button = ({ active, click, color, flavor, selected, text }) => {
+const Button = ({ active, className, click, color, flavor, selected, text }) => {
   return (
     <Wrapper
-      className={flavor}
+      className={className + ' ' + flavor}
       disabled={!active || selected}
       onClick={() => click()}
       selected={selected}
@@ -84,6 +84,7 @@ const Button = ({ active, click, color, flavor, selected, text }) => {
 
 Button.propTypes = {
   active: PropTypes.bool,
+  className: PropTypes.string,
   click: PropTypes.func.isRequired,
   color: PropTypes.string,
   flavor: PropTypes.string,

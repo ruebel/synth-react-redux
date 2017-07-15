@@ -5,6 +5,8 @@ export default styled(Button)`
   border-radius: 50%;
   height: 32px;
   width: 32px;
+  min-width: 32px;
+  min-height: 32px;
   line-height: 32px;
   padding: 0;
   margin: 0 5px;
@@ -12,8 +14,8 @@ export default styled(Button)`
   text-align: center;
 
   & > div {
-    font-size: 1.8em;
-    margin-top: -5px;
+    font-size: 1.4em;
+    margin-top: -3px;
   }
 
   &:focus {

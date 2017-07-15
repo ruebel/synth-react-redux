@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '../Input';
 
-const TextInput = ({ change, placeholder, required, value }) => {
+const NumberInput = ({ change, placeholder, required, value }) => {
   return (
     <Input
-      type="text"
+      type="number"
       onChange={change}
       placeholder={placeholder}
       required={required}
@@ -14,11 +14,11 @@ const TextInput = ({ change, placeholder, required, value }) => {
   );
 };
 
-TextInput.propTypes = {
+NumberInput.propTypes = {
   change: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
   value: PropTypes.string
 };
 
-export default TextInput;
+export default NumberInput;

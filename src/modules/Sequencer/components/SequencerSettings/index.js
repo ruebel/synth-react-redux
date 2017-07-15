@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Button from '../../components/Button';
-import ButtonGroup from '../../components/ButtonGroup';
-import Gear from '../../components/icons/Gear';
-import InputGroup from '../../components/InputGroup';
-import Modal from '../../components/Modal';
-import TextInput from '../../components/TextInput';
-const getSocketPrevious = () => ({});
-const getSocketSettings = () => ({});
+import Button from '../../../components/Button';
+import ButtonGroup from '../../../components/ButtonGroup';
+import Gear from '../../../components/icons/Gear';
+import InputGroup from '../../../components/InputGroup';
+import Modal from '../../../components/Modal';
+import NumberInput from '../../../components/NumberInput';
+// import TextInput from '../../../components/TextInput';
+const getSequencerSettings = () => ({});
 
 const Wrapper = styled.div`
   width: 60vw;
@@ -60,12 +60,12 @@ class SequencerSettings extends React.Component {
       ? <Modal close={this.handleClose} icon={icon}>
           <Wrapper>
             <h1>Sequencer Settings</h1>
-            <InputGroup label="Url" required require={this.state.url}>
-              <TextInput
-                change={e => this.handleChange(e, 'url')}
-                placeholder="Url"
+            <InputGroup label="Tempo" required require={this.state.tempo}>
+              <NumberInput
+                change={e => this.handleChange(e, 'tempo')}
+                placeholder="Tempo (bpm)"
                 required
-                value={this.state.settings.url}
+                value={this.state.settings.tempo}
               />
             </InputGroup>
             <ButtonGroup>
@@ -96,8 +96,7 @@ SequencerSettings.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  previous: getSocketPrevious(state),
-  settings: getSocketSettings(state)
+  settings: getSequencerSettings(state)
 });
 
 export default connect(mapStateToProps, null)(SequencerSettings);
