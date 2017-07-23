@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import H3 from '../typography/H3';
 import LinkButton from '../Button/LinkButton';
 import PowerSwitch from '../PowerSwitch';
 
@@ -10,14 +11,15 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: ${p => (p.pullUp ? '-40' : '0')}px;
-  & > h3 {
-    margin: 0;
-  }
 
   & > button {
     margin-top: -10px;
     margin-right: -10px;
   }
+`;
+
+const Title = styled(H3)`
+  margin: 0;
 `;
 
 const Wrapper = styled.div`
@@ -43,9 +45,9 @@ const Container = ({
   return (
     <Wrapper active={active} full={full} tight={tight}>
       <Header pullUp={!title && (titleControl || close)}>
-        <h3>
+        <Title>
           {title}
-        </h3>
+        </Title>
         {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}
         {close && <LinkButton active click={close} text="X" />}

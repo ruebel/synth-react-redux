@@ -66,7 +66,15 @@ const Wrapper = styled.button`
   }
 `;
 
-const Button = ({ active, className, click, color, flavor, selected, text }) => {
+const Button = ({
+  active,
+  className,
+  click,
+  color,
+  flavor,
+  selected,
+  text
+}) => {
   return (
     <Wrapper
       className={className + ' ' + flavor}

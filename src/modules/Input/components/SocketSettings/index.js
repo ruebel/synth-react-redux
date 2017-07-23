@@ -6,6 +6,7 @@ import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
 import Close from '../../../components/icons/Close';
 import Gear from '../../../components/icons/Gear';
+import H1 from '../../../components/typography/H1';
 import InputGroup from '../../../components/InputGroup';
 import JsonViewer from './JsonViewer';
 import MinMax from '../../../components/MinMax';
@@ -101,7 +102,7 @@ class SocketSettings extends React.Component {
     return this.props.show
       ? <Modal close={this.handleClose} icon={icon}>
           <Wrapper>
-            <h1>Socket Settings</h1>
+            <H1>Socket Settings</H1>
             <InputGroup label="Url" required require={this.state.url}>
               <TextInput
                 change={e => this.handleChange(e, 'url')}

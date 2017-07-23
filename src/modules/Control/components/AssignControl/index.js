@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Button from '../../../components/Button';
+import H1 from '../../../components/typography/H1';
+import H3 from '../../../components/typography/H3';
 import RangeControl from '../../../components/RangeControl';
 import Modal from '../../../components/Modal';
 import { addControl, assignControl, removeControl } from '../../actions';
@@ -21,7 +23,14 @@ const ButtonRow = styled.div`
   }
 `;
 
-const Header = styled.h3`
+const Control = styled(H3)`
+  & span {
+    color: ${p => p.theme.color.primary};
+    margin-left: 10px;
+  }
+`;
+
+const Header = styled(H3)`
   font-size: 1.5em;
   color: ${p => p.theme.color.secondary};
 `;
@@ -40,19 +49,12 @@ const Midi = styled.div`
   }
 `;
 
+const Title = styled(H1)`
+  margin-top: 0;
+`;
+
 const Wrapper = styled.div`
   text-align: center;
-
-  & h1 {
-    margin-top: 0;
-  }
-
-  & h3 {
-    & span {
-      color: ${p => p.theme.color.primary};
-      margin-left: 10px;
-    }
-  }
 `;
 
 const AssignControl = ({
@@ -65,22 +67,22 @@ const AssignControl = ({
   return control
     ? <Modal close={assignControl}>
         <Wrapper>
-          <h1>Assign MIDI Control</h1>
+          <Title>Assign MIDI Control</Title>
           <Header>
             {control.effect} - {control.property}
           </Header>
           <Midi>
-            {!note && !control.channel && <h3>Activate MIDI Control</h3>}
+            {!note && !control.channel && <Control>Activate MIDI Control</Control>}
             {(note || control.channel) &&
               <div>
-                <h3>
+                <Control>
                   Channel:
                   <span>{note ? note[0] : control.channel}</span>
-                </h3>
-                <h3>
+                </Control>
+                <Control>
                   Control:
                   <span>{note ? note[1] : control.control}</span>
-                </h3>
+                </Control>
                 <RangeControl
                   title="Value"
                   value={note ? note[2] : 0}

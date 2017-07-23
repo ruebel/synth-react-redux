@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import H3 from '../typography/H3';
 
 const size = 28;
 const borderSize = '2px';
@@ -31,27 +32,27 @@ const Inner = styled.div`
   }
 `;
 
+const Title = styled(H3)`
+  margin-right: 30px;
+  color: ${p =>
+    p.on ? p.theme.color.grayExtraDark : p.theme.color.graySemidark};
+  transition: color ${transTime} ease-in;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-
-  & > h3 {
-    margin-right: 30px;
-    color: ${p =>
-      p.on ? p.theme.color.grayExtraDark : p.theme.color.graySemidark};
-    transition: color ${transTime} ease-in;
-  }
 `;
 
 const PowerSwitch = ({ change, title, value }) => {
   return (
     <Wrapper on={value}>
       {title &&
-        <h3>
+        <Title>
           {title}
-        </h3>}
+        </Title>}
       <Inner on={value} onClick={() => change()}>
         <div />
       </Inner>

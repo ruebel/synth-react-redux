@@ -6,6 +6,8 @@ const measureCnt = (state = 2, action) => {
   switch (action.type) {
     case C.SET_MEASURE_CNT:
       return action.payload;
+    case C.SET_SETTINGS:
+      return action.payload.measureCnt;
     default:
       return state;
   }
@@ -28,6 +30,8 @@ const tempo = (state = 120, action) => {
   switch (action.type) {
     case C.SET_TEMPO:
       return action.payload;
+    case C.SET_SETTINGS:
+      return action.payload.tempo;
     default:
       return state;
   }
@@ -37,6 +41,8 @@ const timeSig = (state = { num: 3, den: 4 }, action) => {
   switch (action.type) {
     case C.SET_TIME_SIG:
       return action.payload;
+    case C.SET_SETTINGS:
+      return action.payload.timeSig;
     default:
       return state;
   }

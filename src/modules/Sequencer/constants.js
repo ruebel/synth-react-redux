@@ -4,6 +4,7 @@ export const C = {
   EDIT_NOTE: `${name}/EDIT_NOTE`,
   REMOVE_NOTE: `${name}/REMOVE_NOTE`,
   SET_MEASURE_CNT: `${name}/SET_MEASURE_CNT`,
+  SET_SETTINGS: `${name}/SET_SETTINGS`,
   SET_TEMPO: `${name}/SET_TEMPO`,
   SET_TIME_SIG: `${name}/SET_TIME_SIG`
 };

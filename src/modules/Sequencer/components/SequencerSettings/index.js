@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
 import Gear from '../../../components/icons/Gear';
+import H1 from '../../../components/typography/H1';
 import InputGroup from '../../../components/InputGroup';
 import Modal from '../../../components/Modal';
 import NumberInput from '../../../components/NumberInput';
 // import TextInput from '../../../components/TextInput';
-const getSequencerSettings = () => ({});
+import { setSettings } from '../../actions';
+import { getSettings } from '../../selectors';
 
 const Wrapper = styled.div`
   width: 60vw;
@@ -27,7 +29,7 @@ class SequencerSettings extends React.Component {
 
   handleClose = () => {
     if (this.state.hasChange) {
-      this.props.save(this.state.previous);
+      this.props.setSettings(this.state.previous);
     }
     this.setState({
       hasChange: false,
@@ -46,7 +48,7 @@ class SequencerSettings extends React.Component {
   };
 
   handleSave = () => {
-    this.props.save(this.state.settings);
+    this.props.setSettings(this.state.settings);
     this.setState({
       previous: this.state.settings
     });
@@ -59,7 +61,7 @@ class SequencerSettings extends React.Component {
     return this.props.show
       ? <Modal close={this.handleClose} icon={icon}>
           <Wrapper>
-            <h1>Sequencer Settings</h1>
+            <H1>Sequencer Settings</H1>
             <InputGroup label="Tempo" required require={this.state.tempo}>
               <NumberInput
                 change={e => this.handleChange(e, 'tempo')}
@@ -89,14 +91,17 @@ class SequencerSettings extends React.Component {
 
 SequencerSettings.propTypes = {
   close: PropTypes.func.isRequired,
+  measureCnt: PropTypes.number,
   previous: PropTypes.object,
-  save: PropTypes.func.isRequired,
   settings: PropTypes.object,
+  setSettings: PropTypes.func.isRequired,
   show: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  settings: getSequencerSettings(state)
+  settings: getSettings(state)
 });
 
-export default connect(mapStateToProps, null)(SequencerSettings);
+export default connect(mapStateToProps, {
+  setSettings
+})(SequencerSettings);

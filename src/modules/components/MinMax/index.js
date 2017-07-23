@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSlider from 'react-slider';
 import styled from 'styled-components';
+import H3 from '../typography/H3';
 import { scaleNumber } from '../../../utils/math';
 
 const Wrapper = styled.div`
@@ -41,9 +42,9 @@ const Wrapper = styled.div`
 const MinMax = ({ max = 1.5, min = 0, onSet, step = 0.01, title, value }) => {
   return (
     <Wrapper handleSize={30}>
-      <h3>
+      <H3>
         {title}
-      </h3>
+      </H3>
       <ReactSlider
         className="slider"
         handleClassName="handle"

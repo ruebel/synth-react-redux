@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
+import H1 from '../../../components/typography/H1';
 import InputGroup from '../../../components/InputGroup';
 import Modal from '../../../components/Modal';
 import TextInput from '../../../components/TextInput';
@@ -41,7 +42,7 @@ class AddPreset extends React.Component {
   render() {
     return this.props.show
       ? <Modal close={this.handleClose}>
-          <h1>Add Preset</h1>
+          <H1>Add Preset</H1>
           <InputGroup label="Preset Name" required require={this.state.name}>
             <TextInput
               change={this.handleNameChange}

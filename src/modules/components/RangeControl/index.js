@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import ReactSlider from 'react-slider';
 import styled from 'styled-components';
 import Color from 'color';
+import H3 from '../typography/H3';
 import { scaleNumber } from '../../../utils/math';
 import { actions as controlActions } from '../../Control';
 
-const Assign = styled.h3`
+const Assign = styled(H3)`
   color: ${p => p.theme.color.primary};
   cursor: pointer;
   display: flex;
@@ -91,22 +92,22 @@ const RangeControl = ({
             <ReactTooltip id="midi">
               {assign.channel
                 ? <div>
-                    <h3>Click to edit MIDI control</h3>
-                    <h3>
+                    <H3>Click to edit MIDI control</H3>
+                    <H3>
                       Channel:
                       <span>{assign.channel}</span>
-                    </h3>
-                    <h3>
+                    </H3>
+                    <H3>
                       Control:
                       <span>{assign.control}</span>
-                    </h3>
+                    </H3>
                   </div>
                 : 'Click to assign MIDI control'}
             </ReactTooltip>
           </Assign>
-        : <h3>
+        : <H3>
             {title}
-          </h3>}
+          </H3>}
       <ReactSlider
         className="slider"
         handleClassName="handle"

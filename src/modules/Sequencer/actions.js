@@ -34,6 +34,11 @@ export const setMeasureCnt = measureCnt => ({
   payload: measureCnt
 });
 
+export const setSettings = settings => ({
+  type: C.SET_SETTINGS,
+  payload: settings
+});
+
 export const setTempo = tempo => ({
   type: C.SET_TEMPO,
   payload: tempo
