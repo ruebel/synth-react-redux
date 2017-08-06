@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import * as actions from './actions';
 import * as selectors from './selectors';
 import Gear from '../components/icons/Gear';
+import H3 from '../components/typography/H3';
 import NoteGrid from './components/NoteGrid';
+import PlusMinus from '../components/icons/PlusMinus';
 import PowerSwitch from '../components/PowerSwitch';
 import Refresh from '../components/icons/Refresh';
 import SequencerSettings from './components/SequencerSettings';
@@ -16,13 +18,23 @@ const ActionWrapper = styled.div`
   align-items: center;
 `;
 
+const Title = styled(H3)`
+  margin-right: 20px;
+`;
+
+const ToggleWrapper = styled.div`
+  flex: 1;
+  text-align: end;
+`;
+
 class Sequencer extends React.Component {
   state = {
     beats: {},
     notes: {},
     on: false,
     position: -1,
-    showSettings: false
+    showSettings: false,
+    shown: false
   };
 
   componentDidMount() {
@@ -101,10 +113,6 @@ class Sequencer extends React.Component {
     }));
   };
 
-  saveSettings = () => {
-    console.log('saved');
-  };
-
   start = ({ tempo, timeSig }) => {
     this.stop();
     this.timer = setInterval(this.next, 60000 / (tempo * timeSig.num));
@@ -117,6 +125,15 @@ class Sequencer extends React.Component {
     }
     this.props.stop();
     this.setState(() => ({ on: false }));
+  };
+
+  toggleShown = () => {
+    if (this.state.on) {
+      this.stop();
+    }
+    this.setState(state => ({
+      shown: !state.shown
+    }));
   };
 
   togglePower = () => {
@@ -133,26 +150,31 @@ class Sequencer extends React.Component {
     return (
       <div>
         <ActionWrapper>
-          <PowerSwitch
-            change={this.togglePower}
-            title="Sequencer"
-            value={this.state.on}
-          />
-          <Gear click={this.toggleSettingsModal} />
-          <Refresh click={this.reset} />
+          <Title>Sequencer</Title>
+          {this.state.shown &&
+            <ActionWrapper>
+              <PowerSwitch change={this.togglePower} value={this.state.on} />
+              <Gear click={this.toggleSettingsModal} />
+              <Refresh click={this.reset} />
+            </ActionWrapper>}
+          <ToggleWrapper onClick={this.toggleShown}>
+            <PlusMinus minus={this.state.shown} size={18} />
+          </ToggleWrapper>
         </ActionWrapper>
-        <NoteGrid
-          addNote={this.props.addNote}
-          beats={this.state.beats}
-          notes={this.state.notes}
-          position={this.state.position}
-          removeNote={this.props.removeNote}
-        />
-        <SequencerSettings
-          close={this.toggleSettingsModal}
-          save={this.saveSettings}
-          show={this.state.showSettings}
-        />
+        {this.state.shown &&
+          <div>
+            <NoteGrid
+              addNote={this.props.addNote}
+              beats={this.state.beats}
+              notes={this.state.notes}
+              position={this.state.position}
+              removeNote={this.props.removeNote}
+            />
+            <SequencerSettings
+              close={this.toggleSettingsModal}
+              show={this.state.showSettings}
+            />
+          </div>}
       </div>
     );
   }

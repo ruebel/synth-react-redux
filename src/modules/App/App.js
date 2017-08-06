@@ -24,7 +24,7 @@ const App = ({ input, keyDown, keyUp }) => {
         <Input />
         <Presets />
       </Columns>
-      <Sequencer />
+      {input && input.device !== inputTypes.stream && <Sequencer />}
       {input &&
         input.device !== inputTypes.stream &&
         <Synth keyDown={keyDown} keyUp={keyUp} />}

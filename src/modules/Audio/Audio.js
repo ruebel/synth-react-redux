@@ -8,7 +8,7 @@ import ToneBank from './components/ToneBank';
 import { inputTypes } from '../../utils/input';
 import { selectors as appSelectors } from '../App';
 
-class Audio extends React.Component {
+class Audio extends React.PureComponent {
   constructor(props) {
     super(props);
 

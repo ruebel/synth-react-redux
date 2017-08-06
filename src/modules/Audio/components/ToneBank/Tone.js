@@ -5,7 +5,7 @@ import { defaultVelocity } from '../../actions';
 const minTime = 0.001;
 const defaultBendSpeed = 0.05;
 
-class Tone extends React.Component {
+class Tone extends React.PureComponent {
   constructor(props) {
     super(props);
 

@@ -9,7 +9,7 @@ import H1 from '../../../components/typography/H1';
 import InputGroup from '../../../components/InputGroup';
 import Modal from '../../../components/Modal';
 import NumberInput from '../../../components/NumberInput';
-// import TextInput from '../../../components/TextInput';
+import TimeSigEdit from './TimeSigEdit';
 import { setSettings } from '../../actions';
 import { getSettings } from '../../selectors';
 
@@ -18,13 +18,12 @@ const Wrapper = styled.div`
   flex: 1;
 `;
 
-class SequencerSettings extends React.Component {
+class SequencerSettings extends React.PureComponent {
   state = {
     hasChange: false,
     options: [],
     previous: this.props.settings,
-    settings: this.props.settings,
-    showRaw: false
+    settings: this.props.settings
   };
 
   handleClose = () => {
@@ -41,9 +40,10 @@ class SequencerSettings extends React.Component {
   handleChange = (e, prop) => {
     this.setState({
       hasChange: true,
-      settings: Object.assign(this.state.settings, {
-        [prop]: e.target ? e.target.value : e
-      })
+      settings: {
+        ...this.state.settings,
+        [prop]: e.target ? Number.parseInt(e.target.value || 0) : e
+      }
     });
   };
 
@@ -52,6 +52,7 @@ class SequencerSettings extends React.Component {
     this.setState({
       previous: this.state.settings
     });
+    this.props.close();
   };
 
   render() {
@@ -70,6 +71,22 @@ class SequencerSettings extends React.Component {
                 value={this.state.settings.tempo}
               />
             </InputGroup>
+            <InputGroup
+              label="Measures"
+              required
+              require={this.state.measureCnt}
+            >
+              <NumberInput
+                change={e => this.handleChange(e, 'measureCnt')}
+                placeholder="Measures"
+                required
+                value={this.state.settings.measureCnt}
+              />
+            </InputGroup>
+            <TimeSigEdit
+              change={e => this.handleChange(e, 'timeSig')}
+              timeSig={this.state.settings.timeSig}
+            />
             <ButtonGroup>
               <Button
                 active

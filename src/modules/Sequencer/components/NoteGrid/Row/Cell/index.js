@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Color from 'color';
-const colors = ['#73aade', '#fbd490', '#2cb87e'];
+const colors = ['#73aade', '#fbd490', '#2cb87e', '#de73aa'];
 
 const getColor = (beat, note, on, hover = false) => {
   const hasNote = note && note.velocity > 0;
@@ -50,7 +50,7 @@ const Cell = ({ addNote, beat, id, note, on, removeNote, tone }) => {
       onClick={() => (note ? removeNote(note) : addNote({ beat: id, tone }))}
     >
       <span>
-        {hasNote ? tone : '+'}
+        {hasNote ? '-' : '+'}
       </span>
     </Wrapper>
   );

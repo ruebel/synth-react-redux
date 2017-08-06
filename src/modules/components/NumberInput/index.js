@@ -18,7 +18,7 @@ NumberInput.propTypes = {
   change: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   required: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export default NumberInput;
