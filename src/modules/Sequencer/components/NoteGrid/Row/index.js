@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from './Cell';
+import Header from './Header';
 
-const Row = ({ addNote, beats, position, removeNote, tone }) => {
+const Row = ({ addNote, beats, position, removeNote, selectNote, tone }) => {
   return (
     <tr>
-      <td>
-        {tone}
-      </td>
+      <Header tone={tone} />
       {Object.keys(beats).map((k, i) =>
         <Cell
           addNote={addNote}
@@ -18,6 +17,7 @@ const Row = ({ addNote, beats, position, removeNote, tone }) => {
           // eslint-disable-next-line eqeqeq
           on={k == position}
           removeNote={removeNote}
+          selectNote={selectNote}
           tone={tone}
         />
       )}
@@ -30,6 +30,7 @@ Row.propTypes = {
   beats: PropTypes.object,
   position: PropTypes.number,
   removeNote: PropTypes.func.isRequired,
+  selectNote: PropTypes.func.isRequired,
   tone: PropTypes.number
 };
 

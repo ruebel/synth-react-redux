@@ -2,6 +2,8 @@ export const getMeasureCnt = state => state.sequencer.measureCnt;
 
 export const getNotes = state => state.sequencer.notes;
 
+export const getNoteRevision = state => state.sequencer.noteRevision;
+
 export const getSettings = state => ({
   measureCnt: state.sequencer.measureCnt,
   tempo: state.sequencer.tempo,

@@ -1,11 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import Button from '../../../components/Button';
 import Row from './Row';
 
 const Wrapper = styled.div`overflow-x: scroll;`;
 
-const NoteGrid = ({ addNote, beats, notes, position, removeNote }) => {
+const NoteGrid = ({
+  addNote,
+  beats,
+  notes,
+  position,
+  removeNote,
+  selectNote
+}) => {
   return (
     <Wrapper>
       <table>
@@ -27,11 +36,13 @@ const NoteGrid = ({ addNote, beats, notes, position, removeNote }) => {
               key={i}
               position={position}
               removeNote={removeNote}
+              selectNote={selectNote}
               tone={notes[k]}
             />
           )}
         </tbody>
       </table>
+      <Button active click={() => 1} small text="+" />
     </Wrapper>
   );
 };
@@ -41,7 +52,8 @@ NoteGrid.propTypes = {
   beats: PropTypes.object,
   notes: PropTypes.object,
   position: PropTypes.number,
-  removeNote: PropTypes.func.isRequired
+  removeNote: PropTypes.func.isRequired,
+  selectNote: PropTypes.func.isRequired
 };
 
 export default NoteGrid;

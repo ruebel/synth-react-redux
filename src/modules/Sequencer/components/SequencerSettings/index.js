@@ -6,9 +6,8 @@ import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
 import Gear from '../../../components/icons/Gear';
 import H1 from '../../../components/typography/H1';
-import InputGroup from '../../../components/InputGroup';
 import Modal from '../../../components/Modal';
-import NumberInput from '../../../components/NumberInput';
+import RangeControl from '../../../components/RangeControl';
 import TimeSigEdit from './TimeSigEdit';
 import { setSettings } from '../../actions';
 import { getSettings } from '../../selectors';
@@ -63,26 +62,22 @@ class SequencerSettings extends React.PureComponent {
       ? <Modal close={this.handleClose} icon={icon}>
           <Wrapper>
             <H1>Sequencer Settings</H1>
-            <InputGroup label="Tempo" required require={this.state.tempo}>
-              <NumberInput
-                change={e => this.handleChange(e, 'tempo')}
-                placeholder="Tempo (bpm)"
-                required
-                value={this.state.settings.tempo}
-              />
-            </InputGroup>
-            <InputGroup
-              label="Measures"
-              required
-              require={this.state.measureCnt}
-            >
-              <NumberInput
-                change={e => this.handleChange(e, 'measureCnt')}
-                placeholder="Measures"
-                required
-                value={this.state.settings.measureCnt}
-              />
-            </InputGroup>
+            <RangeControl
+              title="Tempo (bpm)"
+              step={1}
+              value={this.state.settings.tempo}
+              onSet={e => this.handleChange(e, 'tempo')}
+              min={1}
+              max={300}
+            />
+            <RangeControl
+              title="Measures"
+              step={1}
+              value={this.state.settings.measureCnt}
+              onSet={e => this.handleChange(e, 'measureCnt')}
+              min={1}
+              max={4}
+            />
             <TimeSigEdit
               change={e => this.handleChange(e, 'timeSig')}
               timeSig={this.state.settings.timeSig}

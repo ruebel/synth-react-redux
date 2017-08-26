@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+
 import * as actions from './actions';
 import * as selectors from './selectors';
+
 import Gear from '../components/icons/Gear';
 import H3 from '../components/typography/H3';
 import NoteGrid from './components/NoteGrid';
+import NoteSettings from './components/NoteSettings';
 import PlusMinus from '../components/icons/PlusMinus';
 import PowerSwitch from '../components/PowerSwitch';
 import Refresh from '../components/icons/Refresh';
@@ -27,7 +30,7 @@ const ToggleWrapper = styled.div`
   text-align: end;
 `;
 
-class Sequencer extends React.Component {
+class Sequencer extends React.PureComponent {
   state = {
     beats: {},
     notes: {},
@@ -49,12 +52,7 @@ class Sequencer extends React.Component {
     ) {
       this.start(next);
     }
-    if (
-      next.timeSig.num !== this.props.timeSig.num ||
-      next.timeSig.den !== this.props.timeSig.den ||
-      next.measureCnt !== this.props.measureCnt ||
-      next.notes.length !== this.props.notes.length
-    ) {
+    if (next.noteRevision !== this.props.noteRevision) {
       this.setBeats(next);
     }
   }
@@ -127,15 +125,6 @@ class Sequencer extends React.Component {
     this.setState(() => ({ on: false }));
   };
 
-  toggleShown = () => {
-    if (this.state.on) {
-      this.stop();
-    }
-    this.setState(state => ({
-      shown: !state.shown
-    }));
-  };
-
   togglePower = () => {
     this.state.on ? this.stop() : this.start(this.props);
   };
@@ -146,7 +135,17 @@ class Sequencer extends React.Component {
     }));
   };
 
+  toggleShown = () => {
+    if (this.state.on) {
+      this.stop();
+    }
+    this.setState(state => ({
+      shown: !state.shown
+    }));
+  };
+
   render() {
+    const selectedNote = this.props.notes.find(n => n.selected);
     return (
       <div>
         <ActionWrapper>
@@ -163,12 +162,15 @@ class Sequencer extends React.Component {
         </ActionWrapper>
         {this.state.shown &&
           <div>
+            {selectedNote &&
+              <NoteSettings note={selectedNote} update={this.props.editNote} />}
             <NoteGrid
               addNote={this.props.addNote}
               beats={this.state.beats}
               notes={this.state.notes}
               position={this.state.position}
               removeNote={this.props.removeNote}
+              selectNote={this.props.selectNote}
             />
             <SequencerSettings
               close={this.toggleSettingsModal}
@@ -182,9 +184,12 @@ class Sequencer extends React.Component {
 
 Sequencer.propTypes = {
   addNote: PropTypes.func.isRequired,
+  editNote: PropTypes.func.isRequired,
   measureCnt: PropTypes.number,
   notes: PropTypes.array,
+  noteRevision: PropTypes.string,
   removeNote: PropTypes.func.isRequired,
+  selectNote: PropTypes.func.isRequired,
   stop: PropTypes.func.isRequired,
   tempo: PropTypes.number,
   timeSig: PropTypes.shape({
@@ -197,13 +202,16 @@ Sequencer.propTypes = {
 const mapStateToProps = state => ({
   measureCnt: selectors.getMeasureCnt(state),
   notes: selectors.getNotes(state),
+  noteRevision: selectors.getNoteRevision(state),
   tempo: selectors.getTempo(state),
   timeSig: selectors.getTimeSig(state)
 });
 
 export default connect(mapStateToProps, {
   addNote: actions.addNote,
+  editNote: actions.editNote,
   removeNote: actions.removeNote,
+  selectNote: actions.selectNote,
   stop: actions.stop,
   triggerNotes: actions.triggerNotes
 })(Sequencer);

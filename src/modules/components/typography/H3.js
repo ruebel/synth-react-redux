@@ -5,4 +5,5 @@ export default styled.h3`
   font-family: ${p => p.theme.fontFamily.primary};
   font-style: normal;
   font-weight: 700;
+  margin: 12px 0;
 `;

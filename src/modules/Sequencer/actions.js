@@ -7,14 +7,10 @@ export const addNote = note => ({
   payload: [
     {
       id: uuid.v4(),
+      length: 0.0625,
+      selected: true,
       velocity: 100,
       ...note
-    },
-    {
-      id: uuid.v4(),
-      ...note,
-      velocity: 0,
-      beat: note.beat + 1
     }
   ]
 });
@@ -24,9 +20,14 @@ export const editNote = note => ({
   payload: note
 });
 
-export const removeNote = note => ({
+export const removeNote = id => ({
   type: C.REMOVE_NOTE,
-  payload: note
+  payload: id
+});
+
+export const selectNote = id => ({
+  type: C.SELECT_NOTE,
+  payload: id
 });
 
 export const setMeasureCnt = measureCnt => ({
@@ -53,9 +54,14 @@ export const stop = () => dispatch => {
   dispatch(audioActions.clearKeys());
 };
 
-export const triggerNotes = (notes = []) => dispatch => {
-  // Trigger note offs first
-  notes
-    .sort((a, b) => a.velocity - b.velocity)
-    .map(n => dispatch(audioActions.keyDown(n.tone, n.velocity / 127)));
+export const triggerNotes = (notes = []) => (dispatch, getState) => {
+  const { sequencer } = getState();
+  const timeout = 60000 * sequencer.timeSig.den / sequencer.tempo;
+  notes.map(n => {
+    dispatch(audioActions.keyDown(n.tone, n.velocity / 127));
+    setTimeout(
+      () => dispatch(audioActions.keyUp(n.tone)),
+      timeout * n.length - 10
+    );
+  });
 };

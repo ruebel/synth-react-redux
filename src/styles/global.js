@@ -10,6 +10,9 @@ injectGlobal`
   body {
     font-size: 1.3rem;
   }
+  button:focus {
+    outline:0;
+  }
   *,
   *::before,
   *::after {
