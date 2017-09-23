@@ -6,25 +6,20 @@ import SocketSettings from './components/SocketSettings';
 import * as actions from './actions';
 
 class Input extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showSettings: false
-    };
-    this.handleSave = this.handleSave.bind(this);
-    this.toggleSettingsModal = this.toggleSettingsModal.bind(this);
-  }
+  state = {
+    showSettings: false
+  };
 
-  handleSave(settings) {
+  handleSave = settings => {
     this.toggleSettingsModal();
     this.props.setSocketSettings(settings);
-  }
+  };
 
-  toggleSettingsModal() {
+  toggleSettingsModal = () => {
     this.setState({
       showSettings: !this.state.showSettings
     });
-  }
+  };
 
   render() {
     return (

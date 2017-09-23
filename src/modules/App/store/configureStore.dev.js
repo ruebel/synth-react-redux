@@ -24,7 +24,7 @@ export default function configureStore() {
   }
 
   persistStore(store, {
-    blacklist: ['context']
+    blacklist: ['context', 'sequencer']
   });
 
   return store;

@@ -48,6 +48,8 @@
     "extends": "gsandf-react",
     "parser": "babel-eslint",
     "rules": {
+      "eqeqeq": 1,
+      "indent": 0,
       "react/jsx-indent": 0,
       "react/jsx-indent-props": 0,
       "react/no-unused-prop-types": 0,
@@ -93,7 +95,7 @@
     "file-loader": "0.9.0",
     "html-webpack-plugin": "2.22.0",
     "npm-run-all": "3.1.0",
-    "prettier": "^1.5.2",
+    "prettier": "^1.7.0",
     "redux-immutable-state-invariant": "1.2.3",
     "regenerator": "0.8.46",
     "rimraf": "2.5.4",

@@ -6,6 +6,7 @@ import Button from '../../../components/Button';
 import ButtonGroup from '../../../components/ButtonGroup';
 import Close from '../../../components/icons/Close';
 import Gear from '../../../components/icons/Gear';
+import H1 from '../../../components/typography/H1';
 import InputGroup from '../../../components/InputGroup';
 import JsonViewer from './JsonViewer';
 import MinMax from '../../../components/MinMax';
@@ -100,65 +101,65 @@ class SocketSettings extends React.Component {
     );
     return this.props.show
       ? <Modal close={this.handleClose} icon={icon}>
-        <Wrapper>
-          <h1>Socket Settings</h1>
-          <InputGroup label="Url" required require={this.state.url}>
-            <TextInput
-              change={e => this.handleChange(e, 'url')}
-              placeholder="Url"
-              required
-              value={this.state.settings.url}
-            />
-          </InputGroup>
-          <JsonViewer data={this.state.raw} minimized={!this.state.showRaw}>
-            <Actions>
-              <Refresh click={this.refreshMessage} />
-              {this.state.showRaw && <Close click={this.hideRaw} />}
-            </Actions>
-          </JsonViewer>
-          <InputGroup label="Velocity Trigger">
-            <Select
-              labelKey="name"
-              onChange={e => this.handleChange(e.id, 'velocityScalar')}
-              options={Object.keys(this.state.raw || {}).map(k => ({
-                id: k,
-                name: k
-              }))}
-              searchable={false}
-              value={this.state.settings.velocityScalar}
-              valueKey="id"
-            />
-          </InputGroup>
-          <InputGroup label="Scale">
-            <Scale
-              keys={this.state.settings.scale}
-              onChange={e => this.handleChange(e, 'scale')}
-            />
-          </InputGroup>
-          <InputGroup label="Note Length">
-            <MinMax
-              max={5000}
-              min={0}
-              step={10}
-              onSet={e => this.handleChange(e, 'noteLength')}
-              value={this.state.settings.noteLength}
-            />
-          </InputGroup>
-          <ButtonGroup>
-            <Button
-              active
-              click={this.handleClose}
-              text="Cancel"
-              type="danger"
-            />
-            <Button
-              active={Boolean(this.state.hasChange)}
-              click={this.handleSave}
-              text="Save"
-            />
-          </ButtonGroup>
-        </Wrapper>
-      </Modal>
+          <Wrapper>
+            <H1>Socket Settings</H1>
+            <InputGroup label="Url" required require={this.state.url}>
+              <TextInput
+                change={e => this.handleChange(e, 'url')}
+                placeholder="Url"
+                required
+                value={this.state.settings.url}
+              />
+            </InputGroup>
+            <JsonViewer data={this.state.raw} minimized={!this.state.showRaw}>
+              <Actions>
+                <Refresh click={this.refreshMessage} />
+                {this.state.showRaw && <Close click={this.hideRaw} />}
+              </Actions>
+            </JsonViewer>
+            <InputGroup label="Velocity Trigger">
+              <Select
+                labelKey="name"
+                onChange={e => this.handleChange(e.id, 'velocityScalar')}
+                options={Object.keys(this.state.raw || {}).map(k => ({
+                  id: k,
+                  name: k
+                }))}
+                searchable={false}
+                value={this.state.settings.velocityScalar}
+                valueKey="id"
+              />
+            </InputGroup>
+            <InputGroup label="Scale">
+              <Scale
+                keys={this.state.settings.scale}
+                onChange={e => this.handleChange(e, 'scale')}
+              />
+            </InputGroup>
+            <InputGroup label="Note Length">
+              <MinMax
+                max={5000}
+                min={0}
+                step={10}
+                onSet={e => this.handleChange(e, 'noteLength')}
+                value={this.state.settings.noteLength}
+              />
+            </InputGroup>
+            <ButtonGroup>
+              <Button
+                active
+                click={this.handleClose}
+                text="Cancel"
+                type="danger"
+              />
+              <Button
+                active={Boolean(this.state.hasChange)}
+                click={this.handleSave}
+                text="Save"
+              />
+            </ButtonGroup>
+          </Wrapper>
+        </Modal>
       : null;
   }
 }

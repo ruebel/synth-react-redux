@@ -182,3 +182,6 @@ export const getNextIndex = (current, previous, length, mode) => {
       }
   }
 };
+
+export const midiToNoteName = midi =>
+  `${generateKeyNote(midi)}${generateKeyOctave(midi)}`;

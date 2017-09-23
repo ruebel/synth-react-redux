@@ -4,6 +4,7 @@ import * as audio from '../Audio';
 import * as control from '../Control';
 import * as input from '../Input';
 import * as presets from '../Presets';
+import * as sequencer from '../Sequencer';
 import * as synth from '../Synth';
 
 const initialState = {
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   [control.name]: control.reducers,
   [input.name]: input.reducers,
   [presets.name]: presets.reducers,
+  [sequencer.name]: sequencer.reducers,
   [synth.name]: synth.reducers
 });
 

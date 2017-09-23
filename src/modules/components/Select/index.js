@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactSelect from 'react-select';
 import styled from 'styled-components';
+import H3 from '../typography/H3';
 
 const Wrapper = styled.div`
   .Select-arrow {
@@ -58,9 +59,9 @@ const Wrapper = styled.div`
 const Select = props => {
   return (
     <Wrapper>
-      <h3>
+      <H3>
         {props.title}
-      </h3>
+      </H3>
       <ReactSelect {...props} />
     </Wrapper>
   );

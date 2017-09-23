@@ -9,7 +9,7 @@ export const color = {
   graySemidark: '#9b9b9b',
   grayDark: '#a5a5a5',
   grayExtraDark: '#575855',
-  black: '#000',
+  black: '#212121',
   border: '#9b9b9b',
   control: '#c5c5c5',
   controlEmpty: '#575855',

@@ -102,9 +102,6 @@ class ToneBank extends React.Component {
 ToneBank.propTypes = {
   context: PropTypes.object.isRequired,
   output: PropTypes.object.isRequired,
-  setArpeggiatorInterval: PropTypes.func.isRequired,
-  setArpeggiatorMode: PropTypes.func.isRequired,
-  setArpeggiatorOctave: PropTypes.func.isRequired,
   setArpeggiatorOn: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
   tones: PropTypes.object.isRequired
@@ -119,8 +116,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  setArpeggiatorInterval: synthActions.setArpeggiatorInterval,
-  setArpeggiatorMode: synthActions.setArpeggiatorMode,
-  setArpeggiatorOctave: synthActions.setArpeggiatorOctave,
   setArpeggiatorOn: synthActions.setArpeggiatorOn
 })(ToneBank);

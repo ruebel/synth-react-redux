@@ -6,7 +6,7 @@ import Color from 'color';
 const Wrapper = styled.button`
   background-color: ${p => p.theme.color.primary};
   color: ${p => p.theme.color.light};
-  min-height: 42px;
+  min-height: ${p => (p.small ? 0 : 42)}px;
   border: none;
   cursor: ${p => (p.selected ? 'not-allowed' : 'pointer')};
   font-size: 1.2em;
@@ -66,13 +66,23 @@ const Wrapper = styled.button`
   }
 `;
 
-const Button = ({ active, click, color, flavor, selected, text }) => {
+const Button = ({
+  active,
+  className,
+  click,
+  color,
+  flavor,
+  selected,
+  small,
+  text
+}) => {
   return (
     <Wrapper
-      className={flavor}
+      className={className + ' ' + flavor}
       disabled={!active || selected}
       onClick={() => click()}
       selected={selected}
+      small={small}
       style={{ background: color }}
     >
       <div>
@@ -84,10 +94,12 @@ const Button = ({ active, click, color, flavor, selected, text }) => {
 
 Button.propTypes = {
   active: PropTypes.bool,
+  className: PropTypes.string,
   click: PropTypes.func.isRequired,
   color: PropTypes.string,
   flavor: PropTypes.string,
   selected: PropTypes.bool,
+  small: PropTypes.bool,
   text: PropTypes.string.isRequired
 };
 

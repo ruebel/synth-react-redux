@@ -1,13 +1,19 @@
 import { injectGlobal } from 'styled-components';
+import Color from 'color';
 import { color, fontFamily } from './theme';
 
 injectGlobal`
   html {
     box-sizing: border-box;
     font-size: 10px;
+    font-family: ${fontFamily.primary};
   }
   body {
     font-size: 1.3rem;
+    background: linear-gradient(to top left, ${Color(color.controlDanger).lighten(0.5).string()}, ${Color(color.controlWarning).lighten(0.3).string()});
+  }
+  button:focus {
+    outline:0;
   }
   *,
   *::before,
@@ -16,34 +22,5 @@ injectGlobal`
   }
   li {
     list-style: none;
-  }
-
-  h1 {
-    font-family: ${fontFamily.secondary};
-    font-style: normal;
-    font-weight: 400;
-  },
-
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: ${color.grayExtraDark};
-    font-family: ${fontFamily.primary};
-    font-style: normal;
-    font-weight: 700;
-  }
-
-  h2 {
-    font-size: 2.8rem;
-    margin-bottom: 3px;
-  }
-
-  p {
-    color: ${color.grayExtraDark};
-    font-family: ${fontFamily.primary};
-    font-style: normal;
-    font-weight: 300;
   }
 `;

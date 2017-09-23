@@ -45,7 +45,7 @@ class InputSelector extends React.Component {
             value={id}
             valueKey="id"
           />
-          {id === 1 &&
+          {id === '1' &&
             <div>
               <Gear click={this.props.showSettings} />
               <PlayPauseButton
