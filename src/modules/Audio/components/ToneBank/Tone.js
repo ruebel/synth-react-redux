@@ -9,11 +9,6 @@ class Tone extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.bendNote = this.bendNote.bind(this);
-    this.createOscillator = this.createOscillator.bind(this);
-    this.setupAudio = this.setupAudio.bind(this);
-    this.setupOscillator = this.setupOscillator.bind(this);
-
     this.envelope = createGain(props.context, props.tone.velocity);
     this.envelope.connect(props.output);
   }
@@ -72,7 +67,7 @@ class Tone extends React.PureComponent {
     this.oscillators.forEach(o => o.osc.stop());
   }
 
-  bendNote(bendTo, settings, speed = defaultBendSpeed) {
+  bendNote = (bendTo, settings, speed = defaultBendSpeed) => {
     const now = this.props.context.currentTime;
     this.oscillators.forEach((o, i) => {
       // calculate frequency based on octave and bend destination
@@ -84,9 +79,9 @@ class Tone extends React.PureComponent {
       // the last parameter is the speed of the bend
       o.osc.frequency.setTargetAtTime(nextFreq, now, speed);
     });
-  }
+  };
 
-  createOscillator(props, o) {
+  createOscillator = (props, o) => {
     const osc = props.context.createOscillator();
     // Connect modulation oscillator to frequency
     props.modulation.connect(osc.frequency);
@@ -101,9 +96,9 @@ class Tone extends React.PureComponent {
     };
     this.setupOscillator(oscItem, o);
     return oscItem;
-  }
+  };
 
-  setupAudio(props) {
+  setupAudio = props => {
     if (this.oscillators) {
       // Oscillators have been created or removed so we have to reconcile them
       // Remove obsolete oscillators
@@ -131,16 +126,16 @@ class Tone extends React.PureComponent {
         this.createOscillator(props, o)
       );
     }
-  }
+  };
 
-  setupOscillator(o, setting) {
+  setupOscillator = (o, setting) => {
     o.osc.type = setting.waveShape;
     o.osc.detune.value = setting.detune;
     o.osc.frequency.value = convertNoteFrequency(
       this.props.tone.id + 12 * parseInt(setting.octave || 0)
     );
     o.gain.gain.value = setting.gain;
-  }
+  };
 
   render() {
     if (this.envelope) {
@@ -152,12 +147,11 @@ class Tone extends React.PureComponent {
         const now = this.props.context.currentTime;
         // Cancel any scheduled changes
         this.envelope.gain.cancelScheduledValues(now);
+        this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
         // eslint-disable-next-line
         if (velocity == 0) {
           // Note OFF
           const release = this.props.settings.envelope.release;
-          // Transition to ramp down
-          this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
           // Ramp down
           this.envelope.gain.setTargetAtTime(0.0, now, release || minTime);
         } else {
@@ -166,8 +160,6 @@ class Tone extends React.PureComponent {
           // Find end time for attack envelope
           const envAttackEnd =
             now + (this.props.settings.envelope.attack || 0) / 10.0 + minTime;
-          // Transition to envelope
-          this.envelope.gain.setValueAtTime(this.envelope.gain.value, now);
           // Start envelope
           this.envelope.gain.linearRampToValueAtTime(velocity, envAttackEnd);
         }

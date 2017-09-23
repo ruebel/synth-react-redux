@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Color from 'color';
 import H3 from '../typography/H3';
 import LinkButton from '../Button/LinkButton';
 import PowerSwitch from '../PowerSwitch';
@@ -18,16 +19,17 @@ const Header = styled.div`
   }
 `;
 
-const Title = styled(H3)`
-  margin: 0;
-`;
+const Title = styled(H3)`margin: 0;`;
 
 const Wrapper = styled.div`
   margin: 10px 0;
   padding: ${p => (p.tight ? '5' : '10')}px;
   ${p => (p.tight ? '& > div > button { margin: 0; }' : '')};
   border: 2px ${p => p.theme.color.border} solid;
-  background: ${p => (p.active ? p.theme.light : p.theme.color.grayExtraLight)};
+  background: ${p =>
+    Color(p.theme.color.light)
+      .alpha(p.active ? 0.5 : 0.1)
+      .string()};
   width: ${p => (p.full ? '100' : '50')}%;
   transition: background 200ms ease-in;
 `;
@@ -45,9 +47,7 @@ const Container = ({
   return (
     <Wrapper active={active} full={full} tight={tight}>
       <Header pullUp={!title && (titleControl || close)}>
-        <Title>
-          {title}
-        </Title>
+        <Title>{title}</Title>
         {titleControl}
         {activeChange && <PowerSwitch value={active} change={activeChange} />}
         {close && <LinkButton active click={close} text="X" />}

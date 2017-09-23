@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import * as actions from './actions';
 import * as selectors from './selectors';
 
+import Container from '../components/Container';
 import Gear from '../components/icons/Gear';
 import H3 from '../components/typography/H3';
 import NoteGrid from './components/NoteGrid';
-import NoteSettings from './components/NoteSettings';
 import PlusMinus from '../components/icons/PlusMinus';
 import PowerSwitch from '../components/PowerSwitch';
 import Refresh from '../components/icons/Refresh';
@@ -21,9 +21,7 @@ const ActionWrapper = styled.div`
   align-items: center;
 `;
 
-const Title = styled(H3)`
-  margin-right: 20px;
-`;
+const Title = styled(H3)`margin-right: 20px;`;
 
 const ToggleWrapper = styled.div`
   flex: 1;
@@ -145,25 +143,23 @@ class Sequencer extends React.PureComponent {
   };
 
   render() {
-    const selectedNote = this.props.notes.find(n => n.selected);
     return (
-      <div>
+      <Container full active={this.state.shown}>
         <ActionWrapper>
           <Title>Sequencer</Title>
-          {this.state.shown &&
+          {this.state.shown && (
             <ActionWrapper>
               <PowerSwitch change={this.togglePower} value={this.state.on} />
               <Gear click={this.toggleSettingsModal} />
               <Refresh click={this.reset} />
-            </ActionWrapper>}
+            </ActionWrapper>
+          )}
           <ToggleWrapper onClick={this.toggleShown}>
             <PlusMinus minus={this.state.shown} size={18} />
           </ToggleWrapper>
         </ActionWrapper>
-        {this.state.shown &&
+        {this.state.shown && (
           <div>
-            {selectedNote &&
-              <NoteSettings note={selectedNote} update={this.props.editNote} />}
             <NoteGrid
               addNote={this.props.addNote}
               beats={this.state.beats}
@@ -176,8 +172,9 @@ class Sequencer extends React.PureComponent {
               close={this.toggleSettingsModal}
               show={this.state.showSettings}
             />
-          </div>}
-      </div>
+          </div>
+        )}
+      </Container>
     );
   }
 }

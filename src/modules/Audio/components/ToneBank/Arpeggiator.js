@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Indicator from './Indicator';
 import RangeControl from '../../../components/RangeControl';
 import Select from '../../../components/Select';
 import Tone from '../ToneBank/Tone';
+import { actions as synthActions } from '../../../Synth';
 import {
   arpeggiatorModes,
   arpeggiatorOctaves,
@@ -11,18 +13,12 @@ import {
 } from '../../../../utils/audio';
 
 class Arpeggiator extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      indicator: false,
-      noteIndex: 0,
-      previousIndex: 0,
-      tones: []
-    };
-
-    this.next = this.next.bind(this);
-  }
+  state = {
+    indicator: false,
+    noteIndex: 0,
+    previousIndex: 0,
+    tones: []
+  };
 
   componentDidMount() {
     this.timer = setInterval(
@@ -68,7 +64,7 @@ class Arpeggiator extends React.Component {
     }
   }
 
-  next() {
+  next = () => {
     if (this.state.tones.length > 0) {
       this.setState(state => {
         const noteIndex = getNextIndex(
@@ -88,7 +84,7 @@ class Arpeggiator extends React.Component {
       });
     }
     this.setState(state => ({ indicator: !state.indicator }));
-  }
+  };
 
   render() {
     const tones = this.state.tones.map((t, i) =>
@@ -148,4 +144,8 @@ Arpeggiator.propTypes = {
   tones: PropTypes.object.isRequired
 };
 
-export default Arpeggiator;
+export default connect(null, {
+  setArpeggiatorInterval: synthActions.setArpeggiatorInterval,
+  setArpeggiatorMode: synthActions.setArpeggiatorMode,
+  setArpeggiatorOctave: synthActions.setArpeggiatorOctave
+})(Arpeggiator);
