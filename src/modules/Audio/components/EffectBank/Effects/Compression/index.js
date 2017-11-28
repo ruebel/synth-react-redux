@@ -7,7 +7,8 @@ import {
   defaultEffectSettings
 } from '../../../../../../utils/effect';
 
-export const defaultSettings = Object.assign({}, defaultEffectSettings, {
+export const defaultSettings = {
+  ...defaultEffectSettings,
   attack: {
     min: 0,
     max: 1,
@@ -41,7 +42,7 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
     value: -50
   },
   title: 'Compression'
-});
+};
 
 class Compression extends React.Component {
   constructor(props) {
@@ -59,20 +60,29 @@ class Compression extends React.Component {
   }
 
   applySettings(next, prev) {
+    const time = next.context.currentTime + 0.01;
     if (checkPropChange(prev, next, 'threshold')) {
-      this.effect.threshold.value = next.settings.threshold.value;
+      this.effect.threshold.setTargetAtTime(
+        next.settings.threshold.value,
+        time,
+        0.1
+      );
     }
     if (checkPropChange(prev, next, 'knee')) {
-      this.effect.knee.value = next.settings.knee.value;
+      this.effect.knee.setTargetAtTime(next.settings.knee.value, time, 0.1);
     }
     if (checkPropChange(prev, next, 'ratio')) {
-      this.effect.ratio.value = next.settings.ratio.value;
+      this.effect.ratio.setTargetAtTime(next.settings.ratio.value, time, 0.1);
     }
     if (checkPropChange(prev, next, 'attack')) {
-      this.effect.attack.value = next.settings.attack.value;
+      this.effect.attack.setTargetAtTime(next.settings.attack.value, time, 0.1);
     }
     if (checkPropChange(prev, next, 'release')) {
-      this.effect.release.value = next.settings.release.value;
+      this.effect.release.setTargetAtTime(
+        next.settings.release.value,
+        time,
+        0.1
+      );
     }
     this.props.wire(next, prev, this.effect);
   }

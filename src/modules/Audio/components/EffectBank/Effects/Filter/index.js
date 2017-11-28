@@ -9,7 +9,8 @@ import {
   defaultEffectSettings
 } from '../../../../../../utils/effect';
 
-export const defaultSettings = Object.assign({}, defaultEffectSettings, {
+export const defaultSettings = {
+  ...defaultEffectSettings,
   color: '#517693',
   filterType: {
     options: filterTypes.map(f => ({ id: f, name: f })),
@@ -35,18 +36,24 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
     value: 0.1
   },
   title: 'Filter'
-});
+};
 
 class Filter extends React.Component {
   constructor(props) {
     super(props);
 
     this.applySettings = this.applySettings.bind(this);
+
+    const time = this.props.context.currentTime + 0.01;
     this.effect = this.props.context.createBiquadFilter();
     this.effect.type = defaultSettings.filterType.value;
-    this.effect.frequency.value = defaultSettings.frequency.value;
-    this.effect.gain.value = defaultSettings.gain.value;
-    this.effect.Q.value = defaultSettings.q.value;
+    this.effect.frequency.setTargetAtTime(
+      defaultSettings.frequency.value,
+      time,
+      0.1
+    );
+    this.effect.gain.setTargetAtTime(defaultSettings.gain.value, time, 0.1);
+    this.effect.Q.setTargetAtTime(defaultSettings.q.value, time, 0.1);
   }
 
   componentDidMount() {
@@ -60,19 +67,32 @@ class Filter extends React.Component {
   }
 
   applySettings(next, prev) {
+    const time = next.context.currentTime + 0.01;
     if (checkPropChange(prev, next, 'filterType')) {
       this.effect.type = next.settings.filterType.value;
     }
     if (checkPropChange(prev, next, 'q')) {
       // Since we don't use the actual Q numbers in the slider we have to scale
       // them by 10e38 for the component
-      this.effect.Q.value = next.settings.q.value * (10 ^ 38);
+      this.effect.Q.setTargetAtTime(
+        next.settings.q.value * (10 ^ 38),
+        time,
+        0.1
+      );
     }
     if (checkPropChange(prev, next, 'frequency')) {
-      this.effect.frequency.value = next.settings.frequency.value;
+      this.effect.frequency.setTargetAtTime(
+        next.settings.frequency.value,
+        time,
+        0.1
+      );
     }
     if (checkPropChange(prev, next, 'gain')) {
-      this.effect.gain.value = next.settings.gain.value * 3.4028234663852886e38;
+      this.effect.gain.setTargetAtTime(
+        next.settings.gain.value * 3.4028234663852886e38,
+        time,
+        0.1
+      );
     }
     this.props.wire(next, prev, this.effect);
   }
@@ -100,26 +120,28 @@ class Filter extends React.Component {
           value={this.props.settings.filterType.value}
           valueKey="id"
         />
-        {showQ &&
+        {showQ && (
           <EffectRange
             change={this.props.handleSettingsChange}
             defaults={defaultSettings}
             property="q"
             settings={this.props.settings}
-          />}
+          />
+        )}
         <EffectRange
           change={this.props.handleSettingsChange}
           defaults={defaultSettings}
           property="frequency"
           settings={this.props.settings}
         />
-        {showGain &&
+        {showGain && (
           <EffectRange
             change={this.props.handleSettingsChange}
             defaults={defaultSettings}
             property="gain"
             settings={this.props.settings}
-          />}
+          />
+        )}
       </div>
     );
   }

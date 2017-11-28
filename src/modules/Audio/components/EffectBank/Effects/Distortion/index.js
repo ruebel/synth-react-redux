@@ -8,7 +8,8 @@ import {
   defaultEffectSettings
 } from '../../../../../../utils/effect';
 
-export const defaultSettings = Object.assign({}, defaultEffectSettings, {
+export const defaultSettings = {
+  ...defaultEffectSettings,
   amount: {
     min: 0,
     max: 100,
@@ -27,7 +28,7 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
     value: '4x'
   },
   title: 'Distortion'
-});
+};
 
 class Distortion extends React.Component {
   constructor(props) {

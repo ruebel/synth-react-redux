@@ -7,7 +7,8 @@ import {
   defaultEffectSettings
 } from '../../../../../../utils/effect';
 
-export const defaultSettings = Object.assign({}, defaultEffectSettings, {
+export const defaultSettings = {
+  ...defaultEffectSettings,
   color: '#3299cc',
   feedback: {
     min: 0,
@@ -23,7 +24,7 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
     value: 0.2
   },
   title: 'Delay'
-});
+};
 
 class Delay extends React.Component {
   constructor(props) {
@@ -44,11 +45,20 @@ class Delay extends React.Component {
   }
 
   applySettings(next, prev) {
+    const time = next.context.currentTime + 0.01;
     if (checkPropChange(prev, next, 'feedback')) {
-      this.feedback.gain.value = next.settings.feedback.value;
+      this.feedback.gain.setTargetAtTime(
+        next.settings.feedback.value,
+        time,
+        0.1
+      );
     }
     if (checkPropChange(prev, next, 'time')) {
-      this.delay.delayTime.value = next.settings.time.value || 0.2;
+      this.delay.delayTime.setTargetAtTime(
+        next.settings.time.value || 0.2,
+        time,
+        0.1
+      );
     }
     this.props.wire(next, prev, this.delay, this.output);
   }

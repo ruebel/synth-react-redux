@@ -8,7 +8,8 @@ import {
   defaultEffectSettings
 } from '../../../../../../utils/effect';
 
-export const defaultSettings = Object.assign({}, defaultEffectSettings, {
+export const defaultSettings = {
+  defaultEffectSettings,
   bits: {
     name: 'Bit Depth',
     options: [1, 2, 4, 8, 16].map(v => ({ id: v, name: v })),
@@ -23,7 +24,7 @@ export const defaultSettings = Object.assign({}, defaultEffectSettings, {
     value: 0.2
   },
   title: 'Bit Crusher'
-});
+};
 
 class BitCrusher extends React.Component {
   constructor(props) {
