@@ -11,33 +11,26 @@ export const C = {
 };
 
 export const getInputDevices = () => (dispatch, getState) => {
-  input
-    .getDevices()
-    .then(devices => {
-      dispatch(gotInputDevices(devices));
-      const state = getState();
-      // Set default device
-      if (devices.length > 0) {
-        // Try to default to first midi device
-        const midi = devices.find(d => d.device === input.inputTypes.midi);
-        const selected = devices.find(
-          d => d.id === state.input.selectedDevice.id
-        );
-        if (selected) {
-          dispatch(setDevice(selected));
-        } else if (midi) {
-          dispatch(setDevice(midi));
-        } else {
-          // No midi so just set first device (propably computer keyboard)
-          dispatch(setDevice(devices[0]));
-        }
+  input.getDevices().then(devices => {
+    dispatch(gotInputDevices(devices));
+    const state = getState();
+    // Set default device
+    if (devices.length > 0) {
+      // Try to default to first midi device
+      const midi = devices.find(d => d.device === input.inputTypes.midi);
+      const selected = devices.find(
+        d => d.id === state.input.selectedDevice.id
+      );
+      if (selected) {
+        dispatch(setDevice(selected));
+      } else if (midi) {
+        dispatch(setDevice(midi));
+      } else {
+        // No midi so just set first device (propably computer keyboard)
+        dispatch(setDevice(devices[0]));
       }
-    })
-    .catch(error => {
-      // eslint-disable-next-line
-      debugger;
-      console.error(error);
-    });
+    }
+  });
 };
 
 const gotInputDevices = devices => {

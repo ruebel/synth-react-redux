@@ -34,11 +34,11 @@ const Wrapper = styled.div`
   display: inline-block;
   margin: 0 2px;
   ${p => getTransform(p.down, p.left, p.up)} ${p =>
-      getColor(p.active, p.theme.color, p.disabled, p.fill)} &:hover {
+      getColor(p.active, p.theme.color, p.disabled, p.isFill)} &:hover {
     & g {
       ${p =>
         !p.disabled &&
-        `${p.fill ? 'fill' : 'stroke'}: ${p.theme.color.controlDanger};`};
+        `${p.isFill ? 'fill' : 'stroke'}: ${p.theme.color.controlDanger};`};
     }
   }
 `;
@@ -51,7 +51,7 @@ const Icon = (WrappedComponent, isFill) => {
         active={active}
         disabled={disabled}
         down={down}
-        fill={isFill}
+        isFill={isFill}
         left={left}
         onClick={click}
         up={up}
@@ -66,10 +66,11 @@ const Icon = (WrappedComponent, isFill) => {
     click: PropTypes.func,
     disabled: PropTypes.bool,
     down: PropTypes.bool,
+    fill: PropTypes.string,
+    height: PropTypes.string,
     left: PropTypes.bool,
     up: PropTypes.bool,
-    width: PropTypes.string,
-    height: PropTypes.string
+    width: PropTypes.string
   };
 
   return IconComponent;

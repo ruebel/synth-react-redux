@@ -13,7 +13,7 @@ export const RangeStyler = styled.div`
           .alpha(0.2)
           .string()}`
       : 'transparent'};
-  padding: 0 ${p => p.handleSize / 2}px;
+  padding: 0 ${p => p.handleSize / 3}px;
   position: relative;
 
   .rc-slider {
@@ -71,9 +71,9 @@ export const RangeStyler = styled.div`
   }
 `;
 
-export const Handle = ({ dragging, value, ...props }) => {
+export const Handle = ({ dragging, index, value, ...props }) => {
   return (
-    <SliderHandle value={value} dragging={dragging || undefined} {...props}>
+    <SliderHandle value={value} key={index} {...props}>
       {scaleNumber(value)}
     </SliderHandle>
   );
@@ -81,5 +81,6 @@ export const Handle = ({ dragging, value, ...props }) => {
 
 Handle.propTypes = {
   dragging: PropTypes.bool,
+  index: PropTypes.number,
   value: PropTypes.string
 };
