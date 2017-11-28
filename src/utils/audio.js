@@ -47,17 +47,17 @@ export const arpeggiatorOctaves = [
   { id: 3, name: 3 }
 ];
 /**
-* Convert Note Number to Frequency
-*/
+ * Convert Note Number to Frequency
+ */
 export const convertNoteFrequency = note => {
   return Math.pow(2, (note - 69) / 12) * 440;
 };
 /**
  * Create Gain Node
  */
-export const createGain = (context, velocity) => {
+export const createGain = (context, velocity = 0) => {
   const gain = context.createGain();
-  gain.gain.value = velocity;
+  gain.gain.setValueAtTime(velocity, context.currentTime + 1);
   return gain;
 };
 /**
@@ -66,7 +66,10 @@ export const createGain = (context, velocity) => {
 export const createOscillator = (context, note, shape) => {
   const osc = context.createOscillator();
   osc.type = shape;
-  osc.frequency.value = convertNoteFrequency(note);
+  osc.frequency.setValueAtTime(
+    convertNoteFrequency(note),
+    context.currentTime + 1
+  );
   osc.start();
   return osc;
 };
@@ -77,8 +80,8 @@ export const equalPower = (val = 0, second = false) => {
   return Math.pow(0.5 * (1 + Math.cos(Math.PI * val) * (second ? 1 : -1)), 0.5);
 };
 /**
-* Generate key object
-*/
+ * Generate key object
+ */
 export const generateKey = (i, velocity = 0) => {
   return {
     id: i,
@@ -100,14 +103,14 @@ export const generateKeys = (startPoint = 0, numKeys = 88) => {
   return keys;
 };
 /**
-* Return Key note in plain english (i.e. C#)
-*/
+ * Return Key note in plain english (i.e. C#)
+ */
 const generateKeyNote = i => {
   return octave[(i + 9) % 12];
 };
 /**
-* Generate octave # for key
-*/
+ * Generate octave # for key
+ */
 const generateKeyOctave = i => {
   return Math.floor((i + 9) / 12);
 };

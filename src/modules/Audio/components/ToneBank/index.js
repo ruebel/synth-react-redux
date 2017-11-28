@@ -10,17 +10,19 @@ import {
   selectors as synthSelectors,
   actions as synthActions
 } from '../../../Synth';
+import { createGain, createOscillator } from '../../../../utils/audio';
 
 class ToneBank extends React.Component {
   constructor(props) {
     super(props);
 
     // Setup modulation
-    this.modulation = this.props.context.createOscillator();
-    this.modulation.type = this.props.settings.modulation.shape;
-    this.modulation.frequency.value = this.props.settings.modulation.speed;
-    this.modulation.start(0);
-    this.modulationGain = this.props.context.createGain();
+    this.modulation = createOscillator(
+      this.props.context,
+      this.props.settings.modulation.speed,
+      this.props.settings.modulation.shape
+    );
+    this.modulationGain = createGain(this.props.context);
     this.modulation.connect(this.modulationGain);
 
     this.applySettings = this.applySettings.bind(this);
@@ -39,16 +41,20 @@ class ToneBank extends React.Component {
       next.settings.modulation.on !== prev.settings.modulation.on
     ) {
       // Modulation depth
-      this.modulationGain.gain.value = next.settings.modulation.on
-        ? next.settings.modulation.depth
-        : 0;
+      this.modulationGain.gain.setValueAtTime(
+        next.settings.modulation.on ? next.settings.modulation.depth : 0,
+        this.props.context.currentTime + 1
+      );
     }
     if (
       !prev ||
       next.settings.modulation.speed !== prev.settings.modulation.speed
     ) {
       // Modulation Speed
-      this.modulation.frequency.value = next.settings.modulation.speed;
+      this.modulation.frequency.setValueAtTime(
+        next.settings.modulation.speed,
+        this.props.context.currentTime + 1
+      );
     }
     if (
       !prev ||

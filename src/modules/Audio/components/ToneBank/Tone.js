@@ -129,12 +129,16 @@ class Tone extends React.PureComponent {
   };
 
   setupOscillator = (o, setting) => {
+    const time = this.props.context.currentTime + 1;
     o.osc.type = setting.waveShape;
-    o.osc.detune.value = setting.detune;
-    o.osc.frequency.value = convertNoteFrequency(
-      this.props.tone.id + 12 * parseInt(setting.octave || 0)
+    o.osc.detune.setValueAtTime(setting.detune, time);
+    o.osc.frequency.setValueAtTime(
+      convertNoteFrequency(
+        this.props.tone.id + 12 * parseInt(setting.octave || 0)
+      ),
+      time
     );
-    o.gain.gain.value = setting.gain;
+    o.gain.gain.setValueAtTime(setting.gain, time);
   };
 
   render() {
