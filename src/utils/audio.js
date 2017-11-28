@@ -57,18 +57,19 @@ export const convertNoteFrequency = note => {
  */
 export const createGain = (context, velocity = 0) => {
   const gain = context.createGain();
-  gain.gain.setValueAtTime(velocity, context.currentTime + 1);
+  gain.gain.setTargetAtTime(velocity, context.currentTime + 0.01, 0.2);
   return gain;
 };
 /**
  * Create Oscillator using settings
  */
-export const createOscillator = (context, note, shape) => {
+export const createOscillator = (context, note = 0, shape = waveShapes[0]) => {
   const osc = context.createOscillator();
   osc.type = shape;
-  osc.frequency.setValueAtTime(
+  osc.frequency.setTargetAtTime(
     convertNoteFrequency(note),
-    context.currentTime + 1
+    context.currentTime + 0.01,
+    0.2
   );
   osc.start();
   return osc;

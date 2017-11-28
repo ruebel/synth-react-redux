@@ -91,8 +91,8 @@ export const getRandomVelocity = (settings, previous, message) => {
   const lastVelocity = Math.max(Math.abs(previous.velocity), 0.5);
   const lastScalar = Math.max(previous.velocityScalar, 100);
   const velocity = Math.max(
-    Math.min(velocityScalar / lastScalar * lastVelocity, 1),
-    0.3
+    Math.min(velocityScalar / lastScalar * lastVelocity, 0.8),
+    0.5
   );
   return {
     velocity,

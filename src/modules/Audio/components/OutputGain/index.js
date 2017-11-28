@@ -22,7 +22,11 @@ class OutputGain extends React.Component {
 
   applySettings(next, prev) {
     if (!prev || prev.level !== next.level) {
-      this.props.gain.gain.value = next.level;
+      this.props.gain.gain.setTargetAtTime(
+        next.level,
+        next.context.currentTime + 0.01,
+        0.2
+      );
     }
   }
 
@@ -45,15 +49,14 @@ class OutputGain extends React.Component {
 }
 
 OutputGain.propTypes = {
+  context: PropTypes.object.isRequired,
   gain: PropTypes.object.isRequired,
   level: PropTypes.number.isRequired,
   setOutputLevel: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    level: getOutputLevel(state)
-  };
-};
+const mapStateToProps = state => ({
+  level: getOutputLevel(state)
+});
 
 export default connect(mapStateToProps, { setOutputLevel })(OutputGain);

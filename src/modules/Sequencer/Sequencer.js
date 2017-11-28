@@ -21,7 +21,9 @@ const ActionWrapper = styled.div`
   align-items: center;
 `;
 
-const Title = styled(H3)`margin-right: 20px;`;
+const Title = styled(H3)`
+  margin-right: 20px;
+`;
 
 const ToggleWrapper = styled.div`
   flex: 1;

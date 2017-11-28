@@ -41,9 +41,10 @@ class ToneBank extends React.Component {
       next.settings.modulation.on !== prev.settings.modulation.on
     ) {
       // Modulation depth
-      this.modulationGain.gain.setValueAtTime(
+      this.modulationGain.gain.setTargetAtTime(
         next.settings.modulation.on ? next.settings.modulation.depth : 0,
-        this.props.context.currentTime + 1
+        this.props.context.currentTime + 1,
+        0.1
       );
     }
     if (
@@ -51,9 +52,10 @@ class ToneBank extends React.Component {
       next.settings.modulation.speed !== prev.settings.modulation.speed
     ) {
       // Modulation Speed
-      this.modulation.frequency.setValueAtTime(
+      this.modulation.frequency.setTargetAtTime(
         next.settings.modulation.speed,
-        this.props.context.currentTime + 1
+        this.props.context.currentTime + 1,
+        0.1
       );
     }
     if (

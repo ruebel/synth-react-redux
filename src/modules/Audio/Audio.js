@@ -20,11 +20,13 @@ class Audio extends React.PureComponent {
   render() {
     return (
       <div>
-        {this.props.input && this.props.input.device === inputTypes.stream
-          ? <Stream context={this.props.context} output={this.inputGain} />
-          : <ToneBank output={this.inputGain} />}
+        {this.props.input && this.props.input.device === inputTypes.stream ? (
+          <Stream context={this.props.context} output={this.inputGain} />
+        ) : (
+          <ToneBank output={this.inputGain} />
+        )}
         <EffectBank inputGain={this.inputGain} outputGain={this.outputGain} />
-        <OutputGain gain={this.outputGain} />
+        <OutputGain context={this.props.context} gain={this.outputGain} />
       </div>
     );
   }

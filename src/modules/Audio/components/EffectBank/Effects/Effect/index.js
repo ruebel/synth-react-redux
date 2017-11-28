@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Container from '../../../../../components/Container';
 import EffectRange from '../../EffectRange';
 import Mover from './Mover';
-import { equalPower } from '../../../../../../utils/audio';
+import { createGain, equalPower } from '../../../../../../utils/audio';
 import { checkPropChange } from '../../../../../../utils/effect';
+const timeConst = 0.1;
 /**
  * Effect
  *
@@ -36,29 +37,35 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
         checkPropChange(prev, next, 'effectLevel') ||
         checkPropChange(prev, next, 'on')
       ) {
+        const time = this.props.context.currentTime + 1;
         switch (effectLevelMode) {
           case 'blend':
             if (next.settings.on.value) {
               // Cross Fade using equal power curve
-              this.bypassGain.gain.value = equalPower(
-                next.settings.effectLevel.value,
-                true
+              this.bypassGain.gain.setTargetAtTime(
+                equalPower(next.settings.effectLevel.value, true),
+                time,
+                timeConst
               );
-              this.effectGain.gain.value = equalPower(
-                next.settings.effectLevel.value
+              this.effectGain.gain.setTargetAtTime(
+                equalPower(next.settings.effectLevel.value),
+                time,
+                timeConst
               );
             } else {
-              this.bypassGain.gain.value = 1;
-              this.effectGain.gain.value = 0;
+              this.bypassGain.gain.setTargetAtTime(1, time, timeConst);
+              this.effectGain.gain.setTargetAtTime(0, time, timeConst);
             }
             break;
           case 'wet':
             if (next.settings.on.value) {
-              this.effectGain.gain.value = equalPower(
-                next.settings.effectLevel.value
+              this.effectGain.gain.setTargetAtTime(
+                equalPower(next.settings.effectLevel.value),
+                time,
+                timeConst
               );
             } else {
-              this.effectGain.gain.value = 0;
+              this.effectGain.gain.setTargetAtTime(0, time, timeConst);
             }
             break;
         }
@@ -84,11 +91,9 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
       ) {
         // Make sure we have already made gains
         if (!this.effectGain) {
-          this.effectGain = this.props.context.createGain();
-          this.effectGain.gain.value = 1;
+          this.effectGain = createGain(this.props.context, 1);
           if (effectLevelMode === 'blend') {
-            this.bypassGain = this.props.context.createGain();
-            this.bypassGain.gain.value = 0;
+            this.bypassGain = createGain(this.props.context, 0);
           }
         }
         // Connect Gain Stage Input if required
@@ -123,7 +128,8 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
           down={() => this.props.move(this.props.settings.id)}
           on={this.props.settings.on.value}
           power={() =>
-            this.handleSettingsChange('on', !this.props.settings.on.value)}
+            this.handleSettingsChange('on', !this.props.settings.on.value)
+          }
           up={() => this.props.move(this.props.settings.id, true)}
         />
       );
@@ -138,15 +144,15 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
             handleSettingsChange={this.handleSettingsChange}
             wire={this.wire}
           />
-          {effectLevelMode !== 'none'
-            ? <EffectRange
-                change={this.handleSettingsChange}
-                defaults={this.props.defaults}
-                property="effectLevel"
-                settings={this.props.settings}
-                title="Effect Level"
-              />
-            : null}
+          {effectLevelMode !== 'none' ? (
+            <EffectRange
+              change={this.handleSettingsChange}
+              defaults={this.props.defaults}
+              property="effectLevel"
+              settings={this.props.settings}
+              title="Effect Level"
+            />
+          ) : null}
         </Container>
       );
     }

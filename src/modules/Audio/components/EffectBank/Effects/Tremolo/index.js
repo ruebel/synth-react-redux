@@ -7,6 +7,7 @@ import {
   checkPropChange,
   defaultEffectSettings
 } from '../../../../../../utils/effect';
+import { createGain, createOscillator } from '../../../../../../utils/audio';
 
 export const defaultSettings = Object.assign({}, defaultEffectSettings, {
   color: '#517693',
@@ -48,27 +49,30 @@ class Tremolo extends React.Component {
   }
 
   applySettings(next, prev) {
+    const time = next.context.currentTime + 1;
     if (checkPropChange(prev, next, 'waveShape')) {
       this.tremolo.type = next.settings.waveShape.value;
     }
     if (checkPropChange(prev, next, 'depth')) {
-      this.depthGain.gain.value = next.settings.depth.value;
+      this.depthGain.gain.setTargetAtTime(next.settings.depth.value, time, 0.1);
     }
     if (checkPropChange(prev, next, 'speed')) {
-      this.tremolo.frequency.value = next.settings.speed.value;
+      this.tremolo.frequency.setTargetAtTime(
+        next.settings.speed.value,
+        time,
+        0.1
+      );
     }
     this.props.wire(next, prev, this.effect);
   }
 
   setupAudio() {
     // Create Gain and Oscillator that will control the tremolo
-    this.depthGain = this.props.context.createGain();
-    this.effect = this.props.context.createGain();
-    this.effect.gain.value = 1;
-    this.tremolo = this.props.context.createOscillator();
+    this.depthGain = createGain(this.props.context, 0);
+    this.effect = createGain(this.props.context, 1);
+    this.tremolo = createOscillator(this.props.context);
     this.tremolo.connect(this.depthGain);
     this.depthGain.connect(this.effect.gain);
-    this.tremolo.start(0);
     this.applySettings(this.props);
   }
 
