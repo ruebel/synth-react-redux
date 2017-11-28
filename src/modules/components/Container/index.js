@@ -19,7 +19,9 @@ const Header = styled.div`
   }
 `;
 
-const Title = styled(H3)`margin: 0;`;
+const Title = styled(H3)`
+  margin: 0;
+`;
 
 const Wrapper = styled.div`
   margin: 10px 0;
@@ -62,7 +64,8 @@ Container.propTypes = {
   activeChange: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.node
   ]),
   close: PropTypes.func,
   full: PropTypes.bool,

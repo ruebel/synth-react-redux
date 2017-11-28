@@ -30,32 +30,38 @@ export const convertVelocity = velocity => {
  * Get Midi Devices
  */
 export const getDevices = () => {
-  // Look for Web MIDI API Support
-  if (
-    window.navigator &&
-    typeof window.navigator.requestMIDIAccess === 'function'
-  ) {
-    return window.navigator.requestMIDIAccess().then(access => {
-      // Add computer keyboard support
-      const devices = [keyboardInput, streamInput, websocketInput];
-      if (access.inputs && access.inputs.size > 0) {
-        const inputs = access.inputs.values();
-        for (
-          let input = inputs.next();
-          input && !input.done;
-          input = inputs.next()
-        ) {
-          const device = input.value;
-          device.device = inputTypes.midi;
-          devices.push(device);
+  try {
+    // Look for Web MIDI API Support
+    if (
+      window.navigator &&
+      typeof window.navigator.requestMIDIAccess === 'function'
+    ) {
+      return window.navigator.requestMIDIAccess().then(access => {
+        // Add computer keyboard support
+        const devices = [keyboardInput, streamInput, websocketInput];
+        if (access.inputs && access.inputs.size > 0) {
+          const inputs = access.inputs.values();
+          for (
+            let input = inputs.next();
+            input && !input.done;
+            input = inputs.next()
+          ) {
+            const device = input.value;
+            device.device = inputTypes.midi;
+            devices.push(device);
+          }
         }
-      }
-      return devices;
-    });
-  } else {
-    // throw 'No Web MIDI support detected!';
-    const devices = [keyboardInput];
-    return new Promise(resolve => resolve(devices));
+        return devices;
+      });
+    } else {
+      // throw 'No Web MIDI support detected!';
+      const devices = [keyboardInput];
+      return new Promise(resolve => resolve(devices));
+    }
+  } catch (error) {
+    console.error(error);
+    // eslint-disable-next-line
+    debugger;
   }
 };
 
