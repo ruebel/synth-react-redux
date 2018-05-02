@@ -134,7 +134,7 @@ class Tone extends React.PureComponent {
     o.osc.detune.setTargetAtTime(setting.detune, time, 0.01);
     o.osc.frequency.setTargetAtTime(
       convertNoteFrequency(
-        this.props.tone.id + 12 * parseInt(setting.octave || 0)
+        this.props.tone.id + 12 * parseInt(setting.octave || 0, 10)
       ),
       time,
       0.01

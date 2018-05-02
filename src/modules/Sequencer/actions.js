@@ -57,7 +57,7 @@ export const stop = () => dispatch => {
 export const triggerNotes = (notes = []) => (dispatch, getState) => {
   const { sequencer } = getState();
   const timeout = 60000 * sequencer.timeSig.den / sequencer.tempo;
-  notes.map(n => {
+  notes.forEach(n => {
     dispatch(audioActions.keyDown(n.tone, n.velocity / 127));
     setTimeout(
       () => dispatch(audioActions.keyUp(n.tone)),

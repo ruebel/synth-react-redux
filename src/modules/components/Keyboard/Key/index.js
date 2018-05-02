@@ -6,7 +6,9 @@ import Color from 'color';
 const getBg = (ebony, isOn, colors) => {
   if (ebony) {
     return isOn
-      ? Color(colors.controlSuccess).darken(0.3).string()
+      ? Color(colors.controlSuccess)
+        .darken(0.3)
+        .string()
       : colors.black;
   }
   return isOn ? colors.controlSuccess : colors.light;
@@ -42,10 +44,11 @@ class Key extends React.PureComponent {
   };
 
   render() {
+    const { tone } = this.props;
     return (
       <KeyElement
-        ebony={this.props.tone.note.length > 1}
-        isOn={this.props.tone.velocity > 0}
+        ebony={(tone.note || '').length > 1}
+        isOn={tone.velocity > 0}
         onMouseDown={this.toggleKey}
         onMouseUp={this.handleUp}
       />

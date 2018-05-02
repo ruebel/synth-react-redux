@@ -19,8 +19,9 @@ const InputDevice = ({ device }) => {
       return <Stream />;
     case inputTypes.websocket:
       return <Socket />;
+    default:
+      return null;
   }
-  return null;
 };
 
 InputDevice.propTypes = {

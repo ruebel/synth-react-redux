@@ -184,6 +184,8 @@ export const getNextIndex = (current, previous, length, mode) => {
           return current + 1;
         }
       }
+    default:
+      return current;
   }
 };
 

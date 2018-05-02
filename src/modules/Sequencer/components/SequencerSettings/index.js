@@ -41,7 +41,7 @@ class SequencerSettings extends React.PureComponent {
       hasChange: true,
       settings: {
         ...this.state.settings,
-        [prop]: e.target ? Number.parseInt(e.target.value || 0) : e
+        [prop]: e.target ? Number.parseInt(e.target.value || 0, 10) : e
       }
     });
   };
@@ -58,46 +58,46 @@ class SequencerSettings extends React.PureComponent {
     const icon = (
       <Gear fill="rgba(0, 0, 0, 0.3)" height="100vw" width="100vw" />
     );
-    return this.props.show
-      ? <Modal close={this.handleClose} icon={icon}>
-          <Wrapper>
-            <H1>Sequencer Settings</H1>
-            <RangeControl
-              title="Tempo (bpm)"
-              step={1}
-              value={this.state.settings.tempo}
-              onSet={e => this.handleChange(e, 'tempo')}
-              min={1}
-              max={300}
+    return this.props.show ? (
+      <Modal close={this.handleClose} icon={icon}>
+        <Wrapper>
+          <H1>Sequencer Settings</H1>
+          <RangeControl
+            title="Tempo (bpm)"
+            step={1}
+            value={this.state.settings.tempo}
+            onSet={e => this.handleChange(e, 'tempo')}
+            min={1}
+            max={300}
+          />
+          <RangeControl
+            title="Measures"
+            step={1}
+            value={this.state.settings.measureCnt}
+            onSet={e => this.handleChange(e, 'measureCnt')}
+            min={1}
+            max={4}
+          />
+          <TimeSigEdit
+            change={e => this.handleChange(e, 'timeSig')}
+            timeSig={this.state.settings.timeSig}
+          />
+          <ButtonGroup>
+            <Button
+              active
+              click={this.handleClose}
+              text="Cancel"
+              type="danger"
             />
-            <RangeControl
-              title="Measures"
-              step={1}
-              value={this.state.settings.measureCnt}
-              onSet={e => this.handleChange(e, 'measureCnt')}
-              min={1}
-              max={4}
+            <Button
+              active={Boolean(this.state.hasChange)}
+              click={this.handleSave}
+              text="Save"
             />
-            <TimeSigEdit
-              change={e => this.handleChange(e, 'timeSig')}
-              timeSig={this.state.settings.timeSig}
-            />
-            <ButtonGroup>
-              <Button
-                active
-                click={this.handleClose}
-                text="Cancel"
-                type="danger"
-              />
-              <Button
-                active={Boolean(this.state.hasChange)}
-                click={this.handleSave}
-                text="Save"
-              />
-            </ButtonGroup>
-          </Wrapper>
-        </Modal>
-      : null;
+          </ButtonGroup>
+        </Wrapper>
+      </Modal>
+    ) : null;
   }
 }
 

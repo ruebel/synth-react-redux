@@ -68,6 +68,8 @@ const Effect = (WrappedComponent, effectLevelMode = 'blend') => {
               this.effectGain.gain.setTargetAtTime(0, time, timeConst);
             }
             break;
+          default:
+            return null;
         }
       }
     }

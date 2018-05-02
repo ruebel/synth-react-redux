@@ -15,15 +15,13 @@ function effects(state = initialState.effects, action) {
     case controls.ADD_CONTROL:
       return state.map(e => {
         if (e.id === action.payload.id) {
-          return Object.assign({}, e, {
-            [action.payload.propertyId]: Object.assign(
-              {},
-              e[action.payload.propertyId],
-              {
-                control: action.payload.control
-              }
-            )
-          });
+          return {
+            ...e,
+            [action.payload.propertyId]: {
+              ...e[action.payload.propertyId],
+              control: action.payload.control
+            }
+          };
         }
         return e;
       });
@@ -36,15 +34,13 @@ function effects(state = initialState.effects, action) {
     case controls.REMOVE_CONTROL:
       return state.map(e => {
         if (e.id === action.payload.id) {
-          return Object.assign({}, e, {
-            [action.payload.propertyId]: Object.assign(
-              {},
-              e[action.payload.propertyId],
-              {
-                control: null
-              }
-            )
-          });
+          return {
+            ...e,
+            [action.payload.propertyId]: {
+              ...e[action.payload.propertyId],
+              control: null
+            }
+          };
         }
         return e;
       });
@@ -66,11 +62,13 @@ function effects(state = initialState.effects, action) {
           const value =
             action.payload.value / 127 * (property.max - property.min) +
             property.min;
-          return Object.assign({}, e, {
-            [action.payload.control.propertyId]: Object.assign({}, property, {
+          return {
+            ...e,
+            [action.payload.control.propertyId]: {
+              ...property,
               value
-            })
-          });
+            }
+          };
         }
         return e;
       });
@@ -89,26 +87,32 @@ function effects(state = initialState.effects, action) {
 function keys(state = initialState.keys, action) {
   switch (action.type) {
     case C.KEY_DOWN:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         [action.payload.id]: action.payload
-      });
+      };
     case C.KEY_UP:
-      return Object.assign({}, state, {
-        [action.payload]: Object.assign({}, state[action.payload], {
+      return {
+        ...state,
+        [action.payload]: {
+          ...state[action.payload],
           velocity: 0
-        })
-      });
+        }
+      };
     case C.CLEAR_KEYS:
     case presets.LOAD_PRESET:
     case 'persist/REHYDRATE':
       return state
-        ? Object.keys(state).reduce((total, key) => {
-            return Object.assign({}, total, {
-              [key]: Object.assign({}, state[key], {
-                velocity: 0
-              })
-            });
-          }, {})
+        ? Object.keys(state).reduce(
+          (total, key) => ({
+            ...total,
+            [key]: {
+              ...state[key],
+              velocity: 0
+            }
+          }),
+          {}
+        )
         : state;
     default:
       return state;

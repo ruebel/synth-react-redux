@@ -28,9 +28,13 @@ const TimeSigEdit = ({ change, timeSig }) => {
           <NumberInput
             change={e =>
               change(
-                { num: Number.parseInt(e.target.value || 0), den: timeSig.den },
+                {
+                  num: Number.parseInt(e.target.value || 0, 10),
+                  den: timeSig.den
+                },
                 'timeSig'
-              )}
+              )
+            }
             placeholder="Number Of Beats"
             required
             value={timeSig.num}
@@ -41,9 +45,13 @@ const TimeSigEdit = ({ change, timeSig }) => {
           <NumberInput
             change={e =>
               change(
-                { num: timeSig.num, den: Number.parseInt(e.target.value || 0) },
+                {
+                  num: timeSig.num,
+                  den: Number.parseInt(e.target.value || 0, 10)
+                },
                 'timeSig'
-              )}
+              )
+            }
             placeholder="Note Value"
             required
             value={timeSig.den}

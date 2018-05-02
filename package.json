@@ -2,37 +2,29 @@
   "name": "synth-react-redux",
   "version": "1.0.0",
   "description": "Synthesizer using React and Redux",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "babel-node tools/build.js",
-    "deploy": "cd dist && git add --all && git commit -m \"Release: $(date)\" && git push",
-    "deploy:clean": "rm -rf dist && git clone https://github.com/ruebel/synth-react-redux --branch gh-pages dist && npm run build && npm run deploy",
-    "lint": "esw -f simple-detail --color src tools",
+    "build": "react-scripts build",
+    "deploy":
+      "cd dist && git add --all && git commit -m \"Release: $(date)\" && git push",
+    "deploy:clean":
+      "rm -rf dist && git clone https://github.com/ruebel/synth-react-redux --branch gh-pages dist && npm run build && npm run deploy",
+    "lint": "esw --color",
     "lint:watch": "npm run lint -- --watch",
-    "open:dist": "babel-node tools/distServer.js",
-    "open:src": "babel-node ./tools/srcServer",
-    "prebuild": "npm run lint",
-    "prestart": "npm run start-message",
-    "prettier": "prettier --single-quote --write \"{src,tools}/**/*.js\"",
-    "start": "run-p open:src lint:watch",
-    "start-message": "babel-node ./tools/startMessage"
+    "open:build": "cd build && serve",
+    "start": "react-scripts start"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ruebel/synth-react-redux.git"
   },
   "author": "@ruebel",
-  "license": "UNLICENSED",
+  "license": "GPL",
   "bugs": {
     "url": "https://github.com/ruebel/synth-react-redux.git/issues"
   },
-  "homepage": "https://github.com/ruebel/synth-react-redux.git#readme",
   "babel": {
-    "presets": [
-      "env",
-      "react",
-      "stage-2"
-    ],
+    "presets": ["env", "react", "stage-2"],
     "plugins": [
       [
         "styled-components",
@@ -48,63 +40,42 @@
     "extends": "gsandf-react",
     "parser": "babel-eslint",
     "rules": {
-      "eqeqeq": 1,
-      "indent": 0,
-      "react/jsx-indent": 0,
-      "react/jsx-indent-props": 0,
-      "react/no-unused-prop-types": 0,
       "sort-keys": 0
     }
   },
   "dependencies": {
-    "color": "^2.0.1",
-    "eslint-plugin-react": "^7.5.1",
-    "normalize.css": "7.0.0",
-    "prop-types": "^15.6.0",
+    "color": "^3.0.0",
+    "normalize.css": "8.0.0",
     "rc-slider": "^8.4.1",
     "react": "^16.1.1",
     "react-dimensions": "^1.3.1",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
+    "react-scripts": "^1.1.4",
     "react-select": "^1.0.1",
     "react-tooltip": "^3.4.0",
-    "redux": "^3.7.2",
+    "redux": "^4.0.0",
     "redux-persist": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "styled-components": "^2.2.3",
+    "styled-components": "^3.2.6",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
-    "babel-loader": "^7.1.2",
     "babel-plugin-styled-components": "^1.3.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "browser-sync": "2.18.13",
     "connect-history-api-fallback": "1.5.0",
-    "css-loader": "0.28.7",
     "eslint": "^4.12.0",
-    "eslint-config-gsandf": "^1.0.0",
     "eslint-config-gsandf-react": "^1.0.2",
-    "eslint-loader": "^1.9.0",
     "eslint-watch": "^3.1.3",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "1.1.5",
-    "html-webpack-plugin": "2.30.1",
     "npm-run-all": "4.1.2",
     "prettier": "^1.8.2",
+    "prop-types": "^15.6.0",
     "redux-immutable-state-invariant": "2.1.0",
-    "regenerator": "0.11.1",
-    "rimraf": "2.6.2",
-    "style-loader": "0.19.0",
-    "url-loader": "0.6.2",
-    "webpack": "^3.8.1",
-    "webpack-dev-middleware": "^1.12.1",
-    "webpack-dev-server": "^2.9.4",
-    "webpack-hot-middleware": "^2.21.0",
-    "webpack-md5-hash": "^0.0.5"
+    "regenerator": "0.12.3"
   }
 }
