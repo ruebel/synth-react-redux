@@ -51,7 +51,7 @@ class Socket extends React.Component {
 
   startSocket(settings) {
     this.stopSocket();
-    const socket = new WebSocket(settings.url);
+    const socket = new EventSource(settings.url);
     socket.onmessage = this.handleSocketMessage;
     this.setState({
       socket

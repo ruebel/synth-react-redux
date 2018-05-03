@@ -13,7 +13,7 @@ const keyboardInput = {
 const websocketInput = {
   id: '1',
   device: inputTypes.websocket,
-  name: 'Websocket'
+  name: 'EventSource'
 };
 const streamInput = {
   id: '2',

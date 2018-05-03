@@ -8,7 +8,7 @@ const initialState = {
   settings: {
     noteLength: [100, 5000],
     scale: [0, 4, 7],
-    url: 'ws://wikimon.hatnote.com/en/',
+    url: 'https://wikimon.now.sh',
     velocityScalar: 'change_size'
   },
   status: false
