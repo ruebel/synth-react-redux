@@ -3,7 +3,7 @@ import { C } from '../constants';
 import { C as presetActions } from '../../Presets';
 
 const initialState = {
-  outputLevel: 0.75
+  outputLevel: 0.5
 };
 
 const gain = combineReducers({
