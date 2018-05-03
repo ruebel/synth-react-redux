@@ -5,13 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "build": "react-scripts build",
-    "deploy":
-      "cd dist && git add --all && git commit -m \"Release: $(date)\" && git push",
-    "deploy:clean":
-      "rm -rf dist && git clone https://github.com/ruebel/synth-react-redux --branch gh-pages dist && npm run build && npm run deploy",
     "lint": "esw --color",
     "lint:watch": "npm run lint -- --watch",
     "open:build": "cd build && serve",
+    "postbuild": "mv ./build ./docs",
+    "prebuild": "rm -rf ./docs",
     "start": "react-scripts start"
   },
   "repository": {
@@ -19,7 +17,7 @@
     "url": "git+https://github.com/ruebel/synth-react-redux.git"
   },
   "author": "@ruebel",
-  "license": "GPL",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ruebel/synth-react-redux.git/issues"
   },
