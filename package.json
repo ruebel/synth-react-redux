@@ -2,6 +2,7 @@
   "name": "synth-react-redux",
   "version": "1.0.0",
   "description": "Synthesizer using React and Redux",
+  "homepage": "https://ruebel.github.io/synth-react-redux/",
   "main": "src/index.js",
   "scripts": {
     "build": "react-scripts build",
